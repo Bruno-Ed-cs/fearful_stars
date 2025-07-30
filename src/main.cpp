@@ -1,5 +1,6 @@
 #include "raylib.h"
-#include "libs/winman.hpp"
+#include "winman.hpp"
+#include "gameplay/player.hpp"
 
 //------------------------------------------------------------------------------------
 // Program main entry point
@@ -13,10 +14,13 @@ int main(void)
     auto canva = LoadRenderTexture(320, 180);
 
 
+
     SetTargetFPS(60);               // Set our game to run at 60 frames-per-second
     //--------------------------------------------------------------------------------------
 
     Texture2D connortt = LoadTexture("assets/sprites/Connor_fodder2.png");
+
+    game::Player player;
     // Main game loop
     while (!WindowShouldClose())    // Detect window close button or ESC key
     {
@@ -30,6 +34,9 @@ int main(void)
         if (IsKeyPressed(KEY_ENTER)) 
             window.toggle_fullscreen();
 
+        player.update();
+
+
         BeginTextureMode(canva);
         {
 
@@ -41,7 +48,9 @@ int main(void)
 
             DrawText("Congrats! You created your first window!", 27, 100, 1, LIGHTGRAY);
 
-            DrawTextureEx(connortt, {100, 70}, 0.0f, 1.0f, WHITE);
+            DrawTextureEx(connortt, player.m_position, 0.0f, 1.0f, WHITE);
+
+            DrawRectangleRec(player.m_hitbox, RED);
 
         }
         EndTextureMode();
