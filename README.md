@@ -1,4 +1,4 @@
-# Fear
+# Fearful Stars
 shut em up cosmic horor inspired game
 
 ## Lore
