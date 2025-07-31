@@ -4,8 +4,10 @@
 #include "raylib.h"
 #include "winman.hpp"
 #include "gameplay/player.hpp"
+#include <cassert>
 #include <memory>
 #include <vector>
+#include "loops.hpp"
 
 
 //------------------------------------------------------------------------------------
@@ -16,22 +18,33 @@ int main(void)
     // Initialization
     //--------------------------------------------------------------------------------------
     
-    engine::WinMan window(1280, 720, "Fearful Stars");
-    auto canva = LoadRenderTexture(320, 180);
+    engine::g_window = new engine::WinMan(1280, 720, "Fearful Stars");
+
+    std::cout << "window loaded\n";
+    engine::g_canva = LoadRenderTexture(320, 180);
+
+    std::cout << "canva loaded\n";
 
 
 
     SetTargetFPS(60);               // Set our game to run at 60 frames-per-second
     //--------------------------------------------------------------------------------------
 
-    Texture2D connortt = LoadTexture("assets/sprites/Connor_fodder2.png");
+    engine::g_bullets = std::vector<std::unique_ptr<game::Entity>>();
 
-    game::g_bullets.reserve(10);
-    game::g_bullets.emplace_back(std::make_unique<game::Player>());
+    engine::g_bullets.reserve(10);
+    std::cout << "chec 1\n";
+
+    engine::g_bullets.emplace_back(std::make_unique<game::Player>(Vector2{0, 0}));
+    std::cout << "chec2\n";
+
+    double dt;
 
     // Main game loop
     while (!WindowShouldClose())    // Detect window close button or ESC key
     {
+        std::cout << "check 3\n";
+        dt = GetFrameTime();
         // Update
         //----------------------------------------------------------------------------------
         // TODO: Update your variables here
@@ -40,51 +53,10 @@ int main(void)
         // Draw
         //----------------------------------------------------------------------------------
         if (IsKeyPressed(KEY_ENTER)) 
-            window.toggle_fullscreen();
+            engine::g_window->toggle_fullscreen();
 
-
-        for (int i = 0; i < game::g_bullets.size(); i++) {
-
-            game::g_bullets[i]->update();
-
-        }
-
-
-        BeginTextureMode(canva);
-        {
-
-            ClearBackground(WHITE);
-            DrawPixel(20, 20, RED);
-            DrawPixel(21, 20, RED);
-            DrawPixel(22, 20, RED);
-            DrawPixel(23, 20, RED);
-
-            DrawText("Congrats! You created your first window!", 27, 100, 1, LIGHTGRAY);
-
-
-            for (int i = 0; i < game::g_bullets.size(); i++) {
-
-                game::g_bullets[i]->draw();
-
-            }
-
-        }
-        EndTextureMode();
-
-        BeginDrawing();
-
-            ClearBackground(BLACK);
-
-
-            //DrawTextureEx(canva.texture, {(float)window.get_width() / 2.0f, (float)window.get_height() / 2.0f}, 180.0f, 2.0f, WHITE);
-            Rectangle source = { 0, 0, (float)canva.texture.width, (float)canva.texture.height * -1 };
-            Rectangle dest = { 0, 0, (float)window.get_width(), (float)window.get_height()};
-            Vector2 origin = { 0, 0 };
-            DrawTexturePro(canva.texture, source, dest, origin, 0.0f, WHITE);
-            
-
-
-        EndDrawing();
+        engine::update_loop(dt);
+        engine::draw_loop();
         //----------------------------------------------------------------------------------
        // window.update_window();
         

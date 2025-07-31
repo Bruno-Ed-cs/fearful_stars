@@ -8,9 +8,14 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
 set(files 
-    )
+    src/draw_loop.cpp
+    src/update_loop.cpp
+    src/gameplay/player.cpp
+    src/gameplay/projectile.cpp
+    src/libs/utils.cpp
 
-add_executable(${PROJECT_NAME} src/main.cpp)
+)
+add_executable(${PROJECT_NAME} src/main.cpp ${files})
 
 target_include_directories(${PROJECT_NAME} PUBLIC include src/libs src)
 
