@@ -10,7 +10,7 @@
 namespace engine {
 
     inline std::vector<std::unique_ptr<game::Entity>> g_bullets;
-    inline engine::WinMan* g_window;
+    inline std::unique_ptr<engine::WinMan> g_window;
     inline RenderTexture2D g_canva;
 
 }

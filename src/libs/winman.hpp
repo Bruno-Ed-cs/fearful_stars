@@ -15,14 +15,6 @@ class WinMan {
     uint32_t m_display;
 
 public:
-
-    WinMan() :
-    m_width(180), m_height(180), m_title("Raylib"){
-
-        InitWindow(m_width, m_height, m_title.c_str());
-        m_display = GetCurrentMonitor();
-    }
-
     WinMan(const uint32_t width, const uint32_t height, const std::string& title) :
     m_width(width), m_height(height) , m_title(title){
 
@@ -35,6 +27,7 @@ public:
 
     ~WinMan() {
 
+        std::cout << "window closed\n";
         CloseWindow();
     }
 

@@ -18,7 +18,7 @@ int main(void)
     // Initialization
     //--------------------------------------------------------------------------------------
     
-    engine::g_window = new engine::WinMan(1280, 720, "Fearful Stars");
+    engine::g_window = std::make_unique<engine::WinMan>(1280, 720, "Fearful Stars");
 
     std::cout << "window loaded\n";
     engine::g_canva = LoadRenderTexture(320, 180);
