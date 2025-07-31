@@ -7,7 +7,7 @@
 
 namespace game {
 
-class Projectile : Entity {
+class Projectile : public Entity {
 
 public:
 
@@ -27,7 +27,7 @@ public:
         std::cout << m_speed << '\n';
         Vector2 movement = Vector2Scale(m_direction, m_speed * GetFrameTime());
 
-        engine::vector2_round(movement);
+        //engine::vector2_round(movement);
 
         m_position = Vector2Add(m_position, movement);
         //m_position.x += 1.0f;

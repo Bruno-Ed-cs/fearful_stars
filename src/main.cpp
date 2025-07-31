@@ -1,8 +1,10 @@
+#include "gameplay/entity.hpp"
 #include "gameplay/projectile.hpp"
 #include "globals.hpp"
 #include "raylib.h"
 #include "winman.hpp"
 #include "gameplay/player.hpp"
+#include <memory>
 #include <vector>
 
 
@@ -24,7 +26,9 @@ int main(void)
 
     Texture2D connortt = LoadTexture("assets/sprites/Connor_fodder2.png");
 
-    game::Player player;
+    game::g_bullets.reserve(10);
+    game::g_bullets.emplace_back(std::make_unique<game::Player>());
+
     // Main game loop
     while (!WindowShouldClose())    // Detect window close button or ESC key
     {
@@ -38,11 +42,10 @@ int main(void)
         if (IsKeyPressed(KEY_ENTER)) 
             window.toggle_fullscreen();
 
-        player.update();
 
-        for (auto& bullet : game::g_bullets) {
+        for (int i = 0; i < game::g_bullets.size(); i++) {
 
-            bullet.update();
+            game::g_bullets[i]->update();
 
         }
 
@@ -58,13 +61,10 @@ int main(void)
 
             DrawText("Congrats! You created your first window!", 27, 100, 1, LIGHTGRAY);
 
-            DrawTextureEx(connortt, player.m_position, 0.0f, 1.0f, WHITE);
 
-            player.draw();
+            for (int i = 0; i < game::g_bullets.size(); i++) {
 
-            for (auto& bullet : game::g_bullets) {
-
-                bullet.draw();
+                game::g_bullets[i]->draw();
 
             }
 

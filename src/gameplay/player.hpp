@@ -1,11 +1,13 @@
 #pragma once
 
+#include "gameplay/projectile.hpp"
 #include "globals.hpp"
 #include "raylib.h"
 #include "raymath.h"
 #include <cmath>
 #include <cstdint>
 #include <iostream>
+#include <memory>
 #include <vector>
 #include "utils.hpp"
 #include "entity.hpp"
@@ -13,7 +15,7 @@
 
 namespace game {
 
-class Player : Entity{
+class Player : public Entity{
 
 public:
 
@@ -53,7 +55,7 @@ public:
 
         if (IsKeyPressed(KEY_SPACE)) {
 
-            g_bullets.emplace_back(Vector2{1, 0}, 400.0f, m_position);
+            g_bullets.emplace_back(std::make_unique<Projectile>(Vector2{1, 0}, 250.0f, m_position));
             std::cout << "bullet shot" << '\n';
 
         }
@@ -75,6 +77,7 @@ public:
     void draw() {
 
         DrawRectangleRec(m_hitbox, RED);
+
     }
 
 };
