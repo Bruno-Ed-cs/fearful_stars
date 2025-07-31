@@ -12,7 +12,7 @@ set(files
 
 add_executable(${PROJECT_NAME} src/main.cpp)
 
-target_include_directories(${PROJECT_NAME} PUBLIC include src/libs)
+target_include_directories(${PROJECT_NAME} PUBLIC include src/libs src)
 
 include(raylib_options.txt)
 add_subdirectory(dependencies/raylib-5.5 raylib)

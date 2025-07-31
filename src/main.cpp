@@ -1,6 +1,10 @@
+#include "gameplay/projectile.hpp"
+#include "globals.hpp"
 #include "raylib.h"
 #include "winman.hpp"
 #include "gameplay/player.hpp"
+#include <vector>
+
 
 //------------------------------------------------------------------------------------
 // Program main entry point
@@ -36,6 +40,12 @@ int main(void)
 
         player.update();
 
+        for (auto& bullet : game::g_bullets) {
+
+            bullet.update();
+
+        }
+
 
         BeginTextureMode(canva);
         {
@@ -50,7 +60,13 @@ int main(void)
 
             DrawTextureEx(connortt, player.m_position, 0.0f, 1.0f, WHITE);
 
-            DrawRectangleRec(player.m_hitbox, RED);
+            player.draw();
+
+            for (auto& bullet : game::g_bullets) {
+
+                bullet.draw();
+
+            }
 
         }
         EndTextureMode();

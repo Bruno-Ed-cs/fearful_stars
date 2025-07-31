@@ -1,15 +1,19 @@
 #pragma once
 
+#include "globals.hpp"
 #include "raylib.h"
 #include "raymath.h"
 #include <cmath>
 #include <cstdint>
 #include <iostream>
+#include <vector>
 #include "utils.hpp"
+#include "entity.hpp"
+#include "globals.hpp"
 
 namespace game {
 
-class Player {
+class Player : Entity{
 
 public:
 
@@ -47,6 +51,13 @@ public:
 
         }
 
+        if (IsKeyPressed(KEY_SPACE)) {
+
+            g_bullets.emplace_back(Vector2{1, 0}, 400.0f, m_position);
+            std::cout << "bullet shot" << '\n';
+
+        }
+
         m_direction = Vector2Normalize(m_direction);
 
         Vector2 movement = (m_direction * m_speed) * GetFrameTime();
@@ -58,7 +69,12 @@ public:
         m_hitbox.x = m_position.x;
         m_hitbox.y = m_position.y;
 
-        std::cout << m_position.x << " " << m_position.y << " " << m_direction.x << " " << m_direction.y <<'\n';
+        //std::cout << m_position.x << " " << m_position.y << " " << m_direction.x << " " << m_direction.y <<'\n';
+    }
+
+    void draw() {
+
+        DrawRectangleRec(m_hitbox, RED);
     }
 
 };
