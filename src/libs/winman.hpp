@@ -1,9 +1,6 @@
 #pragma once
 
-#include "raylib.h"
-#include <cstdint>
-#include <string>
-#include <iostream>
+#include "deps.hpp"
 
 namespace engine{
 

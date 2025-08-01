@@ -1,13 +1,12 @@
+#include "deps.hpp"
+
 #include "gameplay/entity.hpp"
-#include "gameplay/projectile.hpp"
 #include "globals.hpp"
-#include "raylib.h"
 #include "winman.hpp"
 #include "gameplay/player.hpp"
-#include <cassert>
-#include <memory>
-#include <vector>
 #include "loops.hpp"
+
+
 
 
 //------------------------------------------------------------------------------------
@@ -39,6 +38,8 @@ int main(void)
     std::cout << "chec2\n";
 
     double dt;
+
+    game::assets::ship_tilemap = LoadTexture("assets/sprites/Space_pack/Space_VH.png");
 
     // Main game loop
     while (!WindowShouldClose())    // Detect window close button or ESC key

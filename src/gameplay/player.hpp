@@ -1,18 +1,12 @@
 #pragma once
 
+#include "deps.hpp"
+
 #include "gameplay/projectile.hpp"
 #include "globals.hpp"
 #include "position.hpp"
-#include "raylib.h"
-#include "raymath.h"
-#include <cmath>
-#include <cstdint>
-#include <iostream>
-#include <memory>
-#include <vector>
 #include "utils.hpp"
 #include "entity.hpp"
-#include "globals.hpp"
 #include "projectile.hpp"
 
 namespace game {
@@ -23,7 +17,7 @@ public:
 
     engine::Position m_position;
     Vector2 m_direction;
-    double m_speed = 100.0f;
+    double m_speed = 125.0f;
     Rectangle m_hitbox;
 
     Player(Vector2 pos) :

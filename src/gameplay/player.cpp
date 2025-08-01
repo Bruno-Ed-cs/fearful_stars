@@ -1,4 +1,9 @@
+#include "deps.hpp"
+
 #include "player.hpp"
+#include "globals.hpp"
+
+
 
 using namespace game;
 
@@ -53,5 +58,8 @@ void Player::draw() {
 
     DrawRectangleRec(m_hitbox, RED);
     DrawCircleV(m_position.get_pos(), 1.0f, GREEN);
+    Rectangle dest{m_position.get_pos().x, m_position.get_pos().y, 16.0f, 16};
+    Rectangle origin{0, 6 * 16, -16, 16};
+    DrawTexturePro(assets::ship_tilemap, origin , dest, Vector2{0, 0}, 0.0f, WHITE);
 
 }

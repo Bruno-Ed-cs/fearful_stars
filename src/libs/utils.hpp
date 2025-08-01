@@ -1,6 +1,6 @@
 #pragma once
-#include "raylib.h"
-#include <cmath>
+
+#include "deps.hpp"
 
 namespace engine {
 

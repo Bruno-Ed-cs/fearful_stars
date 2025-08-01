@@ -23,6 +23,8 @@ include(raylib_options.txt)
 add_subdirectory(dependencies/raylib-5.5 raylib)
 
 target_link_libraries(${PROJECT_NAME} raylib)
+target_precompile_headers(${PROJECT_NAME}
+   PUBLIC src/deps.hpp)
 
 make_directory(assets)
 

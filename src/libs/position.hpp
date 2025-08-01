@@ -22,8 +22,8 @@ public:
     Vector2 get_pos() {
 
         Vector2 projection;
-        projection.x = std::ceil(m_real_pos.x) ;
-        projection.y = std::ceil(m_real_pos.y);
+        projection.x = std::floor(m_real_pos.x) ;
+        projection.y = std::floor(m_real_pos.y);
 
         return projection;
     }

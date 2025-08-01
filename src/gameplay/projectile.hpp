@@ -1,10 +1,10 @@
 #pragma once
+
+#include "deps.hpp"
+
 #include "position.hpp"
 #include "utils.hpp"
 #include "entity.hpp"
-#include "raylib.h"
-#include "raymath.h"
-#include <iostream>
 
 namespace game {
 

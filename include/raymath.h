@@ -1780,6 +1780,7 @@ RMAPI Matrix MatrixRotateXYZ(Vector3 angle)
     result.m1 = (cosz*siny*sinx) - (sinz*cosx);
     result.m2 = (cosz*siny*cosx) + (sinz*sinx);
 
+
     result.m4 = sinz*cosy;
     result.m5 = (sinz*siny*sinx) + (cosz*cosx);
     result.m6 = (sinz*siny*cosx) - (cosz*sinx);
