@@ -13,7 +13,7 @@ set(files
     src/gameplay/player.cpp
     src/gameplay/projectile.cpp
     src/libs/utils.cpp
-
+    src/gameplay/player_manager.cpp
 )
 add_executable(${PROJECT_NAME} src/main.cpp ${files})
 

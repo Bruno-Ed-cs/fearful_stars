@@ -8,7 +8,7 @@ public:
 
     virtual ~Entity() = default;
 
-    virtual void update() = 0;
+    virtual void update(double dt) = 0;
     virtual void draw() = 0;
 
 

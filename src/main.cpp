@@ -1,6 +1,7 @@
 #include "deps.hpp"
 
 #include "gameplay/entity.hpp"
+#include "gameplay/player_manager.hpp"
 #include "globals.hpp"
 #include "winman.hpp"
 #include "gameplay/player.hpp"
@@ -34,8 +35,7 @@ int main(void)
     engine::g_bullets.reserve(10);
     std::cout << "chec 1\n";
 
-    engine::g_bullets.emplace_back(std::make_unique<game::Player>(Vector2{0, 0}));
-    std::cout << "chec2\n";
+    game::PlayerManager::setup();
 
     double dt;
 

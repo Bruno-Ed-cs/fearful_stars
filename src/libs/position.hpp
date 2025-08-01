@@ -11,6 +11,9 @@ class Position {
 
 public:
 
+    Position() :
+    m_real_pos(0, 0) {}
+
     Position(Vector2 pos) :
     m_real_pos(pos) {}
 

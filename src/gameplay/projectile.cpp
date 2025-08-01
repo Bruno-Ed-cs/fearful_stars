@@ -2,13 +2,13 @@
 
 using namespace game;
 
-void Projectile::update() {
+void Projectile::update(double dt) {
 
     //m_direction = Vector2Normalize(m_direction);
     //std::cout << "Frame time: " << GetFrameTime() << '\n';
     //std::cout << m_direction.y << " " << m_direction.x << '\n';
     //std::cout << m_speed << '\n';
-    Vector2 movement = Vector2Scale(m_direction, m_speed * GetFrameTime());
+    Vector2 movement = m_direction * (dt * m_speed);
 
     //engine::vector2_round(movement);
 

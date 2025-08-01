@@ -1,3 +1,4 @@
+#include "gameplay/player_manager.hpp"
 #include "loops.hpp"
 #include "globals.hpp"
 
@@ -20,6 +21,10 @@ void engine::draw_loop() {
                 engine::g_bullets[i]->draw();
 
             }
+            
+            auto p1 = game::PlayerManager::get_player();
+            p1.draw();
+            
 
         }
         EndTextureMode();

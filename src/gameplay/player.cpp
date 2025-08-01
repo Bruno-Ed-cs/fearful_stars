@@ -3,11 +3,9 @@
 #include "player.hpp"
 #include "globals.hpp"
 
-
-
 using namespace game;
 
-void Player::update() {
+void Player::update(double dt) {
 
     m_direction = {0,0};
 
@@ -44,7 +42,7 @@ void Player::update() {
 
     m_direction = Vector2Normalize(m_direction);
 
-    Vector2 movement = Vector2Scale(m_direction, m_speed * GetFrameTime());
+    Vector2 movement = m_direction * (dt * m_speed);
 
     m_position.move(movement);
 

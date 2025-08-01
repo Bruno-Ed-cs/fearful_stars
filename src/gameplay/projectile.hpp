@@ -3,7 +3,6 @@
 #include "deps.hpp"
 
 #include "position.hpp"
-#include "utils.hpp"
 #include "entity.hpp"
 
 namespace game {
@@ -20,7 +19,7 @@ public:
     Projectile(Vector2 direction, double speed, Vector2 spawn_point) :
         m_speed(speed), m_position(spawn_point), m_direction(direction) {}
 
-    void update() override; 
+    void update(double dt) override; 
 
     void draw() override; 
 

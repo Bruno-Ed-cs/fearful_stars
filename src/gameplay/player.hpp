@@ -2,12 +2,8 @@
 
 #include "deps.hpp"
 
-#include "gameplay/projectile.hpp"
-#include "globals.hpp"
 #include "position.hpp"
-#include "utils.hpp"
 #include "entity.hpp"
-#include "projectile.hpp"
 
 namespace game {
 
@@ -20,6 +16,8 @@ public:
     double m_speed = 125.0f;
     Rectangle m_hitbox;
 
+    Player() {}
+
     Player(Vector2 pos) :
     m_position(pos) {
 
@@ -27,7 +25,7 @@ public:
 
     }
 
-    void update() override; 
+    void update(double dt) override; 
     void draw() override;
 
 };
