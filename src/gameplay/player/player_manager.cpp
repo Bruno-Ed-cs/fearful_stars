@@ -5,22 +5,22 @@
 
 using namespace game;
 
-game::Player PlayerManager::s_player;
+game::Player PlayerMan::s_player;
 
-void PlayerManager::setup() {
+void PlayerMan::setup() {
 
     s_player = Player(Vector2{0, 0});
 
 }
 
-void PlayerManager::clean() {}
-void PlayerManager::update(double dt) {
+void PlayerMan::clean() {}
+void PlayerMan::update(double dt) {
 
     s_player.update(dt);
 
 }
 
-Player& PlayerManager::get_player() {
+Player& PlayerMan::get_player() {
 
     return s_player;
 }

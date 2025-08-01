@@ -1,4 +1,4 @@
-#include "gameplay/player_manager.hpp"
+#include "gameplay/player/player_manager.hpp"
 #include "loops.hpp"
 #include "globals.hpp"
 
@@ -22,7 +22,7 @@ void engine::draw_loop() {
 
             }
             
-            auto p1 = game::PlayerManager::get_player();
+            auto p1 = game::PlayerMan::get_player();
             p1.draw();
             
 

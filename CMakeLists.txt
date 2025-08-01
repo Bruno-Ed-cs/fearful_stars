@@ -10,10 +10,11 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 set(files 
     src/draw_loop.cpp
     src/update_loop.cpp
-    src/gameplay/player.cpp
-    src/gameplay/projectile.cpp
     src/libs/utils.cpp
-    src/gameplay/player_manager.cpp
+    src/gameplay/player/player.cpp
+    src/gameplay/player/player_manager.cpp
+    src/gameplay/projectile/projectile.cpp
+    src/gameplay/projectile/projectile_manager.cpp
 )
 add_executable(${PROJECT_NAME} src/main.cpp ${files})
 

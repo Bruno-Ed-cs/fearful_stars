@@ -1,10 +1,10 @@
 #pragma once
 
-#include "gameplay/player.hpp"
+#include "player.hpp"
 
 namespace game {
 
-class PlayerManager {
+class PlayerMan {
 
 public:
 

@@ -1,14 +1,10 @@
 #include "deps.hpp"
 
-#include "gameplay/entity.hpp"
-#include "gameplay/player_manager.hpp"
+#include "entity.hpp"
+#include "gameplay/player/player_manager.hpp"
 #include "globals.hpp"
 #include "winman.hpp"
-#include "gameplay/player.hpp"
 #include "loops.hpp"
-
-
-
 
 //------------------------------------------------------------------------------------
 // Program main entry point
@@ -30,12 +26,12 @@ int main(void)
     SetTargetFPS(60);               // Set our game to run at 60 frames-per-second
     //--------------------------------------------------------------------------------------
 
-    engine::g_bullets = std::vector<std::unique_ptr<game::Entity>>();
+    engine::g_bullets = std::vector<std::unique_ptr<engine::Entity>>();
 
     engine::g_bullets.reserve(10);
     std::cout << "chec 1\n";
 
-    game::PlayerManager::setup();
+    game::PlayerMan::setup();
 
     double dt;
 

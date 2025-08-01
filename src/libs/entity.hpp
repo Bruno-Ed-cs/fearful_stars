@@ -1,6 +1,6 @@
 #pragma once
 
-namespace game {
+namespace engine {
 
 class Entity {
 
