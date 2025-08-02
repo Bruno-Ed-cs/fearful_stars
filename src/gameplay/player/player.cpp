@@ -1,7 +1,9 @@
 #include "deps.hpp"
 
 #include "player.hpp"
+#include "gameplay/projectile/basic_projectile.hpp"
 #include "globals.hpp"
+#include "../projectile/projectile_manager.hpp"
 
 using namespace game;
 
@@ -33,9 +35,10 @@ void Player::update(double dt) {
 
     }
 
-    if (IsKeyPressed(KEY_SPACE)) {
+    if (IsKeyDown(KEY_SPACE)) {
 
-        engine::g_bullets.emplace_back(std::make_unique<Projectile>(Vector2{1, 0}, 300.0f, m_position.get_pos()));
+        game::ProjectileMan::request_projectile<BasicProjectile>(m_position, Vector2{1, 0}, 300.0f, false);
+
         std::cout << "bullet shot" << '\n';
 
     }
@@ -46,17 +49,17 @@ void Player::update(double dt) {
 
     m_position.move(movement);
 
-    m_hitbox.x = (m_position.get_pos().x - m_hitbox.width / 2);
-    m_hitbox.y = ( m_position.get_pos().y - m_hitbox.height / 2);
+    m_hitbox.x = (m_position.get_round().x - m_hitbox.width / 2);
+    m_hitbox.y = ( m_position.get_round().y - m_hitbox.height / 2);
 
-    std::cout << m_position.get_pos().x << " " << m_position.get_pos().y << " " << m_direction.x << " " << m_direction.y <<'\n';
+    //std::cout << m_position.get_round().x << " " << m_position.get_round().y << " " << m_direction.x << " " << m_direction.y <<'\n';
 }
 
 void Player::draw() {
 
     DrawRectangleRec(m_hitbox, RED);
-    DrawCircleV(m_position.get_pos(), 1.0f, GREEN);
-    Rectangle dest{m_position.get_pos().x, m_position.get_pos().y, 16.0f, 16};
+    DrawCircleV(m_position.get_round(), 1.0f, GREEN);
+    Rectangle dest{m_position.get_round().x, m_position.get_round().y, 16.0f, 16};
     Rectangle origin{0, 6 * 16, -16, 16};
     DrawTexturePro(assets::ship_tilemap, origin , dest, Vector2{0, 0}, 0.0f, WHITE);
 

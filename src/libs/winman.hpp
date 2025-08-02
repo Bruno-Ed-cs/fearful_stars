@@ -53,7 +53,7 @@ public:
         m_width = GetScreenWidth();
         m_height = GetScreenHeight();
 
-        std::cout << m_width << "x" << m_height << '\n';
+        //std::cout << m_width << "x" << m_height << '\n';
     }
 };
 

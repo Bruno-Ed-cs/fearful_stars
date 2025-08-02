@@ -1,4 +1,5 @@
 #include "gameplay/player/player_manager.hpp"
+#include "gameplay/projectile/projectile_manager.hpp"
 #include "loops.hpp"
 #include "globals.hpp"
 
@@ -16,12 +17,7 @@ void engine::draw_loop() {
             DrawText("Congrats! You created your first window!", 27, 100, 1, LIGHTGRAY);
 
 
-            for (int i = 0; i < engine::g_bullets.size(); i++) {
-
-                engine::g_bullets[i]->draw();
-
-            }
-            
+            game::ProjectileMan::draw();
             auto p1 = game::PlayerMan::get_player();
             p1.draw();
             
@@ -39,7 +35,7 @@ void engine::draw_loop() {
             Rectangle dest = { 0, 0, (float)g_window->get_width(), (float)g_window->get_height()};
             Vector2 origin = { 0, 0 };
             DrawTexturePro(g_canva.texture, source, dest, origin, 0.0f, WHITE);
-            
+            DrawFPS(20, 0);
 
 
         EndDrawing();

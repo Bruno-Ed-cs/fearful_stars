@@ -8,9 +8,9 @@
 
 namespace engine {
 
-    inline std::vector<std::unique_ptr<engine::Entity>> g_bullets;
     inline std::unique_ptr<engine::WinMan> g_window;
     inline RenderTexture2D g_canva;
+    inline Vector2 g_canva_size;
 
 }
 
