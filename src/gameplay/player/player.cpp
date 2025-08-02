@@ -37,7 +37,7 @@ void Player::update(double dt) {
 
     if (IsKeyDown(KEY_SPACE)) {
 
-        game::ProjectileMan::request_projectile<BasicProjectile>(m_position, Vector2{1, 0}, 300.0f, false);
+        ProjectileMan::request_projectile<BasicProjectile>(m_position, Vector2{1, 0}, 300.0f, false);
 
         std::cout << "bullet shot" << '\n';
 

@@ -14,6 +14,10 @@ class Projectile : public engine::Entity{
 
 public:
 
+    virtual void reset_deadtime(double limit) = 0;
+    virtual bool is_deadtime_over() = 0;
+    virtual void update_deadtime(double dt) = 0;
+
     virtual bool is_active() = 0;
     virtual bool is_foe() = 0;
     virtual Rectangle get_hitbox() = 0;

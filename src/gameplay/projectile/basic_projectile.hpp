@@ -4,6 +4,7 @@
 
 #include "position.hpp"
 #include "projectile.hpp"
+#include "timer.hpp"
 
 namespace game {
 
@@ -13,7 +14,14 @@ public:
 
     BasicProjectile(engine::Position position, Vector2 direction, double speed, bool foe) : 
         m_pos(position), m_direction(direction), m_speed(speed), m_foe(foe) {
+
+        m_hitbox.y = position.get_real().y;
+        m_hitbox.x = position.get_real().x;
     }
+
+    void reset_deadtime(double limit) override { m_deadtime = engine::Timer(limit); }
+    bool is_deadtime_over() override { return m_deadtime.past_limit(); }
+    void update_deadtime(double dt) override { m_deadtime.update(dt); }
 
     bool is_active() override { return m_active; }
     bool is_foe() override { return m_foe; }
@@ -41,9 +49,10 @@ private:
     bool m_active = true;
     bool m_foe = false;
     Rectangle m_hitbox = Rectangle{0, 0, 5, 5};
-    engine::Position m_pos{0, 0};
+    engine::Position m_pos;
     double m_speed = 0;
     Vector2 m_direction{0, 0};
+    engine::Timer m_deadtime;
 
 };
 

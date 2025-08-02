@@ -18,7 +18,7 @@ void engine::draw_loop() {
 
 
             game::ProjectileMan::draw();
-            auto p1 = game::PlayerMan::get_player();
+            auto& p1 = game::PlayerMan::get_player();
             p1.draw();
             
 
