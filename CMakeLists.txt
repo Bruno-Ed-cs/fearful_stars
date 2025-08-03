@@ -16,6 +16,7 @@ set(files
     src/libs/utils.cpp
     src/main.cpp
     src/update_loop.cpp
+    src/gameplay/player/shooting_machine.cpp
 )
 add_executable(${PROJECT_NAME} src/main.cpp ${files})
 

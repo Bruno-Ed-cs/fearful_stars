@@ -4,6 +4,8 @@
 
 #include "position.hpp"
 #include "entity.hpp"
+#include "timer.hpp"
+#include "shooting_machine.hpp"
 
 namespace game {
 
@@ -15,8 +17,12 @@ public:
     Vector2 m_direction;
     double m_speed = 125.0f;
     Rectangle m_hitbox;
+    engine::Timer m_cooldown = engine::Timer(0.5f);
+    ShootingMachine m_shooting_machine;
 
-    Player() {}
+    Player() {
+
+    }
 
     Player(Vector2 pos) :
     m_position(pos) {

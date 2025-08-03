@@ -1,9 +1,8 @@
 #include "deps.hpp"
 
 #include "player.hpp"
-#include "gameplay/projectile/basic_projectile.hpp"
 #include "globals.hpp"
-#include "../projectile/projectile_manager.hpp"
+#include "shooting_machine.hpp"
 
 using namespace game;
 
@@ -35,13 +34,10 @@ void Player::update(double dt) {
 
     }
 
-    if (IsKeyDown(KEY_SPACE)) {
+    m_shooting_machine.run(this);
 
-        ProjectileMan::request_projectile<BasicProjectile>(m_position, Vector2{1, 0}, 300.0f, false);
+    m_cooldown.update(dt);
 
-        std::cout << "bullet shot" << '\n';
-
-    }
 
     m_direction = Vector2Normalize(m_direction);
 

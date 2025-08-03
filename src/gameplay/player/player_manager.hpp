@@ -16,7 +16,7 @@ public:
 
 private:
 
-    static Player s_player;
+    static Player* s_player;
 
 };
 
