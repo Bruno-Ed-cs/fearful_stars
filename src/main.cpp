@@ -2,6 +2,7 @@
 
 #include "entity.hpp"
 #include "gameplay/player/player_manager.hpp"
+#include "gameplay/projectile/projectile_manager.hpp"
 #include "globals.hpp"
 #include "winman.hpp"
 #include "loops.hpp"

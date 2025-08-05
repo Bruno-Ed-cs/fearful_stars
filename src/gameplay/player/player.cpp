@@ -45,18 +45,19 @@ void Player::update(double dt) {
 
     m_position.move(movement);
 
-    m_hitbox.x = (m_position.get_round().x - m_hitbox.width / 2);
-    m_hitbox.y = ( m_position.get_round().y - m_hitbox.height / 2);
+    m_hitbox.x = (m_position.get_real().x - m_hitbox.width / 2);
+    m_hitbox.y = (m_position.get_real().y - m_hitbox.height / 2);
 
     //std::cout << m_position.get_round().x << " " << m_position.get_round().y << " " << m_direction.x << " " << m_direction.y <<'\n';
 }
 
 void Player::draw() {
 
-    DrawRectangleRec(m_hitbox, RED);
-    DrawCircleV(m_position.get_round(), 1.0f, GREEN);
-    Rectangle dest{m_position.get_round().x, m_position.get_round().y, 16.0f, 16};
-    Rectangle origin{0, 6 * 16, -16, 16};
+    //DrawRectangleRec(m_hitbox, RED);
+    Rectangle dest{m_position.get_real().x - 8, m_position.get_real().y - 8, 16.0f, 16};
+    Rectangle origin{3 * 16, 0, -16, 16};
     DrawTexturePro(assets::ship_tilemap, origin , dest, Vector2{0, 0}, 0.0f, WHITE);
+    DrawCircleV(m_position.get_round(), 1.0f, GREEN);
+    DrawCircleV(m_position.get_real(), 0.5f, GRAY);
 
 }

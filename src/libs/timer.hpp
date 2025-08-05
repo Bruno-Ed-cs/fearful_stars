@@ -27,6 +27,14 @@ public:
     }
 
     void reset() { m_time = 0.0f; }
+
+    void reset(double new_limit) { 
+        m_time = 0.0f;
+        m_limit = new_limit;
+    }
+        
+
+
     bool loop() { 
         if (past_limit()) {
 

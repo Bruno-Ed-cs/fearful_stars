@@ -15,9 +15,9 @@ public:
 
     engine::Position m_position;
     Vector2 m_direction;
-    double m_speed = 125.0f;
+    double m_speed = 150.0f;
     Rectangle m_hitbox;
-    engine::Timer m_cooldown = engine::Timer(0.5f);
+    engine::Timer m_cooldown = engine::Timer(0.00001f);
     ShootingMachine m_shooting_machine;
 
     Player() {

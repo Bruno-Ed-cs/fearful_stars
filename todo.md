@@ -5,3 +5,5 @@
 - [ ] Input manager
 - [ ] Start enemies / obstacles
 - [ ] Create debbuging
+- [ ] Collision detection
+- [ ] Clean interfaces

@@ -19,41 +19,30 @@ public:
         m_hitbox.x = position.get_real().x;
     }
 
-    void reset_deadtime(double limit) override { m_deadtime = engine::Timer(limit); }
-    bool is_deadtime_over() override { return m_deadtime.past_limit(); }
-    void update_deadtime(double dt) override { m_deadtime.update(dt); }
-
-    bool is_active() override { return m_active; }
     bool is_foe() override { return m_foe; }
     Rectangle get_hitbox() override { return m_hitbox; }
     engine::Position get_position() override { return m_pos; }
     double get_speed() override { return m_speed; }
 
-    void set_position(engine::Position pos) override { m_pos = pos; }
+    void reset(engine::Position pos, double speed, bool active, Vector2 direction, bool foe) override {
 
-    void set_hitbox(Rectangle hitbox) override { m_hitbox = hitbox; }
+        m_pos = pos;
+        m_speed = speed;
+        m_direction = direction;
+        m_foe = foe;
 
-    void set_speed(double speed) override { m_speed = speed; }
-
-    void set_active(bool active) override { m_active = active; }
-
-    void set_direction(Vector2 direction) override { m_direction = direction; }
-
-    void set_foe(bool foe) override { m_foe = foe; }
+    }
 
     void update(double dt) override;
     void draw() override;
 
 private:
 
-    bool m_active = true;
     bool m_foe = false;
     Rectangle m_hitbox = Rectangle{0, 0, 5, 5};
     engine::Position m_pos;
     double m_speed = 0;
     Vector2 m_direction{0, 0};
-    engine::Timer m_deadtime;
-
 };
 
 }

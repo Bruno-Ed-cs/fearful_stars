@@ -7,9 +7,8 @@
 
 using namespace game;
 
-std::vector<std::unique_ptr<Projectile>> ProjectileMan::s_projectiles;
+std::vector<ProjectileMan::ProjContainer> ProjectileMan::s_projectiles;
 
-const double inactive_deatime = 2.0f;
 
 //CollisionRes ProjectileMan::check_collision(Rectangle target) {
 
@@ -21,25 +20,27 @@ void ProjectileMan::update(double dt) {
 
     for (size_t i = 0; i < s_projectiles.size(); ++i) {
 
+        auto& cur_proj = s_projectiles[i];
 
-        if (s_projectiles[i]->is_active()) {
+        if (cur_proj.active) {
 
-            s_projectiles[i]->update(dt);
+            cur_proj.proj_uptr->update(dt);
 
             std::cout << i << "  past update" << '\n';
-            auto pos = s_projectiles[i]->get_position().get_round();
+            auto pos = cur_proj.proj_uptr->get_position().get_round();
 
             if ((pos.x > engine::g_canva_size.x || pos.x < 0) ||
                 (pos.y > engine::g_canva_size.y || pos.y < 0)) {
-                s_projectiles[i]->set_active(false);
-                s_projectiles[i]->reset_deadtime(inactive_deatime);
+
+                cur_proj.active = false;
+                cur_proj.deadtime.reset();
             }
 
         } else {
 
-            s_projectiles[i]->update_deadtime(dt);
+            cur_proj.deadtime.update(dt);
 
-            if (s_projectiles[i]->is_deadtime_over()) {
+            if (cur_proj.deadtime.past_limit()) {
 
                 s_projectiles.erase(s_projectiles.begin() + i);
             }
@@ -53,9 +54,11 @@ void ProjectileMan::draw() {
 
     for (size_t i = 0; i < s_projectiles.size(); ++i) {
 
-        if (s_projectiles[i]->is_active()) {
+        auto& cur_proj = s_projectiles[i];
 
-            s_projectiles[i]->draw();
+        if (cur_proj.active) {
+
+            cur_proj.proj_uptr->draw();
 
         }
 

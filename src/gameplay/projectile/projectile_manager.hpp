@@ -3,13 +3,9 @@
 #include "deps.hpp"
 #include "projectile.hpp"
 #include <iostream>
+#include "timer.hpp"
 
 namespace game {
-
-enum struct ProjType {
-
-    basic
-};
 
 struct CollisionRes {
 
@@ -41,18 +37,17 @@ public:
 
             std::cout << "not found making new\n";
             s_projectiles.emplace_back(
-                std::make_unique<Proj>(pos, direction, speed, foe));
+                std::make_unique<Proj>(pos, direction, speed, foe),
+                true,
+                engine::Timer(s_inactive_deadtime));
 
         } else {
 
             std::cout << "found remaking\n";
         
             auto& proj = s_projectiles[response.projectile_index];
-            proj->set_position(pos);
-            proj->set_direction(direction);
-            proj->set_speed(speed);
-            proj->set_foe(foe);
-            proj->set_active(true);
+            proj.proj_uptr->reset(pos, speed, true, direction, foe);
+            proj.active = true;
 
         }
 
@@ -60,13 +55,23 @@ public:
 
 private: 
 
-    static std::vector<std::unique_ptr<Projectile>> s_projectiles;
 
     struct QuerryRes {
 
         size_t projectile_index;
         bool not_found;
     };
+
+    struct ProjContainer {
+
+        std::unique_ptr<Projectile> proj_uptr;
+        bool active;
+        engine::Timer deadtime;
+    };
+
+    static std::vector<ProjContainer> s_projectiles;
+
+    constexpr static double s_inactive_deadtime = 2.0f;
 
     template<is_projectilile Proj>
     static QuerryRes find_inactive() {
@@ -75,7 +80,9 @@ private:
 
         for (size_t i = 0; i < s_projectiles.size(); ++i) {
 
-            if (!s_projectiles[i]->is_active() && typeid(*s_projectiles[i]) == typeid(Proj)) {
+            if (!s_projectiles[i].active && 
+               s_projectiles[i].proj_uptr != nullptr &&
+               typeid(*s_projectiles[i].proj_uptr) == typeid(Proj)) {
 
                 response.projectile_index = i;
                 response.not_found = false;
