@@ -21,10 +21,12 @@ public:
     }
 
     void run(Player* player);
+    void exit() { m_running = false; }
 
 private:
 
     ShootingState* m_state;
+    bool m_running;
 
 };
 }

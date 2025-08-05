@@ -12,7 +12,7 @@ class BasicProjectile : public Projectile {
 
 public:
 
-//    BasicProjectile() = default;
+    BasicProjectile() = default;
 
     BasicProjectile(engine::Position position, Vector2 direction, double speed, bool foe) : 
         m_pos(position), m_direction(direction), m_speed(speed), m_foe(foe) {
