@@ -3,6 +3,7 @@
 #include "deps.hpp"
 #include "projectile.hpp"
 #include <iostream>
+#include <type_traits>
 #include "timer.hpp"
 
 namespace game {
@@ -14,7 +15,7 @@ struct CollisionRes {
 };
 
 template <typename T>
-concept is_projectilile = std::is_base_of_v<Projectile, T>;
+concept is_projectilile = std::is_base_of_v<Projectile, T> && std::is_default_constructible_v<T>;
 
 class ProjectileMan {
 
@@ -36,8 +37,12 @@ public:
         if (response.not_found) {
 
             std::cout << "not found making new\n";
+
+            auto proj = std::make_unique<Proj>();
+            proj->reset(pos, speed, direction, foe);
+            
             s_projectiles.emplace_back(
-                std::make_unique<Proj>(pos, direction, speed, foe),
+                std::move(proj), 
                 true,
                 engine::Timer(s_inactive_deadtime));
 
@@ -46,7 +51,7 @@ public:
             std::cout << "found remaking\n";
         
             auto& proj = s_projectiles[response.projectile_index];
-            proj.proj_uptr->reset(pos, speed, true, direction, foe);
+            proj.proj_uptr->reset(pos, speed, direction, foe);
             proj.active = true;
 
         }

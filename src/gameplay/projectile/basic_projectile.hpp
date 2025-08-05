@@ -12,6 +12,8 @@ class BasicProjectile : public Projectile {
 
 public:
 
+//    BasicProjectile() = default;
+
     BasicProjectile(engine::Position position, Vector2 direction, double speed, bool foe) : 
         m_pos(position), m_direction(direction), m_speed(speed), m_foe(foe) {
 
@@ -24,7 +26,7 @@ public:
     engine::Position get_position() override { return m_pos; }
     double get_speed() override { return m_speed; }
 
-    void reset(engine::Position pos, double speed, bool active, Vector2 direction, bool foe) override {
+    void reset(engine::Position pos, double speed, Vector2 direction, bool foe) override {
 
         m_pos = pos;
         m_speed = speed;
