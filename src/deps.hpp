@@ -8,6 +8,9 @@
 #include <cstdint>
 #include <string>
 #include <iostream>
+#include <array>
+#include <map>
+#include <stdexcept>
 #include "raylib.h"
 #include "raymath.h"
 

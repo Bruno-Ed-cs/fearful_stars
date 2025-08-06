@@ -11,22 +11,27 @@ class ShootingMachine {
 
 public:
 
-    ShootingMachine() :
-    m_state(new StateIdle()) {}
+    ShootingMachine() {
 
-    ~ShootingMachine() {
+        m_state_collection["Idle"] = std::make_unique<StateIdle>();
+        m_state_collection["Shoot"] = std::make_unique<StateShoot>();
 
-        delete m_state;
+        m_state = m_state_collection["Idle"].get();
 
     }
 
+    ~ShootingMachine() = default;
+
+
     void run(Player* player);
-    void exit() { m_running = false; }
+    void transition_to(const std::string state_name);
 
 private:
 
     ShootingState* m_state;
-    bool m_running;
+
+    std::map<std::string, std::unique_ptr<ShootingState>> m_state_collection;
+
 
 };
 }

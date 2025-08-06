@@ -2,8 +2,6 @@
 
 #include "deps.hpp"
 #include "projectile.hpp"
-#include <iostream>
-#include <type_traits>
 #include "timer.hpp"
 
 namespace game {
@@ -40,6 +38,7 @@ public:
 
             auto proj = std::make_unique<Proj>();
             proj->reset(pos, speed, direction, foe);
+            std::cout << "New projectile position: (" << pos.get_real().x << ", " << pos.get_real().y << ")\n";
             
             s_projectiles.emplace_back(
                 std::move(proj), 

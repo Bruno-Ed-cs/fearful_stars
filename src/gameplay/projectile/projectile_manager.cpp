@@ -16,7 +16,7 @@ std::vector<ProjectileMan::ProjContainer> ProjectileMan::s_projectiles;
 
 void ProjectileMan::update(double dt) {
 
-    std::cout << "update\n" << s_projectiles.size() << '\n';
+//    std::cout << "update\n" << s_projectiles.size() << '\n';
 
     for (size_t i = 0; i < s_projectiles.size(); ++i) {
 
@@ -26,7 +26,7 @@ void ProjectileMan::update(double dt) {
 
             cur_proj.proj_uptr->update(dt);
 
-            std::cout << i << "  past update" << '\n';
+ //           std::cout << i << "  past update" << '\n';
             auto pos = cur_proj.proj_uptr->get_position().get_round();
 
             if ((pos.x > engine::g_canva_size.x || pos.x < 0) ||

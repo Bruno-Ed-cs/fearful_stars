@@ -5,8 +5,8 @@
 
 void engine::update_loop(double dt) {
 
+    game::PlayerMan::update(dt);
     game::ProjectileMan::update(dt);
 
-    game::PlayerMan::update(dt);
 
 }
