@@ -3,6 +3,7 @@
 #include <memory>
 #include <vector>
 #include <cassert>
+#include <span>
 #include <type_traits>
 #include <cmath>
 #include <cstdint>

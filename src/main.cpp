@@ -8,6 +8,7 @@
 #include "raylib.h"
 #include "winman.hpp"
 #include "loops.hpp"
+#include "control_schema.hpp"
 
 //------------------------------------------------------------------------------------
 // Program main entry point
@@ -35,11 +36,7 @@ int main(void)
 
     game::assets::ship_tilemap = LoadTexture("assets/sprites/Space_pack/Space_VH.png");
 
-    std::vector<engine::Event> events;
-
-    events.emplace_back("shoot", std::vector{KEY_SPACE, KEY_C}, std::vector{GAMEPAD_BUTTON_RIGHT_FACE_RIGHT, GAMEPAD_BUTTON_RIGHT_FACE_LEFT});
-
-    engine::InputMan::load_events(events);
+    engine::InputMan::load_events(controls);
 
     if (IsGamepadAvailable(0)) {
         std::cout << "gamepad 0 is ready\n";

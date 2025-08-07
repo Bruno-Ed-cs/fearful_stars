@@ -68,7 +68,7 @@ bool InputMan::is_event_active(const std::string& event_name){
 
 }
 
-void InputMan::load_events(const std::vector<Event>& events) {
+void InputMan::load_events(std::span<Event> events) {
 
     auto& instance = InputMan::get_instance();
 

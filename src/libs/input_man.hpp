@@ -18,7 +18,7 @@ public:
     static void flush_events(); // call at the end of the game loop;
 
     static bool is_event_active(const std::string& event_name);
-    static void load_events(const std::vector<Event>& events);
+    static void load_events(std::span<Event> events);
     static void add_input_to_event(const std::string& event_name, const int new_input);
 
     static void close();

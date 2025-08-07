@@ -2,6 +2,7 @@
 
 #include "player.hpp"
 #include "globals.hpp"
+#include "input_man.hpp"
 #include "shooting_machine.hpp"
 
 using namespace game;
@@ -10,25 +11,25 @@ void Player::update(double dt) {
 
     m_direction = {0,0};
 
-    if (IsKeyDown(KEY_RIGHT)) {
+    if (engine::InputMan::is_event_active("move_right")) {
 
         m_direction.x = 1;
 
     }
 
-    if (IsKeyDown(KEY_UP)) {
+    if (engine::InputMan::is_event_active("move_up")) {
 
         m_direction.y = -1;
 
     }
 
-    if (IsKeyDown(KEY_DOWN)) {
+    if (engine::InputMan::is_event_active("move_down")) {
 
         m_direction.y = 1;
 
     }
 
-    if (IsKeyDown(KEY_LEFT)) {
+    if (engine::InputMan::is_event_active("move_left")) {
 
         m_direction.x = -1;
 
