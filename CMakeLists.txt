@@ -7,6 +7,7 @@ set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
+
 set(files 
     src/draw_loop.cpp
     src/gameplay/player/player.cpp
@@ -17,15 +18,19 @@ set(files
     src/main.cpp
     src/update_loop.cpp
     src/gameplay/player/shooting_machine.cpp
+    src/libs/input_man.cpp
 )
 add_executable(${PROJECT_NAME} src/main.cpp ${files})
 
 target_include_directories(${PROJECT_NAME} PUBLIC include src/libs src)
 
 include(raylib_options.txt)
+
 add_subdirectory(dependencies/raylib-5.5 raylib)
 
 target_link_libraries(${PROJECT_NAME} raylib)
+
+
 target_precompile_headers(${PROJECT_NAME}
    PUBLIC src/deps.hpp)
 

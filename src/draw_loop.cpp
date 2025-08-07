@@ -3,6 +3,7 @@
 #include "loops.hpp"
 #include "globals.hpp"
 
+
 void engine::draw_loop() {
 
         BeginTextureMode(g_canva);
@@ -36,6 +37,7 @@ void engine::draw_loop() {
             Vector2 origin = { 0, 0 };
             DrawTexturePro(g_canva.texture, source, dest, origin, 0.0f, WHITE);
             DrawFPS(20, 0);
+
 
 
         EndDrawing();

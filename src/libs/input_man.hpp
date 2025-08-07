@@ -7,8 +7,8 @@ namespace engine {
 struct Event {
 
     std::string name;
-    std::vector<KeyboardKey> keyboard_inputs();
-    std::vector<GamepadButton> gamepad_inputs();
+    std::vector<KeyboardKey> keyboard_inputs;
+    std::vector<GamepadButton> gamepad_inputs;
 };
 
 class InputMan {
@@ -17,13 +17,13 @@ public:
     static void pull_events(); // call at the beggining of the game loop;
     static void flush_events(); // call at the end of the game loop;
 
-    static bool in_event_active(const std::string& event_name);
+    static bool is_event_active(const std::string& event_name);
     static void load_events(const std::vector<Event>& events);
     static void add_input_to_event(const std::string& event_name, const int new_input);
 
     static void close();
 
-    constexpr static size_t buffer_size = 5;
+    constexpr static size_t buffer_size = 10;
 
 private:
 

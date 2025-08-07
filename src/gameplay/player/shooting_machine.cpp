@@ -3,6 +3,7 @@
 #include "gameplay/player/shooting_state.hpp"
 #include "gameplay/projectile/basic_projectile.hpp"
 #include "gameplay/projectile/projectile_manager.hpp"
+#include "input_man.hpp"
 #include "position.hpp"
 
 using namespace game;
@@ -23,7 +24,7 @@ void ShootingMachine::transition_to(const std::string state_name) {
 
 void StateIdle::run(Player* player, ShootingMachine& machine) {
 
-    if(player->m_cooldown.past_limit() && IsKeyDown(KEY_SPACE)) {
+    if(player->m_cooldown.past_limit() && engine::InputMan::is_event_active("shoot")) {
 
         player->m_cooldown.reset();
         machine.transition_to("Shoot");

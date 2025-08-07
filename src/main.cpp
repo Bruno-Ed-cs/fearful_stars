@@ -4,6 +4,8 @@
 #include "gameplay/player/player_manager.hpp"
 #include "gameplay/projectile/projectile_manager.hpp"
 #include "globals.hpp"
+#include "input_man.hpp"
+#include "raylib.h"
 #include "winman.hpp"
 #include "loops.hpp"
 
@@ -12,6 +14,7 @@
 //------------------------------------------------------------------------------------
 int main(void)
 {
+    SetConfigFlags(FLAG_VSYNC_HINT);
     // Initialization
     //--------------------------------------------------------------------------------------
     
@@ -19,6 +22,7 @@ int main(void)
 
     engine::g_canva_size = Vector2{320, 180};
     engine::g_canva = LoadRenderTexture(engine::g_canva_size.x, engine::g_canva_size.y);
+
 
 
     SetTargetFPS(60);               // Set our game to run at 60 frames-per-second
@@ -31,11 +35,26 @@ int main(void)
 
     game::assets::ship_tilemap = LoadTexture("assets/sprites/Space_pack/Space_VH.png");
 
+    std::vector<engine::Event> events;
+
+    events.emplace_back("shoot", std::vector{KEY_SPACE, KEY_C}, std::vector{GAMEPAD_BUTTON_RIGHT_FACE_RIGHT, GAMEPAD_BUTTON_RIGHT_FACE_LEFT});
+
+    engine::InputMan::load_events(events);
+
+    if (IsGamepadAvailable(0)) {
+        std::cout << "gamepad 0 is ready\n";
+    } else {
+        std::cout << "gamepad not ready\n";
+
+    }
+
     // Main game loop
     while (!WindowShouldClose())    // Detect window close button or ESC key
     {
         //std::cout << "check 3\n";
         dt = GetFrameTime();
+        engine::InputMan::pull_events();
+
         // Update
         //----------------------------------------------------------------------------------
         // TODO: Update your variables here
@@ -46,12 +65,16 @@ int main(void)
         if (IsKeyPressed(KEY_ENTER)) 
             engine::g_window->toggle_fullscreen();
 
+
         engine::update_loop(dt);
         engine::draw_loop();
         //----------------------------------------------------------------------------------
-       // window.update_window();
-        
+        // window.update_window();
+
+        engine::InputMan::flush_events();
     }
+
+    //engine::InputMan::close();
 
     return 0;
 }
