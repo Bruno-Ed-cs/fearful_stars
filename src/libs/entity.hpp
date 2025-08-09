@@ -2,11 +2,11 @@
 
 namespace engine {
 
-class Entity {
+class IEntity {
 
 public:
 
-    virtual ~Entity() = default;
+    virtual ~IEntity() = default;
 
     virtual void update(double dt) = 0;
     virtual void draw() = 0;

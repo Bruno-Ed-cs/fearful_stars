@@ -7,7 +7,7 @@
 
 namespace game {
 
-class Projectile : public engine::Entity{
+class IProjectile : public engine::IEntity{
 //    please have a default constructor
 //    for the projectile manager
 
@@ -19,6 +19,8 @@ public:
     virtual double get_speed() = 0;
 
     virtual void reset(engine::Position pos, double speed, Vector2 direction, bool foe) = 0;
+
+    virtual ~IProjectile() = default;
 };
 
 }

@@ -5,10 +5,10 @@
 #include "gameplay/projectile/projectile_manager.hpp"
 #include "globals.hpp"
 #include "input_man.hpp"
-#include "raylib.h"
 #include "winman.hpp"
 #include "loops.hpp"
 #include "control_schema.hpp"
+
 
 //------------------------------------------------------------------------------------
 // Program main entry point

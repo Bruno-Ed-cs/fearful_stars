@@ -9,11 +9,11 @@ namespace game {
 struct CollisionRes {
 
     bool collided;
-    Projectile& projectile;
+    IProjectile& projectile;
 };
 
 template <typename T>
-concept is_projectilile = std::is_base_of_v<Projectile, T> && std::is_default_constructible_v<T>;
+concept is_projectilile = std::is_base_of_v<IProjectile, T> && std::is_default_constructible_v<T>;
 
 class ProjectileMan {
 
@@ -68,7 +68,7 @@ private:
 
     struct ProjContainer {
 
-        std::unique_ptr<Projectile> proj_uptr;
+        std::unique_ptr<IProjectile> proj_uptr;
         bool active;
         engine::Timer deadtime;
     };

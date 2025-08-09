@@ -8,7 +8,7 @@
 
 namespace game {
 
-class BasicProjectile : public Projectile {
+class BasicProjectile : public IProjectile {
 
 public:
 

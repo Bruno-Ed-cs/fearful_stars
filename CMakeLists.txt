@@ -1,26 +1,19 @@
-cmake_minimum_required(VERSION 3.15)
+cmake_minimum_required(VERSION 3.28)
 
-project(fearful_stars)
+set(CMAKE_EXPERIMENTAL_CXX_IMPORT_STD "0e5b6991-d74f-4b3d-a41c-cf096e0b2508")
+
+project(fearful_stars LANGUAGES CXX)
 
 set(CMAKE_C_STANDARD 11)
-set(CMAKE_CXX_STANDARD 20)
+set(CMAKE_CXX_STANDARD 23)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
+set(CMAKE_CXX_EXTENSIONS OFF)
 
 
-set(files 
-    src/draw_loop.cpp
-    src/gameplay/player/player.cpp
-    src/gameplay/player/player_manager.cpp
-    src/gameplay/projectile/basic_projectile.cpp
-    src/gameplay/projectile/projectile_manager.cpp
-    src/libs/utils.cpp
-    src/main.cpp
-    src/update_loop.cpp
-    src/gameplay/player/shooting_machine.cpp
-    src/libs/input_man.cpp
-)
-add_executable(${PROJECT_NAME} src/main.cpp ${files})
+file(GLOB_RECURSE files "src/*.cpp")
+
+add_executable(${PROJECT_NAME} ${files})
 
 target_include_directories(${PROJECT_NAME} PUBLIC include src/libs src)
 

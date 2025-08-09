@@ -9,7 +9,7 @@
 
 namespace game {
 
-class Player : public engine::Entity{
+class Player : public engine::IEntity{
 
 public:
 
