@@ -15,6 +15,8 @@ class WinMan {
     std::string m_title;
     uint32_t m_display;
 
+    Vector2 m_prev_size;
+
 public:
     WinMan(const uint32_t width, const uint32_t height, const std::string& title) :
     m_width(width), m_height(height) , m_title(title){
@@ -25,6 +27,7 @@ public:
         SetTargetFPS(60);
 
         rlImGuiSetup(true);
+        m_prev_size = Vector2{(float)width, (float)height};
 
     }
 
@@ -39,18 +42,28 @@ public:
 
     void toggle_fullscreen() {
 
+        //the window size setting is there because imgui only updates its viewport when the window is resized, not when it goes fullscreen
 
         if (!IsWindowFullscreen()) {
 
             m_display = GetCurrentMonitor();
 
+            m_prev_size.x = m_width;
+            m_prev_size.y = m_height;
+
             m_width = GetMonitorWidth(m_display);
             m_height = GetMonitorHeight(m_display);
 
+            SetWindowSize(m_width, m_height);
+
         } else {
+
+            SetWindowSize(m_prev_size.x, m_prev_size.y);
             m_width = GetScreenWidth();
             m_height = GetScreenHeight();
+
         }
+
 
         ToggleFullscreen();
         //std::cout << m_width << "x" << m_height << '\n';

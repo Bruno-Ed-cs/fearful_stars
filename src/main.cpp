@@ -5,6 +5,7 @@
 #include "gameplay/projectile/projectile_manager.hpp"
 #include "globals.hpp"
 #include "input_man.hpp"
+#include "raylib.h"
 #include "winman.hpp"
 #include "loops.hpp"
 #include "control_schema.hpp"
@@ -18,7 +19,7 @@
 int main(void)
 {
 
-    SetConfigFlags(FLAG_VSYNC_HINT);
+    SetConfigFlags(FLAG_WINDOW_RESIZABLE);
     // Initialization
     //--------------------------------------------------------------------------------------
     
@@ -70,6 +71,7 @@ int main(void)
         engine::InputMan::flush_events();
     }
 
+    rlImGuiShutdown();
     //engine::InputMan::close();
 
     return 0;
