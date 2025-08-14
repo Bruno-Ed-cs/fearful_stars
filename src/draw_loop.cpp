@@ -1,5 +1,6 @@
 #include "gameplay/player/player_manager.hpp"
 #include "gameplay/projectile/projectile_manager.hpp"
+#include "imgui.h"
 #include "loops.hpp"
 #include "globals.hpp"
 #include "raylib.h"
@@ -39,26 +40,28 @@ void engine::draw_loop() {
         Rectangle dest = { 0, 0, (float)g_window->get_width(), (float)g_window->get_height()};
         Vector2 origin = { 0, 0 };
         DrawTexturePro(g_canva.texture, source, dest, origin, 0.0f, WHITE);
-        DrawFPS(20, 0);
-ImGuiIO& io = ImGui::GetIO();
-            io.DisplaySize = ImVec2(
-                static_cast<float>(GetScreenWidth()),
-                static_cast<float>(GetScreenHeight())
-            );
+
+        if (engine::g_debug) {
+
         rlImGuiBegin();
-   // Optional: Add a simple control window
-            ImGui::Begin("Fullscreen Control");
-            ImGui::Text("Press F11 to toggle fullscreen");
-            ImGui::Text("Current mode: %s", IsWindowFullscreen() ? "Fullscreen" : "Windowed");
-            if (ImGui::Button("Toggle Fullscreen")) {
-                g_window->toggle_fullscreen();
-            }
-            ImGui::End();
 
-        ImGui::ShowDemoWindow();
+        //ImGui::ShowDemoWindow();
 
+        ImGui::SetNextWindowPos({0, 0});
+        ImGui::Begin("FPS Monitor", NULL, ImGuiWindowFlags_NoResize);
+        {
+
+            ImGui::Text("FPS: %d", GetFPS());
+            ImGui::Text("Frametime %f ms", GetFrameTime());
+
+        }
+        ImGui::End();
+
+        game::ProjectileMan::debug();
+        game::PlayerMan::debug();
 
         rlImGuiEnd();
+        }
 
     }        
 

@@ -2,6 +2,7 @@
 
 #include "player_manager.hpp"
 #include "player.hpp"
+#include "imgui.h"
 
 using namespace game;
 
@@ -23,4 +24,17 @@ void PlayerMan::update(double dt) {
 Player& PlayerMan::get_player() {
 
     return *s_player;
+}
+
+
+
+void PlayerMan::debug() {
+
+    ImGui::Begin("Player debug");
+    {
+        ImGui::Text("Position:\nx: %f\ny: %f", s_player->m_position.get_real().x, s_player->m_position.get_real().y);
+    }
+    ImGui::End();
+
+
 }

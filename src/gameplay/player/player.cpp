@@ -4,6 +4,7 @@
 #include "globals.hpp"
 #include "input_man.hpp"
 #include "shooting_machine.hpp"
+#include "imgui.h"
 
 using namespace game;
 
@@ -60,5 +61,7 @@ void Player::draw() {
     DrawTexturePro(assets::ship_tilemap, origin , dest, Vector2{0, 0}, 0.0f, WHITE);
     DrawCircleV(m_position.get_round(), 1.0f, GREEN);
     DrawCircleV(m_position.get_real(), 0.5f, GRAY);
+
+
 
 }

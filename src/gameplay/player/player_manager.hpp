@@ -13,6 +13,7 @@ public:
     static void update(double dt);
 
     static Player& get_player();
+    static void debug();
 
 private:
 

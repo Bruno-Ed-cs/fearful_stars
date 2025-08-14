@@ -4,6 +4,7 @@
 #include "projectile_manager.hpp"
 #include "basic_projectile.hpp"
 #include "globals.hpp"
+#include "imgui.h"
 
 using namespace game;
 
@@ -66,3 +67,27 @@ void ProjectileMan::draw() {
 
 }
 
+void ProjectileMan::debug() {
+
+
+    static bool window_open = false;
+
+    ImGui::Begin("Projectile Manager Debug", &window_open);
+    {
+
+        ImGui::Text("Projectiles in buffer: %d", (int)s_projectiles.size());
+
+        int active_proj = 0;
+        for (auto& proj : s_projectiles) {
+
+            if (proj.active) ++active_proj;
+        }
+
+        ImGui::Text("Active Projectiles: %d", active_proj);
+        ImGui::Text("Inactive Projectiles: %d", (int)s_projectiles.size() - active_proj);
+
+
+    }
+    ImGui::End();
+
+}

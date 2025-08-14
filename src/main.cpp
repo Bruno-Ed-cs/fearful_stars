@@ -19,7 +19,7 @@
 int main(void)
 {
 
-    SetConfigFlags(FLAG_WINDOW_RESIZABLE);
+    SetConfigFlags(FLAG_VSYNC_HINT);
     // Initialization
     //--------------------------------------------------------------------------------------
     
@@ -61,6 +61,11 @@ int main(void)
         if (IsKeyPressed(KEY_ENTER)) 
             engine::g_window->toggle_fullscreen();
 
+        if (IsKeyPressed(KEY_F3)) {
+
+            engine::g_debug = !engine::g_debug;
+
+        }
 
         engine::update_loop(dt);
         engine::draw_loop();

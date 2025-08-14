@@ -22,6 +22,7 @@ public:
 //    static CollisionRes check_collision(Rectangle target);
     static void update(double dt);
     static void draw();
+    static void debug();
 
     template<is_projectilile Proj>
     static void request_projectile(engine::Position pos,
@@ -29,16 +30,16 @@ public:
                                    double speed,
                                    bool foe) {
         
-        std::cout << "bullet requested\n";
+        //std::cout << "bullet requested\n";
         QuerryRes response = find_inactive<Proj>();
 
         if (response.not_found) {
 
-            std::cout << "not found making new\n";
+         //   std::cout << "not found making new\n";
 
             auto proj = std::make_unique<Proj>();
             proj->reset(pos, speed, direction, foe);
-            std::cout << "New projectile position: (" << pos.get_real().x << ", " << pos.get_real().y << ")\n";
+          //  std::cout << "New projectile position: (" << pos.get_real().x << ", " << pos.get_real().y << ")\n";
             
             s_projectiles.emplace_back(
                 std::move(proj), 
@@ -47,7 +48,7 @@ public:
 
         } else {
 
-            std::cout << "found remaking\n";
+            //std::cout << "found remaking\n";
         
             auto& proj = s_projectiles[response.projectile_index];
             proj.proj_uptr->reset(pos, speed, direction, foe);
