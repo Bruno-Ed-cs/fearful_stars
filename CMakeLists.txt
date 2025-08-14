@@ -15,14 +15,19 @@ file(GLOB_RECURSE files "src/*.cpp")
 
 add_executable(${PROJECT_NAME} ${files})
 
-target_include_directories(${PROJECT_NAME} PUBLIC include src/libs src)
+include_directories(include src/libs src)
 
 include(raylib_options.txt)
 
 add_subdirectory(dependencies/raylib-5.5 raylib)
 
-target_link_libraries(${PROJECT_NAME} raylib)
+file(GLOB imgui_files "dependencies/dear_imgui/*.cpp")
 
+add_library(imgui STATIC ${imgui_files})
+
+add_library(imgui-raylib STATIC dependencies/raylib-imgui/rlImGui.cpp)
+
+target_link_libraries(${PROJECT_NAME} raylib imgui-raylib imgui )
 
 target_precompile_headers(${PROJECT_NAME}
    PUBLIC src/deps.hpp)

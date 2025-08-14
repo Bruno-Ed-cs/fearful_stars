@@ -2,6 +2,10 @@
 
 #include "deps.hpp"
 
+#include "imgui.h"
+#include "raylib.h"
+#include "rlImGui.h"
+
 namespace engine{
 
 class WinMan {
@@ -17,6 +21,11 @@ public:
 
         InitWindow(m_width, m_height, m_title.c_str());
         m_display = GetCurrentMonitor();
+
+        SetTargetFPS(60);
+
+        rlImGuiSetup(true);
+
     }
 
     uint32_t get_width() { return m_width; }

@@ -2,8 +2,8 @@
 - [x] Projectile system
 - [x] Timer
 - [x] State machine
-- [ ] Input manager
+- [x] Input manager
 - [ ] Start enemies / obstacles
 - [ ] Create debbuging
 - [ ] Collision detection
-- [ ] Clean interfaces
+- [x] Clean interfaces

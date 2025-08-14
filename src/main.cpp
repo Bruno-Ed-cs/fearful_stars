@@ -9,26 +9,24 @@
 #include "loops.hpp"
 #include "control_schema.hpp"
 
+#include "imgui.h"
+#include "rlImGui.h"
 
 //------------------------------------------------------------------------------------
 // Program main entry point
 //------------------------------------------------------------------------------------
 int main(void)
 {
+
     SetConfigFlags(FLAG_VSYNC_HINT);
     // Initialization
     //--------------------------------------------------------------------------------------
     
     engine::g_window = std::make_unique<engine::WinMan>(1280, 720, "Fearful Stars");
 
+
     engine::g_canva_size = Vector2{320, 180};
     engine::g_canva = LoadRenderTexture(engine::g_canva_size.x, engine::g_canva_size.y);
-
-
-
-    SetTargetFPS(60);               // Set our game to run at 60 frames-per-second
-    //--------------------------------------------------------------------------------------
-
 
     game::PlayerMan::setup();
 
@@ -65,6 +63,7 @@ int main(void)
 
         engine::update_loop(dt);
         engine::draw_loop();
+
         //----------------------------------------------------------------------------------
         // window.update_window();
 
