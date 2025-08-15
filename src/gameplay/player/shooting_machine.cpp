@@ -10,15 +10,29 @@ using namespace game;
 
 void ShootingMachine::run(Player* player) {
 
-    m_state->run(player, *this);
+    m_running = true;
+     
+
+    while (m_running) {
+
+        auto& state = *m_state_collection[m_state];
+        std::string prev_state = m_state;
+
+        state.run(player, *this);
+
+        if (state.is_final() || m_state == prev_state) {
+            transition_to(m_initial_state);
+            m_running = false;
+        }
+    }
 }
 
-void ShootingMachine::transition_to(const std::string state_name) {
+void ShootingMachine::transition_to(const std::string& state_name) {
 
     if (!m_state_collection.contains(state_name))
         throw std::logic_error("There is no state such as: " + state_name);
 
-    m_state = m_state_collection[state_name].get();
+    m_state = state_name;
 
 }
 

@@ -16,7 +16,7 @@ public:
         m_state_collection["Idle"] = std::make_unique<StateIdle>();
         m_state_collection["Shoot"] = std::make_unique<StateShoot>();
 
-        m_state = m_state_collection["Idle"].get();
+        m_state = "Idle";
 
     }
 
@@ -24,11 +24,13 @@ public:
 
 
     void run(Player* player);
-    void transition_to(const std::string state_name);
+    void transition_to(const std::string& state_name);
 
 private:
 
-    ShootingState* m_state;
+    std::string m_state;
+    std::string m_initial_state{"Idle"};
+    bool m_running;
 
     std::map<std::string, std::unique_ptr<ShootingState>> m_state_collection;
 
