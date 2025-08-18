@@ -12,6 +12,7 @@ class ShootingState {
     public:
 
     virtual void run(Player* player, ShootingMachine& machine) = 0;
+    virtual bool transition(Player* player, ShootingMachine& machine) = 0;
     virtual ~ShootingState() = default;
     virtual bool is_final() = 0;
 
@@ -20,7 +21,7 @@ class ShootingState {
 class StateIdle : public ShootingState {
 
     public:
-
+    bool transition(Player* player, ShootingMachine& machine) override;
     void run(Player* player, ShootingMachine& machine) override;
     bool is_final() override {
 
@@ -32,6 +33,7 @@ class StateIdle : public ShootingState {
 class StateShoot : public ShootingState {
 
     public:
+    bool transition(Player* player, ShootingMachine& machine) override;
     void run(Player* player, ShootingMachine& machine) override;
     bool is_final() override {
 

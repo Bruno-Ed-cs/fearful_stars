@@ -1,3 +1,5 @@
+#include "deps.hpp"
+
 #include "shooting_machine.hpp"
 #include "gameplay/player/player.hpp"
 #include "gameplay/player/shooting_state.hpp"
@@ -16,11 +18,13 @@ void ShootingMachine::run(Player* player) {
     while (m_running) {
 
         auto& state = *m_state_collection[m_state];
-        std::string prev_state = m_state;
 
         state.run(player, *this);
+        bool has_transitioned = state.transition(player, *this);
+        
+        //std::println("loop is {}", m_running);
 
-        if (state.is_final() || m_state == prev_state) {
+        if (state.is_final() || !has_transitioned) {
             transition_to(m_initial_state);
             m_running = false;
         }
@@ -38,12 +42,21 @@ void ShootingMachine::transition_to(const std::string& state_name) {
 
 void StateIdle::run(Player* player, ShootingMachine& machine) {
 
+    return;
+
+}
+
+bool StateIdle::transition(Player* player, ShootingMachine& machine) {
+
     if(player->m_cooldown.past_limit() && engine::InputMan::is_event_active("shoot")) {
 
         player->m_cooldown.reset();
         machine.transition_to("Shoot");
+        return true;
 
     } 
+
+    return false;
 
 }
 
@@ -55,9 +68,13 @@ void StateShoot::run(Player* player, ShootingMachine& machine) {
     engine::Position pos = player->m_position;
     pos.move(Vector2{0, -3});
 
-    ProjectileMan::request_projectile<BasicProjectile>(pos, direction, proj_speed, foe);
 
-    machine.transition_to("Idle");
+    ProjectileMan::request_projectile<BasicProjectile>(pos, direction, proj_speed, foe);
+}
+
+bool StateShoot::transition(Player* player, ShootingMachine& machine) {
+
+    return false;
 
 }
 
