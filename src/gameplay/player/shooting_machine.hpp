@@ -3,7 +3,7 @@
 
 #include "shooting_state.hpp"
 
-namespace game {
+namespace Game {
 
 class Player;
 

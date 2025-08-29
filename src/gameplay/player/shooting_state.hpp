@@ -2,7 +2,7 @@
 #include "deps.hpp"
 
 
-namespace game {
+namespace Game {
 
 class Player;
 class ShootingMachine;

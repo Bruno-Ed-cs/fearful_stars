@@ -1,5 +1,5 @@
 
-namespace engine {
+namespace Engine {
 
 class Debugger {
 

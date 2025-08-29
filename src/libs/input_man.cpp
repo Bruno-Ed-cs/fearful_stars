@@ -1,6 +1,6 @@
 #include "input_man.hpp"
 
-using namespace engine;
+using namespace Engine;
 
 InputMan* InputMan::instance = nullptr;
 

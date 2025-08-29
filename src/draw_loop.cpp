@@ -7,7 +7,7 @@
 #include "winman.hpp"
 
 
-void engine::draw_loop() {
+void Engine::draw_loop() {
 
     BeginTextureMode(g_canva);
     {
@@ -21,8 +21,8 @@ void engine::draw_loop() {
         DrawText("Congrats! You created your first window!", 27, 100, 1, LIGHTGRAY);
 
 
-        game::ProjectileMan::draw();
-        auto& p1 = game::PlayerMan::get_player();
+        Game::ProjectileMan::draw();
+        auto& p1 = Game::PlayerMan::get_player();
         p1.draw();
 
 
@@ -41,7 +41,7 @@ void engine::draw_loop() {
         Vector2 origin = { 0, 0 };
         DrawTexturePro(g_canva.texture, source, dest, origin, 0.0f, WHITE);
 
-        if (engine::g_debug) {
+        if (Engine::g_debug) {
 
         rlImGuiBegin();
 
@@ -57,8 +57,8 @@ void engine::draw_loop() {
         }
         ImGui::End();
 
-        game::ProjectileMan::debug();
-        game::PlayerMan::debug();
+        Game::ProjectileMan::debug();
+        Game::PlayerMan::debug();
 
         rlImGuiEnd();
         }

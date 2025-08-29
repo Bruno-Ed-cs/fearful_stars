@@ -2,7 +2,7 @@
 
 #include "deps.hpp"
 
-namespace engine {
+namespace Engine {
 
 struct Event {
 

@@ -7,7 +7,7 @@
 #include "gameplay/projectile/projectile_manager.hpp"
 #include "input_man.hpp"
 
-using namespace game;
+using namespace Game;
 
 void ShootingMachine::run(Player* player) {
 
@@ -47,7 +47,7 @@ void StateIdle::run(Player* player, ShootingMachine& machine) {
 
 bool StateIdle::transition(Player* player, ShootingMachine& machine) {
 
-    if(player->m_cooldown.past_limit() && engine::InputMan::is_event_active("shoot")) {
+    if(player->m_cooldown.past_limit() && Engine::InputMan::is_event_active("shoot")) {
 
         player->m_cooldown.reset();
         machine.transition_to("Shoot");

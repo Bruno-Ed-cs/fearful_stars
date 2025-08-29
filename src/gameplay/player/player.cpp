@@ -6,31 +6,31 @@
 #include "shooting_machine.hpp"
 #include "imgui.h"
 
-using namespace game;
+using namespace Game;
 
 void Player::update(double dt) {
 
     m_direction = {0,0};
 
-    if (engine::InputMan::is_event_active("move_right")) {
+    if (Engine::InputMan::is_event_active("move_right")) {
 
         m_direction.x = 1;
 
     }
 
-    if (engine::InputMan::is_event_active("move_up")) {
+    if (Engine::InputMan::is_event_active("move_up")) {
 
         m_direction.y = -1;
 
     }
 
-    if (engine::InputMan::is_event_active("move_down")) {
+    if (Engine::InputMan::is_event_active("move_down")) {
 
         m_direction.y = 1;
 
     }
 
-    if (engine::InputMan::is_event_active("move_left")) {
+    if (Engine::InputMan::is_event_active("move_left")) {
 
         m_direction.x = -1;
 
@@ -47,6 +47,9 @@ void Player::update(double dt) {
 
     m_position += movement;
 
+    m_position.x = Clamp(m_position.x, 0.0, Engine::g_canva_size.x);
+    m_position.y = Clamp(m_position.y, 0.0, Engine::g_canva_size.y);
+
     m_hitbox.x = (m_position.x - m_hitbox.width / 2);
     m_hitbox.y = (m_position.y - m_hitbox.height / 2);
 
@@ -58,7 +61,7 @@ void Player::draw() {
     //DrawRectangleRec(m_hitbox, RED);
     Rectangle dest{m_position.x - 8, m_position.y - 8, 16.0f, 16};
     Rectangle origin{3 * 16, 0, -16, 16};
-    DrawTexturePro(assets::ship_tilemap, origin , dest, Vector2{0, 0}, 0.0f, WHITE);
+    DrawTexturePro(Assets::ship_tilemap, origin , dest, Vector2{0, 0}, 0.0f, WHITE);
     DrawCircleV(m_position, 1.0f, GREEN);
     DrawCircleV(m_position, 0.5f, GRAY);
 

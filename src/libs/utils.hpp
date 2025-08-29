@@ -2,7 +2,7 @@
 
 #include "deps.hpp"
 
-namespace engine {
+namespace Engine {
 
 void vector2_round(Vector2& vec); 
 

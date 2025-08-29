@@ -6,7 +6,7 @@
 #include "globals.hpp"
 #include "imgui.h"
 
-using namespace game;
+using namespace Game;
 
 std::vector<ProjectileMan::ProjContainer> ProjectileMan::s_projectiles;
 
@@ -30,8 +30,8 @@ void ProjectileMan::update(double dt) {
  //           std::cout << i << "  past update" << '\n';
             auto pos = cur_proj.proj_uptr->get_position();
 
-            if ((pos.x > engine::g_canva_size.x || pos.x < 0) ||
-                (pos.y > engine::g_canva_size.y || pos.y < 0)) {
+            if ((pos.x > Engine::g_canva_size.x || pos.x < 0) ||
+                (pos.y > Engine::g_canva_size.y || pos.y < 0)) {
 
                 cur_proj.active = false;
                 cur_proj.deadtime.reset();

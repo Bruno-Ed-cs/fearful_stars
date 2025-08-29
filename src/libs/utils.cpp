@@ -3,7 +3,7 @@
 #include "utils.hpp"
 
 
-using namespace engine;
+using namespace Engine;
 
 
 void vector2_round(Vector2& vec){

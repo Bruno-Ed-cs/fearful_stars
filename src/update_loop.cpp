@@ -3,10 +3,10 @@
 #include "loops.hpp"
 #include "globals.hpp"
 
-void engine::update_loop(double dt) {
+void Engine::update_loop(double dt) {
 
-    game::PlayerMan::update(dt);
-    game::ProjectileMan::update(dt);
+    Game::PlayerMan::update(dt);
+    Game::ProjectileMan::update(dt);
 
 
 }

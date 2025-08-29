@@ -4,7 +4,7 @@
 #include "i_projectile.hpp"
 #include "timer.hpp"
 
-namespace game {
+namespace Game {
 
 struct CollisionRes {
 
@@ -44,7 +44,7 @@ public:
             s_projectiles.emplace_back(
                 std::move(proj), 
                 true,
-                engine::Timer(s_inactive_deadtime));
+                Engine::Timer(s_inactive_deadtime));
 
         } else {
 
@@ -71,7 +71,7 @@ private:
 
         std::unique_ptr<IProjectile> proj_uptr;
         bool active;
-        engine::Timer deadtime;
+        Engine::Timer deadtime;
     };
 
     static std::vector<ProjContainer> s_projectiles;

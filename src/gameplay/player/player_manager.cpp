@@ -4,9 +4,9 @@
 #include "player.hpp"
 #include "imgui.h"
 
-using namespace game;
+using namespace Game;
 
-game::Player* PlayerMan::s_player;
+Game::Player* PlayerMan::s_player;
 
 void PlayerMan::setup() {
 

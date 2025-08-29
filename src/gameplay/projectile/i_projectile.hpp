@@ -4,9 +4,9 @@
 
 #include "entity.hpp"
 
-namespace game {
+namespace Game {
 
-class IProjectile : public engine::IEntity{
+class IProjectile : public Engine::IEntity{
 //    please have a default constructor
 //    for the projectile manager
 

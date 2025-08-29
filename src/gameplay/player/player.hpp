@@ -6,9 +6,9 @@
 #include "timer.hpp"
 #include "shooting_machine.hpp"
 
-namespace game {
+namespace Game {
 
-class Player : public engine::IEntity{
+class Player : public Engine::IEntity{
 
 public:
 
@@ -16,7 +16,7 @@ public:
     Vector2 m_direction;
     double m_speed = 150.0f;
     Rectangle m_hitbox;
-    engine::Timer m_cooldown = engine::Timer(0.01f);
+    Engine::Timer m_cooldown = Engine::Timer(0.01f);
     ShootingMachine m_shooting_machine;
 
     Player() {

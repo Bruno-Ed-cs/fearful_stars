@@ -22,19 +22,19 @@ int main(void)
     // Initialization
     //--------------------------------------------------------------------------------------
     
-    engine::g_window = std::make_unique<engine::WinMan>(1280, 720, "Fearful Stars");
+    Engine::g_window = std::make_unique<Engine::WinMan>(1280, 720, "Fearful Stars");
 
 
-    engine::g_canva_size = Vector2{320, 180};
-    engine::g_canva = LoadRenderTexture(engine::g_canva_size.x, engine::g_canva_size.y);
+    Engine::g_canva_size = Vector2{320, 180};
+    Engine::g_canva = LoadRenderTexture(Engine::g_canva_size.x, Engine::g_canva_size.y);
 
-    game::PlayerMan::setup();
+    Game::PlayerMan::setup();
 
     double dt;
 
-    game::assets::ship_tilemap = LoadTexture("assets/sprites/Space_pack/Space_VH.png");
+    Game::Assets::ship_tilemap = LoadTexture("assets/sprites/Space_pack/Space_VH.png");
 
-    engine::InputMan::load_events(controls);
+    Engine::InputMan::load_events(controls);
 
     if(IsGamepadAvailable(0)) {
         std::cout << "gamepad 0 is ready\n";
@@ -48,7 +48,7 @@ int main(void)
     {
         //std::cout << "check 3\n";
         dt = GetFrameTime();
-        engine::InputMan::pull_events();
+        Engine::InputMan::pull_events();
 
         // Update
         //----------------------------------------------------------------------------------
@@ -58,25 +58,25 @@ int main(void)
         // Draw
         //----------------------------------------------------------------------------------
         if (IsKeyPressed(KEY_ENTER)) 
-            engine::g_window->toggle_fullscreen();
+            Engine::g_window->toggle_fullscreen();
 
         if (IsKeyPressed(KEY_F3)) {
 
-            engine::g_debug = !engine::g_debug;
+            Engine::g_debug = !Engine::g_debug;
 
         }
 
-        engine::update_loop(dt);
-        engine::draw_loop();
+        Engine::update_loop(dt);
+        Engine::draw_loop();
 
         //----------------------------------------------------------------------------------
         // window.update_window();
 
-        engine::InputMan::flush_events();
+        Engine::InputMan::flush_events();
     }
 
     rlImGuiShutdown();
-    //engine::InputMan::close();
+    //Engine::InputMan::close();
 
     return 0;
 }

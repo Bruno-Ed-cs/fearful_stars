@@ -1,6 +1,6 @@
 #pragma once
 
-namespace engine {
+namespace Engine {
 
     void update_loop(double dt);
     void draw_loop();

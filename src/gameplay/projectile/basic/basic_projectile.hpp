@@ -5,7 +5,7 @@
 #include "../i_projectile.hpp"
 #include "timer.hpp"
 
-namespace game {
+namespace Game {
 
 class BasicProjectile : public IProjectile {
 

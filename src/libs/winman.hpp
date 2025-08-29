@@ -6,7 +6,7 @@
 #include "raylib.h"
 #include "rlImGui.h"
 
-namespace engine{
+namespace Engine{
 
 class WinMan {
 

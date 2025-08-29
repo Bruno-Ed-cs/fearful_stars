@@ -2,7 +2,7 @@
 
 #include "basic_projectile.hpp"
 
-using namespace game;
+using namespace Game;
 
 void BasicProjectile::update(double dt) {
 

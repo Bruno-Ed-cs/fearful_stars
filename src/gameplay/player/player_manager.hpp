@@ -2,7 +2,7 @@
 
 #include "player.hpp"
 
-namespace game {
+namespace Game {
 
 class PlayerMan {
 

@@ -3,7 +3,7 @@
 #include "deps.hpp"
 #include "input_man.hpp"
 
-static engine::Event controls[] = {
+static Engine::Event controls[] = {
 
     {
     "shoot",
