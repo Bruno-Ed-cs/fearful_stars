@@ -2,7 +2,6 @@
 
 #include "deps.hpp"
 
-#include "position.hpp"
 #include "entity.hpp"
 #include "timer.hpp"
 #include "shooting_machine.hpp"
@@ -13,11 +12,11 @@ class Player : public engine::IEntity{
 
 public:
 
-    engine::Position m_position;
+    Vector2 m_position;
     Vector2 m_direction;
     double m_speed = 150.0f;
     Rectangle m_hitbox;
-    engine::Timer m_cooldown = engine::Timer(0.4f);
+    engine::Timer m_cooldown = engine::Timer(0.01f);
     ShootingMachine m_shooting_machine;
 
     Player() {

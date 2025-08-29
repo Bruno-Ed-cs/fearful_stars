@@ -3,7 +3,7 @@
 #include "deps.hpp"
 
 #include "entity.hpp"
-#include "gameplay/projectile/projectile.hpp"
+#include "gameplay/projectile/i_projectile.hpp"
 #include "winman.hpp"
 
 namespace engine {

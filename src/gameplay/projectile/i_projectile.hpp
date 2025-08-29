@@ -3,7 +3,6 @@
 #include "deps.hpp"
 
 #include "entity.hpp"
-#include "position.hpp"
 
 namespace game {
 
@@ -15,10 +14,10 @@ public:
 
     virtual bool is_foe() = 0;
     virtual Rectangle get_hitbox() = 0;
-    virtual engine::Position get_position() = 0;
+    virtual Vector2 get_position() = 0;
     virtual double get_speed() = 0;
 
-    virtual void reset(engine::Position pos, double speed, Vector2 direction, bool foe) = 0;
+    virtual void reset(Vector2 pos, double speed, Vector2 direction, bool foe) = 0;
 
     virtual ~IProjectile() = default;
 };

@@ -1,7 +1,7 @@
 #pragma once 
 
 #include "deps.hpp"
-#include "projectile.hpp"
+#include "i_projectile.hpp"
 #include "timer.hpp"
 
 namespace game {
@@ -25,7 +25,7 @@ public:
     static void debug();
 
     template<is_projectilile Proj>
-    static void request_projectile(engine::Position pos,
+    static void request_projectile(Vector2 pos,
                                    Vector2 direction,
                                    double speed,
                                    bool foe) {

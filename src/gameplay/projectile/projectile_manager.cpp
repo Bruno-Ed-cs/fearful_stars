@@ -1,6 +1,6 @@
 #include "deps.hpp"
 
-#include "gameplay/projectile/projectile.hpp"
+#include "gameplay/projectile/i_projectile.hpp"
 #include "projectile_manager.hpp"
 #include "basic_projectile.hpp"
 #include "globals.hpp"
@@ -28,7 +28,7 @@ void ProjectileMan::update(double dt) {
             cur_proj.proj_uptr->update(dt);
 
  //           std::cout << i << "  past update" << '\n';
-            auto pos = cur_proj.proj_uptr->get_position().get_round();
+            auto pos = cur_proj.proj_uptr->get_position();
 
             if ((pos.x > engine::g_canva_size.x || pos.x < 0) ||
                 (pos.y > engine::g_canva_size.y || pos.y < 0)) {

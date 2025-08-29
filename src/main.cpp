@@ -6,7 +6,6 @@
 #include "globals.hpp"
 #include "input_man.hpp"
 #include "raylib.h"
-#include "winman.hpp"
 #include "loops.hpp"
 #include "control_schema.hpp"
 
@@ -37,7 +36,7 @@ int main(void)
 
     engine::InputMan::load_events(controls);
 
-    if (IsGamepadAvailable(0)) {
+    if(IsGamepadAvailable(0)) {
         std::cout << "gamepad 0 is ready\n";
     } else {
         std::cout << "gamepad not ready\n";

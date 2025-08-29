@@ -32,7 +32,7 @@ void PlayerMan::debug() {
 
     ImGui::Begin("Player debug");
     {
-        ImGui::Text("Position:\nx: %f\ny: %f", s_player->m_position.get_real().x, s_player->m_position.get_real().y);
+        ImGui::Text("Position:\nx: %f\ny: %f", s_player->m_position.x, s_player->m_position.y);
         ImGui::Text("Shooting cooldown: %f", s_player->m_cooldown.get_time());
     }
     ImGui::End();
