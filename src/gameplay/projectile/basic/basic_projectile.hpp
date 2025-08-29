@@ -2,7 +2,7 @@
 
 #include "deps.hpp"
 
-#include "i_projectile.hpp"
+#include "../i_projectile.hpp"
 #include "timer.hpp"
 
 namespace game {

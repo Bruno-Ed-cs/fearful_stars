@@ -3,7 +3,7 @@
 #include "shooting_machine.hpp"
 #include "gameplay/player/player.hpp"
 #include "gameplay/player/shooting_state.hpp"
-#include "gameplay/projectile/basic_projectile.hpp"
+#include "gameplay/projectile/basic/basic_projectile.hpp"
 #include "gameplay/projectile/projectile_manager.hpp"
 #include "input_man.hpp"
 

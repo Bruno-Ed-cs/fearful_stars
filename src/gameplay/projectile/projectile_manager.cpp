@@ -2,7 +2,7 @@
 
 #include "gameplay/projectile/i_projectile.hpp"
 #include "projectile_manager.hpp"
-#include "basic_projectile.hpp"
+#include "basic/basic_projectile.hpp"
 #include "globals.hpp"
 #include "imgui.h"
 
