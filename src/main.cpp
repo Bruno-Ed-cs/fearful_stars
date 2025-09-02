@@ -1,13 +1,13 @@
 #include "deps.hpp"
 
-#include "entity.hpp"
 #include "gameplay/player/player_manager.hpp"
-#include "gameplay/projectile/projectile_manager.hpp"
 #include "globals.hpp"
 #include "input_man.hpp"
 #include "raylib.h"
 #include "loops.hpp"
 #include "control_schema.hpp"
+#include "gameplay/enemy/enemy_man.hpp"
+#include "gameplay/enemy/basic/basic_enemy.hpp"
 
 #include "imgui.h"
 #include "rlImGui.h"
@@ -43,6 +43,12 @@ int main(void)
 
     }
 
+    Game::EnemyMan enemy_man = Game::EnemyMan();
+
+    auto enemy = std::make_unique<Game::BasicEnemy>();
+    enemy_man.insert_enemy(std::move(enemy));
+
+
     // Main game loop
     while (!WindowShouldClose())    // Detect window close button or ESC key
     {
@@ -66,8 +72,8 @@ int main(void)
 
         }
 
-        Engine::update_loop(dt);
-        Engine::draw_loop();
+        Engine::update_loop(dt, enemy_man);
+        Engine::draw_loop(enemy_man);
 
         //----------------------------------------------------------------------------------
         // window.update_window();

@@ -1,3 +1,4 @@
+#include "gameplay/enemy/enemy_man.hpp"
 #include "gameplay/player/player_manager.hpp"
 #include "gameplay/projectile/projectile_manager.hpp"
 #include "imgui.h"
@@ -7,7 +8,7 @@
 #include "winman.hpp"
 
 
-void Engine::draw_loop() {
+void Engine::draw_loop(Game::EnemyMan& enemy_man) {
 
     BeginTextureMode(g_canva);
     {
@@ -24,6 +25,7 @@ void Engine::draw_loop() {
         Game::ProjectileMan::draw();
         auto& p1 = Game::PlayerMan::get_player();
         p1.draw();
+        enemy_man.draw();
 
 
     }
