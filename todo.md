@@ -3,7 +3,13 @@
 - [x] Timer
 - [x] State machine
 - [x] Input manager
-- [ ] Start enemies / obstacles
-- [ ] Create debbuging
-- [ ] Collision detection
 - [x] Clean interfaces
+- [x] Start enemies / obstacles
+- [x] Create debbuging
+- [x] Collision detection
+- [ ] add id to the projectile manager
+- [ ] maybe use dependency injection in the managers
+- [ ] make the creation of projectiles outiside the manager
+- [ ] decide the approach for the managers
+- [ ] begin the level structure
+- [ ] begin the redering code

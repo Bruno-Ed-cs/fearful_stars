@@ -6,8 +6,8 @@
 
 void Engine::update_loop(double dt, Game::EnemyMan& enemy_man) {
 
-    Game::PlayerMan::update(dt);
-    Game::ProjectileMan::update(dt);
+    Game::PlayerMan::update(dt, enemy_man);
+    Game::ProjectileMan::update(dt, enemy_man);
     enemy_man.update(dt);
 
 

@@ -1,6 +1,7 @@
 #pragma once 
 
 #include "deps.hpp"
+#include "gameplay/enemy/enemy_man.hpp"
 #include "i_projectile.hpp"
 #include "timer.hpp"
 
@@ -20,7 +21,7 @@ class ProjectileMan {
 public:
 
 //    static CollisionRes check_collision(Rectangle target);
-    static void update(double dt);
+    static void update(double dt, EnemyMan& enemy_man);
     static void draw();
     static void debug();
 
@@ -72,6 +73,7 @@ private:
         std::unique_ptr<IProjectile> proj_uptr;
         bool active;
         Engine::Timer deadtime;
+        uint32_t id;
     };
 
     static std::vector<ProjContainer> s_projectiles;

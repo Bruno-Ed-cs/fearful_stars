@@ -1,10 +1,11 @@
 #include "deps.hpp"
+#include "gameplay/enemy/enemy_man.hpp"
 
 #include "basic_projectile.hpp"
 
 using namespace Game;
 
-void BasicProjectile::update(double dt) {
+void BasicProjectile::update(double dt, EnemyMan& enemy_man) {
 
     Vector2 movement = m_direction * m_speed * dt;
 
@@ -12,6 +13,18 @@ void BasicProjectile::update(double dt) {
 
     m_hitbox.x = m_pos.x;
     m_hitbox.y = m_pos.y;
+
+    if (!m_foe) {
+
+        EnemyCollision collision = enemy_man.check_collisions(m_hitbox);
+
+        if (collision.has_collided) {
+
+            enemy_man.destroy_enemy(collision.enemy_id);
+        }
+
+
+    } 
 
 //    std::cout << m_pos.get_real().x << " " << m_pos.get_real().y << '\n';
 }

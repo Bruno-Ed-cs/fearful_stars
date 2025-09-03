@@ -1,6 +1,7 @@
 #include "deps.hpp"
 
 #include "player_manager.hpp"
+#include "gameplay/enemy/enemy_man.hpp"
 #include "player.hpp"
 #include "imgui.h"
 
@@ -15,9 +16,9 @@ void PlayerMan::setup() {
 }
 
 void PlayerMan::clean() {}
-void PlayerMan::update(double dt) {
+void PlayerMan::update(double dt, EnemyMan& enemy_man) {
 
-    s_player->update(dt);
+    s_player->update(dt, enemy_man);
 
 }
 

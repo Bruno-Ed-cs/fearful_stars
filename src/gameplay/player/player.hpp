@@ -5,6 +5,7 @@
 #include "entity.hpp"
 #include "timer.hpp"
 #include "shooting_machine.hpp"
+#include "gameplay/enemy/enemy_man.hpp"
 
 namespace Game {
 
@@ -30,7 +31,7 @@ public:
 
     }
 
-    void update(double dt) override; 
+    void update(double dt, EnemyMan& enemy_man) override; 
     void draw() override;
 
 };

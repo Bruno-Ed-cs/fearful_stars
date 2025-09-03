@@ -5,6 +5,15 @@
 
 namespace Game {
 
+
+struct EnemyCollision {
+
+    bool has_collided;
+    uint32_t enemy_id;
+
+};
+
+
 class EnemyMan {
 
 public:
@@ -20,6 +29,7 @@ public:
     void destroy_enemy(uint32_t enemy_id);
     bool enemy_exists(uint32_t enemy_id);
     void draw();
+    EnemyCollision check_collisions(Rectangle collider);
 
 private:
 

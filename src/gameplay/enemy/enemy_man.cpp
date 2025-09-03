@@ -1,4 +1,5 @@
 #include "enemy_man.hpp"
+#include "raylib.h"
 
 using namespace Game;
 
@@ -7,7 +8,7 @@ void EnemyMan::update(double dt) {
 
     for(size_t i = 0; i < m_enemies_dock.size(); ++i) {
 
-        m_enemies_dock[i].enemy->update(dt);
+        m_enemies_dock[i].enemy->update(dt, *this);
 
     }
 
@@ -95,3 +96,24 @@ void EnemyMan::draw() {
 
     }
 }
+
+EnemyCollision EnemyMan::check_collisions(Rectangle collider) {
+
+    uint32_t enemy_id = 0;
+    bool collided = false;
+
+    for (auto& enemy_container : m_enemies_dock) {
+
+        if (CheckCollisionRecs(collider, enemy_container.enemy->get_hitbox())) {
+
+            collided = true;
+            enemy_id = enemy_container.id;
+            break;
+        }
+
+    }
+
+    return EnemyCollision{collided, enemy_id};
+
+}
+

@@ -1,6 +1,7 @@
 #include "deps.hpp"
 
 #include "player.hpp"
+#include "gameplay/enemy/enemy_man.hpp"
 #include "globals.hpp"
 #include "input_man.hpp"
 #include "shooting_machine.hpp"
@@ -8,7 +9,7 @@
 
 using namespace Game;
 
-void Player::update(double dt) {
+void Player::update(double dt, EnemyMan& enemy_man) {
 
     m_direction = {0,0};
 
