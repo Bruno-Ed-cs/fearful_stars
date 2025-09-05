@@ -1,5 +1,6 @@
 #include "deps.hpp"
 #include "gameplay/enemy/enemy_man.hpp"
+#include "gameplay/projectile/projectile_manager.hpp"
 
 #include "basic_projectile.hpp"
 
@@ -20,7 +21,12 @@ void BasicProjectile::update(double dt, EnemyMan& enemy_man) {
 
         if (collision.has_collided) {
 
-            enemy_man.destroy_enemy(collision.enemy_id);
+            enemy_man.trigger_event(collision.enemy_id, EnemyEvent::take_damage, enemy_man);
+
+            uint32_t id = ProjectileMan::get_id(this);
+            ProjectileMan::append_delete_queue(id);
+
+
         }
 
 

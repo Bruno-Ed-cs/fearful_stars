@@ -13,7 +13,13 @@ public:
     void draw() override;
     void update(double dt, EnemyMan& enemy_man) override;
     void reset(Vector2 position) override;
+    void take_damage(EnemyMan& enemy_man) override;
     Rectangle get_hitbox() override { return m_hitbox; };
+
+    BasicEnemy(Vector2 position) :
+        m_position(position) {};
+
+    BasicEnemy() = default;
 
 private:
 
@@ -21,6 +27,7 @@ private:
     Rectangle m_hitbox {200, 200, 10, 10};
     Vector2 m_direction {0,1};
     double m_speed {1};
+
     
 };
 

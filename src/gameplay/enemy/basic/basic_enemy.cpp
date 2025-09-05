@@ -36,6 +36,14 @@ void BasicEnemy::update(double dt, EnemyMan& enemy_man) {
     }
 };
 
+void BasicEnemy::take_damage(EnemyMan& enemy_man) {
+
+    uint32_t id = enemy_man.get_enemy(this);
+
+    enemy_man.append_delete_queue(id);
+
+}
+
 void BasicEnemy::reset(Vector2 position) {
 
     m_position = position;

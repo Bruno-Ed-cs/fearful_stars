@@ -6,10 +6,12 @@
 #include "basic/basic_projectile.hpp"
 #include "globals.hpp"
 #include "imgui.h"
+#include <stdexcept>
 
 using namespace Game;
 
 std::vector<ProjectileMan::ProjContainer> ProjectileMan::s_projectiles;
+std::queue<uint32_t> ProjectileMan::s_delete_queue;
 
 
 //CollisionRes ProjectileMan::check_collision(Rectangle target) {
@@ -19,6 +21,16 @@ std::vector<ProjectileMan::ProjContainer> ProjectileMan::s_projectiles;
 void ProjectileMan::update(double dt, EnemyMan& enemy_man) {
 
 //    std::cout << "update\n" << s_projectiles.size() << '\n';
+
+    while (!s_delete_queue.empty()) {
+
+        uint32_t id = s_delete_queue.front();
+
+        s_delete_queue.pop();
+
+        delete_projectile(id);
+
+    }
 
     for (size_t i = 0; i < s_projectiles.size(); ++i) {
 
@@ -49,7 +61,6 @@ void ProjectileMan::update(double dt, EnemyMan& enemy_man) {
         }
 
     }
-
 }
 
 void ProjectileMan::draw() {
@@ -92,3 +103,40 @@ void ProjectileMan::debug() {
     ImGui::End();
 
 }
+
+void ProjectileMan::delete_projectile(uint32_t id) {
+
+    for (size_t i = 0; i < s_projectiles.size(); ++i) {
+
+        if (s_projectiles[i].id == id) {
+
+            s_projectiles.erase(s_projectiles.begin() + i);
+
+            break;
+
+        }
+
+    }
+
+}
+
+uint32_t ProjectileMan::get_id(IProjectile* target) {
+
+    for (size_t i = 0; i < s_projectiles.size(); ++i) {
+
+        if (s_projectiles[i].proj_uptr.get() == target) {
+
+            return s_projectiles[i].id;
+        }
+
+    }
+
+    throw std::logic_error("id not found");
+}
+
+void ProjectileMan::append_delete_queue(uint32_t id) {
+
+    s_delete_queue.push(id);
+
+}
+

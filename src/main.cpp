@@ -49,6 +49,26 @@ int main(void)
     enemy_man.insert_enemy(std::move(enemy));
 
 
+    enemy = std::make_unique<Game::BasicEnemy>(Vector2{32, 44});
+    enemy_man.insert_enemy(std::move(enemy));
+
+
+    enemy = std::make_unique<Game::BasicEnemy>(Vector2{32, 44});
+    enemy_man.insert_enemy(std::move(enemy));
+
+
+    enemy = std::make_unique<Game::BasicEnemy>(Vector2{20, 44});
+    enemy_man.insert_enemy(std::move(enemy));
+
+
+    enemy = std::make_unique<Game::BasicEnemy>(Vector2{150, 100});
+    enemy_man.insert_enemy(std::move(enemy));
+
+
+    enemy = std::make_unique<Game::BasicEnemy>(Vector2{100, 44});
+    enemy_man.insert_enemy(std::move(enemy));
+
+
     // Main game loop
     while (!WindowShouldClose())    // Detect window close button or ESC key
     {

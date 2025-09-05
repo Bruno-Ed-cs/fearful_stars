@@ -1,10 +1,18 @@
 #include "enemy_man.hpp"
-#include "raylib.h"
+#include "libs/id_generator.hpp"
+#include <stdexcept>
 
 using namespace Game;
 
 
 void EnemyMan::update(double dt) {
+
+    while (!m_delete_queue.empty()) {
+
+        destroy_enemy(m_delete_queue.front());
+        m_delete_queue.pop();
+
+    }
 
     for(size_t i = 0; i < m_enemies_dock.size(); ++i) {
 
@@ -16,7 +24,9 @@ void EnemyMan::update(double dt) {
 
 uint32_t EnemyMan::insert_enemy(std::unique_ptr<IEnemy> enemy) {
 
-    uint32_t id = generate_id();
+    auto ver_id = [this](uint32_t id) { return this->enemy_exists(id); };
+
+    uint32_t id = Engine::generate_id<EnemyMan>(ver_id);
 
     m_enemies_dock.emplace_back(
         std::move(enemy),
@@ -36,30 +46,6 @@ void EnemyMan::destroy_enemy(uint32_t enemy_id) {
 
     m_enemies_dock.erase(m_enemies_dock.begin() + index);
 
-}
-
-uint32_t EnemyMan::generate_id() {
-
-    constexpr const uint32_t int_lim_32 = 4294967295;
-
-    static uint32_t biggest_id = 0;
-
-    if (biggest_id == int_lim_32) {
-
-        uint32_t ran_id = rand() % int_lim_32;
-        while (enemy_exists(ran_id)) {
-
-            ran_id = rand() % int_lim_32;
-        }
-
-        return ran_id;
-
-    } else {
-
-        biggest_id++;
-        return biggest_id;
-
-    }
 }
 
 bool EnemyMan::enemy_exists(uint32_t enemy_id) {
@@ -114,6 +100,27 @@ EnemyCollision EnemyMan::check_collisions(Rectangle collider) {
     }
 
     return EnemyCollision{collided, enemy_id};
+
+}
+
+void EnemyMan::append_delete_queue(uint32_t target_id) {
+
+    m_delete_queue.push(target_id);
+
+}
+
+uint32_t EnemyMan::get_enemy(IEnemy* enemy_ptr) {
+
+    for (size_t i = 0; i < m_enemies_dock.size(); ++i) {
+
+        if (m_enemies_dock[i].enemy.get() == enemy_ptr) {
+
+            return m_enemies_dock[i].id;
+        }
+
+    }
+
+    throw std::logic_error("id not found");
 
 }
 

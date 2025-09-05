@@ -1,9 +1,12 @@
 #pragma once
 
+#include <functional>
+#include <cstdarg>
 #include <memory>
 #include <print>
 #include <vector>
 #include <cassert>
+#include <queue>
 #include <span>
 #include <type_traits>
 #include <cmath>
