@@ -6,7 +6,7 @@
 
 using namespace Game;
 
-void BasicProjectile::update(double dt, EnemyMan& enemy_man) {
+void BasicProjectile::update(double dt, EnemyMan& enemy_man, ProjectileMan& projectile_man) {
 
     Vector2 movement = m_direction * m_speed * dt;
 
@@ -23,8 +23,8 @@ void BasicProjectile::update(double dt, EnemyMan& enemy_man) {
 
             enemy_man.trigger_event(collision.enemy_id, EnemyEvent::take_damage, enemy_man);
 
-            uint32_t id = ProjectileMan::get_id(this);
-            ProjectileMan::append_delete_queue(id);
+            uint32_t id = projectile_man.get_id(this);
+            projectile_man.append_delete_queue(id);
 
 
         }

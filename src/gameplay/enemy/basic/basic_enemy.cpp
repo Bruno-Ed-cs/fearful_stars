@@ -1,5 +1,6 @@
 #include "basic_enemy.hpp"
 #include "gameplay/enemy/enemy_man.hpp"
+#include "gameplay/projectile/projectile_manager.hpp"
 #include "globals.hpp"
 #include "raymath.h"
 #include "gameplay/player/player_manager.hpp"
@@ -12,7 +13,7 @@ void BasicEnemy::draw() {
     DrawRectangleRec(m_hitbox, YELLOW);
 };
 
-void BasicEnemy::update(double dt, EnemyMan& enemy_man) {
+void BasicEnemy::update(double dt, EnemyMan& enemy_man, ProjectileMan& projectile_man) {
 
     m_hitbox.x = m_position.x - m_hitbox.width/2;
     m_hitbox.y = m_position.y - m_hitbox.height/2;

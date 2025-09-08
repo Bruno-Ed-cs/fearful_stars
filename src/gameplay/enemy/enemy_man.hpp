@@ -1,6 +1,7 @@
 #pragma once
 
 #include "deps.hpp"
+#include "gameplay/projectile/projectile_manager.hpp"
 #include "i_enemy.hpp"
 #include <cstdint>
 #include <utility>
@@ -31,7 +32,7 @@ public:
 
     }
 
-    void update(double dt);
+    void update(double dt, ProjectileMan& projectile_man);
     uint32_t get_enemy(IEnemy* enemy_ptr);
     uint32_t insert_enemy(std::unique_ptr<IEnemy> enemy);
     bool enemy_exists(uint32_t enemy_id);

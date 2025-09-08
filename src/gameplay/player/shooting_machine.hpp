@@ -1,6 +1,7 @@
 #pragma once
 #include "deps.hpp"
 
+#include "gameplay/projectile/projectile_manager.hpp"
 #include "shooting_state.hpp"
 
 namespace Game {
@@ -23,7 +24,7 @@ public:
     ~ShootingMachine() = default;
 
 
-    void run(Player* player);
+    void run(Player* player, ProjectileMan& projectile_man);
     void transition_to(const std::string& state_name);
 
 private:

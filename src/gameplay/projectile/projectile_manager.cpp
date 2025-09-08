@@ -10,38 +10,34 @@
 
 using namespace Game;
 
-std::vector<ProjectileMan::ProjContainer> ProjectileMan::s_projectiles;
-std::queue<uint32_t> ProjectileMan::s_delete_queue;
-
-
 //CollisionRes ProjectileMan::check_collision(Rectangle target) {
 
 //}
 
 void ProjectileMan::update(double dt, EnemyMan& enemy_man) {
 
-//    std::cout << "update\n" << s_projectiles.size() << '\n';
+//    std::cout << "update\n" << m_projectiles.size() << '\n';
 
-    while (!s_delete_queue.empty()) {
+    while (!m_delete_queue.empty()) {
 
-        uint32_t id = s_delete_queue.front();
+        uint32_t id = m_delete_queue.front();
 
-        s_delete_queue.pop();
+        m_delete_queue.pop();
 
         delete_projectile(id);
 
     }
 
-    for (size_t i = 0; i < s_projectiles.size(); ++i) {
+    for (size_t i = 0; i < m_projectiles.size(); ++i) {
 
-        auto& cur_proj = s_projectiles[i];
+        auto& cur_proj = m_projectiles[i];
 
         if (cur_proj.active) {
 
-            cur_proj.proj_uptr->update(dt, enemy_man);
+            cur_proj.projectile_ptr->update(dt, enemy_man, *this);
 
  //           std::cout << i << "  past update" << '\n';
-            auto pos = cur_proj.proj_uptr->get_position();
+            auto pos = cur_proj.projectile_ptr->get_position();
 
             if ((pos.x > Engine::g_canva_size.x || pos.x < 0) ||
                 (pos.y > Engine::g_canva_size.y || pos.y < 0)) {
@@ -56,7 +52,7 @@ void ProjectileMan::update(double dt, EnemyMan& enemy_man) {
 
             if (cur_proj.deadtime.past_limit()) {
 
-                s_projectiles.erase(s_projectiles.begin() + i);
+                m_projectiles.erase(m_projectiles.begin() + i);
             }
         }
 
@@ -65,13 +61,13 @@ void ProjectileMan::update(double dt, EnemyMan& enemy_man) {
 
 void ProjectileMan::draw() {
 
-    for (size_t i = 0; i < s_projectiles.size(); ++i) {
+    for (size_t i = 0; i < m_projectiles.size(); ++i) {
 
-        auto& cur_proj = s_projectiles[i];
+        auto& cur_proj = m_projectiles[i];
 
         if (cur_proj.active) {
 
-            cur_proj.proj_uptr->draw();
+            cur_proj.projectile_ptr->draw();
 
         }
 
@@ -87,16 +83,16 @@ void ProjectileMan::debug() {
     ImGui::Begin("Projectile Manager Debug", &window_open);
     {
 
-        ImGui::Text("Projectiles in buffer: %d", (int)s_projectiles.size());
+        ImGui::Text("Projectiles in buffer: %d", (int)m_projectiles.size());
 
         int active_proj = 0;
-        for (auto& proj : s_projectiles) {
+        for (auto& proj : m_projectiles) {
 
             if (proj.active) ++active_proj;
         }
 
         ImGui::Text("Active Projectiles: %d", active_proj);
-        ImGui::Text("Inactive Projectiles: %d", (int)s_projectiles.size() - active_proj);
+        ImGui::Text("Inactive Projectiles: %d", (int)m_projectiles.size() - active_proj);
 
 
     }
@@ -106,11 +102,27 @@ void ProjectileMan::debug() {
 
 void ProjectileMan::delete_projectile(uint32_t id) {
 
-    for (size_t i = 0; i < s_projectiles.size(); ++i) {
+    for (size_t i = 0; i < m_projectiles.size(); ++i) {
 
-        if (s_projectiles[i].id == id) {
+        if (m_projectiles[i].id == id) {
 
-            s_projectiles.erase(s_projectiles.begin() + i);
+            m_projectiles.erase(m_projectiles.begin() + i);
+
+            break;
+
+        }
+
+    }
+
+}
+
+void ProjectileMan::deactivate_projectile(uint32_t id) {
+
+    for (size_t i = 0; i < m_projectiles.size(); ++i) {
+
+        if (m_projectiles[i].id == id) {
+
+            m_projectiles[i].active = false;
 
             break;
 
@@ -122,11 +134,11 @@ void ProjectileMan::delete_projectile(uint32_t id) {
 
 uint32_t ProjectileMan::get_id(IProjectile* target) {
 
-    for (size_t i = 0; i < s_projectiles.size(); ++i) {
+    for (size_t i = 0; i < m_projectiles.size(); ++i) {
 
-        if (s_projectiles[i].proj_uptr.get() == target) {
+        if (m_projectiles[i].projectile_ptr.get() == target) {
 
-            return s_projectiles[i].id;
+            return m_projectiles[i].id;
         }
 
     }
@@ -136,7 +148,7 @@ uint32_t ProjectileMan::get_id(IProjectile* target) {
 
 void ProjectileMan::append_delete_queue(uint32_t id) {
 
-    s_delete_queue.push(id);
+    m_delete_queue.push(id);
 
 }
 

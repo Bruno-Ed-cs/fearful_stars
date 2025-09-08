@@ -1,11 +1,12 @@
 #include "enemy_man.hpp"
+#include "gameplay/projectile/projectile_manager.hpp"
 #include "libs/id_generator.hpp"
 #include <stdexcept>
 
 using namespace Game;
 
 
-void EnemyMan::update(double dt) {
+void EnemyMan::update(double dt, ProjectileMan& projectile_man) {
 
     while (!m_delete_queue.empty()) {
 
@@ -16,7 +17,7 @@ void EnemyMan::update(double dt) {
 
     for(size_t i = 0; i < m_enemies_dock.size(); ++i) {
 
-        m_enemies_dock[i].enemy->update(dt, *this);
+        m_enemies_dock[i].enemy->update(dt, *this, projectile_man);
 
     }
 

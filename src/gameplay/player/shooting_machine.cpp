@@ -9,7 +9,7 @@
 
 using namespace Game;
 
-void ShootingMachine::run(Player* player) {
+void ShootingMachine::run(Player* player, ProjectileMan& projectile_man) {
 
     m_running = true;
      
@@ -18,8 +18,8 @@ void ShootingMachine::run(Player* player) {
 
         auto& state = *m_state_collection[m_state];
 
-        state.run(player, *this);
-        bool has_transitioned = state.transition(player, *this);
+        state.run(player, *this, projectile_man);
+        bool has_transitioned = state.transition(player, *this, projectile_man);
         
         //std::println("loop is {}", m_running);
 
@@ -39,13 +39,13 @@ void ShootingMachine::transition_to(const std::string& state_name) {
 
 }
 
-void StateIdle::run(Player* player, ShootingMachine& machine) {
+void StateIdle::run(Player* player, ShootingMachine& machine, ProjectileMan& projectile_man) {
 
     return;
 
 }
 
-bool StateIdle::transition(Player* player, ShootingMachine& machine) {
+bool StateIdle::transition(Player* player, ShootingMachine& machine, ProjectileMan& projectile_man) {
 
     if(player->m_cooldown.past_limit() && Engine::InputMan::is_event_active("shoot")) {
 
@@ -59,7 +59,7 @@ bool StateIdle::transition(Player* player, ShootingMachine& machine) {
 
 }
 
-void StateShoot::run(Player* player, ShootingMachine& machine) {
+void StateShoot::run(Player* player, ShootingMachine& machine, ProjectileMan& projectile_man) {
 
     double proj_speed = 200.0f;
     Vector2 direction{1, 0};
@@ -68,10 +68,10 @@ void StateShoot::run(Player* player, ShootingMachine& machine) {
     pos += Vector2{0, -3};
 
 
-    ProjectileMan::request_projectile<BasicProjectile>(pos, direction, proj_speed, foe);
+    projectile_man.create_projectile<BasicProjectile>(pos, direction, proj_speed, foe);
 }
 
-bool StateShoot::transition(Player* player, ShootingMachine& machine) {
+bool StateShoot::transition(Player* player, ShootingMachine& machine, ProjectileMan& projectile_man) {
 
     return false;
 

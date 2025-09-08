@@ -4,6 +4,7 @@
 
 #include "../i_projectile.hpp"
 #include "gameplay/enemy/enemy_man.hpp"
+#include "gameplay/projectile/projectile_manager.hpp"
 #include "timer.hpp"
 
 namespace Game {
@@ -35,7 +36,7 @@ public:
 
     }
 
-    void update(double dt, EnemyMan& enemy_man) override;
+    void update(double dt, EnemyMan& enemy_man, ProjectileMan& projectile_man) override;
     void draw() override;
 
 private:

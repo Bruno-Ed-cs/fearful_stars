@@ -1,6 +1,7 @@
 #include "deps.hpp"
 
 #include "gameplay/player/player_manager.hpp"
+#include "gameplay/projectile/projectile_manager.hpp"
 #include "globals.hpp"
 #include "input_man.hpp"
 #include "raylib.h"
@@ -44,6 +45,7 @@ int main(void)
     }
 
     Game::EnemyMan enemy_man = Game::EnemyMan();
+    Game::ProjectileMan projectile_man = Game::ProjectileMan();
 
     auto enemy = std::make_unique<Game::BasicEnemy>();
     enemy_man.insert_enemy(std::move(enemy));
@@ -92,8 +94,8 @@ int main(void)
 
         }
 
-        Engine::update_loop(dt, enemy_man);
-        Engine::draw_loop(enemy_man);
+        Engine::update_loop(dt, enemy_man, projectile_man);
+        Engine::draw_loop(enemy_man, projectile_man);
 
         //----------------------------------------------------------------------------------
         // window.update_window();

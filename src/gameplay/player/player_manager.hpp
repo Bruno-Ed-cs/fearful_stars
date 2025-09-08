@@ -1,6 +1,7 @@
 #pragma once
 
 #include "gameplay/enemy/enemy_man.hpp"
+#include "gameplay/projectile/projectile_manager.hpp"
 #include "player.hpp"
 
 namespace Game {
@@ -11,7 +12,7 @@ public:
 
     static void setup();
     static void clean();
-    static void update(double dt, EnemyMan& enemy_man);
+    static void update(double dt, EnemyMan& enemy_man, ProjectileMan& projectile_man);
 
     static Player& get_player();
     static void debug();

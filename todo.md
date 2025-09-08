@@ -7,7 +7,8 @@
 - [x] Start enemies / obstacles
 - [x] Create debbuging
 - [x] Collision detection
-- [ ] add id to the projectile manager
+- [x] add id to the projectile manager
+- [ ] add events to projectiles
 - [ ] maybe use dependency injection in the managers
 - [ ] make the creation of projectiles outiside the manager
 - [ ] decide the approach for the managers

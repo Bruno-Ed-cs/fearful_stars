@@ -2,6 +2,7 @@
 
 #include "player.hpp"
 #include "gameplay/enemy/enemy_man.hpp"
+#include "gameplay/projectile/projectile_manager.hpp"
 #include "globals.hpp"
 #include "input_man.hpp"
 #include "shooting_machine.hpp"
@@ -9,7 +10,7 @@
 
 using namespace Game;
 
-void Player::update(double dt, EnemyMan& enemy_man) {
+void Player::update(double dt, EnemyMan& enemy_man, ProjectileMan& projectile_man) {
 
     m_direction = {0,0};
 
@@ -37,7 +38,7 @@ void Player::update(double dt, EnemyMan& enemy_man) {
 
     }
 
-    m_shooting_machine.run(this);
+    m_shooting_machine.run(this, projectile_man);
 
     m_cooldown.update(dt);
 

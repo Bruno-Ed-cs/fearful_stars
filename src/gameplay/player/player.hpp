@@ -3,6 +3,7 @@
 #include "deps.hpp"
 
 #include "entity.hpp"
+#include "gameplay/projectile/projectile_manager.hpp"
 #include "timer.hpp"
 #include "shooting_machine.hpp"
 #include "gameplay/enemy/enemy_man.hpp"
@@ -31,7 +32,7 @@ public:
 
     }
 
-    void update(double dt, EnemyMan& enemy_man) override; 
+    void update(double dt, EnemyMan& enemy_man, ProjectileMan& projectile_man) override; 
     void draw() override;
 
 };

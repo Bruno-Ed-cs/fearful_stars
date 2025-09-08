@@ -1,5 +1,6 @@
 #pragma once
 #include "deps.hpp"
+#include "gameplay/projectile/projectile_manager.hpp"
 
 
 namespace Game {
@@ -11,8 +12,8 @@ class ShootingState {
 
     public:
 
-    virtual void run(Player* player, ShootingMachine& machine) = 0;
-    virtual bool transition(Player* player, ShootingMachine& machine) = 0;
+    virtual void run(Player* player, ShootingMachine& machine, ProjectileMan& projectile_man) = 0;
+    virtual bool transition(Player* player, ShootingMachine& machine, ProjectileMan& projectile_man) = 0;
     virtual ~ShootingState() = default;
     virtual bool is_final() = 0;
 
@@ -21,8 +22,8 @@ class ShootingState {
 class StateIdle : public ShootingState {
 
     public:
-    bool transition(Player* player, ShootingMachine& machine) override;
-    void run(Player* player, ShootingMachine& machine) override;
+    bool transition(Player* player, ShootingMachine& machine, ProjectileMan& projectile_man) override;
+    void run(Player* player, ShootingMachine& machine, ProjectileMan& projectile_man) override;
     bool is_final() override {
 
         return false;
@@ -33,8 +34,8 @@ class StateIdle : public ShootingState {
 class StateShoot : public ShootingState {
 
     public:
-    bool transition(Player* player, ShootingMachine& machine) override;
-    void run(Player* player, ShootingMachine& machine) override;
+    bool transition(Player* player, ShootingMachine& machine, ProjectileMan& projectile_man) override;
+    void run(Player* player, ShootingMachine& machine, ProjectileMan& projectile_man) override;
     bool is_final() override {
 
         return true;

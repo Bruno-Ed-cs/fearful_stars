@@ -2,6 +2,7 @@
 
 #include "player_manager.hpp"
 #include "gameplay/enemy/enemy_man.hpp"
+#include "gameplay/projectile/projectile_manager.hpp"
 #include "player.hpp"
 #include "imgui.h"
 
@@ -16,9 +17,9 @@ void PlayerMan::setup() {
 }
 
 void PlayerMan::clean() {}
-void PlayerMan::update(double dt, EnemyMan& enemy_man) {
+void PlayerMan::update(double dt, EnemyMan& enemy_man, ProjectileMan& projectile_man ) {
 
-    s_player->update(dt, enemy_man);
+    s_player->update(dt, enemy_man, projectile_man);
 
 }
 

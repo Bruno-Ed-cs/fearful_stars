@@ -5,7 +5,6 @@
 #include "i_projectile.hpp"
 #include "id_generator.hpp"
 #include "timer.hpp"
-#include <print>
 
 namespace Game {
 
@@ -16,25 +15,26 @@ struct CollisionRes {
 };
 
 template <typename T>
-concept is_projectilile = std::is_base_of_v<IProjectile, T> && std::is_default_constructible_v<T>;
+concept is_projectile = std::is_base_of_v<IProjectile, T> && std::is_default_constructible_v<T>;
 
 class ProjectileMan {
 
 public:
 
-    //    static CollisionRes check_collision(Rectangle target);
-    static void update(double dt, EnemyMan& enemy_man);
-    static void draw();
-    static void debug();
-    static void append_delete_queue(uint32_t id);
-    static uint32_t get_id(IProjectile* target);
+    ProjectileMan() :
+        m_projectiles(), m_delete_queue() {}
 
+    void update(double dt, EnemyMan& enemy_man);
+    void draw();
+    void debug();
+    void append_delete_queue(uint32_t id);
+    uint32_t get_id(IProjectile* target);
 
-    template<is_projectilile Proj>
-    static void request_projectile(Vector2 pos,
-                                   Vector2 direction,
-                                   double speed,
-                                   bool foe) {
+    template<is_projectile Proj>
+    void create_projectile(Vector2 pos,
+                           Vector2 direction,
+                           double speed,
+                           bool foe) {
 
         //std::cout << "bullet requested\n";
         QuerryRes response = find_inactive<Proj>();
@@ -46,9 +46,9 @@ public:
             auto proj = std::make_unique<Proj>();
             proj->reset(pos, speed, direction, foe);
 
-            auto id_exists = [](uint32_t id) {
+            auto id_exists = [this](uint32_t id) {
 
-                for (auto& projectile : ProjectileMan::s_projectiles) {
+                for (auto& projectile : m_projectiles) {
                     if (projectile.id == id)
                         return true;
                 }
@@ -60,7 +60,7 @@ public:
             //std::print("{} \n", id);
             //  std::cout << "New projectile position: (" << pos.get_real().x << ", " << pos.get_real().y << ")\n";
 
-            s_projectiles.emplace_back(
+            m_projectiles.emplace_back(
                 std::move(proj), 
                 true,
                 Engine::Timer(s_inactive_deadtime),
@@ -70,13 +70,15 @@ public:
 
             //std::cout << "found remaking\n";
 
-            auto& proj = s_projectiles[response.projectile_index];
-            proj.proj_uptr->reset(pos, speed, direction, foe);
+            auto& proj = m_projectiles[response.projectile_index];
+            proj.projectile_ptr->reset(pos, speed, direction, foe);
             proj.active = true;
 
         }
 
     }
+
+
 
 private: 
 
@@ -89,28 +91,30 @@ private:
 
     struct ProjContainer {
 
-        std::unique_ptr<IProjectile> proj_uptr;
+        std::unique_ptr<IProjectile> projectile_ptr;
         bool active;
         Engine::Timer deadtime;
         uint32_t id;
     };
 
-    static std::vector<ProjContainer> s_projectiles;
-    static std::queue<uint32_t> s_delete_queue;
+    std::vector<ProjContainer> m_projectiles;
+    std::queue<uint32_t> m_delete_queue;
 
     constexpr static double s_inactive_deadtime = 2.0f;
 
-    static void delete_projectile(uint32_t id);
-    template<is_projectilile Proj>
-    static QuerryRes find_inactive() {
+    void delete_projectile(uint32_t id);
+    void deactivate_projectile(uint32_t id);
+
+    template<is_projectile Proj>
+    QuerryRes find_inactive() {
 
         QuerryRes response{0, true};
 
-        for (size_t i = 0; i < s_projectiles.size(); ++i) {
+        for (size_t i = 0; i < m_projectiles.size(); ++i) {
 
-            if (!s_projectiles[i].active && 
-                s_projectiles[i].proj_uptr != nullptr &&
-                typeid(*s_projectiles[i].proj_uptr) == typeid(Proj)) {
+            if (!m_projectiles[i].active && 
+                m_projectiles[i].projectile_ptr != nullptr &&
+                typeid(*m_projectiles[i].projectile_ptr) == typeid(Proj)) {
 
                 response.projectile_index = i;
                 response.not_found = false;

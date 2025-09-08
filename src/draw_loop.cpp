@@ -4,11 +4,10 @@
 #include "imgui.h"
 #include "loops.hpp"
 #include "globals.hpp"
-#include "raylib.h"
 #include "winman.hpp"
 
 
-void Engine::draw_loop(Game::EnemyMan& enemy_man) {
+void Engine::draw_loop(Game::EnemyMan& enemy_man, Game::ProjectileMan& projectile_man) {
 
     BeginTextureMode(g_canva);
     {
@@ -22,7 +21,7 @@ void Engine::draw_loop(Game::EnemyMan& enemy_man) {
         DrawText("Congrats! You created your first window!", 27, 100, 1, LIGHTGRAY);
 
 
-        Game::ProjectileMan::draw();
+        projectile_man.draw();
         auto& p1 = Game::PlayerMan::get_player();
         p1.draw();
         enemy_man.draw();
@@ -59,7 +58,7 @@ void Engine::draw_loop(Game::EnemyMan& enemy_man) {
         }
         ImGui::End();
 
-        Game::ProjectileMan::debug();
+        projectile_man.debug();
         Game::PlayerMan::debug();
 
         rlImGuiEnd();
