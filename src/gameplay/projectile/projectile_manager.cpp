@@ -24,7 +24,7 @@ void ProjectileMan::update(double dt, EnemyMan& enemy_man) {
 
         m_delete_queue.pop();
 
-        delete_projectile(id);
+        deactivate_projectile(id);
 
     }
 

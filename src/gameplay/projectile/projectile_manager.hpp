@@ -114,7 +114,7 @@ private:
 
             if (!m_projectiles[i].active && 
                 m_projectiles[i].projectile_ptr != nullptr &&
-                typeid(*m_projectiles[i].projectile_ptr) == typeid(Proj)) {
+                m_projectiles[i].projectile_ptr->get_type() == typeid(Proj)) {
 
                 response.projectile_index = i;
                 response.not_found = false;

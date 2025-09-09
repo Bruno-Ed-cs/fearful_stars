@@ -38,6 +38,7 @@ public:
 
     void update(double dt, EnemyMan& enemy_man, ProjectileMan& projectile_man) override;
     void draw() override;
+    const std::type_info& get_type() override { return typeid(BasicProjectile); };
 
 private:
 
