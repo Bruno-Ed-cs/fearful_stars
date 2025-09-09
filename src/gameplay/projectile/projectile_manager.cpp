@@ -152,3 +152,15 @@ void ProjectileMan::append_delete_queue(uint32_t id) {
 
 }
 
+IProjectile* ProjectileMan::get_projectile(uint32_t id) {
+
+    for (auto& container : m_projectiles) {
+
+        if (container.id == id) {
+            return container.projectile_ptr.get();
+        }
+    }
+
+    throw std::logic_error("Projectile not found");
+
+}

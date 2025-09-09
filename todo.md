@@ -10,7 +10,6 @@
 - [x] add id to the projectile manager
 - [ ] add events to projectiles
 - [ ] maybe use dependency injection in the managers
-- [ ] make the creation of projectiles outiside the manager
 - [ ] decide the approach for the managers
 - [ ] begin the level structure
 - [ ] begin the redering code

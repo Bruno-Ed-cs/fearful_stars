@@ -5,6 +5,8 @@
 #include "i_projectile.hpp"
 #include "id_generator.hpp"
 #include "timer.hpp"
+#include <cstdint>
+#include <stdexcept>
 
 namespace Game {
 
@@ -12,6 +14,10 @@ struct CollisionRes {
 
     bool collided;
     IProjectile& projectile;
+};
+
+enum struct ProjectileEvent {
+
 };
 
 template <typename T>
@@ -78,6 +84,21 @@ public:
 
     }
 
+    template<typename ... Args>
+    void trigger_event(uint32_t target_id, ProjectileEvent event, Args& ... args) {
+
+        IProjectile* target = get_projectile(target_id);
+
+        switch (event) {
+
+            default:
+                throw std::logic_error("Event not found");
+                break;
+        
+        }
+
+    }
+
 
 
 private: 
@@ -104,6 +125,7 @@ private:
 
     void delete_projectile(uint32_t id);
     void deactivate_projectile(uint32_t id);
+    IProjectile* get_projectile(uint32_t id);
 
     template<is_projectile Proj>
     QuerryRes find_inactive() {
