@@ -2,6 +2,7 @@
 
 #include "player.hpp"
 #include "gameplay/enemy/enemy_man.hpp"
+#include "gameplay/player/player_manager.hpp"
 #include "gameplay/projectile/projectile_manager.hpp"
 #include "globals.hpp"
 #include "input_man.hpp"
@@ -10,63 +11,61 @@
 
 using namespace Game;
 
-void Player::update(double dt, EnemyMan& enemy_man, ProjectileMan& projectile_man) {
+void Player::update(double dt, EnemyMan& enemy_man, ProjectileMan& projectile_man, PlayerMan& player_man) {
 
-    m_direction = {0,0};
+    direction = {0,0};
 
     if (Engine::InputMan::is_event_active("move_right")) {
 
-        m_direction.x = 1;
+        direction.x = 1;
 
     }
 
     if (Engine::InputMan::is_event_active("move_up")) {
 
-        m_direction.y = -1;
+        direction.y = -1;
 
     }
 
     if (Engine::InputMan::is_event_active("move_down")) {
 
-        m_direction.y = 1;
+        direction.y = 1;
 
     }
 
     if (Engine::InputMan::is_event_active("move_left")) {
 
-        m_direction.x = -1;
+        direction.x = -1;
 
     }
 
-    m_shooting_machine.run(this, projectile_man);
+    shooting_machine.run(this, projectile_man);
 
-    m_cooldown.update(dt);
+    cooldown.update(dt);
 
 
-    m_direction = Vector2Normalize(m_direction);
+    direction = Vector2Normalize(direction);
 
-    Vector2 movement = m_direction * (dt * m_speed);
+    Vector2 movement = direction * (dt * speed);
 
-    m_position += movement;
+    position += movement;
 
-    m_position.x = Clamp(m_position.x, 0.0, Engine::g_canva_size.x);
-    m_position.y = Clamp(m_position.y, 0.0, Engine::g_canva_size.y);
+    position.x = Clamp(position.x, 0.0, Engine::g_canva_size.x);
+    position.y = Clamp(position.y, 0.0, Engine::g_canva_size.y);
 
-    m_hitbox.x = (m_position.x - m_hitbox.width / 2);
-    m_hitbox.y = (m_position.y - m_hitbox.height / 2);
+    hitbox.x = (position.x - hitbox.width / 2);
+    hitbox.y = (position.y - hitbox.height / 2);
 
-    //std::cout << m_position.get_round().x << " " << m_position.get_round().y << " " << m_direction.x << " " << m_direction.y <<'\n';
+    //std::cout << position.get_round().x << " " << position.get_round().y << " " << direction.x << " " << direction.y <<'\n';
 }
 
 void Player::draw() {
 
-    //DrawRectangleRec(m_hitbox, RED);
-    Rectangle dest{m_position.x - 8, m_position.y - 8, 16.0f, 16};
+    //DrawRectangleRec(hitbox, RED);
+    Rectangle dest{position.x - 8, position.y - 8, 16.0f, 16};
     Rectangle origin{3 * 16, 0, -16, 16};
     DrawTexturePro(Assets::ship_tilemap, origin , dest, Vector2{0, 0}, 0.0f, WHITE);
-    DrawCircleV(m_position, 1.0f, GREEN);
-    DrawCircleV(m_position, 0.5f, GRAY);
-
-
+    DrawCircleV(position, 1.0f, GREEN);
+    DrawCircleV(position, 0.5f, GRAY);
 
 }

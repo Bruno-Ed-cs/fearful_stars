@@ -10,30 +10,30 @@ using namespace Game;
 
 void BasicEnemy::draw() {
 
-    DrawRectangleRec(m_hitbox, YELLOW);
+    DrawRectangleRec(hitbox, YELLOW);
 };
 
-void BasicEnemy::update(double dt, EnemyMan& enemy_man, ProjectileMan& projectile_man) {
+void BasicEnemy::update(double dt, EnemyMan& enemy_man, ProjectileMan& projectile_man, PlayerMan& player_man) {
 
-    m_hitbox.x = m_position.x - m_hitbox.width/2;
-    m_hitbox.y = m_position.y - m_hitbox.height/2;
+    hitbox.x = position.x - hitbox.width/2;
+    hitbox.y = position.y - hitbox.height/2;
 
-    Player& player = PlayerMan::get_player();
-    if (Vector2Distance(player.m_position, m_position) > 50){
-        if (m_direction == Vector2{0,1} && m_position.y > Engine::g_canva_size.y) 
-            m_direction = Vector2{0, -1};
+    Player& player = player_man.get_player();
+    if (Vector2Distance(player.position, position) > 50){
+        if (direction == Vector2{0,1} && position.y > Engine::g_canva_size.y) 
+            direction = Vector2{0, -1};
 
-        if (m_direction == Vector2{0,-1} && m_position.y < 0) 
-            m_direction = Vector2{0, 1};
+        if (direction == Vector2{0,-1} && position.y < 0) 
+            direction = Vector2{0, 1};
 
-        Vector2 movement = m_direction * m_speed;
+        Vector2 movement = direction * speed;
         movement = Vector2Normalize(movement);
-        m_position += movement;
+        position += movement;
 
     } else {
 
 
-        m_position = Vector2MoveTowards(m_position, player.m_position, m_speed);
+        position = Vector2MoveTowards(position, player.position, speed);
     }
 };
 
@@ -47,8 +47,6 @@ void BasicEnemy::take_damage(EnemyMan& enemy_man) {
 
 void BasicEnemy::reset(Vector2 position) {
 
-    m_position = position;
+    position = position;
 
 };
-
-

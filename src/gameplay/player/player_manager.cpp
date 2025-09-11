@@ -4,40 +4,40 @@
 #include "gameplay/enemy/enemy_man.hpp"
 #include "gameplay/projectile/projectile_manager.hpp"
 #include "player.hpp"
-#include "imgui.h"
 
 using namespace Game;
 
-Game::Player* PlayerMan::s_player;
-
-void PlayerMan::setup() {
-
-    s_player = new Player(Vector2{0, 0});
-
-}
-
-void PlayerMan::clean() {}
 void PlayerMan::update(double dt, EnemyMan& enemy_man, ProjectileMan& projectile_man ) {
 
-    s_player->update(dt, enemy_man, projectile_man);
+    m_player1->update(dt, enemy_man, projectile_man, *this);
 
 }
 
 Player& PlayerMan::get_player() {
 
-    return *s_player;
+    return *m_player1;
 }
 
+void PlayerMan::create_player1(Vector2 position) {
+
+    m_player1 = new Player(position);
+}
 
 
 void PlayerMan::debug() {
 
     ImGui::Begin("Player debug");
     {
-        ImGui::Text("Position:\nx: %f\ny: %f", s_player->m_position.x, s_player->m_position.y);
-        ImGui::Text("Shooting cooldown: %f", s_player->m_cooldown.get_time());
+        ImGui::Text("Position:\nx: %f\ny: %f", m_player1->position.x, m_player1->position.y);
+        ImGui::Text("Shooting cooldown: %f", m_player1->cooldown.get_time());
     }
     ImGui::End();
 
+
+}
+
+void PlayerMan::draw() {
+
+    m_player1->draw();
 
 }

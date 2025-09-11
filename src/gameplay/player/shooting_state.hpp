@@ -1,12 +1,12 @@
 #pragma once
 #include "deps.hpp"
-#include "gameplay/projectile/projectile_manager.hpp"
 
 
 namespace Game {
 
 class Player;
 class ShootingMachine;
+class ProjectileMan;
 
 class ShootingState {
 

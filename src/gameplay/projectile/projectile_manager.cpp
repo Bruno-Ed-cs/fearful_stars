@@ -1,6 +1,7 @@
 #include "deps.hpp"
 
 #include "gameplay/enemy/enemy_man.hpp"
+#include "gameplay/player/player_manager.hpp"
 #include "gameplay/projectile/i_projectile.hpp"
 #include "projectile_manager.hpp"
 #include "basic/basic_projectile.hpp"
@@ -14,7 +15,7 @@ using namespace Game;
 
 //}
 
-void ProjectileMan::update(double dt, EnemyMan& enemy_man) {
+void ProjectileMan::update(double dt, EnemyMan& enemy_man, PlayerMan& player_man) {
 
 //    std::cout << "update\n" << m_projectiles.size() << '\n';
 
@@ -34,7 +35,7 @@ void ProjectileMan::update(double dt, EnemyMan& enemy_man) {
 
         if (cur_proj.active) {
 
-            cur_proj.projectile_ptr->update(dt, enemy_man, *this);
+            cur_proj.projectile_ptr->update(dt, enemy_man, *this, player_man);
 
  //           std::cout << i << "  past update" << '\n';
             auto pos = cur_proj.projectile_ptr->get_position();
@@ -97,6 +98,7 @@ void ProjectileMan::debug() {
 
     }
     ImGui::End();
+
 
 }
 

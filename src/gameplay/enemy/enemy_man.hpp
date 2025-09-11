@@ -1,30 +1,29 @@
 #pragma once
 
 #include "deps.hpp"
+#include "gameplay/player/player_manager.hpp"
 #include "gameplay/projectile/projectile_manager.hpp"
 #include "i_enemy.hpp"
-#include <cstdint>
-#include <utility>
 
 namespace Game {
 
-
-struct EnemyCollision {
-
-    bool has_collided;
-    uint32_t enemy_id;
-
-};
-
-enum struct EnemyEvent {
-    take_damage
-
-};
 
 
 class EnemyMan {
 
 public:
+
+    struct Collision {
+
+        bool has_collided;
+        uint32_t enemy_id;
+
+    };
+
+    enum struct Event {
+        take_damage
+
+    };
 
     EnemyMan() {
 
@@ -32,33 +31,14 @@ public:
 
     }
 
-    void update(double dt, ProjectileMan& projectile_man);
+    void update(double dt, ProjectileMan& projectile_man, PlayerMan& player_man);
     uint32_t get_enemy(IEnemy* enemy_ptr);
+    IEnemy& get_enemy(uint32_t enemy_id);
     uint32_t insert_enemy(std::unique_ptr<IEnemy> enemy);
     bool enemy_exists(uint32_t enemy_id);
     void append_delete_queue(uint32_t target_id);
     void draw();
-    EnemyCollision check_collisions(Rectangle collider);
-
-    template<typename... Args>
-    void trigger_event(uint32_t target_id, EnemyEvent event, Args&&... args) {
-
-        IEnemy& target = *m_enemies_dock[get_index(target_id)].enemy.get();
-
-        switch (event) {
-
-            case EnemyEvent::take_damage:
-                target.take_damage(std::forward<Args>(args)...);
-                break;
-
-            default:
-                throw std::logic_error("Event not found");
-
-
-        }
-    }
-
-
+    EnemyMan::Collision check_collisions(Rectangle collider);
 
 private:
 

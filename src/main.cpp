@@ -10,9 +10,6 @@
 #include "gameplay/enemy/enemy_man.hpp"
 #include "gameplay/enemy/basic/basic_enemy.hpp"
 
-#include "imgui.h"
-#include "rlImGui.h"
-
 //------------------------------------------------------------------------------------
 // Program main entry point
 //------------------------------------------------------------------------------------
@@ -29,7 +26,6 @@ int main(void)
     Engine::g_canva_size = Vector2{320, 180};
     Engine::g_canva = LoadRenderTexture(Engine::g_canva_size.x, Engine::g_canva_size.y);
 
-    Game::PlayerMan::setup();
 
     double dt;
 
@@ -46,6 +42,9 @@ int main(void)
 
     Game::EnemyMan enemy_man = Game::EnemyMan();
     Game::ProjectileMan projectile_man = Game::ProjectileMan();
+    Game::PlayerMan player_man = Game::PlayerMan();
+
+    player_man.create_player1(Vector2{ 60, 150 });
 
     auto enemy = std::make_unique<Game::BasicEnemy>();
     enemy_man.insert_enemy(std::move(enemy));
@@ -94,8 +93,8 @@ int main(void)
 
         }
 
-        Engine::update_loop(dt, enemy_man, projectile_man);
-        Engine::draw_loop(enemy_man, projectile_man);
+        Engine::update_loop(dt, enemy_man, projectile_man, player_man);
+        Engine::draw_loop(enemy_man, projectile_man, player_man);
 
         //----------------------------------------------------------------------------------
         // window.update_window();

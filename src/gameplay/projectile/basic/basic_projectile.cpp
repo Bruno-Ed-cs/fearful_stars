@@ -1,27 +1,29 @@
 #include "deps.hpp"
 #include "gameplay/enemy/enemy_man.hpp"
+#include "gameplay/player/player_manager.hpp"
 #include "gameplay/projectile/projectile_manager.hpp"
 
 #include "basic_projectile.hpp"
 
 using namespace Game;
 
-void BasicProjectile::update(double dt, EnemyMan& enemy_man, ProjectileMan& projectile_man) {
+void BasicProjectile::update(double dt, EnemyMan& enemy_man, ProjectileMan& projectile_man, PlayerMan& player_man) {
 
-    Vector2 movement = m_direction * m_speed * dt;
+    Vector2 movement = direction * speed * dt;
 
-    m_pos += movement;
+    pos += movement;
 
-    m_hitbox.x = m_pos.x;
-    m_hitbox.y = m_pos.y;
+    hitbox.x = pos.x;
+    hitbox.y = pos.y;
 
-    if (!m_foe) {
+    if (!foe) {
 
-        EnemyCollision collision = enemy_man.check_collisions(m_hitbox);
+        EnemyMan::Collision collision = enemy_man.check_collisions(hitbox);
 
         if (collision.has_collided) {
 
-            enemy_man.trigger_event(collision.enemy_id, EnemyEvent::take_damage, enemy_man);
+            IEnemy& enemy = enemy_man.get_enemy(collision.enemy_id);
+            enemy.take_damage(enemy_man);
 
             uint32_t id = projectile_man.get_id(this);
             projectile_man.append_delete_queue(id);
@@ -32,11 +34,11 @@ void BasicProjectile::update(double dt, EnemyMan& enemy_man, ProjectileMan& proj
 
     } 
 
-//    std::cout << m_pos.get_real().x << " " << m_pos.get_real().y << '\n';
+//    std::cout << pos.get_real().x << " " << pos.get_real().y << '\n';
 }
 
 void BasicProjectile::draw() {
 
-    DrawRectangleRec(m_hitbox, BLUE);
+    DrawRectangleRec(hitbox, BLUE);
 
 }

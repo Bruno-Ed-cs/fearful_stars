@@ -13,6 +13,7 @@ public:
     virtual Rectangle get_hitbox() = 0;
     virtual void take_damage(EnemyMan& enemy_man) = 0;
 
+
 };
     
 }

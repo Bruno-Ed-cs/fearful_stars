@@ -1,12 +1,12 @@
 #include "enemy_man.hpp"
+#include "gameplay/player/player_manager.hpp"
 #include "gameplay/projectile/projectile_manager.hpp"
 #include "libs/id_generator.hpp"
-#include <stdexcept>
 
 using namespace Game;
 
 
-void EnemyMan::update(double dt, ProjectileMan& projectile_man) {
+void EnemyMan::update(double dt, ProjectileMan& projectile_man, PlayerMan& player_man) {
 
     while (!m_delete_queue.empty()) {
 
@@ -17,7 +17,7 @@ void EnemyMan::update(double dt, ProjectileMan& projectile_man) {
 
     for(size_t i = 0; i < m_enemies_dock.size(); ++i) {
 
-        m_enemies_dock[i].enemy->update(dt, *this, projectile_man);
+        m_enemies_dock[i].enemy->update(dt, *this, projectile_man, player_man);
 
     }
 
@@ -84,7 +84,7 @@ void EnemyMan::draw() {
     }
 }
 
-EnemyCollision EnemyMan::check_collisions(Rectangle collider) {
+EnemyMan::Collision EnemyMan::check_collisions(Rectangle collider) {
 
     uint32_t enemy_id = 0;
     bool collided = false;
@@ -100,7 +100,7 @@ EnemyCollision EnemyMan::check_collisions(Rectangle collider) {
 
     }
 
-    return EnemyCollision{collided, enemy_id};
+    return EnemyMan::Collision{collided, enemy_id};
 
 }
 
@@ -117,6 +117,22 @@ uint32_t EnemyMan::get_enemy(IEnemy* enemy_ptr) {
         if (m_enemies_dock[i].enemy.get() == enemy_ptr) {
 
             return m_enemies_dock[i].id;
+        }
+
+    }
+
+    throw std::logic_error("enemy not found");
+
+}
+
+IEnemy& EnemyMan::get_enemy(uint32_t enemy_id) {
+
+
+    for (size_t i = 0; i < m_enemies_dock.size(); ++i) {
+
+        if (m_enemies_dock[i].id == enemy_id) {
+
+            return *m_enemies_dock[i].enemy;
         }
 
     }

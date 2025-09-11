@@ -47,9 +47,9 @@ void StateIdle::run(Player* player, ShootingMachine& machine, ProjectileMan& pro
 
 bool StateIdle::transition(Player* player, ShootingMachine& machine, ProjectileMan& projectile_man) {
 
-    if(player->m_cooldown.past_limit() && Engine::InputMan::is_event_active("shoot")) {
+    if(player->cooldown.past_limit() && Engine::InputMan::is_event_active("shoot")) {
 
-        player->m_cooldown.reset();
+        player->cooldown.reset();
         machine.transition_to("Shoot");
         return true;
 
@@ -64,7 +64,7 @@ void StateShoot::run(Player* player, ShootingMachine& machine, ProjectileMan& pr
     double proj_speed = 200.0f;
     Vector2 direction{1, 0};
     bool foe = false;
-    Vector2 pos = player->m_position;
+    Vector2 pos = player->position;
     pos += Vector2{0, -3};
 
 

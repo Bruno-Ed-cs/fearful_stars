@@ -1,12 +1,12 @@
 #pragma once
 #include "deps.hpp"
 
-#include "gameplay/projectile/projectile_manager.hpp"
 #include "shooting_state.hpp"
 
 namespace Game {
 
 class Player;
+class ProjectileMan;
 
 class ShootingMachine {
 
@@ -22,6 +22,8 @@ public:
     }
 
     ~ShootingMachine() = default;
+    ShootingMachine(const ShootingMachine&) = delete;
+    ShootingMachine& operator=(const ShootingMachine&) = delete;
 
 
     void run(Player* player, ProjectileMan& projectile_man);

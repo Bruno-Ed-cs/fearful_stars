@@ -1,25 +1,27 @@
 #pragma once
 
-#include "gameplay/enemy/enemy_man.hpp"
-#include "gameplay/projectile/projectile_manager.hpp"
 #include "player.hpp"
 
 namespace Game {
+
+class ProjectileMan;
+class EnemyMan;
 
 class PlayerMan {
 
 public:
 
-    static void setup();
-    static void clean();
-    static void update(double dt, EnemyMan& enemy_man, ProjectileMan& projectile_man);
+    void update(double dt, EnemyMan& enemy_man, ProjectileMan& projectile_man);
+    void draw();
+    Player& get_player();
+    void create_player1(Vector2 position);
 
-    static Player& get_player();
-    static void debug();
+
+    void debug();
 
 private:
 
-    static Player* s_player;
+    Player* m_player1;
 
 };
 

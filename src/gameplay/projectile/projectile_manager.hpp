@@ -2,19 +2,12 @@
 
 #include "deps.hpp"
 #include "gameplay/enemy/enemy_man.hpp"
+#include "gameplay/player/player_manager.hpp"
 #include "i_projectile.hpp"
 #include "id_generator.hpp"
 #include "timer.hpp"
-#include <cstdint>
-#include <stdexcept>
 
 namespace Game {
-
-struct CollisionRes {
-
-    bool collided;
-    IProjectile& projectile;
-};
 
 enum struct ProjectileEvent {
 
@@ -27,10 +20,17 @@ class ProjectileMan {
 
 public:
 
+    struct CollisionRes {
+
+        bool collided;
+        IProjectile& projectile;
+    };
+
+
     ProjectileMan() :
         m_projectiles(), m_delete_queue() {}
 
-    void update(double dt, EnemyMan& enemy_man);
+    void update(double dt, EnemyMan& enemy_man, PlayerMan& player_man);
     void draw();
     void debug();
     void append_delete_queue(uint32_t id);
