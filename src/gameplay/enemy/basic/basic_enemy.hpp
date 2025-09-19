@@ -5,6 +5,7 @@
 #include "gameplay/enemy/i_enemy.hpp"
 #include "gameplay/player/player_manager.hpp"
 #include "gameplay/projectile/projectile_manager.hpp"
+#include "gameplay/components/health.hpp"
 
 namespace Game {
 
@@ -12,10 +13,20 @@ class BasicEnemy : public IEnemy {
 
 public:
 
-    BasicEnemy(Vector2 position) :
-        position(position) {};
+    Engine::ComponentContainer components;
 
-    BasicEnemy() = default;
+    BasicEnemy(Vector2 position) :
+        position(position) {
+
+        make_components();
+
+    };
+
+    BasicEnemy() {
+
+        make_components();
+
+    };
 
     void draw() override;
     void update(double dt, EnemyMan& enemy_man, ProjectileMan& projectile_man, PlayerMan& player_man) override;
@@ -31,6 +42,18 @@ public:
     Vector2 direction {0,1};
     double speed {1};
 
+private:
+
+    void make_components() {
+
+        Engine::IComponent* comps[] = {
+
+            new Health(2)
+
+        };
+
+        components = Engine::ComponentContainer{ comps }; 
+    }
 
 
     

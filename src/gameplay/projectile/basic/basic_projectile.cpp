@@ -13,9 +13,6 @@ void BasicProjectile::update(double dt, EnemyMan& enemy_man, ProjectileMan& proj
 
     pos += movement;
 
-    hitbox.x = pos.x;
-    hitbox.y = pos.y;
-
     if (!foe) {
 
         EnemyMan::Collision collision = enemy_man.check_collisions(hitbox);
@@ -38,6 +35,10 @@ void BasicProjectile::update(double dt, EnemyMan& enemy_man, ProjectileMan& proj
 }
 
 void BasicProjectile::draw() {
+
+
+    hitbox.x = pos.x;
+    hitbox.y = pos.y;
 
     DrawRectangleRec(hitbox, BLUE);
 

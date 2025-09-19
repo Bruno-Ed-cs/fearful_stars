@@ -39,9 +39,16 @@ void BasicEnemy::update(double dt, EnemyMan& enemy_man, ProjectileMan& projectil
 
 void BasicEnemy::take_damage(EnemyMan& enemy_man) {
 
-    uint32_t id = enemy_man.get_enemy(this);
+    Health& hp = dynamic_cast<Health&>(this->components["Health"]);
 
-    enemy_man.append_delete_queue(id);
+    hp.take_damage(1);
+
+    if (hp.is_dead()){
+
+        uint32_t id = enemy_man.get_enemy(this);
+
+        enemy_man.append_delete_queue(id);
+    }
 
 }
 

@@ -19,6 +19,7 @@ void ProjectileMan::update(double dt, EnemyMan& enemy_man, PlayerMan& player_man
 
 //    std::cout << "update\n" << m_projectiles.size() << '\n';
 
+
     while (!m_delete_queue.empty()) {
 
         uint32_t id = m_delete_queue.front();
@@ -58,6 +59,7 @@ void ProjectileMan::update(double dt, EnemyMan& enemy_man, PlayerMan& player_man
         }
 
     }
+
 }
 
 void ProjectileMan::draw() {
