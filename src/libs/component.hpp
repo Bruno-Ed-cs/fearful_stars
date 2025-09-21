@@ -67,6 +67,18 @@ public:
 
     }
 
+    template<typename Component>
+    Component& get_component() {
+
+        auto ref = m_components.find(typeid(Component).name());
+
+        if (ref == m_components.end()) 
+            throw std::logic_error(std::format("Component {} not found", typeid(Component).name()));
+
+        return dynamic_cast<Component&>(*ref->second);
+
+    };
+
 private:
 
     std::map<std::string, std::unique_ptr<IComponent>> m_components; 

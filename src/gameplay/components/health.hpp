@@ -17,7 +17,7 @@ public:
         points(max_hp),
         capacity(max_hp) {};
 
-    std::string get_name() override { return "Health"; };
+    std::string get_name() override { return typeid(Health).name(); };
 
     void take_damage(int damage) {
 

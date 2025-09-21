@@ -92,7 +92,7 @@ EnemyMan::Collision EnemyMan::check_collisions(Rectangle collider) {
 
     for (auto& enemy_container : m_enemies_dock) {
 
-        auto& hitbox = dynamic_cast<Hitbox&>(enemy_container.enemy->get_components()["Hitbox"]);
+        auto& hitbox = enemy_container.enemy->get_components().get_component<Hitbox>();
         Vector2 position = enemy_container.enemy->get_position();
 
         if (CheckCollisionRecs(collider, hitbox.get(position))) {

@@ -1,4 +1,5 @@
 #include "basic_enemy.hpp"
+#include "gameplay/components/health.hpp"
 #include "gameplay/components/hitbox.hpp"
 #include "gameplay/enemy/enemy_man.hpp"
 #include "gameplay/projectile/projectile_manager.hpp"
@@ -11,7 +12,7 @@ using namespace Game;
 
 void BasicEnemy::draw() {
 
-    auto& hitbox = dynamic_cast<Hitbox&>(components["Hitbox"]);
+    auto& hitbox = components.get_component<Hitbox>();
 
     DrawRectangleRec(hitbox.get(position), YELLOW);
 };
@@ -40,7 +41,7 @@ void BasicEnemy::update(double dt, EnemyMan& enemy_man, ProjectileMan& projectil
 
 void BasicEnemy::take_damage(EnemyMan& enemy_man) {
 
-    Health& hp = dynamic_cast<Health&>(this->components["Health"]);
+    Health& hp = components.get_component<Health>();
 
     hp.take_damage(1);
 

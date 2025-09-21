@@ -24,7 +24,7 @@ public:
 
     };
 
-    std::string get_name() { return "Hitbox"; };
+    std::string get_name() { return typeid(Hitbox).name(); };
 
 };
 
