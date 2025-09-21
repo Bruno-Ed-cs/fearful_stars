@@ -1,4 +1,5 @@
 #include "enemy_man.hpp"
+#include "gameplay/components/hitbox.hpp"
 #include "gameplay/player/player_manager.hpp"
 #include "gameplay/projectile/projectile_manager.hpp"
 #include "libs/id_generator.hpp"
@@ -91,7 +92,10 @@ EnemyMan::Collision EnemyMan::check_collisions(Rectangle collider) {
 
     for (auto& enemy_container : m_enemies_dock) {
 
-        if (CheckCollisionRecs(collider, enemy_container.enemy->get_hitbox())) {
+        auto& hitbox = dynamic_cast<Hitbox&>(enemy_container.enemy->get_components()["Hitbox"]);
+        Vector2 position = enemy_container.enemy->get_position();
+
+        if (CheckCollisionRecs(collider, hitbox.get(position))) {
 
             collided = true;
             enemy_id = enemy_container.id;

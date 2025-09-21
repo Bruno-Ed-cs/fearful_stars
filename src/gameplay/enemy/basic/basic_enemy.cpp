@@ -1,4 +1,5 @@
 #include "basic_enemy.hpp"
+#include "gameplay/components/hitbox.hpp"
 #include "gameplay/enemy/enemy_man.hpp"
 #include "gameplay/projectile/projectile_manager.hpp"
 #include "globals.hpp"
@@ -10,13 +11,13 @@ using namespace Game;
 
 void BasicEnemy::draw() {
 
-    DrawRectangleRec(hitbox, YELLOW);
+    auto& hitbox = dynamic_cast<Hitbox&>(components["Hitbox"]);
+
+    DrawRectangleRec(hitbox.get(position), YELLOW);
 };
 
 void BasicEnemy::update(double dt, EnemyMan& enemy_man, ProjectileMan& projectile_man, PlayerMan& player_man) {
 
-    hitbox.x = position.x - hitbox.width/2;
-    hitbox.y = position.y - hitbox.height/2;
 
     Player& player = player_man.get_player();
     if (Vector2Distance(player.position, position) > 50){

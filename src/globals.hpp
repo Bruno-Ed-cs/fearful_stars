@@ -2,7 +2,7 @@
 
 #include "deps.hpp"
 
-#include "entity.hpp"
+#include "i_entity.hpp"
 #include "gameplay/projectile/i_projectile.hpp"
 #include "winman.hpp"
 

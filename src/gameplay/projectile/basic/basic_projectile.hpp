@@ -4,6 +4,7 @@
 
 #include "../i_projectile.hpp"
 #include "gameplay/enemy/enemy_man.hpp"
+#include "gameplay/player/player.hpp"
 #include "gameplay/player/player_manager.hpp"
 #include "gameplay/projectile/projectile_manager.hpp"
 #include "timer.hpp"
@@ -40,6 +41,7 @@ public:
     void update(double dt, EnemyMan& enemy_man, ProjectileMan& projectile_man, PlayerMan& player_man) override;
     void draw() override;
     const std::type_info& get_type() override { return typeid(BasicProjectile); };
+    Engine::ComponentContainer& get_components() override { return components; };
 
 public:
 
@@ -48,6 +50,7 @@ public:
     Vector2 pos;
     double speed = 0;
     Vector2 direction{0, 0};
+    Engine::ComponentContainer components;
 };
 
 }

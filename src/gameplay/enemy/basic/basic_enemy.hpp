@@ -6,6 +6,8 @@
 #include "gameplay/player/player_manager.hpp"
 #include "gameplay/projectile/projectile_manager.hpp"
 #include "gameplay/components/health.hpp"
+#include "gameplay/components/hitbox.hpp"
+#include "raylib.h"
 
 namespace Game {
 
@@ -32,13 +34,13 @@ public:
     void update(double dt, EnemyMan& enemy_man, ProjectileMan& projectile_man, PlayerMan& player_man) override;
     void reset(Vector2 position) override;
     void take_damage(EnemyMan& enemy_man) override;
-    Rectangle get_hitbox() override { return hitbox; };
+    Vector2 get_position() override { return position; };
+    Engine::ComponentContainer& get_components() override { return components; };
 
 
 public:
 
     Vector2 position {200, 50};
-    Rectangle hitbox {200, 200, 10, 10};
     Vector2 direction {0,1};
     double speed {1};
 
@@ -48,7 +50,8 @@ private:
 
         Engine::IComponent* comps[] = {
 
-            new Health(2)
+            new Health(2),
+            new Hitbox(10.0, 10.0)
 
         };
 

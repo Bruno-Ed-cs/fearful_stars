@@ -2,7 +2,7 @@
 
 #include "deps.hpp"
 
-#include "entity.hpp"
+#include "i_entity.hpp"
 
 namespace Game {
 
