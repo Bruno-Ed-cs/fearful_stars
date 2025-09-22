@@ -39,11 +39,11 @@ void BasicEnemy::update(double dt, EnemyMan& enemy_man, ProjectileMan& projectil
     }
 };
 
-void BasicEnemy::take_damage(EnemyMan& enemy_man) {
+void BasicEnemy::take_damage(EnemyMan& enemy_man, int damage) {
 
     Health& hp = components.get_component<Health>();
 
-    hp.take_damage(1);
+    hp.take_damage(damage);
 
     if (hp.is_dead()){
 

@@ -6,6 +6,10 @@
 #include "timer.hpp"
 #include "shooting_machine.hpp"
 #include "component.hpp"
+#include "gameplay/components/direction.hpp"
+#include "gameplay/components/health.hpp"
+#include "gameplay/components/hitbox.hpp"
+#include "gameplay/components/position.hpp"
 
 namespace Game {
 
@@ -18,12 +22,15 @@ public:
 
     Player() {
 
+        make_components();
+
     }
 
     Player(Vector2 pos) :
     position(pos) {
 
         hitbox = Rectangle{pos.x, pos.y, 10.0f, 10.0f};
+        make_components();
 
     }
 
@@ -42,6 +49,18 @@ public:
     ShootingMachine shooting_machine;
     Engine::ComponentContainer components;
 
+private:
+
+    void make_components() {
+
+        components = Engine::ComponentContainer{
+            new Position(0.0, 0.0),
+            new Direction(0.0, 0.0),
+            new Hitbox(10.0f, 10.0f),
+            new Health(3)
+        };
+
+    }
 };
 
 }

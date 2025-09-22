@@ -1,4 +1,6 @@
+#include "component.hpp"
 #include "deps.hpp"
+#include "gameplay/components/health.hpp"
 #include "gameplay/enemy/enemy_man.hpp"
 #include "gameplay/player/player_manager.hpp"
 #include "gameplay/projectile/projectile_manager.hpp"
@@ -20,7 +22,11 @@ void BasicProjectile::update(double dt, EnemyMan& enemy_man, ProjectileMan& proj
         if (collision.has_collided) {
 
             IEnemy& enemy = enemy_man.get_enemy(collision.enemy_id);
-            enemy.take_damage(enemy_man);
+            Engine::ComponentContainer& enemy_components = enemy.get_components();
+
+            if (enemy_components.has_component<Health>()){
+                enemy.take_damage(enemy_man, 3);
+            }
 
             uint32_t id = projectile_man.get_id(this);
             projectile_man.append_delete_queue(id);

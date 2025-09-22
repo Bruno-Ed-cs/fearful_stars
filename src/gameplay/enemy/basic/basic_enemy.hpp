@@ -33,7 +33,7 @@ public:
     void draw() override;
     void update(double dt, EnemyMan& enemy_man, ProjectileMan& projectile_man, PlayerMan& player_man) override;
     void reset(Vector2 position) override;
-    void take_damage(EnemyMan& enemy_man) override;
+    void take_damage(EnemyMan& enemy_man, int damage) override;
     Vector2 get_position() override { return position; };
     Engine::ComponentContainer& get_components() override { return components; };
 
@@ -48,18 +48,15 @@ private:
 
     void make_components() {
 
-        Engine::IComponent* comps[] = {
+        components = Engine::ComponentContainer{ 
 
             new Health(2),
             new Hitbox(10.0, 10.0)
-
-        };
-
-        components = Engine::ComponentContainer{ comps }; 
+        }; 
     }
 
 
-    
+
 };
 
 }

@@ -15,47 +15,54 @@ public:
 
 };
 
+template<typename T>
+concept is_component = std::is_base_of_v<IComponent, T>;
+
 class ComponentContainer {
+
 
 public:
 
     ComponentContainer() :
     m_components() {};
 
-    ComponentContainer(std::span<IComponent*> components) :
+
+
+    ComponentContainer(std::initializer_list<IComponent*> components) :
     m_components() {
 
         for (auto& component : components) {
 
-            m_components.emplace(component->get_name(), component);
+            m_components.emplace(component->get_name(), std::move(component));
             
         };
 
     }
 
-    bool has_component(const std::string& component_name) noexcept{
+    ComponentContainer(std::span<IComponent*> components) :
+    m_components() {
 
-        return m_components.contains(component_name);
+        for (auto& component : components) {
 
-    }
-
-    IComponent& operator[](const std::string& component_name) {
-
-        auto ref = m_components.find(component_name);
-
-        if (ref == m_components.end()) 
-            throw std::logic_error(std::format("Component {} not found", component_name));
-
-        return *ref->second;
+            m_components.emplace(component->get_name(), std::move(component));
+            
+        };
 
     }
 
-    void remove_component(const std::string& component_name) {
+    template<is_component Component>
+    bool has_component() noexcept{
 
-        auto ref = m_components.find(component_name);
+        return m_components.contains(typeid(Component).name());
+
+    }
+    template<is_component Component>
+    void remove_component() {
+
+        auto ref = m_components.find(typeid(Component).name());
 
         if (ref == m_components.end()) 
-            throw std::logic_error(std::format("Component {} not found", component_name));
+            throw std::logic_error(std::format("Component {} not found", typeid(Component).name()));
         
         m_components.erase(ref);
 
@@ -67,7 +74,7 @@ public:
 
     }
 
-    template<typename Component>
+    template<is_component Component>
     Component& get_component() {
 
         auto ref = m_components.find(typeid(Component).name());
