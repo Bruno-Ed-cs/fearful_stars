@@ -8,8 +8,12 @@
 - [x] Create debbuging
 - [x] Collision detection
 - [x] add id to the projectile manager
-- [ ] add events to projectiles
-- [ ] maybe use dependency injection in the managers
-- [ ] decide the approach for the managers
+- [x] add events to projectiles
+- [x] maybe use dependency injection in the managers
+- [x] decide the approach for the managers
+
 - [ ] begin the level structure
 - [ ] begin the redering code
+
+- [ ] desing player capabilities
+- [ ] desing first level
