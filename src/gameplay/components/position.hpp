@@ -25,6 +25,13 @@ public:
         y = pos.y;
     };
 
+    void operator+=(Vector2 pos) {
+
+        x += pos.x;
+        y += pos.y;
+
+    }
+
     std::string get_name() override { return typeid(Position).name(); };
 };
 

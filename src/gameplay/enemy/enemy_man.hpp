@@ -4,10 +4,9 @@
 #include "gameplay/player/player_manager.hpp"
 #include "gameplay/projectile/projectile_manager.hpp"
 #include "i_enemy.hpp"
+#include <memory>
 
 namespace Game {
-
-
 
 class EnemyMan {
 
@@ -17,11 +16,6 @@ public:
 
         bool has_collided;
         uint32_t enemy_id;
-
-    };
-
-    enum struct Event {
-        take_damage
 
     };
 
@@ -35,10 +29,20 @@ public:
     uint32_t get_enemy(IEnemy* enemy_ptr);
     IEnemy& get_enemy(uint32_t enemy_id);
     uint32_t insert_enemy(std::unique_ptr<IEnemy> enemy);
+    uint32_t emplace_enemy(std::string_view enemy_type, Vector2 position);
     bool enemy_exists(uint32_t enemy_id);
     void append_delete_queue(uint32_t target_id);
     void draw();
     EnemyMan::Collision check_collisions(Rectangle collider);
+
+    template<typename Enemy>
+    static std::unique_ptr<Enemy> make_enemy(Vector2 pos) {
+
+        auto enemy_ptr = std::make_unique<Enemy>(pos);
+        
+        return std::move(enemy_ptr);
+
+    }
 
 private:
 

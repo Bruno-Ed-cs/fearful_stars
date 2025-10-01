@@ -6,10 +6,17 @@
 #include "timer.hpp"
 #include "shooting_machine.hpp"
 #include "component.hpp"
+#include "input_man.hpp"
+#include "globals.hpp"
 #include "gameplay/components/direction.hpp"
 #include "gameplay/components/health.hpp"
 #include "gameplay/components/hitbox.hpp"
 #include "gameplay/components/position.hpp"
+
+#include "gameplay/enemy/enemy_man.hpp"
+#include "gameplay/player/player_manager.hpp"
+#include "gameplay/projectile/projectile_manager.hpp"
+#include "shooting_machine.hpp"
 
 namespace Game {
 
@@ -26,11 +33,10 @@ public:
 
     }
 
-    Player(Vector2 pos) :
-    position(pos) {
+    Player(Vector2 pos) {
 
-        hitbox = Rectangle{pos.x, pos.y, 10.0f, 10.0f};
         make_components();
+        components.get_component<Position>() = pos;
 
     }
 
@@ -40,11 +46,7 @@ public:
 
 public:
 
-
-    Vector2 position;
-    Vector2 direction;
     double speed = 150.0f;
-    Rectangle hitbox;
     Engine::Timer cooldown = Engine::Timer(0.5f);
     ShootingMachine shooting_machine;
     Engine::ComponentContainer components;

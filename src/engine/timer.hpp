@@ -8,12 +8,12 @@ public:
 
     Timer() {}
 
-    Timer(double limit) :
-    m_time(0.0f), m_limit(limit) {}
+    Timer(double seconds) :
+    m_time(seconds), m_limit(seconds) {}
 
     void set_limit(double seconds) { m_limit = seconds; }
     void update(double dt) {
-        if (m_time <= 0)
+        if (m_time < 0)
             m_time = 0;
         else 
             m_time -= dt;

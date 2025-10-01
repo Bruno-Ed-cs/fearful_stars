@@ -15,7 +15,7 @@ file(GLOB_RECURSE files "src/*.cpp")
 
 add_executable(${PROJECT_NAME} ${files})
 
-include_directories(include src/libs src)
+include_directories(include src/engine src)
 
 include(raylib_options.txt)
 

@@ -1,6 +1,8 @@
 #pragma once
 
 
+#include <string_view>
+#include <list>
 #include <initializer_list>
 #include <type_traits>
 #include <functional>

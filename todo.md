@@ -12,6 +12,8 @@
 - [x] maybe use dependency injection in the managers
 - [x] decide the approach for the managers
 
+- [ ] refactor the systems with the systems struct
+
 - [ ] begin the level structure
 - [ ] begin the redering code
 

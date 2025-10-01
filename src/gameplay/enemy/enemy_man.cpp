@@ -1,11 +1,26 @@
 #include "enemy_man.hpp"
 #include "gameplay/components/hitbox.hpp"
+#include "gameplay/enemy/basic/basic_enemy.hpp"
 #include "gameplay/player/player_manager.hpp"
 #include "gameplay/projectile/projectile_manager.hpp"
-#include "libs/id_generator.hpp"
+#include "id_generator.hpp"
+#include <format>
+#include <stdexcept>
 
 using namespace Game;
 
+uint32_t EnemyMan::emplace_enemy(std::string_view enemy_type, Vector2 position) {
+
+    if (enemy_type == "Basic") {
+
+        return insert_enemy(EnemyMan::make_enemy<BasicEnemy>(position));
+
+    } else {
+
+        throw std::invalid_argument(std::format("The enemy type {} does not exists", enemy_type));
+    }
+
+}
 
 void EnemyMan::update(double dt, ProjectileMan& projectile_man, PlayerMan& player_man) {
 

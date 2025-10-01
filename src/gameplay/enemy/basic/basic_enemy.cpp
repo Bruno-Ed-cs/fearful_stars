@@ -19,9 +19,10 @@ void BasicEnemy::draw() {
 
 void BasicEnemy::update(double dt, EnemyMan& enemy_man, ProjectileMan& projectile_man, PlayerMan& player_man) {
 
-
     Player& player = player_man.get_player();
-    if (Vector2Distance(player.position, position) > 50){
+    Position& pos = player.components.get_component<Position>();
+
+    if (Vector2Distance(pos.vec(), position) > 50){
         if (direction == Vector2{0,1} && position.y > Engine::g_canva_size.y) 
             direction = Vector2{0, -1};
 
@@ -34,8 +35,7 @@ void BasicEnemy::update(double dt, EnemyMan& enemy_man, ProjectileMan& projectil
 
     } else {
 
-
-        position = Vector2MoveTowards(position, player.position, speed);
+        position = Vector2MoveTowards(position, pos.vec(), speed);
     }
 };
 

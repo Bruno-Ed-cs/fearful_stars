@@ -64,7 +64,7 @@ void StateShoot::run(Player* player, ShootingMachine& machine, ProjectileMan& pr
     double proj_speed = 200.0f;
     Vector2 direction{1, 0};
     bool foe = false;
-    Vector2 pos = player->position;
+    Vector2 pos = player->components.get_component<Position>().vec();
     pos += Vector2{0, -3};
 
 

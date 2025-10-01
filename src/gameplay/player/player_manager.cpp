@@ -4,6 +4,7 @@
 #include "gameplay/enemy/enemy_man.hpp"
 #include "gameplay/projectile/projectile_manager.hpp"
 #include "player.hpp"
+#include "gameplay/components/position.hpp"
 
 using namespace Game;
 
@@ -28,7 +29,9 @@ void PlayerMan::debug() {
 
     ImGui::Begin("Player debug");
     {
-        ImGui::Text("Position:\nx: %f\ny: %f", m_player1->position.x, m_player1->position.y);
+        Vector2 position = m_player1->components.get_component<Position>().vec();
+
+        ImGui::Text("Position:\nx: %f\ny: %f", position.x, position.y);
         ImGui::Text("Shooting cooldown: %f", m_player1->cooldown.get_time());
     }
     ImGui::End();
