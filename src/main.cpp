@@ -7,6 +7,7 @@
 #include "input_man.hpp"
 #include "level_actions/spawn_enemies_action.hpp"
 #include "level_actions/wait_action.hpp"
+#include "level_actions/wave_end_action.hpp"
 #include "levels.hpp"
 #include "loops.hpp"
 #include "control_schema.hpp"
@@ -64,7 +65,7 @@ int main(void)
 
     auto event1 = new Engine::LevelEvent("timed enemies");
 
-    event1->add_action(new Engine::WaitAction(10));
+    event1->add_action(new Engine::WaitAction(2));
 
     event1->add_action(new Engine::SpawnEnemiesAction({
         std::tuple("Basic", Vector2{22, 55}),
@@ -75,7 +76,7 @@ int main(void)
         std::tuple("Basic", Vector2{100, 3})
     }));
 
-    event1->add_action(new Engine::WaitAction(5));
+    event1->add_action(new Engine::WaitAction(10));
 
     event1->add_action(new Engine::SpawnEnemiesAction(
         {
@@ -85,6 +86,7 @@ int main(void)
 
     ));
 
+    event1->add_action(new Engine::WaveEndAction());
 
     systems.level.add_event(event1);
 

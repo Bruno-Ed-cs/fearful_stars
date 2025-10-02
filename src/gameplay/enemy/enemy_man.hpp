@@ -34,6 +34,7 @@ public:
     void append_delete_queue(uint32_t target_id);
     void draw();
     EnemyMan::Collision check_collisions(Rectangle collider);
+    bool no_enemy_left();
 
     template<typename Enemy>
     static std::unique_ptr<Enemy> make_enemy(Vector2 pos) {

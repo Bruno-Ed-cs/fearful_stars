@@ -160,3 +160,11 @@ IEnemy& EnemyMan::get_enemy(uint32_t enemy_id) {
 
 }
 
+bool EnemyMan::no_enemy_left() {
+
+    if (m_enemies_dock.empty())
+        return true;
+
+    return false;
+
+}
