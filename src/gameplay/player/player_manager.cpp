@@ -30,7 +30,7 @@ void PlayerMan::debug() {
 
     ImGui::Begin("Player debug");
     {
-        Vector2 position = m_player1->components.get_component<Position>().vec();
+        Vector2 position = m_player1->components.get<Position>().vec();
 
         ImGui::Text("Position:\nx: %f\ny: %f", position.x, position.y);
         ImGui::Text("Shooting cooldown: %f", m_player1->cooldown.get_time());

@@ -3,10 +3,15 @@
 #include "deps.hpp"
 #include "i_enemy.hpp"
 #include "systems.hpp"
+#include <type_traits>
 
 namespace Game {
 
+template<typename Enemy>
+concept is_enemy = std::is_base_of_v<IEnemy, Enemy> && std::is_default_constructible_v<Enemy>;
+
 class EnemyMan {
+
 
 public:
 
@@ -34,10 +39,10 @@ public:
     EnemyMan::Collision check_collisions(Rectangle collider);
     bool no_enemy_left();
 
-    template<typename Enemy>
-    static std::unique_ptr<Enemy> make_enemy(Vector2 pos) {
+    template<is_enemy Enemy>
+    static std::unique_ptr<Enemy> make_enemy() {
 
-        auto enemy_ptr = std::make_unique<Enemy>(pos);
+        auto enemy_ptr = std::make_unique<Enemy>();
         
         return std::move(enemy_ptr);
 

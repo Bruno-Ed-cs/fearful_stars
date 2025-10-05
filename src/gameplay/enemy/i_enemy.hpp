@@ -11,8 +11,6 @@ public:
 
     virtual void reset(Vector2 position) = 0;
     virtual void take_damage(EnemyMan& enemy_man, int damage) = 0;
-    virtual Vector2 get_position() = 0;
-
 
 };
     

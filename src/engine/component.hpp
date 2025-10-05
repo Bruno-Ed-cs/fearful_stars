@@ -75,7 +75,7 @@ public:
     }
 
     template<is_component Component>
-    Component& get_component() {
+    Component& get() {
 
         auto ref = m_components.find(typeid(Component).name());
 

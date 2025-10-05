@@ -43,7 +43,7 @@ void Player::update(double dt, Engine::Systems& sys) {
 
     Vector2 movement = direction * (dt * speed);
 
-    Position& position = components.get_component<Position>();
+    Position& position = components.get<Position>();
 
     position += movement;
 
@@ -55,7 +55,7 @@ void Player::update(double dt, Engine::Systems& sys) {
 
 void Player::draw() {
 
-    Position& pos = components.get_component<Position>();
+    Position& pos = components.get<Position>();
 
     Rectangle dest{pos.x - 8, pos.y - 8, 16.0f, 16};
     Rectangle origin{3 * 16, 0, -16, 16};

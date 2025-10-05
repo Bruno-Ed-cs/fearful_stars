@@ -1,6 +1,7 @@
 #include "basic_enemy.hpp"
 #include "gameplay/components/health.hpp"
 #include "gameplay/components/hitbox.hpp"
+#include "gameplay/components/position.hpp"
 #include "gameplay/enemy/enemy_man.hpp"
 #include "gameplay/projectile/projectile_manager.hpp"
 #include "globals.hpp"
@@ -13,17 +14,19 @@ using namespace Game;
 
 void BasicEnemy::draw() {
 
-    auto& hitbox = components.get_component<Hitbox>();
+    auto& hitbox = components.get<Hitbox>();
+    auto pos = components.get<Position>().vec();
 
-    DrawRectangleRec(hitbox.get(position), YELLOW);
+    DrawRectangleRec(hitbox.get(pos), YELLOW);
 };
 
 void BasicEnemy::update(double dt, Engine::Systems& sys) {
 
     Player& player = sys.player->get_player();
-    Position& pos = player.components.get_component<Position>();
+    Position& pos = player.components.get<Position>();
+    auto& position = components.get<Position>();
 
-    if (Vector2Distance(pos.vec(), position) > 50){
+    if (Vector2Distance(pos.vec(), position.vec()) > 50){
         if (direction == Vector2{0,1} && position.y > Engine::g_canva_size.y) 
             direction = Vector2{0, -1};
 
@@ -36,13 +39,15 @@ void BasicEnemy::update(double dt, Engine::Systems& sys) {
 
     } else {
 
-        position = Vector2MoveTowards(position, pos.vec(), speed);
+        position = Vector2MoveTowards(position.vec(), pos.vec(), speed);
     }
+
+
 };
 
 void BasicEnemy::take_damage(EnemyMan& enemy_man, int damage) {
 
-    Health& hp = components.get_component<Health>();
+    Health& hp = components.get<Health>();
 
     hp.take_damage(damage);
 

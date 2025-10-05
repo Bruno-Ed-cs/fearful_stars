@@ -1,5 +1,6 @@
 #include "enemy_man.hpp"
 #include "gameplay/components/hitbox.hpp"
+#include "gameplay/components/position.hpp"
 #include "gameplay/enemy/basic/basic_enemy.hpp"
 #include "gameplay/player/player_manager.hpp"
 #include "gameplay/projectile/projectile_manager.hpp"
@@ -14,7 +15,11 @@ uint32_t EnemyMan::emplace_enemy(std::string_view enemy_type, Vector2 position) 
 
     if (enemy_type == "Basic") {
 
-        return insert_enemy(EnemyMan::make_enemy<BasicEnemy>(position));
+        auto enemy = EnemyMan::make_enemy<BasicEnemy>();
+        enemy->get_components().get<Position>() = position;
+
+        return insert_enemy(std::move(enemy));
+
 
     } else {
 
@@ -108,8 +113,10 @@ EnemyMan::Collision EnemyMan::check_collisions(Rectangle collider) {
 
     for (auto& enemy_container : m_enemies_dock) {
 
-        auto& hitbox = enemy_container.enemy->get_components().get_component<Hitbox>();
-        Vector2 position = enemy_container.enemy->get_position();
+        auto& hitbox = enemy_container.enemy->get_components().get<Hitbox>();
+        Vector2 position = enemy_container.enemy->get_components()
+            .get<Position>()
+            .vec();
 
         if (CheckCollisionRecs(collider, hitbox.get(position))) {
 

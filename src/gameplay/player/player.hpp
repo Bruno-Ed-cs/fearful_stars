@@ -37,7 +37,7 @@ public:
     Player(Vector2 pos) {
 
         make_components();
-        components.get_component<Position>() = pos;
+        components.get<Position>() = pos;
 
     }
 
