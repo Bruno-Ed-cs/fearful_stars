@@ -67,8 +67,7 @@ void StateShoot::run(Player* player, ShootingMachine& machine, ProjectileMan& pr
     Vector2 pos = player->components.get_component<Position>().vec();
     pos += Vector2{0, -3};
 
-
-    projectile_man.create_projectile<BasicProjectile>(pos, direction, proj_speed, foe);
+    projectile_man.request_projectile<BasicProjectile>(pos, direction, proj_speed, foe);
 }
 
 bool StateShoot::transition(Player* player, ShootingMachine& machine, ProjectileMan& projectile_man) {

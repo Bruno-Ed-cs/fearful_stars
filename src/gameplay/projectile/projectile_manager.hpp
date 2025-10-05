@@ -7,6 +7,7 @@
 #include "id_generator.hpp"
 #include "systems.hpp"
 #include "timer.hpp"
+#include <memory>
 
 namespace Game {
 
@@ -34,7 +35,34 @@ public:
     uint32_t get_id(IProjectile* target);
 
     template<is_projectile Proj>
-    void create_projectile(Vector2 pos,
+    void insert_projectile(std::unique_ptr<Proj> projectile) {
+
+        //   std::cout << "not found making new\n";
+
+        auto id_exists = [this](uint32_t id) {
+
+            for (auto& projectile : m_projectiles) {
+                if (projectile.id == id)
+                    return true;
+            }
+            return false;
+        };
+
+        uint32_t id = Engine::generate_id<ProjectileMan>(id_exists);
+
+        //std::print("{} \n", id);
+        //  std::cout << "New projectile position: (" << pos.get_real().x << ", " << pos.get_real().y << ")\n";
+
+        m_projectiles.emplace_back(
+            std::move(projectile), 
+            true,
+            Engine::Timer(s_inactive_deadtime),
+            id);
+
+    }
+
+    template<is_projectile Proj>
+    void request_projectile(Vector2 pos,
                            Vector2 direction,
                            double speed,
                            bool foe) {
@@ -46,8 +74,7 @@ public:
 
             //   std::cout << "not found making new\n";
 
-            auto proj = std::make_unique<Proj>();
-            proj->reset(pos, speed, direction, foe);
+            auto proj = make_projectile<Proj>(pos, direction, speed, foe);
 
             auto id_exists = [this](uint32_t id) {
 
@@ -81,9 +108,26 @@ public:
 
     }
 
+    template<is_projectile Projectile>
+    static std::unique_ptr<Projectile> make_projectile(Vector2 pos,
+                                Vector2 direction,
+                                double speed,
+                                bool foe) {
 
-private: 
+        auto proj = std::make_unique<Projectile>();
+        proj->reset(pos, speed, direction, foe);
+        return std::move(proj);
+    };
 
+
+    template<is_projectile Projectile>
+    static std::unique_ptr<Projectile> make_projectile() {
+
+        auto proj = std::make_unique<Projectile>();
+        return std::move(proj);
+    };
+
+private:
 
     struct QuerryRes {
 
