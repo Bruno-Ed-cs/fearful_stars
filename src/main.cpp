@@ -3,18 +3,17 @@
 #include "gameplay/player/player_manager.hpp"
 #include "gameplay/projectile/projectile_manager.hpp"
 #include "globals.hpp"
-#include "i_action.hpp"
+#include "gameplay/levels/i_action.hpp"
 #include "input_man.hpp"
-#include "level_actions/spawn_enemies_action.hpp"
-#include "level_actions/wait_action.hpp"
-#include "level_actions/wave_end_action.hpp"
-#include "levels.hpp"
+#include "gameplay/levels/level_actions/spawn_enemies_action.hpp"
+#include "gameplay/levels/level_actions/wait_action.hpp"
+#include "gameplay/levels/level_actions/wave_end_action.hpp"
+#include "gameplay/levels/levels.hpp"
 #include "loops.hpp"
 #include "control_schema.hpp"
 #include "gameplay/enemy/enemy_man.hpp"
 #include "gameplay/enemy/basic/basic_enemy.hpp"
 #include "systems.hpp"
-#include <memory>
 
 //------------------------------------------------------------------------------------
 // Program main entry point

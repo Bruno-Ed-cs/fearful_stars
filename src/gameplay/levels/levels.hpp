@@ -1,7 +1,7 @@
 #pragma once
 
 #include "deps.hpp"
-#include "i_action.hpp"
+#include "gameplay/levels/i_action.hpp"
 
 namespace Engine {
 

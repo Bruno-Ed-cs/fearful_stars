@@ -14,8 +14,12 @@
 
 - [ ] refactor the systems with the systems struct
 
-- [ ] begin the level structure
-- [ ] begin the redering code
+- [x] begin the level structure
+
+- [ ] do rendering system
+- [ ] do audio system
 
 - [ ] desing player capabilities
 - [ ] desing first level
+
+- [ ] use factories to make enemies and projectiles
