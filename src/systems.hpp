@@ -1,22 +1,27 @@
 #pragma once 
 
 #include "deps.hpp"
-#include "gameplay/enemy/enemy_man.hpp"
-#include "gameplay/player/player_manager.hpp"
-#include "gameplay/projectile/projectile_manager.hpp"
-#include "gameplay/levels/levels.hpp"
+
+namespace Game {
+
+class EnemyMan;
+class ProjectileMan;
+class PlayerMan;
+class LevelManager;
+
+}
 
 namespace Engine {
 
 struct Systems {
 
-    Game::EnemyMan enemy;
-    Game::ProjectileMan projectile;
-    Game::PlayerMan player;
-    Engine::LevelManager level;
+    std::unique_ptr<Game::EnemyMan> enemy;
+    std::unique_ptr<Game::ProjectileMan> projectile;
+    std::unique_ptr<Game::PlayerMan> player;
+    std::unique_ptr<Game::LevelManager> level;
 
-    Systems() :
-    enemy(), projectile(), player(), level(this) {};
+    Systems();
+
 
 };
 

@@ -16,8 +16,8 @@
 
 - [x] begin the level structure
 
-- [ ] do rendering system
-- [ ] do audio system
+- [ ] do rendering system maybe singleton
+- [ ] do audio system maybe singleton
 
 - [ ] desing player capabilities
 - [ ] desing first level

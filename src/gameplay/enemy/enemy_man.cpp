@@ -4,6 +4,7 @@
 #include "gameplay/player/player_manager.hpp"
 #include "gameplay/projectile/projectile_manager.hpp"
 #include "id_generator.hpp"
+#include "systems.hpp"
 #include <format>
 #include <stdexcept>
 
@@ -22,7 +23,7 @@ uint32_t EnemyMan::emplace_enemy(std::string_view enemy_type, Vector2 position) 
 
 }
 
-void EnemyMan::update(double dt, ProjectileMan& projectile_man, PlayerMan& player_man) {
+void EnemyMan::update(double dt, Engine::Systems& sys) {
 
     while (!m_delete_queue.empty()) {
 
@@ -33,7 +34,7 @@ void EnemyMan::update(double dt, ProjectileMan& projectile_man, PlayerMan& playe
 
     for(size_t i = 0; i < m_enemies_dock.size(); ++i) {
 
-        m_enemies_dock[i].enemy->update(dt, *this, projectile_man, player_man);
+        m_enemies_dock[i].enemy->update(dt, sys);
 
     }
 

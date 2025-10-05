@@ -5,13 +5,10 @@
 #include "gameplay/player/player_manager.hpp"
 #include "i_projectile.hpp"
 #include "id_generator.hpp"
+#include "systems.hpp"
 #include "timer.hpp"
 
 namespace Game {
-
-enum struct ProjectileEvent {
-
-};
 
 template <typename T>
 concept is_projectile = std::is_base_of_v<IProjectile, T> && std::is_default_constructible_v<T>;
@@ -30,7 +27,7 @@ public:
     ProjectileMan() :
         m_projectiles(), m_delete_queue() {}
 
-    void update(double dt, EnemyMan& enemy_man, PlayerMan& player_man);
+    void update(double dt, Engine::Systems& sys);
     void draw();
     void debug();
     void append_delete_queue(uint32_t id);
@@ -83,22 +80,6 @@ public:
         }
 
     }
-
-    template<typename ... Args>
-    void trigger_event(uint32_t target_id, ProjectileEvent event, Args& ... args) {
-
-        IProjectile* target = get_projectile(target_id);
-
-        switch (event) {
-
-            default:
-                throw std::logic_error("Event not found");
-                break;
-        
-        }
-
-    }
-
 
 
 private: 

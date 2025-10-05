@@ -1,14 +1,16 @@
+#pragma once 
+
 #include "gameplay/enemy/enemy_man.hpp"
 #include "gameplay/player/player_manager.hpp"
 #include "gameplay/projectile/projectile_manager.hpp"
-#include "loops.hpp"
 #include "globals.hpp"
+#include "systems.hpp"
 #include "winman.hpp"
 
 
-void Engine::draw_loop(Game::EnemyMan& enemy_man, Game::ProjectileMan& projectile_man, Game::PlayerMan& player_man) {
+void draw_loop(Engine::Systems& sys) {
 
-    BeginTextureMode(g_canva);
+    BeginTextureMode(Engine::g_canva);
     {
 
         ClearBackground(WHITE);
@@ -20,9 +22,9 @@ void Engine::draw_loop(Game::EnemyMan& enemy_man, Game::ProjectileMan& projectil
         DrawText("Congrats! You created your first window!", 27, 100, 1, LIGHTGRAY);
 
 
-        projectile_man.draw();
-        enemy_man.draw();
-        player_man.draw();
+        sys.projectile->draw();
+        sys.player->draw();
+        sys.enemy->draw();
 
 
     }
@@ -35,10 +37,10 @@ void Engine::draw_loop(Game::EnemyMan& enemy_man, Game::ProjectileMan& projectil
 
 
         //DrawTextureEx(canva.texture, {(float)window.get_width() / 2.0f, (float)window.get_height() / 2.0f}, 180.0f, 2.0f, WHITE);
-        Rectangle source = { 0, 0, (float)g_canva.texture.width, (float)g_canva.texture.height * -1 };
-        Rectangle dest = { 0, 0, (float)g_window->get_width(), (float)g_window->get_height()};
+        Rectangle source = { 0, 0, (float)Engine::g_canva.texture.width, (float)Engine::g_canva.texture.height * -1 };
+        Rectangle dest = { 0, 0, (float)Engine::g_window->get_width(), (float)Engine::g_window->get_height()};
         Vector2 origin = { 0, 0 };
-        DrawTexturePro(g_canva.texture, source, dest, origin, 0.0f, WHITE);
+        DrawTexturePro(Engine::g_canva.texture, source, dest, origin, 0.0f, WHITE);
 
         if (Engine::g_debug) {
 
@@ -56,8 +58,8 @@ void Engine::draw_loop(Game::EnemyMan& enemy_man, Game::ProjectileMan& projectil
         }
         ImGui::End();
 
-        projectile_man.debug();
-        player_man.debug();
+        sys.projectile->debug();
+        sys.player->debug();
 
         rlImGuiEnd();
         }

@@ -3,6 +3,7 @@
 #include "deps.hpp"
 
 #include "i_entity.hpp"
+#include "systems.hpp"
 #include "timer.hpp"
 #include "shooting_machine.hpp"
 #include "component.hpp"
@@ -40,7 +41,7 @@ public:
 
     }
 
-    void update(double dt, EnemyMan& enemy_man, ProjectileMan& projectile_man, PlayerMan& player_man) override; 
+    void update(double dt, Engine::Systems& sys) override; 
     void draw() override;
     Engine::ComponentContainer& get_components() override { return components; };
 

@@ -2,11 +2,7 @@
 
 #include "deps.hpp"
 
-#include "../i_projectile.hpp"
-#include "gameplay/enemy/enemy_man.hpp"
-#include "gameplay/player/player.hpp"
-#include "gameplay/player/player_manager.hpp"
-#include "gameplay/projectile/projectile_manager.hpp"
+#include "gameplay/projectile/i_projectile.hpp"
 #include "timer.hpp"
 
 namespace Game {
@@ -38,7 +34,7 @@ public:
 
     }
 
-    void update(double dt, EnemyMan& enemy_man, ProjectileMan& projectile_man, PlayerMan& player_man) override;
+    void update(double dt, Engine::Systems& sys) override;
     void draw() override;
     const std::type_info& get_type() override { return typeid(BasicProjectile); };
     Engine::ComponentContainer& get_components() override { return components; };

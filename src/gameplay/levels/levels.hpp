@@ -2,10 +2,9 @@
 
 #include "deps.hpp"
 #include "gameplay/levels/i_action.hpp"
+#include "systems.hpp"
 
-namespace Engine {
-
-class Systems;
+namespace Game {
 
 class LevelEvent {
 
@@ -41,7 +40,7 @@ public:
 
 public:
 
-    LevelManager(Systems* sys) :
+    LevelManager(Engine::Systems* sys) :
     systems(sys) {
 
 
@@ -60,7 +59,7 @@ public:
     size_t current_event = 0;
     size_t checkpoint_event = 0;
 
-    Systems* systems;
+    Engine::Systems* systems;
     std::function<void()> end_level;
 
 

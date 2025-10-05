@@ -1,11 +1,12 @@
 #include "deps.hpp"
+#include "systems.hpp"
 
 #include "player.hpp"
 
 
 using namespace Game;
 
-void Player::update(double dt, EnemyMan& enemy_man, ProjectileMan& projectile_man, PlayerMan& player_man) {
+void Player::update(double dt, Engine::Systems& sys) {
 
     Vector2 direction = {0,0};
 
@@ -33,7 +34,7 @@ void Player::update(double dt, EnemyMan& enemy_man, ProjectileMan& projectile_ma
 
     }
 
-    shooting_machine.run(this, projectile_man);
+    shooting_machine.run(this, *sys.projectile);
 
     cooldown.update(dt);
 

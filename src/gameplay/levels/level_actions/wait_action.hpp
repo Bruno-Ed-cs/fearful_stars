@@ -3,7 +3,7 @@
 #include "systems.hpp"
 #include "timer.hpp"
 
-namespace Engine {
+namespace Game {
 
 class WaitAction : public IAction {
 
@@ -20,7 +20,7 @@ public:
 
     }
 
-    bool execute(Systems* sys, double dt) override {
+    bool execute(Engine::Systems* sys, double dt) override {
 
         timer.update(dt);
 

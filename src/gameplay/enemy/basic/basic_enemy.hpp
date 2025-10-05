@@ -8,6 +8,7 @@
 #include "gameplay/components/health.hpp"
 #include "gameplay/components/hitbox.hpp"
 #include "raylib.h"
+#include "systems.hpp"
 
 namespace Game {
 
@@ -31,7 +32,7 @@ public:
     };
 
     void draw() override;
-    void update(double dt, EnemyMan& enemy_man, ProjectileMan& projectile_man, PlayerMan& player_man) override;
+    void update(double dt, Engine::Systems& sys) override;
     void reset(Vector2 position) override;
     void take_damage(EnemyMan& enemy_man, int damage) override;
     Vector2 get_position() override { return position; };

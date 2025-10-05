@@ -6,6 +6,7 @@
 #include "globals.hpp"
 #include "raymath.h"
 #include "gameplay/player/player_manager.hpp"
+#include "systems.hpp"
 
 using namespace Game;
 
@@ -17,9 +18,9 @@ void BasicEnemy::draw() {
     DrawRectangleRec(hitbox.get(position), YELLOW);
 };
 
-void BasicEnemy::update(double dt, EnemyMan& enemy_man, ProjectileMan& projectile_man, PlayerMan& player_man) {
+void BasicEnemy::update(double dt, Engine::Systems& sys) {
 
-    Player& player = player_man.get_player();
+    Player& player = sys.player->get_player();
     Position& pos = player.components.get_component<Position>();
 
     if (Vector2Distance(pos.vec(), position) > 50){

@@ -1,6 +1,7 @@
 #pragma once
 
 #include "player.hpp"
+#include "systems.hpp"
 
 namespace Game {
 
@@ -11,7 +12,7 @@ class PlayerMan {
 
 public:
 
-    void update(double dt, EnemyMan& enemy_man, ProjectileMan& projectile_man);
+    void update(double dt, Engine::Systems& sys);
     void draw();
     Player& get_player();
     void create_player1(Vector2 position);

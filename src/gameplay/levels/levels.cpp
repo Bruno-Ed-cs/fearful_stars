@@ -1,7 +1,7 @@
 #include "levels.hpp"
 #include "systems.hpp"
 
-using namespace Engine;
+using namespace Game;
 
 void LevelManager::loop_level() {
 

@@ -1,10 +1,8 @@
 #pragma once
 
 #include "deps.hpp"
-#include "gameplay/player/player_manager.hpp"
-#include "gameplay/projectile/projectile_manager.hpp"
 #include "i_enemy.hpp"
-#include <memory>
+#include "systems.hpp"
 
 namespace Game {
 
@@ -25,7 +23,7 @@ public:
 
     }
 
-    void update(double dt, ProjectileMan& projectile_man, PlayerMan& player_man);
+    void update(double dt, Engine::Systems& sys);
     uint32_t get_enemy(IEnemy* enemy_ptr);
     IEnemy& get_enemy(uint32_t enemy_id);
     uint32_t insert_enemy(std::unique_ptr<IEnemy> enemy);

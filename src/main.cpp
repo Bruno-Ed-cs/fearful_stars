@@ -9,7 +9,8 @@
 #include "gameplay/levels/level_actions/wait_action.hpp"
 #include "gameplay/levels/level_actions/wave_end_action.hpp"
 #include "gameplay/levels/levels.hpp"
-#include "loops.hpp"
+#include "update_loop.hpp"
+#include "draw_loop.hpp"
 #include "control_schema.hpp"
 #include "gameplay/enemy/enemy_man.hpp"
 #include "gameplay/enemy/basic/basic_enemy.hpp"
@@ -45,9 +46,9 @@ int main(void)
 
     }
 
-    Engine::Systems systems{};
+    Engine::Systems sys;
 
-    systems.player.create_player1(Vector2{ 60, 150 });
+    sys.player->create_player1(Vector2{ 60, 150 });
 
     //    auto enemy = std::make_unique<Game::BasicEnemy>();
     //    systems.enemy.insert_enemy(std::move(enemy));
@@ -62,11 +63,11 @@ int main(void)
     //
     //    systems.enemy.emplace_enemy("Basic", Vector2{100, 44});
 
-    auto event1 = new Engine::LevelEvent("timed enemies");
+    auto event1 = new Game::LevelEvent("timed enemies");
 
-    event1->add_action(new Engine::WaitAction(2));
+    event1->add_action(new Game::WaitAction(2));
 
-    event1->add_action(new Engine::SpawnEnemiesAction({
+    event1->add_action(new Game::SpawnEnemiesAction({
         std::tuple("Basic", Vector2{22, 55}),
         std::tuple("Basic", Vector2{11, 55}),
         std::tuple("Basic", Vector2{44, 20}),
@@ -75,9 +76,9 @@ int main(void)
         std::tuple("Basic", Vector2{100, 3})
     }));
 
-    event1->add_action(new Engine::WaitAction(10));
+    event1->add_action(new Game::WaitAction(10));
 
-    event1->add_action(new Engine::SpawnEnemiesAction(
+    event1->add_action(new Game::SpawnEnemiesAction(
         {
             std::tuple("Basic", Vector2{300, 0}),
             std::tuple("Basic", Vector2{300, 100})
@@ -85,9 +86,9 @@ int main(void)
 
     ));
 
-    event1->add_action(new Engine::WaveEndAction());
+    event1->add_action(new Game::WaveEndAction());
 
-    systems.level.add_event(event1);
+    sys.level->add_event(event1);
 
     // Main game loop
     while (!WindowShouldClose())    // Detect window close button or ESC key
@@ -112,11 +113,10 @@ int main(void)
 
         }
 
-        Engine::update_loop(dt, systems.enemy, systems.projectile, systems.player);
+        update_loop(dt, sys);
 
-        systems.level.update(dt);
 
-        Engine::draw_loop(systems.enemy, systems.projectile, systems.player);
+        draw_loop(sys);
 
         //----------------------------------------------------------------------------------
         // window.update_window();

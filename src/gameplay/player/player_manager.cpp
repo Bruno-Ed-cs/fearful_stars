@@ -5,12 +5,13 @@
 #include "gameplay/projectile/projectile_manager.hpp"
 #include "player.hpp"
 #include "gameplay/components/position.hpp"
+#include "systems.hpp"
 
 using namespace Game;
 
-void PlayerMan::update(double dt, EnemyMan& enemy_man, ProjectileMan& projectile_man ) {
+void PlayerMan::update(double dt, Engine::Systems& sys) {
 
-    m_player1->update(dt, enemy_man, projectile_man, *this);
+    m_player1->update(dt, sys);
 
 }
 
