@@ -3,8 +3,13 @@
 #include "deps.hpp"
 #include "gameplay/levels/i_action.hpp"
 #include "systems.hpp"
+#include <memory>
+#include <string_view>
 
 namespace Game {
+
+template<typename T>
+using uptr = std::unique_ptr<T> ;
 
 class LevelEvent {
 
@@ -15,9 +20,9 @@ public:
     LevelEvent(std::string name) :
     name(name) {}
 
-    bool is_done();
-    IAction& get_current_subevent();
-    void next_action();
+    bool at_end();
+    IAction& current_action();
+    void next();
     void reset();
     void add_action(IAction* action);
 
@@ -27,6 +32,28 @@ public:
     size_t action_index = 0;
     std::string name;
 
+
+};
+
+struct Level{
+
+    size_t event_index = 0;
+    std::string name;
+    std::vector<uptr<LevelEvent>> events;
+
+    static uptr<Level> make_level(const std::string& name);
+
+    void next();
+
+    LevelEvent& curr_event();
+
+    IAction& curr_action();
+
+    void add_event(LevelEvent* event);
+
+    bool at_end();
+
+    void reset();
 
 };
 
@@ -43,22 +70,18 @@ public:
     LevelManager(Engine::Systems* sys) :
     systems(sys) {
 
-
-        end_level = std::bind(&LevelManager::loop_level, &*this);
+        end_level = std::bind(&LevelManager::loop_level, this);
     };
 
     void update(double dt);
     void rollback();
-    void next_event();
-    void add_event(LevelEvent* event);
     void set_level_mode(LevelMode mode);
 
 
 public:
-    std::vector<std::unique_ptr<LevelEvent>> level;
-    size_t current_event = 0;
-    size_t checkpoint_event = 0;
 
+    uptr<Level> level;
+    size_t checkpoint_event = 0;
     Engine::Systems* systems;
     std::function<void()> end_level;
 

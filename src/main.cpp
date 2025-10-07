@@ -17,6 +17,7 @@
 #include "gameplay/enemy/basic/basic_enemy.hpp"
 #include "systems.hpp"
 #include <cstring>
+#include <memory>
 
 //------------------------------------------------------------------------------------
 // Program main entry point
@@ -53,7 +54,7 @@ int main(void)
 
     }
 
-    Engine::Systems sys;
+    Engine::Systems sys{};
 
     sys.player->create_player1(Vector2{ 60, 150 });
 
@@ -83,7 +84,7 @@ int main(void)
         std::tuple("Basic", Vector2{100, 3})
     }));
 
-    event1->add_action(new Game::WaitAction(10));
+    event1->add_action(new Game::WaitAction(1));
 
     event1->add_action(new Game::SpawnEnemiesAction(
         {
@@ -93,9 +94,13 @@ int main(void)
 
     ));
 
+    auto level = Game::Level::make_level("testes");
+
     event1->add_action(new Game::WaveEndAction());
 
-    sys.level->add_event(event1);
+    level->add_event(event1);
+
+    sys.level->level = std::move(level);
 
     // Main game loop
     while (!WindowShouldClose())    // Detect window close button or ESC key
