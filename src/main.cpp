@@ -1,5 +1,6 @@
 #include "deps.hpp"
 
+#include "controller_mappings.hpp"
 #include "gameplay/player/player_manager.hpp"
 #include "gameplay/projectile/projectile_manager.hpp"
 #include "globals.hpp"
@@ -9,12 +10,14 @@
 #include "gameplay/levels/level_actions/wait_action.hpp"
 #include "gameplay/levels/level_actions/wave_end_action.hpp"
 #include "gameplay/levels/levels.hpp"
+#include "raylib.h"
 #include "update_loop.hpp"
 #include "draw_loop.hpp"
 #include "control_schema.hpp"
 #include "gameplay/enemy/enemy_man.hpp"
 #include "gameplay/enemy/basic/basic_enemy.hpp"
 #include "systems.hpp"
+#include <cstring>
 
 //------------------------------------------------------------------------------------
 // Program main entry point
@@ -36,6 +39,11 @@ int main(void)
     double dt;
 
     Game::Assets::ship_tilemap = LoadTexture("assets/sprites/Space_pack/Space_VH.png");
+
+    //load controller mappings from sdl database
+    int size = 0;
+    char* mappings = EncodeDataBase64(CONTROLLER_MAPPINGS_DATA, CONTROLLER_MAPPINGS_DATA_SIZE, &size);
+    SetGamepadMappings(mappings);
 
     Engine::InputMan::load_events(controls);
 
