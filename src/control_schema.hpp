@@ -1,38 +1,43 @@
 #pragma once
 
-#include "deps.hpp"
 #include "input_man.hpp"
+#include "raylib.h"
 
 static Engine::Event controls[] = {
-
     {
-    "shoot",
-    std::vector{KEY_SPACE, KEY_C},
-    std::vector{GAMEPAD_BUTTON_RIGHT_FACE_RIGHT, GAMEPAD_BUTTON_RIGHT_FACE_LEFT}
+        "slowdown",
+        std::vector{KEY_RIGHT_SHIFT, KEY_LEFT_SHIFT},
+        std::vector{GAMEPAD_BUTTON_LEFT_TRIGGER_1}
     },
 
     {
-    "move_up",
-    std::vector{KEY_UP, KEY_W},
-    std::vector{GAMEPAD_BUTTON_LEFT_FACE_UP}
+        "shoot",
+        std::vector{KEY_SPACE, KEY_C},
+        std::vector{GAMEPAD_BUTTON_RIGHT_FACE_RIGHT, GAMEPAD_BUTTON_RIGHT_FACE_LEFT}
     },
 
     {
-    "move_down",
-    std::vector{KEY_DOWN, KEY_S},
-    std::vector{GAMEPAD_BUTTON_LEFT_FACE_DOWN}
+        "move_up",
+        std::vector{KEY_UP, KEY_W},
+        std::vector{GAMEPAD_BUTTON_LEFT_FACE_UP}
     },
 
     {
-    "move_left",
-    std::vector{KEY_LEFT, KEY_A},
-    std::vector{GAMEPAD_BUTTON_LEFT_FACE_LEFT}
+        "move_down",
+        std::vector{KEY_DOWN, KEY_S},
+        std::vector{GAMEPAD_BUTTON_LEFT_FACE_DOWN}
     },
 
     {
-    "move_right",
-    std::vector{KEY_RIGHT, KEY_D},
-    std::vector{GAMEPAD_BUTTON_LEFT_FACE_RIGHT}
+        "move_left",
+        std::vector{KEY_LEFT, KEY_A},
+        std::vector{GAMEPAD_BUTTON_LEFT_FACE_LEFT}
+    },
+
+    {
+        "move_right",
+        std::vector{KEY_RIGHT, KEY_D},
+        std::vector{GAMEPAD_BUTTON_LEFT_FACE_RIGHT}
     },
 
 };

@@ -23,7 +23,7 @@ void InputMan::pull_events() {
 
         for (auto gamepad_input : event.gamepad_inputs) {
 
-            for (size_t i = 0; i <= 10; ++i){
+            for (size_t i = 0; i <= 16; ++i){
 
                 if (IsGamepadButtonDown(i, gamepad_input)) {
 

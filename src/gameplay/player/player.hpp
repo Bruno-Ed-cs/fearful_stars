@@ -47,7 +47,7 @@ public:
 
 public:
 
-    double speed = 150.0f;
+    double speed = 145.0f;
     Engine::Timer cooldown = Engine::Timer(0.5f);
     ShootingMachine shooting_machine;
     Engine::ComponentContainer components;

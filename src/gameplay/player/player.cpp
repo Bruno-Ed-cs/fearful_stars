@@ -1,5 +1,6 @@
 #include "deps.hpp"
 #include "systems.hpp"
+#include <print>
 
 #include "player.hpp"
 
@@ -41,7 +42,21 @@ void Player::update(double dt, Engine::Systems& sys) {
 
     direction = Vector2Normalize(direction);
 
-    Vector2 movement = direction * (dt * speed);
+
+    Vector2 movement;
+
+
+    if (Engine::InputMan::is_event_active("slowdown")) {
+
+        movement = direction * (dt * (speed * 0.6));
+
+    } else {
+
+        movement = direction * (dt * speed);
+
+    }
+
+    //std::println("movement = x{} y{}", movement.x, movement.y);
 
     Position& position = components.get<Position>();
 
