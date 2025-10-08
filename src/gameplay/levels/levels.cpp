@@ -38,7 +38,6 @@ void LevelManager::update(double dt) {
 
             if (level->at_end()) {
                 end_level();
-                return;
             }
         }
 
