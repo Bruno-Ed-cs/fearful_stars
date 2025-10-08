@@ -17,7 +17,7 @@ namespace Engine {
 
 namespace Game::Assets {
 
-    inline Texture2D ship_tilemap;
+    inline std::shared_ptr<Texture> ship_tilemap;
 
 }
 

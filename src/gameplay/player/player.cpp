@@ -74,7 +74,7 @@ void Player::draw() {
 
     Rectangle dest{pos.x - 8, pos.y - 8, 16.0f, 16};
     Rectangle origin{3 * 16, 0, -16, 16};
-    DrawTexturePro(Assets::ship_tilemap, origin , dest, Vector2{0, 0}, 0.0f, WHITE);
+    DrawTexturePro(*Assets::ship_tilemap, origin , dest, Vector2{0, 0}, 0.0f, WHITE);
     DrawCircleV(pos.vec(), 1.0f, GREEN);
     DrawCircleV(pos.vec(), 0.5f, GRAY);
 

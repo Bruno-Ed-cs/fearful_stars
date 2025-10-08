@@ -12,7 +12,6 @@ void update_loop(double dt, Engine::Systems& sys) {
     sys.projectile->update(dt, sys);
     sys.enemy->update(dt, sys);
     sys.player->update(dt, sys);
-    std::println("curent event going to update the level");
     sys.level->update(dt);
 
 }

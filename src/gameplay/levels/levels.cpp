@@ -24,8 +24,8 @@ void LevelManager::update(double dt) {
         return;
 
 
-    std::println("curent event = {}", level->event_index);
-    std::println("current_action = {}", level->curr_event().action_index);
+//    std::println("curent event = {}", level->event_index);
+ //   std::println("current_action = {}", level->curr_event().action_index);
 
     auto& curr_action = level->curr_action();
 

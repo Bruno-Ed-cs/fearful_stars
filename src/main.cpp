@@ -1,3 +1,4 @@
+#include "asset_man.hpp"
 #include "deps.hpp"
 
 #include "controller_mappings.hpp"
@@ -38,7 +39,11 @@ int main(void)
 
     double dt;
 
-    Game::Assets::ship_tilemap = LoadTexture("assets/sprites/Space_pack/Space_VH.png");
+    Engine::AssetMan::InitAssetManager();
+
+    Game::Assets::ship_tilemap = Engine::AssetMan::get_texture("Space_VH");
+
+    Engine::AssetMan::get_texture("Connor_fodder2");
 
     //load controller mappings from sdl database
     int size = 0;
@@ -94,6 +99,8 @@ int main(void)
 
     ));
 
+    event1->add_action(new Game::WaveEndAction());
+
     auto level = Game::Level::make_level("testes");
 
     event1->add_action(new Game::WaveEndAction());
@@ -123,6 +130,8 @@ int main(void)
 
         //----------------------------------------------------------------------------------
         // window.update_window();
+
+        Engine::AssetMan::cleanup();
 
         Engine::InputMan::flush_events();
     }

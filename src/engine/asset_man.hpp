@@ -1,6 +1,7 @@
 #pragma once
 
 #include "deps.hpp"
+#include <print>
 
 namespace Engine {
 
@@ -13,11 +14,13 @@ using str = std::string;
 public:
 
     static sptr<Texture> get_texture(const str& texture_name);
-    static sptr<Music> get_music(const str& music_name);
-    static sptr<Sound> get_sound(const str& sound_name);
-    static sptr<Font> get_font(const str& font_name);
+//    static sptr<Music> get_music(const str& music_name);
+//    static sptr<Sound> get_sound(const str& sound_name);
+//    static sptr<Font> get_font(const str& font_name);
 
     static void InitAssetManager();
+    static void cleanup();
+    static void empty_out();
 
 private:
 
@@ -33,6 +36,7 @@ private:
 
         void operator()(Texture* texture_ptr) {
 
+            std::println("get destroyed looser");
             UnloadTexture(*texture_ptr);
         }
 
