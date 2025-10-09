@@ -6,6 +6,7 @@
 #include "gameplay/projectile/basic/basic_projectile.hpp"
 #include "gameplay/projectile/projectile_manager.hpp"
 #include "input_man.hpp"
+#include "raylib.h"
 
 using namespace Game;
 
@@ -68,6 +69,7 @@ void StateShoot::run(Player* player, ShootingMachine& machine, ProjectileMan& pr
     pos += Vector2{0, -3};
 
     projectile_man.request_projectile<BasicProjectile>(pos, direction, proj_speed, foe);
+    PlaySound(*player->shooting_sound);
 }
 
 bool StateShoot::transition(Player* player, ShootingMachine& machine, ProjectileMan& projectile_man) {

@@ -11,14 +11,13 @@
 #include "gameplay/levels/level_actions/wait_action.hpp"
 #include "gameplay/levels/level_actions/wave_end_action.hpp"
 #include "gameplay/levels/levels.hpp"
+#include "raylib.h"
 #include "update_loop.hpp"
 #include "draw_loop.hpp"
 #include "control_schema.hpp"
 #include "gameplay/enemy/enemy_man.hpp"
 #include "gameplay/enemy/basic/basic_enemy.hpp"
 #include "systems.hpp"
-#include <cstring>
-#include <memory>
 
 //------------------------------------------------------------------------------------
 // Program main entry point
@@ -40,6 +39,7 @@ int main(void)
     double dt;
 
     Engine::AssetMan::InitAssetManager();
+    InitAudioDevice();
 
     Game::Assets::ship_tilemap = Engine::AssetMan::get_texture("Space_VH");
 
@@ -51,6 +51,9 @@ int main(void)
     SetGamepadMappings(mappings);
 
     Engine::InputMan::load_events(controls);
+
+    auto music = Engine::AssetMan::get_music("space-ambient");
+    PlayMusicStream(*music);
 
     if(IsGamepadAvailable(0)) {
         std::cout << "gamepad 0 is ready\n";
@@ -127,17 +130,17 @@ int main(void)
 
         update_loop(dt, sys);
         draw_loop(sys);
+        UpdateMusicStream(*music);
 
         //----------------------------------------------------------------------------------
         // window.update_window();
 
         Engine::AssetMan::cleanup();
-
         Engine::InputMan::flush_events();
     }
 
     rlImGuiShutdown();
     //Engine::InputMan::close();
-
+    Engine::AssetMan::cleanup();
     return 0;
 }

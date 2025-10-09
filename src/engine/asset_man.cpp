@@ -113,7 +113,7 @@ sptr<Sound> AssetMan::get_sound(const str& sound_name){
         return search_iter->asset_origin;
     }
 
-    std::string search_result = search_asset("assets/sounds", sound_name, ".wav");
+    std::string search_result = search_asset("assets/sounds", sound_name, ".wav;.ogg;.mp3");
 
     Sound* sound_ptr = new Sound;
     *sound_ptr = LoadSound(search_result.c_str());
@@ -138,7 +138,7 @@ sptr<Font> AssetMan::get_font(const str& font_name){
         return search_iter->asset_origin;
     }
 
-    std::string search_result = search_asset("assets/fonts", font_name, ".otf");
+    std::string search_result = search_asset("assets/fonts", font_name, ".otf;.ttf");
 
     Font* font_ptr = new Font;
     *font_ptr = LoadFont(search_result.c_str());

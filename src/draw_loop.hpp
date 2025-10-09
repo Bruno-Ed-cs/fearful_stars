@@ -6,7 +6,9 @@
 #include "globals.hpp"
 #include "systems.hpp"
 #include "winman.hpp"
+#include "asset_man.hpp"
 
+auto font = Engine::AssetMan::get_font("EXEPixelPerfect");
 
 void draw_loop(Engine::Systems& sys) {
 
@@ -26,6 +28,7 @@ void draw_loop(Engine::Systems& sys) {
         sys.player->draw();
         sys.enemy->draw();
 
+        DrawTextEx(*font, "This fuking works", Vector2{50,50}, 10.0, 1.0, BLACK);
 
     }
     EndTextureMode();

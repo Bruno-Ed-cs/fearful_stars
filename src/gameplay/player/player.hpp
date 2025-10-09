@@ -1,5 +1,6 @@
 #pragma once
 
+#include "asset_man.hpp"
 #include "deps.hpp"
 
 #include "i_entity.hpp"
@@ -31,6 +32,7 @@ public:
     Player() {
 
         make_components();
+        shooting_sound = Engine::AssetMan::get_sound("space-laser");
 
     }
 
@@ -38,6 +40,7 @@ public:
 
         make_components();
         components.get<Position>() = pos;
+        shooting_sound = Engine::AssetMan::get_sound("space-laser");
 
     }
 
@@ -51,6 +54,7 @@ public:
     Engine::Timer cooldown = Engine::Timer(0.5f);
     ShootingMachine shooting_machine;
     Engine::ComponentContainer components;
+    std::shared_ptr<Sound> shooting_sound;
 
 private:
 
