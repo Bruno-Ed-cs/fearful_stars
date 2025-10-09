@@ -1,4 +1,5 @@
 #include "asset_man.hpp"
+#include "raylib.h"
 #include <print>
 #include <string_view>
 
@@ -50,7 +51,6 @@ static std::string search_asset(str_par base_dir, str_par asset_name, str_par fi
 
 sptr<Texture> AssetMan::get_texture(const str& texture_name){
 
-
     auto search_iter = std::find_if(texture_bank.begin(), texture_bank.end(), 
     [texture_name](const AssetContainer<Texture>& container) {
 
@@ -74,17 +74,80 @@ sptr<Texture> AssetMan::get_texture(const str& texture_name){
     return texture_reference;
 }
 
-//sptr<Music> AssetMan::get_music(const str& music_name){
-//
-//}
-//
-//sptr<Sound> AssetMan::get_sound(const str& sound_name){
-//
-//}
-//
-//sptr<Font> AssetMan::get_font(const str& font_name){
-//
-//}
+sptr<Music> AssetMan::get_music(const str& music_name){
+
+    auto search_iter = std::find_if(music_bank.begin(), music_bank.end(), 
+    [music_name](const AssetContainer<Music>& container) {
+
+        return container.name == music_name;
+
+    });
+
+    if (search_iter != music_bank.end()) {
+
+        return search_iter->asset_origin;
+    }
+
+    std::string search_result = search_asset("assets/musics", music_name, ".mp3");
+
+    Music* music_ptr = new Music;
+    *music_ptr = LoadMusicStream(search_result.c_str());
+
+    auto music_reference = sptr<Music>(music_ptr, MusicDestroyer{});
+    music_bank.emplace_front(music_name, music_reference);
+
+    return music_reference;
+}
+
+sptr<Sound> AssetMan::get_sound(const str& sound_name){
+
+    auto search_iter = std::find_if(sound_bank.begin(), sound_bank.end(), 
+    [sound_name](const AssetContainer<Sound>& container) {
+
+        return container.name == sound_name;
+
+    });
+
+    if (search_iter != sound_bank.end()) {
+
+        return search_iter->asset_origin;
+    }
+
+    std::string search_result = search_asset("assets/sounds", sound_name, ".wav");
+
+    Sound* sound_ptr = new Sound;
+    *sound_ptr = LoadSound(search_result.c_str());
+
+    auto sound_reference = sptr<Sound>(sound_ptr, SoundDestroyer{});
+    sound_bank.emplace_front(sound_name, sound_reference);
+
+    return sound_reference;
+}
+
+sptr<Font> AssetMan::get_font(const str& font_name){
+
+    auto search_iter = std::find_if(font_bank.begin(), font_bank.end(), 
+    [font_name](const AssetContainer<Font>& container) {
+
+        return container.name == font_name;
+
+    });
+
+    if (search_iter != font_bank.end()) {
+
+        return search_iter->asset_origin;
+    }
+
+    std::string search_result = search_asset("assets/fonts", font_name, ".otf");
+
+    Font* font_ptr = new Font;
+    *font_ptr = LoadFont(search_result.c_str());
+
+    auto font_reference = sptr<Font>(font_ptr, FontDestroyer{});
+    font_bank.emplace_front(font_name, font_reference);
+
+    return font_reference;
+}
 
 void AssetMan::InitAssetManager(){
 
