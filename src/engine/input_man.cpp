@@ -1,4 +1,6 @@
+
 #include "input_man.hpp"
+#include "raylib.h"
 
 using namespace Engine;
 
@@ -25,10 +27,15 @@ void InputMan::pull_events() {
 
             for (size_t i = 0; i <= 16; ++i){
 
-                if (IsGamepadButtonDown(i, gamepad_input)) {
+                if (IsGamepadAvailable(i)) {
 
-                    instance.activate_event(event.name);
-                    break;
+                    std::println("Gamepad {} is pressing {} {}", GetGamepadName(i), event.name, IsGamepadButtonDown(i, gamepad_input));
+
+                    if (IsGamepadButtonDown(i, gamepad_input)) {
+
+                        instance.activate_event(event.name);
+                        break;
+                    }
                 }
             }
         }

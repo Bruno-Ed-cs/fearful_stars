@@ -1,7 +1,6 @@
 #include "asset_man.hpp"
 #include "deps.hpp"
 
-#include "controller_mappings.hpp"
 #include "gameplay/player/player_manager.hpp"
 #include "gameplay/projectile/projectile_manager.hpp"
 #include "globals.hpp"
@@ -24,7 +23,7 @@
 //------------------------------------------------------------------------------------
 int main(void)
 {
-
+    
     SetConfigFlags(FLAG_VSYNC_HINT);
     // Initialization
     //--------------------------------------------------------------------------------------
@@ -36,6 +35,11 @@ int main(void)
     Engine::g_canva = LoadRenderTexture(Engine::g_canva_size.x, Engine::g_canva_size.y);
 
 
+    //load controller mappings from sdl database
+    char* mappings = LoadFileText("./assets/mappings/mapping.txt");
+    SetGamepadMappings(mappings);
+
+
     double dt;
 
     Engine::AssetMan::InitAssetManager();
@@ -45,10 +49,6 @@ int main(void)
 
     Engine::AssetMan::get_texture("Connor_fodder2");
 
-    //load controller mappings from sdl database
-    int size = 0;
-    char* mappings = EncodeDataBase64(CONTROLLER_MAPPINGS_DATA, CONTROLLER_MAPPINGS_DATA_SIZE, &size);
-    SetGamepadMappings(mappings);
 
     Engine::InputMan::load_events(controls);
 
