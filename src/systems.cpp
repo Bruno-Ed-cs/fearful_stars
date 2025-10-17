@@ -4,7 +4,7 @@
 #include "gameplay/projectile/projectile_manager.hpp"
 #include "gameplay/levels/levels.hpp"
 #include "gameplay/player/player_manager.hpp"
-
+#include "music_man.hpp"
 #include "deps.hpp"
 
 
@@ -12,7 +12,8 @@ Engine::Systems::Systems() :
     enemy(std::make_unique<Game::EnemyMan>()),
     projectile(std::make_unique<Game::ProjectileMan>()),
     player(std::make_unique<Game::PlayerMan>()),
-    level(std::make_unique<Game::LevelManager>(this)) 
+    level(std::make_unique<Game::LevelManager>(this)),
+    music(std::make_unique<Engine::MusicMan>())
 {}
 
 

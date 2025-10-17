@@ -1,6 +1,7 @@
 #include "asset_man.hpp"
 #include "deps.hpp"
 
+#include "gameplay/levels/level_actions/play_ost.hpp"
 #include "gameplay/player/player_manager.hpp"
 #include "gameplay/projectile/projectile_manager.hpp"
 #include "globals.hpp"
@@ -52,9 +53,6 @@ int main(void)
 
     Engine::InputMan::load_events(controls);
 
-    auto music = Engine::AssetMan::get_music("space-ambient");
-    PlayMusicStream(*music);
-
     if(IsGamepadAvailable(0)) {
         std::cout << "gamepad 0 is ready\n";
     } else {
@@ -79,7 +77,10 @@ int main(void)
     //
     //    systems.enemy.emplace_enemy("Basic", Vector2{100, 44});
 
+
     auto event1 = new Game::LevelEvent("timed enemies");
+
+    event1->add_action(new Game::PlayOstAction("space-ambient"));
 
     event1->add_action(new Game::WaitAction(2));
 
@@ -112,6 +113,8 @@ int main(void)
 
     sys.level->level = std::move(level);
 
+    SeekMusicStream(*Engine::AssetMan::get_music("space-ambient"), 122.0);
+
     // Main game loop
     while (!WindowShouldClose())    // Detect window close button or ESC key
     {
@@ -130,7 +133,6 @@ int main(void)
 
         update_loop(dt, sys);
         draw_loop(sys);
-        UpdateMusicStream(*music);
 
         //----------------------------------------------------------------------------------
         // window.update_window();

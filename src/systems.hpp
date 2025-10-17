@@ -11,7 +11,10 @@ class LevelManager;
 
 }
 
+
 namespace Engine {
+
+class MusicMan;
 
 struct Systems {
 
@@ -19,10 +22,9 @@ struct Systems {
     std::unique_ptr<Game::ProjectileMan> projectile;
     std::unique_ptr<Game::PlayerMan> player;
     std::unique_ptr<Game::LevelManager> level;
+    std::unique_ptr<Engine::MusicMan> music;
 
     Systems();
-
-
 };
 
 }
