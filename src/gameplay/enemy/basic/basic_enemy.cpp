@@ -14,32 +14,28 @@ using namespace Game;
 
 void BasicEnemy::draw() {
 
-    auto& hitbox = components.get<Hitbox>();
-    auto pos = components.get<Position>().vec();
 
-    DrawRectangleRec(hitbox.get(pos), YELLOW);
+    DrawRectangleRec(hitbox.get(pos.vec()), YELLOW);
 };
 
 void BasicEnemy::update(double dt, Engine::Systems& sys) {
 
     Player& player = sys.player->get_player();
-    Position& pos = player.components.get<Position>();
-    auto& position = components.get<Position>();
 
-    if (Vector2Distance(pos.vec(), position.vec()) > 50){
-        if (direction == Vector2{0,1} && position.y > Engine::g_canva_size.y) 
+    if (Vector2Distance(pos.vec(), player.pos.vec()) > 50){
+        if (direction == Vector2{0,1} && pos.y > Engine::g_canva_size.y) 
             direction = Vector2{0, -1};
 
-        if (direction == Vector2{0,-1} && position.y < 0) 
+        if (direction == Vector2{0,-1} && pos.y < 0) 
             direction = Vector2{0, 1};
 
         Vector2 movement = direction * speed;
         movement = Vector2Normalize(movement);
-        position += movement;
+        pos += movement;
 
     } else {
 
-        position = Vector2MoveTowards(position.vec(), pos.vec(), speed);
+        pos = Vector2MoveTowards(pos.vec(), player.pos.vec(), speed);
     }
 
 
@@ -47,7 +43,6 @@ void BasicEnemy::update(double dt, Engine::Systems& sys) {
 
 void BasicEnemy::take_damage(EnemyMan& enemy_man, int damage) {
 
-    Health& hp = components.get<Health>();
 
     hp.take_damage(damage);
 

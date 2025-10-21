@@ -24,28 +24,28 @@ class ComponentContainer {
 public:
 
     ComponentContainer() :
-    m_components() {};
+        m_components() {};
 
 
 
     ComponentContainer(std::initializer_list<IComponent*> components) :
-    m_components() {
+        m_components() {
 
         for (auto& component : components) {
 
-            m_components.emplace(component->get_name(), std::move(component));
-            
+            m_components.emplace(component->get_name(), *component);
+
         };
 
     }
 
     ComponentContainer(std::span<IComponent*> components) :
-    m_components() {
+        m_components() {
 
         for (auto& component : components) {
 
-            m_components.emplace(component->get_name(), std::move(component));
-            
+            m_components.emplace(component->get_name(), *component);
+
         };
 
     }
@@ -56,23 +56,23 @@ public:
         return m_components.contains(typeid(Component).name());
 
     }
-    template<is_component Component>
-    void remove_component() {
+    // template<is_component Component>
+    // void remove_component() {
 
-        auto ref = m_components.find(typeid(Component).name());
+    //     auto ref = m_components.find(typeid(Component).name());
 
-        if (ref == m_components.end()) 
-            throw std::logic_error(std::format("Component {} not found", typeid(Component).name()));
-        
-        m_components.erase(ref);
+    //     if (ref == m_components.end()) 
+    //         throw std::logic_error(std::format("Component {} not found", typeid(Component).name()));
+    //     
+    //     m_components.erase(ref);
 
-    }
+    // }
 
-    void add_component(IComponent&& component) {
+    // void add_component(IComponent&& component) {
 
-        m_components.emplace(component.get_name(), &component);
+    //     m_components.emplace(component.get_name(), &component);
 
-    }
+    // }
 
     template<is_component Component>
     Component& get() {
@@ -82,13 +82,13 @@ public:
         if (ref == m_components.end()) 
             throw std::logic_error(std::format("Component {} not found", typeid(Component).name()));
 
-        return dynamic_cast<Component&>(*ref->second);
+        return dynamic_cast<Component&>(ref->second);
 
     };
 
 private:
 
-    std::map<std::string, std::unique_ptr<IComponent>> m_components; 
+    std::map<std::string, IComponent&> m_components; 
 
 };
 

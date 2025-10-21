@@ -23,7 +23,7 @@ void BasicProjectile::update(double dt, Engine::Systems& sys) {
         if (collision.has_collided) {
 
             IEnemy& enemy = sys.enemy->get_enemy(collision.enemy_id);
-            Engine::ComponentContainer& enemy_components = enemy.get_components();
+            Engine::ComponentContainer enemy_components = enemy.get_components();
 
             if (enemy_components.has_component<Health>()){
                 enemy.take_damage(*sys.enemy, 3);

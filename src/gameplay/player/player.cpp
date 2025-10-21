@@ -1,3 +1,4 @@
+#include "component.hpp"
 #include "deps.hpp"
 #include "systems.hpp"
 
@@ -57,19 +58,16 @@ void Player::update(double dt, Engine::Systems& sys) {
 
     //std::println("movement = x{} y{}", movement.x, movement.y);
 
-    Position& position = components.get<Position>();
 
-    position += movement;
+    pos += movement;
 
-    position.x = Clamp(position.x, 0.0, Engine::g_canva_size.x);
-    position.y = Clamp(position.y, 0.0, Engine::g_canva_size.y);
+    pos.x = Clamp(pos.x, 0.0, Engine::g_canva_size.x);
+    pos.y = Clamp(pos.y, 0.0, Engine::g_canva_size.y);
 
     //std::cout << position.get_round().x << " " << position.get_round().y << " " << direction.x << " " << direction.y <<'\n';
 }
 
 void Player::draw() {
-
-    Position& pos = components.get<Position>();
 
     Rectangle dest{pos.x - 8, pos.y - 8, 16.0f, 16};
     Rectangle origin{3 * 16, 0, -16, 16};
@@ -78,3 +76,9 @@ void Player::draw() {
     DrawCircleV(pos.vec(), 0.5f, GRAY);
 
 }
+
+Engine::ComponentContainer Player::get_components() { 
+
+    return Engine::ComponentContainer{&pos, &hitbox, &dir, &hp};
+
+};

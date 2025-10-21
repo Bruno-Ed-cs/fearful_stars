@@ -1,5 +1,6 @@
 #pragma once
 
+#include "component.hpp"
 #include "deps.hpp"
 #include "gameplay/components/position.hpp"
 #include "gameplay/enemy/enemy_man.hpp"
@@ -19,44 +20,28 @@ public:
 
     Engine::ComponentContainer components;
 
-    BasicEnemy(Vector2 position) {
-
-        make_components();
-
-        components.get<Position>() = position;
-
-    };
+    BasicEnemy(Vector2 position) :
+        pos(position) {};
 
     BasicEnemy() {
-
-        make_components();
-
     };
 
     void draw() override;
     void update(double dt, Engine::Systems& sys) override;
     void reset(Vector2 position) override;
     void take_damage(EnemyMan& enemy_man, int damage) override;
-    Engine::ComponentContainer& get_components() override { return components; };
+    Engine::ComponentContainer get_components() override { return Engine::ComponentContainer{&hp, &hitbox, &pos}; };
 
 
 public:
 
     Vector2 direction {0,1};
     double speed {1};
+    Health hp = Health(2);
+    Hitbox hitbox = Hitbox(10.0, 10.0);
+    Position pos = Position(200, 50);
 
 private:
-
-    void make_components() {
-
-        components = Engine::ComponentContainer{ 
-
-            new Health(2),
-            new Hitbox(10.0, 10.0),
-            new Position(200, 50)
-        }; 
-    }
-
 
 
 };

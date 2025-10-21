@@ -29,7 +29,7 @@ void InputMan::pull_events() {
 
                 if (IsGamepadAvailable(i)) {
 
-                    std::println("Gamepad {} is pressing {} {}", GetGamepadName(i), event.name, IsGamepadButtonDown(i, gamepad_input));
+//                    std::println("Gamepad {} is pressing {} {}", GetGamepadName(i), event.name, IsGamepadButtonDown(i, gamepad_input));
 
                     if (IsGamepadButtonDown(i, gamepad_input)) {
 

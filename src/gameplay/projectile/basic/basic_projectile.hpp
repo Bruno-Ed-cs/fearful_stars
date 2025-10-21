@@ -1,5 +1,6 @@
 #pragma once
 
+#include "component.hpp"
 #include "deps.hpp"
 
 #include "gameplay/projectile/i_projectile.hpp"
@@ -37,7 +38,7 @@ public:
     void update(double dt, Engine::Systems& sys) override;
     void draw() override;
     const std::type_info& get_type() override { return typeid(BasicProjectile); };
-    Engine::ComponentContainer& get_components() override { return components; };
+    Engine::ComponentContainer get_components() override { return Engine::ComponentContainer{}; };
 
 public:
 
@@ -46,7 +47,6 @@ public:
     Vector2 pos;
     double speed = 0;
     Vector2 direction{0, 0};
-    Engine::ComponentContainer components;
 };
 
 }

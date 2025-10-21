@@ -31,43 +31,34 @@ public:
 
     Player() {
 
-        make_components();
         shooting_sound = Engine::AssetMan::get_sound("space-laser");
 
     }
 
     Player(Vector2 pos) {
 
-        make_components();
-        components.get<Position>() = pos;
+        this->pos = pos;
         shooting_sound = Engine::AssetMan::get_sound("space-laser");
 
     }
 
     void update(double dt, Engine::Systems& sys) override; 
     void draw() override;
-    Engine::ComponentContainer& get_components() override { return components; };
+    Engine::ComponentContainer get_components() override;
 
 public:
 
     double speed = 145.0f;
     Engine::Timer cooldown = Engine::Timer(0.5f);
     ShootingMachine shooting_machine;
-    Engine::ComponentContainer components;
     std::shared_ptr<Sound> shooting_sound;
 
+    Position pos = Position(0.0, 0.0);
+    Direction dir = Direction(0.0, 0.0);
+    Hitbox hitbox = Hitbox(10.0f, 10.0f);
+    Health hp = Health(3);
+
 private:
-
-    void make_components() {
-
-        components = Engine::ComponentContainer{
-            new Position(0.0, 0.0),
-            new Direction(0.0, 0.0),
-            new Hitbox(10.0f, 10.0f),
-            new Health(3)
-        };
-
-    }
 };
 
 }

@@ -2,7 +2,7 @@
 shut em up cosmic horor inspired game
 
 ## Lore
-The earth has sent you as the explorer of the final frontier, whith the new wormhole manipulation tecnology it has become a possibility to reach the edges of the observable universe. Now you are the lucky tes... pilot to bring humanity foward, but something apeared in the middle of the wormhole, the ship got damaged, yet you see the final frontier, you can't go back, so you march foward into the unknown clueless of what awaits in your jurney.
+Earth sent Norman as an explorer of the final frontier. With new wormhole manipulation technology, it became possible to reach the limits of the observable universe. A journey with no return, yet Norman accepts it to pay off his enormous hospital debts that were accumulated by his daughter with cancer. Now Norman Pearson is the lucky pilot who will take humanity forward, but something appeared in the middle of the wormhole journey, the ship was damaged, but he sees the final frontier, he cannot return, so he moves forward into the unknown, not knowing what awaits him on his journey.
 
 ## Compilation
 
@@ -10,17 +10,17 @@ The earth has sent you as the explorer of the final frontier, whith the new worm
 2. Create and enter a build folder;
 3. Inside the build folder use the command:
 ```bash
-cmake ..
+cmake -S . -B build/
 ```
 
 4. Compile with your chosen toolchain, if it is gnu make just use the command:
 ```bash
-make -j
+cmake --build build/
 ```
 
 ## Gameplay
 
-The player controls a spaceship doging and shooting asteroids and various grotesque mosntrocities in their way;
+The player controls a spaceship doging and shooting asteroids and various grotesque mosntrosities in their way;
 
 - Power ups are available troughout the levels that can power up the ship 
 - The player has a total of 5 lives per stage, if they end the player returns to the beginning of the stage
