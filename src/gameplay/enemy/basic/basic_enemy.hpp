@@ -36,7 +36,7 @@ public:
 public:
 
     Vector2 direction {0,1};
-    double speed {1};
+    double speed {70};
     Health hp = Health(2);
     Hitbox hitbox = Hitbox(10.0, 10.0);
     Position pos = Position(200, 50);

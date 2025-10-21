@@ -24,7 +24,7 @@ public:
         InitWindow(m_width, m_height, m_title.c_str());
         m_display = GetCurrentMonitor();
 
-        SetTargetFPS(60);
+        SetTargetFPS(0);
 
         rlImGuiSetup(true);
         m_prev_size = Vector2{(float)width, (float)height};

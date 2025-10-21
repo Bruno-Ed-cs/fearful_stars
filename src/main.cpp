@@ -25,7 +25,7 @@
 int main(void)
 {
     
-    SetConfigFlags(FLAG_VSYNC_HINT);
+//    SetConfigFlags(FLAG_VSYNC_HINT);
     // Initialization
     //--------------------------------------------------------------------------------------
     

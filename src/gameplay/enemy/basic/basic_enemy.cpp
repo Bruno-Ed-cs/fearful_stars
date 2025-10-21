@@ -29,13 +29,12 @@ void BasicEnemy::update(double dt, Engine::Systems& sys) {
         if (direction == Vector2{0,-1} && pos.y < 0) 
             direction = Vector2{0, 1};
 
-        Vector2 movement = direction * speed;
-        movement = Vector2Normalize(movement);
+        Vector2 movement = direction * speed * dt;
         pos += movement;
 
     } else {
 
-        pos = Vector2MoveTowards(pos.vec(), player.pos.vec(), speed);
+        pos = Vector2MoveTowards(pos.vec(), player.pos.vec(), speed * dt);
     }
 
 
