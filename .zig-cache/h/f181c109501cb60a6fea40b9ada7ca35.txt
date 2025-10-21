@@ -1,2 +1,0 @@
-0
-45 19412969 1760276909369655368 3894cdea98c82aa39c98a236a7e42ab3 0 /home/huevo/Projects/gamedev/fearful_stars/src/engine/debugger.cpp
