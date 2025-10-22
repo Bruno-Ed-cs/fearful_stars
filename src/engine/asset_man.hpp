@@ -27,14 +27,6 @@ public:
 
 private:
 
-    template<typename Asset>
-    struct AssetContainer {
-
-        str name;
-        sptr<Asset> asset_origin;
-
-    };
-
     struct ShaderDestroyer {
 
         void operator()(Shader* ptr) {
@@ -80,11 +72,11 @@ private:
 
     };
 
-    static std::list<AssetContainer<Texture>> texture_bank;
-    static std::list<AssetContainer<Sound>> sound_bank;
-    static std::list<AssetContainer<Music>> music_bank;
-    static std::list<AssetContainer<Font>> font_bank;
-    static std::list<AssetContainer<Shader>> shader_bank;
+    static std::map<std::string, sptr<Texture>> texture_bank;
+    static std::map<std::string, sptr<Sound>> sound_bank;
+    static std::map<std::string, sptr<Music>> music_bank;
+    static std::map<std::string, sptr<Font>> font_bank;
+    static std::map<std::string, sptr<Shader>> shader_bank;
 
 };
 

@@ -8,28 +8,29 @@ using namespace Engine;
 template<typename T>
 using sptr = std::shared_ptr<T>;
 
-std::list<AssetMan::AssetContainer<Texture>> AssetMan::texture_bank;
-std::list<AssetMan::AssetContainer<Sound>> AssetMan::sound_bank;
-std::list<AssetMan::AssetContainer<Music>> AssetMan::music_bank;
-std::list<AssetMan::AssetContainer<Font>> AssetMan::font_bank;
-std::list<AssetMan::AssetContainer<Shader>> AssetMan::shader_bank;
+std::map<std::string, sptr<Texture>> AssetMan::texture_bank;
+std::map<std::string, sptr<Sound>> AssetMan::sound_bank;
+std::map<std::string, sptr<Music>> AssetMan::music_bank;
+std::map<std::string, sptr<Font>> AssetMan::font_bank;
+std::map<std::string, sptr<Shader>> AssetMan::shader_bank;
 
 using str_par = std::string_view;
+using str = std::string;
 
-static std::string search_asset(str_par base_dir, str_par asset_name, str_par filter) {
+static str search_asset(str_par base_dir, str_par asset_name, str_par filter) {
 
-    std::string app_dir = GetApplicationDirectory();
+    str app_dir = GetApplicationDirectory();
     std::println("{}", app_dir);
-    std::string asset_dir = std::string(app_dir) + std::string(base_dir);
+    str asset_dir = str(app_dir) + str(base_dir);
     std::println("{}", asset_dir);
 
-    FilePathList files = LoadDirectoryFilesEx(asset_dir.c_str(), std::string(filter).c_str(), true);
+    FilePathList files = LoadDirectoryFilesEx(asset_dir.c_str(), str(filter).c_str(), true);
 
     if (files.count <= 0)
         throw std::invalid_argument(std::format("The Asset {} could not be found", asset_name));
 
-    std::string target_path;
-    std::string buff;
+    str target_path;
+    str buff;
 
     for (int i = 0; i < files.count; ++i) {
 
@@ -50,27 +51,21 @@ static std::string search_asset(str_par base_dir, str_par asset_name, str_par fi
 
 }
 
-sptr<Shader> AssetMan::get_shader(std::string_view shader_name) {
+sptr<Shader> AssetMan::get_shader(str_par shader_name) {
 
-    auto search_iter = std::find_if(shader_bank.begin(), shader_bank.end(), 
-    [shader_name](const AssetContainer<Shader>& container) {
+    if (shader_bank.contains(str(shader_name))) {
 
-    return container.name == shader_name;
-    });
-
-    if (search_iter != shader_bank.end()) {
-
-        return search_iter->asset_origin;
+        return shader_bank[str(shader_name)];
     }
 
-    std::string search_result_vert = search_asset("assets/shaders", shader_name, ".vert");
-    std::string search_result_frag = search_asset("assets/shaders", shader_name, ".frag");
+    str search_result_vert = search_asset("assets/shaders", shader_name, ".vert");
+    str search_result_frag = search_asset("assets/shaders", shader_name, ".frag");
 
     Shader* shader_ptr = new Shader;
     *shader_ptr = LoadShader(search_result_vert.c_str(), search_result_frag.c_str());
 
     auto shader_ref = sptr<Shader>(shader_ptr, ShaderDestroyer{});
-    shader_bank.emplace_front(std::string(shader_name), shader_ref);
+    shader_bank.emplace(std::pair(str(shader_name), shader_ref));
 
     return shader_ref;
 
@@ -78,105 +73,76 @@ sptr<Shader> AssetMan::get_shader(std::string_view shader_name) {
 
 sptr<Texture> AssetMan::get_texture(const str& texture_name){
 
-    auto search_iter = std::find_if(texture_bank.begin(), texture_bank.end(), 
-    [texture_name](const AssetContainer<Texture>& container) {
+    if (texture_bank.contains(str(texture_name))) {
 
-        return container.name == texture_name;
-
-    });
-
-    if (search_iter != texture_bank.end()) {
-
-        return search_iter->asset_origin;
+        return texture_bank[str(texture_name)];
     }
 
-    std::string search_result = search_asset("assets/sprites", texture_name, ".png");
+    str search_result = search_asset("assets/sprites", texture_name, ".png");
 
     Texture* texture_ptr = new Texture;
     *texture_ptr = LoadTexture(search_result.c_str());
 
     auto texture_reference = sptr<Texture>(texture_ptr, TextureDestroyer{});
-    texture_bank.emplace_front(texture_name, texture_reference);
+    texture_bank.emplace(str(texture_name), texture_reference);
 
     return texture_reference;
 }
 
 sptr<Music> AssetMan::get_music(const str& music_name){
 
-    auto search_iter = std::find_if(music_bank.begin(), music_bank.end(), 
-    [music_name](const AssetContainer<Music>& container) {
+    if (music_bank.contains(str(music_name))) {
 
-        return container.name == music_name;
-
-    });
-
-    if (search_iter != music_bank.end()) {
-
-        return search_iter->asset_origin;
+        return music_bank[str(music_name)];
     }
 
-    std::string search_result = search_asset("assets/musics", music_name, ".mp3");
+    str search_result = search_asset("assets/musics", music_name, ".mp3");
 
     Music* music_ptr = new Music;
     *music_ptr = LoadMusicStream(search_result.c_str());
 
     auto music_reference = sptr<Music>(music_ptr, MusicDestroyer{});
-    music_bank.emplace_front(music_name, music_reference);
+    music_bank.emplace(str(music_name), music_reference);
 
     return music_reference;
 }
 
 sptr<Sound> AssetMan::get_sound(const str& sound_name){
 
-    auto search_iter = std::find_if(sound_bank.begin(), sound_bank.end(), 
-    [sound_name](const AssetContainer<Sound>& container) {
+    if (sound_bank.contains(str(sound_name))) {
 
-        return container.name == sound_name;
-
-    });
-
-    if (search_iter != sound_bank.end()) {
-
-        return search_iter->asset_origin;
+        return sound_bank[str(sound_name)];
     }
 
-    std::string search_result = search_asset("assets/sounds", sound_name, ".wav;.ogg;.mp3");
+    str search_result = search_asset("assets/sounds", sound_name, ".wav;.ogg;.mp3");
 
     Sound* sound_ptr = new Sound;
     *sound_ptr = LoadSound(search_result.c_str());
 
     auto sound_reference = sptr<Sound>(sound_ptr, SoundDestroyer{});
-    sound_bank.emplace_front(sound_name, sound_reference);
+    sound_bank.emplace(str(sound_name), sound_reference);
 
     return sound_reference;
 }
 
 sptr<Font> AssetMan::get_font(const str& font_name){
 
-    auto search_iter = std::find_if(font_bank.begin(), font_bank.end(), 
-    [font_name](const AssetContainer<Font>& container) {
+    if (font_bank.contains(str(font_name))) {
 
-        return container.name == font_name;
-
-    });
-
-    if (search_iter != font_bank.end()) {
-
-        return search_iter->asset_origin;
+        return font_bank[str(font_name)];
     }
 
-    std::string search_result = search_asset("assets/fonts", font_name, ".otf;.ttf");
+    str search_result = search_asset("assets/fonts", font_name, ".otf;.ttf");
 
     Font* font_ptr = new Font;
     *font_ptr = LoadFont(search_result.c_str());
 
     auto font_reference = sptr<Font>(font_ptr, FontDestroyer{});
-    font_bank.emplace_front(font_name, font_reference);
+    font_bank.emplace(str(font_name), font_reference);
 
     return font_reference;
 }
-
-void AssetMan::preload_shaders(std::initializer_list<std::string_view> shaders) {
+void AssetMan::preload_shaders(std::initializer_list<str_par> shaders) {
 
     for (auto shader_name : shaders) {
 
@@ -187,20 +153,60 @@ void AssetMan::preload_shaders(std::initializer_list<std::string_view> shaders) 
 
 void AssetMan::InitAssetManager(){
 
-    music_bank = std::list<AssetContainer<Music>>();
-    texture_bank = std::list<AssetContainer<Texture>>();
-    sound_bank = std::list<AssetContainer<Sound>>();
-    font_bank = std::list<AssetContainer<Font>>();
-    shader_bank = std::list<AssetContainer<Shader>>();
+    music_bank =    std::map<str, sptr<Music>>();
+    texture_bank =  std::map<str, sptr<Texture>>();
+    sound_bank =    std::map<str, sptr<Sound>>();
+    font_bank =     std::map<str, sptr<Font>>();
+    shader_bank =   std::map<str, sptr<Shader>>();
 }
 
 void AssetMan::cleanup() {
 
-    texture_bank.remove_if([](AssetContainer<Texture>& container){ return container.asset_origin.use_count() <= 1; });
-    music_bank.remove_if([](AssetContainer<Music>& container){ return container.asset_origin.use_count() <= 1; });
-    sound_bank.remove_if([](AssetContainer<Sound>& container){ return container.asset_origin.use_count() <= 1; });
-    font_bank.remove_if([](AssetContainer<Font>& container){ return container.asset_origin.use_count() <= 1; });
+    for (auto it = texture_bank.begin(); it != texture_bank.end();) {
 
+        if (it->second.use_count() <= 1) 
+        {
+            it = texture_bank.erase(it);
+        } else {
+
+            ++it;
+        }
+
+    }
+
+    for (auto it = music_bank.begin(); it != music_bank.end();) {
+
+        if (it->second.use_count() <= 1) 
+        {
+            it = music_bank.erase(it);
+        } else {
+
+            ++it;
+        }
+
+    }
+    for (auto it = sound_bank.begin(); it != sound_bank.end();) {
+
+        if (it->second.use_count() <= 1) 
+        {
+            it = sound_bank.erase(it);
+        } else {
+
+            ++it;
+        }
+
+    }
+    for (auto it = font_bank.begin(); it != font_bank.end();) {
+
+        if (it->second.use_count() <= 1) 
+        {
+            it = font_bank.erase(it);
+        } else {
+
+            ++it;
+        }
+
+    }
 }
 
 void AssetMan::empty_out() {

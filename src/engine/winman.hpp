@@ -2,8 +2,6 @@
 
 #include "deps.hpp"
 
-#include "imgui.h"
-#include "raylib.h"
 #include "rlImGui.h"
 
 namespace Engine{

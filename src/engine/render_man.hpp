@@ -30,6 +30,8 @@ class RenderMan {
     //have z levels
     //
     //buffer 
+    //have the rendering to the window a winman thing
+    //move the canva to here
 private:
 
     using buffer = std::vector<RenderElement>;
