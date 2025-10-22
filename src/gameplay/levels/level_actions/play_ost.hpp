@@ -21,9 +21,9 @@ public:
 
     bool execute(Engine::Systems* sys, double dt) {
 
-        sys->music->set_mode(Engine::MusicMan::Mode::loop);
-        sys->music->add_music_to_buffer(m_ost);
-        sys->music->start_music();
+        Engine::MusicMan::set_mode(Engine::MusicMan::Mode::loop);
+        Engine::MusicMan::add_music_to_buffer(m_ost);
+        Engine::MusicMan::start_music();
 
         return true;
     };

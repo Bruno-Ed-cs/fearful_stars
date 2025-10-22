@@ -18,33 +18,31 @@ public:
         playlist
     };
 
-    MusicMan();
-    void update();
-    void add_music_to_buffer(MusicRef music_ref);
-    void set_mode(Mode mode);
-    void clean();
-    void set_pitch(double pitch);
-    void reset_pitch();
-    void set_volume(double volume);
-    void reset_volumet();
+    static void init();
+    static void update();
+    static void add_music_to_buffer(MusicRef music_ref);
+    static void set_mode(Mode mode);
+    static void clean();
+    static void set_pitch(double pitch);
+    static void reset_pitch();
+    static void set_volume(double volume);
+    static void reset_volumet();
 
-    void start_music();
-    void stop_music();
-
-private:
-
-    void loop();
-    void one_shot();
-    void playlist();
+    static void start_music();
+    static void stop_music();
 
 private:
 
-    vector<MusicRef> m_buffer;
-    double m_volume;
-    double m_pitch;
-    Mode m_cur_mode;
+    static void loop();
+    static void one_shot();
+    static void playlist();
 
+private:
 
+    inline static vector<MusicRef> m_buffer;
+    inline static double m_volume;
+    inline static double m_pitch;
+    inline static Mode m_cur_mode;
 };
 
 }

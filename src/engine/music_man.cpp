@@ -7,9 +7,12 @@ using vector = std::vector<T>;
 
 using namespace Engine;
 
+void MusicMan::init() {
+    m_volume = 1.0;
+    m_pitch = 1.0;
+    m_buffer = vector<MusicRef>();
 
-MusicMan::MusicMan() :
-    m_volume(1.0), m_pitch(1.0), m_buffer() {}
+};
 
 
 void MusicMan::update() {

@@ -4,8 +4,6 @@
 
 using namespace Engine;
 
-InputMan* InputMan::instance = nullptr;
-
 void InputMan::pull_events() {
 
     auto& instance = InputMan::get_instance();

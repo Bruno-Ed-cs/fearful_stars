@@ -14,6 +14,6 @@ void update_loop(double dt, Engine::Systems& sys) {
     sys.enemy->update(dt, sys);
     sys.player->update(dt, sys);
     sys.level->update(dt);
-    sys.music->update();
+
 
 }
