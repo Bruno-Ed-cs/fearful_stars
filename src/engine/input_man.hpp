@@ -27,7 +27,7 @@ public:
 
 private:
 
-    static InputMan* instance;
+    inline static InputMan* instance;
 
     std::vector<Event> m_event_pool;
     

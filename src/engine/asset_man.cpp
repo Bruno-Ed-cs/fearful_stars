@@ -8,12 +8,6 @@ using namespace Engine;
 template<typename T>
 using sptr = std::shared_ptr<T>;
 
-std::map<std::string, sptr<Texture>> AssetMan::texture_bank;
-std::map<std::string, sptr<Sound>> AssetMan::sound_bank;
-std::map<std::string, sptr<Music>> AssetMan::music_bank;
-std::map<std::string, sptr<Font>> AssetMan::font_bank;
-std::map<std::string, sptr<Shader>> AssetMan::shader_bank;
-
 using str_par = std::string_view;
 using str = std::string;
 
@@ -151,7 +145,7 @@ void AssetMan::preload_shaders(std::initializer_list<str_par> shaders) {
 
 };
 
-void AssetMan::InitAssetManager(){
+void AssetMan::init(){
 
     music_bank =    std::map<str, sptr<Music>>();
     texture_bank =  std::map<str, sptr<Texture>>();

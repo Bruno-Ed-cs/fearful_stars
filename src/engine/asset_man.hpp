@@ -21,7 +21,7 @@ public:
 
     static void preload_shaders(std::initializer_list<std::string_view>);
 
-    static void InitAssetManager();
+    static void init();
     static void cleanup();
     static void empty_out();
 
@@ -72,11 +72,11 @@ private:
 
     };
 
-    static std::map<std::string, sptr<Texture>> texture_bank;
-    static std::map<std::string, sptr<Sound>> sound_bank;
-    static std::map<std::string, sptr<Music>> music_bank;
-    static std::map<std::string, sptr<Font>> font_bank;
-    static std::map<std::string, sptr<Shader>> shader_bank;
+    inline static std::map<std::string, sptr<Texture>> texture_bank;
+    inline static std::map<std::string, sptr<Sound>> sound_bank;
+    inline static std::map<std::string, sptr<Music>> music_bank;
+    inline static std::map<std::string, sptr<Font>> font_bank;
+    inline static std::map<std::string, sptr<Shader>> shader_bank;
 
 };
 

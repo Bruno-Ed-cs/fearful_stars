@@ -11,6 +11,7 @@
 #include "gameplay/levels/level_actions/wait_action.hpp"
 #include "gameplay/levels/level_actions/wave_end_action.hpp"
 #include "gameplay/levels/levels.hpp"
+#include "music_man.hpp"
 #include "raylib.h"
 #include "update_loop.hpp"
 #include "draw_loop.hpp"
@@ -43,8 +44,9 @@ int main(void)
 
     double dt;
 
-    Engine::AssetMan::InitAssetManager();
+    Engine::AssetMan::init();
     InitAudioDevice();
+    Engine::MusicMan::init();
 
     Game::Assets::ship_tilemap = Engine::AssetMan::get_texture("Space_VH");
 
@@ -130,6 +132,9 @@ int main(void)
             Engine::g_debug = !Engine::g_debug;
 
         }
+
+
+        Engine::MusicMan::update();
 
         update_loop(dt, sys);
         draw_loop(sys);
