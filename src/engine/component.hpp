@@ -15,6 +15,8 @@ public:
 
 };
 
+//ignore this for now
+
 template<typename T>
 concept is_component = std::is_base_of_v<IComponent, T>;
 

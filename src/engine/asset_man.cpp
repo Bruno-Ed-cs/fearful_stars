@@ -12,17 +12,18 @@ std::list<AssetMan::AssetContainer<Texture>> AssetMan::texture_bank;
 std::list<AssetMan::AssetContainer<Sound>> AssetMan::sound_bank;
 std::list<AssetMan::AssetContainer<Music>> AssetMan::music_bank;
 std::list<AssetMan::AssetContainer<Font>> AssetMan::font_bank;
+std::list<AssetMan::AssetContainer<Shader>> AssetMan::shader_bank;
 
-using str_par = const std::string&;
+using str_par = std::string_view;
 
 static std::string search_asset(str_par base_dir, str_par asset_name, str_par filter) {
 
     std::string app_dir = GetApplicationDirectory();
     std::println("{}", app_dir);
-    std::string asset_dir = app_dir + base_dir;
+    std::string asset_dir = std::string(app_dir) + std::string(base_dir);
     std::println("{}", asset_dir);
 
-    FilePathList files = LoadDirectoryFilesEx(asset_dir.c_str(), filter.c_str(), true);
+    FilePathList files = LoadDirectoryFilesEx(asset_dir.c_str(), std::string(filter).c_str(), true);
 
     if (files.count <= 0)
         throw std::invalid_argument(std::format("The Asset {} could not be found", asset_name));
@@ -48,6 +49,32 @@ static std::string search_asset(str_par base_dir, str_par asset_name, str_par fi
     return target_path;
 
 }
+
+sptr<Shader> AssetMan::get_shader(std::string_view shader_name) {
+
+    auto search_iter = std::find_if(shader_bank.begin(), shader_bank.end(), 
+    [shader_name](const AssetContainer<Shader>& container) {
+
+    return container.name == shader_name;
+    });
+
+    if (search_iter != shader_bank.end()) {
+
+        return search_iter->asset_origin;
+    }
+
+    std::string search_result_vert = search_asset("assets/shaders", shader_name, ".vert");
+    std::string search_result_frag = search_asset("assets/shaders", shader_name, ".frag");
+
+    Shader* shader_ptr = new Shader;
+    *shader_ptr = LoadShader(search_result_vert.c_str(), search_result_frag.c_str());
+
+    auto shader_ref = sptr<Shader>(shader_ptr, ShaderDestroyer{});
+    shader_bank.emplace_front(std::string(shader_name), shader_ref);
+
+    return shader_ref;
+
+};
 
 sptr<Texture> AssetMan::get_texture(const str& texture_name){
 
@@ -149,13 +176,22 @@ sptr<Font> AssetMan::get_font(const str& font_name){
     return font_reference;
 }
 
+void AssetMan::preload_shaders(std::initializer_list<std::string_view> shaders) {
+
+    for (auto shader_name : shaders) {
+
+        AssetMan::get_shader(shader_name);
+    }
+
+};
+
 void AssetMan::InitAssetManager(){
 
     music_bank = std::list<AssetContainer<Music>>();
     texture_bank = std::list<AssetContainer<Texture>>();
     sound_bank = std::list<AssetContainer<Sound>>();
     font_bank = std::list<AssetContainer<Font>>();
-
+    shader_bank = std::list<AssetContainer<Shader>>();
 }
 
 void AssetMan::cleanup() {

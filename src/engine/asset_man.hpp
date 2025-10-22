@@ -1,7 +1,7 @@
 #pragma once
 
 #include "deps.hpp"
-#include <print>
+#include "raylib.h"
 
 namespace Engine {
 
@@ -17,6 +17,9 @@ public:
     static sptr<Music> get_music(const str& music_name);
     static sptr<Sound> get_sound(const str& sound_name);
     static sptr<Font> get_font(const str& font_name);
+    static sptr<Shader> get_shader(std::string_view shader_name);
+
+    static void preload_shaders(std::initializer_list<std::string_view>);
 
     static void InitAssetManager();
     static void cleanup();
@@ -29,6 +32,14 @@ private:
 
         str name;
         sptr<Asset> asset_origin;
+
+    };
+
+    struct ShaderDestroyer {
+
+        void operator()(Shader* ptr) {
+            UnloadShader(*ptr);
+        };
 
     };
 
@@ -73,6 +84,7 @@ private:
     static std::list<AssetContainer<Sound>> sound_bank;
     static std::list<AssetContainer<Music>> music_bank;
     static std::list<AssetContainer<Font>> font_bank;
+    static std::list<AssetContainer<Shader>> shader_bank;
 
 };
 
