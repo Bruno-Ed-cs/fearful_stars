@@ -13,6 +13,7 @@
 #include "gameplay/levels/levels.hpp"
 #include "music_man.hpp"
 #include "raylib.h"
+#include "render_man.hpp"
 #include "update_loop.hpp"
 #include "draw_loop.hpp"
 #include "control_schema.hpp"
@@ -47,6 +48,7 @@ int main(void)
     Engine::AssetMan::init();
     InitAudioDevice();
     Engine::MusicMan::init();
+    Engine::RenderMan::init(320, 180);
 
     Game::Assets::ship_tilemap = Engine::AssetMan::get_texture("Space_VH");
 

@@ -1,5 +1,6 @@
 #include "component.hpp"
 #include "deps.hpp"
+#include "render_man.hpp"
 #include "systems.hpp"
 
 #include "player.hpp"
@@ -69,12 +70,11 @@ void Player::update(double dt, Engine::Systems& sys) {
 
 void Player::draw() {
 
+
     Rectangle dest{pos.x - 8, pos.y - 8, 16.0f, 16};
     Rectangle origin{3 * 16, 0, -16, 16};
-    DrawTexturePro(*Assets::ship_tilemap, origin , dest, Vector2{0, 0}, 0.0f, WHITE);
-    DrawCircleV(pos.vec(), 1.0f, GREEN);
-    DrawCircleV(pos.vec(), 0.5f, GRAY);
 
+    Engine::RenderMan::send_middle(*spritesheet, dest, origin);
 }
 
 Engine::ComponentContainer Player::get_components() { 

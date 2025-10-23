@@ -2,6 +2,7 @@
 
 #include "gameplay/enemy/enemy_man.hpp"
 #include "gameplay/player/player_manager.hpp"
+#include "render_man.hpp"
 #include "gameplay/projectile/projectile_manager.hpp"
 #include "globals.hpp"
 #include "systems.hpp"
@@ -44,6 +45,8 @@ void draw_loop(Engine::Systems& sys) {
         Rectangle dest = { 0, 0, (float)Engine::g_window->get_width(), (float)Engine::g_window->get_height()};
         Vector2 origin = { 0, 0 };
         DrawTexturePro(Engine::g_canva.texture, source, dest, origin, 0.0f, WHITE);
+
+        Engine::RenderMan::draw_to_window();
 
         if (Engine::g_debug) {
 

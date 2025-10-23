@@ -32,13 +32,14 @@ public:
     Player() {
 
         shooting_sound = Engine::AssetMan::get_sound("space-laser");
-
+        spritesheet = Engine::AssetMan::get_texture("Space_VH");
     }
 
     Player(Vector2 pos) {
 
         this->pos = pos;
         shooting_sound = Engine::AssetMan::get_sound("space-laser");
+        spritesheet = Engine::AssetMan::get_texture("Space_VH");
 
     }
 
@@ -52,6 +53,7 @@ public:
     Engine::Timer cooldown = Engine::Timer(0.5f);
     ShootingMachine shooting_machine;
     std::shared_ptr<Sound> shooting_sound;
+    std::shared_ptr<Texture> spritesheet;
 
     Position pos = Position(0.0, 0.0);
     Direction dir = Direction(0.0, 0.0);
