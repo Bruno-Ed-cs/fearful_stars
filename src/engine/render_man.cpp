@@ -1,6 +1,8 @@
 #include "render_man.hpp"
 #include "raylib.h"
 #include "globals.hpp"
+#include "winman.hpp"
+#include <cmath>
 
 using namespace Engine;
 
@@ -95,7 +97,7 @@ void RenderMan::render_to_canva() {
 
     BeginTextureMode(s_canva);
 
-    ClearBackground(BLANK);
+    ClearBackground(BLACK);
 
     for (auto& element: s_background) {
 
@@ -126,8 +128,23 @@ void RenderMan::draw_to_window() {
 
     render_to_canva();
 
+    double scale_factor = std::floor(Engine::WinMan::get_height() / canva_size().y);
+    Vector2 position = Vector2{.x = 0, .y = 0};
+    float render_wid = canva_size().x * scale_factor;
+    float render_height = canva_size().y * scale_factor;
+
+    if (render_wid < Engine::WinMan::get_width()) {
+
+        position.x += (Engine::WinMan::get_width() - render_wid) / 2;
+    }
+
+    if (render_height < Engine::WinMan::get_height()) {
+
+        position.y += (Engine::WinMan::get_height() - render_height) / 2;
+    }
+
     Rectangle source = { 0, 0, (float)s_canva.texture.width, (float)s_canva.texture.height * -1 };
-    Rectangle dest = { 0, 0, (float)Engine::g_window->get_width(), (float)Engine::g_window->get_height()};
+    Rectangle dest = { position.x, position.y, render_wid, render_height};
     Vector2 origin = { 0, 0 };
     DrawTexturePro(s_canva.texture, source, dest, origin, 0.0f, WHITE);
 

@@ -15,10 +15,4 @@ namespace Engine {
 
 }
 
-namespace Game::Assets {
-
-    inline std::shared_ptr<Texture> ship_tilemap;
-
-}
-
 

@@ -20,6 +20,7 @@
 #include "gameplay/enemy/enemy_man.hpp"
 #include "gameplay/enemy/basic/basic_enemy.hpp"
 #include "systems.hpp"
+#include "winman.hpp"
 
 //------------------------------------------------------------------------------------
 // Program main entry point
@@ -31,8 +32,7 @@ int main(void)
     // Initialization
     //--------------------------------------------------------------------------------------
     
-    Engine::g_window = std::make_unique<Engine::WinMan>(1280, 720, "Fearful Stars");
-
+    Engine::WinMan::init(1280, 720, "Fearful Stars", 0, false);
 
     Engine::g_canva_size = Vector2{320, 180};
     Engine::g_canva = LoadRenderTexture(Engine::g_canva_size.x, Engine::g_canva_size.y);
@@ -45,12 +45,10 @@ int main(void)
 
     double dt;
 
-    Engine::AssetMan::init();
     InitAudioDevice();
+    Engine::AssetMan::init();
     Engine::MusicMan::init();
     Engine::RenderMan::init(320, 180);
-
-    Game::Assets::ship_tilemap = Engine::AssetMan::get_texture("Space_VH");
 
     Engine::AssetMan::get_texture("Connor_fodder2");
 
@@ -127,13 +125,14 @@ int main(void)
         Engine::InputMan::pull_events();
 
         if (IsKeyPressed(KEY_ENTER)) 
-            Engine::g_window->toggle_fullscreen();
+            Engine::WinMan::toggle_fullscreen();
 
         if (IsKeyPressed(KEY_F3)) {
 
             Engine::g_debug = !Engine::g_debug;
 
         }
+        Engine::WinMan::update_window();
 
 
         Engine::MusicMan::update();
@@ -149,7 +148,5 @@ int main(void)
     }
 
     rlImGuiShutdown();
-    //Engine::InputMan::close();
-    Engine::AssetMan::cleanup();
     return 0;
 }

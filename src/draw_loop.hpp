@@ -17,10 +17,6 @@ void draw_loop(Engine::Systems& sys) {
     {
 
         ClearBackground(WHITE);
-        DrawPixel(20, 20, RED);
-        DrawPixel(21, 20, RED);
-        DrawPixel(22, 20, RED);
-        DrawPixel(23, 20, RED);
 
         DrawText("Congrats! You created your first window!", 27, 100, 1, LIGHTGRAY);
 
@@ -42,7 +38,7 @@ void draw_loop(Engine::Systems& sys) {
 
         //DrawTextureEx(canva.texture, {(float)window.get_width() / 2.0f, (float)window.get_height() / 2.0f}, 180.0f, 2.0f, WHITE);
         Rectangle source = { 0, 0, (float)Engine::g_canva.texture.width, (float)Engine::g_canva.texture.height * -1 };
-        Rectangle dest = { 0, 0, (float)Engine::g_window->get_width(), (float)Engine::g_window->get_height()};
+        Rectangle dest = { 0, 0, (float)Engine::WinMan::get_width(), (float)Engine::WinMan::get_height()};
         Vector2 origin = { 0, 0 };
         DrawTexturePro(Engine::g_canva.texture, source, dest, origin, 0.0f, WHITE);
 
