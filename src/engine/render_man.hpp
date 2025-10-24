@@ -47,6 +47,7 @@ private:
     inline static buffer s_background;
     inline static buffer s_middleground;
     inline static buffer s_foreground;
+    inline static Camera2D s_camera;
 
 };
 

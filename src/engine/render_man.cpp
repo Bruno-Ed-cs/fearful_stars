@@ -71,6 +71,13 @@ void RenderMan::init(int canva_wid, int canva_hei) {
     s_background = std::vector<RenderElement>();
     s_foreground = std::vector<RenderElement>();
     s_middleground = std::vector<RenderElement>();
+    s_camera = Camera2D{
+        .offset = Vector2{0, 0},
+        .target = Vector2{0, 0},
+        .rotation = 0.0,
+        .zoom = 1.0
+    };
+    
 }
 
 Vector2 RenderMan::canva_size() {
@@ -96,6 +103,7 @@ void RenderMan::render_to_canva() {
     std::sort(s_middleground.begin(), s_middleground.end(), z_sort);
 
     BeginTextureMode(s_canva);
+    BeginMode2D(s_camera);
 
     ClearBackground(BLACK);
 
@@ -113,6 +121,7 @@ void RenderMan::render_to_canva() {
 
         DrawTexturePro(element.source, element.source_view, element.render_view, Vector2{0, 0}, element.rotation, WHITE);
     };
+    EndMode2D();
 
     EndTextureMode();
 
