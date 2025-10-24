@@ -39,6 +39,9 @@ public:
     EnemyMan::Collision check_collisions(Rectangle collider);
     bool no_enemy_left();
 
+    void debug_world();
+    void debug_ui();
+
     template<is_enemy Enemy>
     static std::unique_ptr<Enemy> make_enemy() {
 

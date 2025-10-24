@@ -8,10 +8,8 @@
 
 namespace Engine {
 
-    inline std::unique_ptr<Engine::WinMan> g_window;
-    inline RenderTexture2D g_canva;
-    inline Vector2 g_canva_size;
-    inline bool g_debug = false;
+    inline Vector2 g_world_size;
+    inline bool g_debug = true;
 
 }
 

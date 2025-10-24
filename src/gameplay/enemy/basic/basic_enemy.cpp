@@ -23,7 +23,7 @@ void BasicEnemy::update(double dt, Engine::Systems& sys) {
     Player& player = sys.player->get_player();
 
     if (Vector2Distance(pos.vec(), player.pos.vec()) > 50){
-        if (direction == Vector2{0,1} && pos.y > Engine::g_canva_size.y) 
+        if (direction == Vector2{0,1} && pos.y > Engine::g_world_size.y) 
             direction = Vector2{0, -1};
 
         if (direction == Vector2{0,-1} && pos.y < 0) 

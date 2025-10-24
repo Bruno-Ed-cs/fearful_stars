@@ -13,34 +13,23 @@ auto font = Engine::AssetMan::get_font("EXEPixelPerfect");
 
 void draw_loop(Engine::Systems& sys) {
 
-    BeginTextureMode(Engine::g_canva);
-    {
-
-        ClearBackground(WHITE);
-
-        DrawText("Congrats! You created your first window!", 27, 100, 1, LIGHTGRAY);
+    sys.player->draw();
+    sys.projectile->draw();
+    sys.enemy->draw();
 
 
-        sys.projectile->draw();
-        sys.player->draw();
-        sys.enemy->draw();
-
-        DrawTextEx(*font, "This fuking works", Vector2{50,50}, 10.0, 1.0, BLACK);
-
-    }
-    EndTextureMode();
+    Engine::RenderMan::render_to_canva();
 
     BeginDrawing();
     {
 
         ClearBackground(BLACK);
 
+        if (Engine::g_debug) {
 
-        //DrawTextureEx(canva.texture, {(float)window.get_width() / 2.0f, (float)window.get_height() / 2.0f}, 180.0f, 2.0f, WHITE);
-        Rectangle source = { 0, 0, (float)Engine::g_canva.texture.width, (float)Engine::g_canva.texture.height * -1 };
-        Rectangle dest = { 0, 0, (float)Engine::WinMan::get_width(), (float)Engine::WinMan::get_height()};
-        Vector2 origin = { 0, 0 };
-        DrawTexturePro(Engine::g_canva.texture, source, dest, origin, 0.0f, WHITE);
+            sys.projectile->debug_world();
+            sys.enemy->debug_world();
+        }
 
         Engine::RenderMan::draw_to_window();
 
@@ -60,7 +49,8 @@ void draw_loop(Engine::Systems& sys) {
         }
         ImGui::End();
 
-        sys.projectile->debug();
+        sys.projectile->debug_ui();
+        sys.enemy->debug_ui();
         sys.player->debug();
 
         rlImGuiEnd();

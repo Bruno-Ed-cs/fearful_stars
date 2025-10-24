@@ -30,7 +30,8 @@ public:
 
     void update(double dt, Engine::Systems& sys);
     void draw();
-    void debug();
+    void debug_ui();
+    void debug_world();
     void append_delete_queue(uint32_t id);
     uint32_t get_id(IProjectile* target);
 

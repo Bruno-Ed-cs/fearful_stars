@@ -10,6 +10,7 @@ struct RenderElement {
     Rectangle source_view;
     int z_index = 0;
     double rotation = 0.0;
+    Color tint;
 //    std::optional<Shader> effect;
 //    std::function<void(RenderElement*, double)> script = nullptr;
 };
@@ -26,12 +27,22 @@ class RenderMan {
     //move the canva to here
 
 public:
-    static void send_back(Texture sprite, Rectangle render_view, Rectangle source_view, int z_index = 0, double rotation = 0);
-    static void send_front(Texture sprite, Rectangle render_view, Rectangle source_view, int z_index = 0, double rotation = 0);
-    static void send_middle(Texture sprite, Rectangle render_view, Rectangle source_view, int z_index = 0, double rotation = 0);
+    enum class Plane {
+        front,
+        middle,
+        back
+    };
+
+    static void send_texture(RenderMan::Plane layer, Texture sprite,
+                             Rectangle render_view, Rectangle source_view,
+                             int z_index = 0, double rotation = 0, Color tint = WHITE);
 
     static void init(int canva_wid, int canva_hei);
     static void draw_to_window();
+
+    static void render_to_canva();
+    static void begin_draw_debug();
+    static void end_draw_debug();
     
     static Vector2 canva_size();
 
@@ -39,7 +50,6 @@ private:
 
     using buffer = std::vector<RenderElement>;
 
-    static void render_to_canva();
 
     inline static bool s_initialized;
 

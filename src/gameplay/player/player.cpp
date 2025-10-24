@@ -62,8 +62,8 @@ void Player::update(double dt, Engine::Systems& sys) {
 
     pos += movement;
 
-    pos.x = Clamp(pos.x, 0.0, Engine::g_canva_size.x);
-    pos.y = Clamp(pos.y, 0.0, Engine::g_canva_size.y);
+    pos.x = Clamp(pos.x, 0.0, Engine::g_world_size.x);
+    pos.y = Clamp(pos.y, 0.0, Engine::g_world_size.y);
 
     //std::cout << position.get_round().x << " " << position.get_round().y << " " << direction.x << " " << direction.y <<'\n';
 }
@@ -74,7 +74,7 @@ void Player::draw() {
     Rectangle dest{pos.x - 8, pos.y - 8, 16.0f, 16};
     Rectangle origin{3 * 16, 0, -16, 16};
 
-    Engine::RenderMan::send_middle(*spritesheet, dest, origin);
+    Engine::RenderMan::send_texture(Engine::RenderMan::Plane::middle, *spritesheet, dest, origin);
 }
 
 Engine::ComponentContainer Player::get_components() { 

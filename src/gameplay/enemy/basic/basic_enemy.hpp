@@ -29,6 +29,7 @@ public:
     void draw() override;
     void update(double dt, Engine::Systems& sys) override;
     void reset(Vector2 position) override;
+    Rectangle get_hitbox() override { return hitbox.get(pos.vec()); };
     void take_damage(EnemyMan& enemy_man, int damage) override;
     Engine::ComponentContainer get_components() override { return Engine::ComponentContainer{&hp, &hitbox, &pos}; };
 

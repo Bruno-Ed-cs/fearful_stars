@@ -8,7 +8,7 @@ using namespace Engine;
 
 auto initialization_err = std::runtime_error("Render manager used but not initialized");
 
-void RenderMan::send_back(Texture sprite, Rectangle render_view, Rectangle source_view, int z_index, double rotation) {
+void RenderMan::send_texture(RenderMan::Plane layer, Texture sprite, Rectangle render_view, Rectangle source_view, int z_index, double rotation, Color tint) {
 
     if (!s_initialized)
         throw initialization_err;
@@ -17,52 +17,35 @@ void RenderMan::send_back(Texture sprite, Rectangle render_view, Rectangle sourc
         (render_view.x > canva_size().x * 1.1 || render_view.x < 0 - canva_size().x * 0.1)))
         return;
 
-    s_background.push_back(RenderElement{
+
+    int index = render_view.x + render_view.y + z_index;
+
+    RenderElement element = RenderElement{
         .source = sprite,
         .render_view = render_view,
         .source_view = source_view,
-        .z_index = z_index,
+        .z_index = index,
         .rotation = rotation,
-    });
+        .tint = tint,
+    };
+
+    switch (layer) {
+
+        case RenderMan::Plane::back:
+            s_background.push_back(element);
+        break;
+
+        case RenderMan::Plane::front:
+            s_foreground.push_back(element);
+        break;
+
+        case RenderMan::Plane::middle:
+            s_middleground.push_back(element);
+        break;
+    
+    }
 
 }
-
-void RenderMan::send_front(Texture sprite, Rectangle render_view, Rectangle source_view, int z_index, double rotation) {
-
-    if (!s_initialized)
-        throw initialization_err;
-
-    if(((render_view.y > canva_size().y * 1.1 || render_view.y < 0 - canva_size().y * 0.1) ||
-        (render_view.x > canva_size().x * 1.1 || render_view.x < 0 - canva_size().x * 0.1)))
-        return;
-
-    s_foreground.push_back(RenderElement{
-        .source = sprite,
-        .render_view = render_view,
-        .source_view = source_view,
-        .z_index = z_index,
-        .rotation = rotation,
-    });
-}
-
-void RenderMan::send_middle(Texture sprite, Rectangle render_view, Rectangle source_view, int z_index, double rotation) {
-
-    if (!s_initialized)
-        throw initialization_err;
-
-    if(((render_view.y > canva_size().y * 1.1 || render_view.y < 0 - canva_size().y * 0.1) ||
-        (render_view.x > canva_size().x * 1.1 || render_view.x < 0 - canva_size().x * 0.1)))
-        return;
-
-    s_middleground.push_back(RenderElement{
-        .source = sprite,
-        .render_view = render_view,
-        .source_view = source_view,
-        .z_index = z_index == 0 ? static_cast<int>(render_view.y) : z_index,
-        .rotation = rotation,
-    });
-}
-
 
 void RenderMan::init(int canva_wid, int canva_hei) {
 
@@ -89,6 +72,20 @@ Vector2 RenderMan::canva_size() {
 
 }
 
+
+void RenderMan::begin_draw_debug() {
+    
+    BeginTextureMode(s_canva);
+    BeginMode2D(s_camera);
+};
+
+void RenderMan::end_draw_debug() {
+
+    EndMode2D();
+    EndTextureMode();
+
+};
+
 void RenderMan::render_to_canva() {
 
     auto z_sort = [](auto& element1, auto& element2){
@@ -105,7 +102,7 @@ void RenderMan::render_to_canva() {
     BeginTextureMode(s_canva);
     BeginMode2D(s_camera);
 
-    ClearBackground(BLACK);
+    ClearBackground(BLANK);
 
     for (auto& element: s_background) {
 
@@ -135,7 +132,6 @@ void RenderMan::draw_to_window() {
     if (!s_initialized)
         throw initialization_err;
 
-    render_to_canva();
 
     double scale_factor = std::floor(Engine::WinMan::get_height() / canva_size().y);
     Vector2 position = Vector2{.x = 0, .y = 0};

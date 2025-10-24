@@ -4,6 +4,8 @@
 #include "gameplay/enemy/enemy_man.hpp"
 #include "gameplay/player/player_manager.hpp"
 #include "gameplay/projectile/projectile_manager.hpp"
+#include "globals.hpp"
+#include "render_man.hpp"
 #include "systems.hpp"
 
 #include "basic_projectile.hpp"
@@ -38,15 +40,15 @@ void BasicProjectile::update(double dt, Engine::Systems& sys) {
 
     } 
 
+    hitbox.x = pos.x;
+    hitbox.y = pos.y;
+
 //    std::cout << pos.get_real().x << " " << pos.get_real().y << '\n';
 }
 
 void BasicProjectile::draw() {
 
 
-    hitbox.x = pos.x;
-    hitbox.y = pos.y;
-
-    DrawRectangleRec(hitbox, BLUE);
-
 }
+
+

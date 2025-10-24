@@ -34,9 +34,7 @@ int main(void)
     
     Engine::WinMan::init(1280, 720, "Fearful Stars", 0, false);
 
-    Engine::g_canva_size = Vector2{320, 180};
-    Engine::g_canva = LoadRenderTexture(Engine::g_canva_size.x, Engine::g_canva_size.y);
-
+    Engine::g_world_size = Vector2{320, 180};
 
     //load controller mappings from sdl database
     char* mappings = LoadFileText("./assets/mappings/mapping.txt");
