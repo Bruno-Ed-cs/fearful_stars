@@ -32,6 +32,7 @@ public:
     Rectangle get_hitbox() override { return hitbox.get(pos.vec()); };
     void take_damage(EnemyMan& enemy_man, int damage) override;
     Engine::ComponentContainer get_components() override { return Engine::ComponentContainer{&hp, &hitbox, &pos}; };
+    EnemyType get_type() override { return EnemyType::basic; };
 
 
 public:
