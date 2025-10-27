@@ -71,8 +71,8 @@ void Player::update(double dt, Engine::Systems& sys) {
 void Player::draw() {
 
 
-    Rectangle dest{pos.x - 8, pos.y - 8, 16.0f, 16};
-    Rectangle origin{3 * 16, 0, -16, 16};
+    Rectangle dest{pos.x - 12, pos.y - 8, 24.0f, 16};
+    Rectangle origin{0, 0, 24, 16};
 
     Engine::RenderMan::send_texture(Engine::RenderMan::Plane::middle, *spritesheet, dest, origin);
 }

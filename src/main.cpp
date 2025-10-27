@@ -85,12 +85,12 @@ int main(void)
     event1->add_action(new Game::WaitAction(2));
 
     event1->add_action(new Game::SpawnEnemiesAction({
-        std::tuple("Basic", Vector2{22, 55}),
-        std::tuple("Basic", Vector2{11, 55}),
-        std::tuple("Basic", Vector2{44, 20}),
-        std::tuple("Basic", Vector2{35, 20}),
-        std::tuple("Basic", Vector2{98, 58}),
-        std::tuple("Basic", Vector2{100, 3})
+        std::tuple("Basic", Vector2{230, 55}),
+        std::tuple("Basic", Vector2{222, 55}),
+        std::tuple("Basic", Vector2{310, 20}),
+        std::tuple("Basic", Vector2{190, 20}),
+        std::tuple("Basic", Vector2{198, 58}),
+        std::tuple("Basic", Vector2{200, 3})
     }));
 
     event1->add_action(new Game::WaitAction(1));

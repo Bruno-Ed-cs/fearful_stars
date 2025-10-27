@@ -46,6 +46,7 @@ void PlayerMan::debug_world() {
 
     Engine::RenderMan::begin_draw_debug();
 
+    DrawRectangleLinesEx(m_player1->hitbox.get(m_player1->pos.vec()), 1.0, RED);
     DrawCircleV(m_player1->pos.vec(), 1, GREEN);
 
     Engine::RenderMan::end_draw_debug();

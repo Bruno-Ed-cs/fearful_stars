@@ -32,14 +32,14 @@ public:
     Player() {
 
         shooting_sound = Engine::AssetMan::get_sound("space-laser");
-        spritesheet = Engine::AssetMan::get_texture("Space_VH");
+        spritesheet = Engine::AssetMan::get_texture("vic_viper");
     }
 
     Player(Vector2 pos) {
 
         this->pos = pos;
         shooting_sound = Engine::AssetMan::get_sound("space-laser");
-        spritesheet = Engine::AssetMan::get_texture("Space_VH");
+        spritesheet = Engine::AssetMan::get_texture("vic_viper");
 
     }
 
@@ -49,7 +49,7 @@ public:
 
 public:
 
-    double speed = 145.0f;
+    double speed = 135.0f;
     Engine::Timer cooldown = Engine::Timer(0.5f);
     ShootingMachine shooting_machine;
     std::shared_ptr<Sound> shooting_sound;
@@ -57,10 +57,9 @@ public:
 
     Position pos = Position(0.0, 0.0);
     Direction dir = Direction(0.0, 0.0);
-    Hitbox hitbox = Hitbox(10.0f, 10.0f);
+    Hitbox hitbox = Hitbox(4.0f, 4.0f);
     Health hp = Health(3);
 
-private:
 };
 
 }

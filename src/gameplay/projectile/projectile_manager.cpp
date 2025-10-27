@@ -83,17 +83,21 @@ void ProjectileMan::debug_world() {
 
     Engine::RenderMan::begin_draw_debug();
 
+
     for (auto& container : m_projectiles) {
 
+        Color tint = BLUE;
+        if (container.projectile_ptr->is_foe())
+            tint = YELLOW;
+
         if (container.active)
-            DrawRectangleRec(container.projectile_ptr->get_hitbox(), BLUE);
+            DrawRectangleRec(container.projectile_ptr->get_hitbox(), tint);
 
         else {
 
-            Color fade = BLUE;
-            fade.a = 100;
+            tint.a = 100;
 
-            DrawRectangleRec(container.projectile_ptr->get_hitbox(), fade);
+            DrawRectangleRec(container.projectile_ptr->get_hitbox(), tint);
 
         };
     };
