@@ -62,7 +62,7 @@ int main(void)
 
     Engine::Systems sys{};
 
-    sys.player->create_player1(Vector2{ 60, 150 });
+    sys.player->init_player(Vector2{ 60, 150 });
 
     //    auto enemy = std::make_unique<Game::BasicEnemy>();
     //    systems.enemy.insert_enemy(std::move(enemy));

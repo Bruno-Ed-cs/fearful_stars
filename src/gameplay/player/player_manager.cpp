@@ -5,6 +5,8 @@
 #include "gameplay/projectile/projectile_manager.hpp"
 #include "player.hpp"
 #include "gameplay/components/position.hpp"
+#include "raylib.h"
+#include "render_man.hpp"
 #include "systems.hpp"
 
 using namespace Game;
@@ -20,13 +22,13 @@ Player& PlayerMan::get_player() {
     return *m_player1;
 }
 
-void PlayerMan::create_player1(Vector2 position) {
+void PlayerMan::init_player(Vector2 position) {
 
     m_player1 = new Player(position);
 }
 
 
-void PlayerMan::debug() {
+void PlayerMan::debug_ui() {
 
     ImGui::Begin("Player debug");
     {
@@ -37,6 +39,16 @@ void PlayerMan::debug() {
     }
     ImGui::End();
 
+
+}
+
+void PlayerMan::debug_world() {
+
+    Engine::RenderMan::begin_draw_debug();
+
+    DrawCircleV(m_player1->pos.vec(), 1, GREEN);
+
+    Engine::RenderMan::end_draw_debug();
 
 }
 

@@ -29,6 +29,7 @@ void draw_loop(Engine::Systems& sys) {
 
             sys.projectile->debug_world();
             sys.enemy->debug_world();
+            sys.player->debug_world();
         }
 
         Engine::RenderMan::draw_to_window();
@@ -51,7 +52,7 @@ void draw_loop(Engine::Systems& sys) {
 
         sys.projectile->debug_ui();
         sys.enemy->debug_ui();
-        sys.player->debug();
+        sys.player->debug_ui();
 
         rlImGuiEnd();
         }
