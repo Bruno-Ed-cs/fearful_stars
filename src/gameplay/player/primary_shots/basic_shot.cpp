@@ -1,8 +1,8 @@
+#include "gameplay/player/primary_shots/basic_shot.hpp"
 #include "deps.hpp"
 
 #include "shooting_machine.hpp"
 #include "gameplay/player/player.hpp"
-#include "gameplay/player/shooting_state.hpp"
 #include "gameplay/projectile/basic/basic_projectile.hpp"
 #include "gameplay/projectile/projectile_manager.hpp"
 #include "input_man.hpp"
@@ -10,7 +10,7 @@
 
 using namespace Game;
 
-void ShootingMachine::run(Player* player, ProjectileMan& projectile_man) {
+void BasicShot::run(Player* player, ProjectileMan& projectile_man) {
 
     m_running = true;
      
@@ -31,7 +31,7 @@ void ShootingMachine::run(Player* player, ProjectileMan& projectile_man) {
     }
 }
 
-void ShootingMachine::transition_to(const std::string& state_name) {
+void BasicShot::transition_to(const std::string& state_name) {
 
     if (!m_state_collection.contains(state_name))
         throw std::logic_error("There is no state such as: " + state_name);

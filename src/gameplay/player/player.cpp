@@ -36,7 +36,7 @@ void Player::update(double dt, Engine::Systems& sys) {
 
     }
 
-    shooting_machine.run(this, *sys.projectile);
+    primary_shot->run(this, *sys.projectile);
 
     cooldown.update(dt);
 
