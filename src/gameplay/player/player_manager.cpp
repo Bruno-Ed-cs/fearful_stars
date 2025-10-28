@@ -36,6 +36,7 @@ void PlayerMan::debug_ui() {
 
         ImGui::Text("Position:\nx: %f\ny: %f", position.x, position.y);
         ImGui::Text("Shooting cooldown: %f", m_player1->cooldown.get_time());
+        ImGui::Text("Special meter: %d", m_player1->special_meter);
     }
     ImGui::End();
 
@@ -47,6 +48,7 @@ void PlayerMan::debug_world() {
     Engine::RenderMan::begin_draw_debug();
 
     DrawRectangleLinesEx(m_player1->hitbox.get(m_player1->pos.vec()), 1.0, RED);
+    DrawRectangleLinesEx(m_player1->graze_range.get(m_player1->pos.vec()), 1.0, GREEN);
     DrawCircleV(m_player1->pos.vec(), 1, GREEN);
 
     Engine::RenderMan::end_draw_debug();

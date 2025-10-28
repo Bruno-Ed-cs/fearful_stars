@@ -60,7 +60,10 @@ public:
 public:
 
     double speed = 135.0f;
+    int special_meter = 0;
+
     Engine::Timer cooldown = Engine::Timer(0.5f);
+    Engine::Timer graze_cooldown = Engine::Timer(0.10);
 
     uptr<ShootingMachine> primary_shot;
     uptr<SecondaryMachine> secondary_shot;
@@ -73,6 +76,7 @@ public:
     Position pos = Position(0.0, 0.0);
     Direction dir = Direction(0.0, 0.0);
     Hitbox hitbox = Hitbox(4.0f, 4.0f);
+    Hitbox graze_range = Hitbox(28, 18);
     Health hp = Health(3);
 
 };

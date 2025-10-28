@@ -1,7 +1,9 @@
 #include "component.hpp"
 #include "deps.hpp"
+#include "raylib.h"
 #include "render_man.hpp"
 #include "systems.hpp"
+#include "timer.hpp"
 
 #include "player.hpp"
 
@@ -64,6 +66,16 @@ void Player::update(double dt, Engine::Systems& sys) {
 
     pos.x = Clamp(pos.x, 0.0, Engine::g_world_size.x);
     pos.y = Clamp(pos.y, 0.0, Engine::g_world_size.y);
+
+    graze_cooldown.update(dt);
+
+    if (sys.projectile->check_collisions(graze_range.get(pos.vec())).collided && graze_cooldown.past_limit()) {
+
+        graze_cooldown.reset();
+
+        special_meter += 1;
+        special_meter = std::clamp(special_meter, 0, 100);
+    }
 
     //std::cout << position.get_round().x << " " << position.get_round().y << " " << direction.x << " " << direction.y <<'\n';
 }

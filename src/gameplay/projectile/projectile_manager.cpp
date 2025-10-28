@@ -196,3 +196,24 @@ IProjectile* ProjectileMan::get_projectile(uint32_t id) {
     throw std::logic_error("Projectile not found");
 
 }
+
+ProjectileMan::Collision ProjectileMan::check_collisions(Rectangle collider) {
+
+    auto response = Collision{
+        .collided = false,
+        .targets = std::list<int32_t>()
+    };
+
+    for (auto& container: m_projectiles) {
+
+        if (CheckCollisionRecs(collider, container.projectile_ptr->get_hitbox())) {
+
+            response.collided = true;
+            response.targets.push_back(container.id);
+        }
+
+    }
+
+    return response;
+
+}
