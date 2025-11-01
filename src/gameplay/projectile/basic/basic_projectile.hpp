@@ -4,7 +4,8 @@
 #include "deps.hpp"
 
 #include "gameplay/projectile/i_projectile.hpp"
-#include "timer.hpp"
+
+import timer;
 
 namespace Game {
 

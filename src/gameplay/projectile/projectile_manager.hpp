@@ -6,8 +6,9 @@
 #include "i_projectile.hpp"
 #include "id_generator.hpp"
 #include "systems.hpp"
-#include "timer.hpp"
 #include <memory>
+
+import timer;
 
 namespace Game {
 

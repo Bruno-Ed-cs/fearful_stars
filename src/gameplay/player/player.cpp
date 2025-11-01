@@ -3,10 +3,10 @@
 #include "raylib.h"
 #include "render_man.hpp"
 #include "systems.hpp"
-#include "timer.hpp"
 
 #include "player.hpp"
 
+import timer;
 
 using namespace Game;
 

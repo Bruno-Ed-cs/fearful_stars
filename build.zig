@@ -1,6 +1,5 @@
 const std = @import("std");
 
-const cpp_source = [_][]const u8 {
 
     "src/engine/debugger.cpp",
     "src/engine/asset_man.cpp",

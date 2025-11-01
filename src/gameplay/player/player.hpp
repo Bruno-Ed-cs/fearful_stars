@@ -8,7 +8,6 @@
 #include "gameplay/player/special_shots/special_machine.hpp"
 #include "i_entity.hpp"
 #include "systems.hpp"
-#include "timer.hpp"
 #include "component.hpp"
 #include "input_man.hpp"
 #include "globals.hpp"
@@ -22,6 +21,7 @@
 #include "gameplay/projectile/projectile_manager.hpp"
 #include <memory>
 
+import timer;
 
 namespace Game {
 

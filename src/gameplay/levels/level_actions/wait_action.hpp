@@ -1,7 +1,8 @@
 #pragma once
 #include "gameplay/levels/i_action.hpp"
 #include "systems.hpp"
-#include "timer.hpp"
+
+import timer;
 
 namespace Game {
 

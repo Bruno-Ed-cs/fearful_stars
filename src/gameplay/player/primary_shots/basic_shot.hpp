@@ -2,7 +2,8 @@
 #include "deps.hpp"
 
 #include "gameplay/player/primary_shots/shooting_machine.hpp"
-#include "timer.hpp"
+
+import timer;
 
 namespace Game {
 

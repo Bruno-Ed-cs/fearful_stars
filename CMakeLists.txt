@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.28)
+cmake_minimum_required(VERSION 3.30)
 
 set(CMAKE_EXPERIMENTAL_CXX_IMPORT_STD "0e5b6991-d74f-4b3d-a41c-cf096e0b2508")
 
@@ -15,11 +15,21 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 
+add_executable(${PROJECT_NAME})
 
 file(GLOB_RECURSE files "src/*.cpp")
 file(GLOB imgui_files "dependencies/dear_imgui/*.cpp")
 
-add_executable(${PROJECT_NAME} ${files})
+target_sources(${PROJECT_NAME} 
+    PUBLIC
+    FILE_SET CXX_MODULES
+    FILES 
+    mods/timer.cpp
+
+    PUBLIC
+    ${files}
+
+)
 
 include_directories(include src/engine src)
 

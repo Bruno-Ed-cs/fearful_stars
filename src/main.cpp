@@ -3,7 +3,6 @@
 
 #include "gameplay/levels/level_actions/play_ost.hpp"
 #include "gameplay/player/player_manager.hpp"
-#include "gameplay/projectile/projectile_manager.hpp"
 #include "globals.hpp"
 #include "gameplay/levels/i_action.hpp"
 #include "input_man.hpp"
@@ -17,8 +16,6 @@
 #include "update_loop.hpp"
 #include "draw_loop.hpp"
 #include "control_schema.hpp"
-#include "gameplay/enemy/enemy_man.hpp"
-#include "gameplay/enemy/basic/basic_enemy.hpp"
 #include "systems.hpp"
 #include "winman.hpp"
 
@@ -27,11 +24,11 @@
 //------------------------------------------------------------------------------------
 int main(void)
 {
-    
+
 //    SetConfigFlags(FLAG_VSYNC_HINT);
     // Initialization
     //--------------------------------------------------------------------------------------
-    
+
     Engine::WinMan::init(1280, 720, "Fearful Stars", 0, false);
 
     Engine::g_world_size = Vector2{320, 180};
@@ -122,7 +119,7 @@ int main(void)
         dt = GetFrameTime();
         Engine::InputMan::pull_events();
 
-        if (IsKeyPressed(KEY_ENTER)) 
+        if (IsKeyPressed(KEY_ENTER))
             Engine::WinMan::toggle_fullscreen();
 
         if (IsKeyPressed(KEY_F3)) {

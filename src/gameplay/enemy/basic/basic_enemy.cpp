@@ -10,7 +10,8 @@
 #include "raymath.h"
 #include "gameplay/player/player_manager.hpp"
 #include "systems.hpp"
-#include "timer.hpp"
+
+import timer;
 
 using namespace Game;
 
