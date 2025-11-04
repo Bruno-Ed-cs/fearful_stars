@@ -1,5 +1,6 @@
 #pragma once 
 
+#include "background_man.hpp"
 #include "gameplay/enemy/enemy_man.hpp"
 #include "gameplay/player/player_manager.hpp"
 #include "render_man.hpp"
@@ -16,6 +17,7 @@ void draw_loop(Engine::Systems& sys) {
     sys.player->draw();
     sys.projectile->draw();
     sys.enemy->draw();
+    Engine::BackgroundMan::draw();
 
 
     Engine::RenderMan::render_to_canva();

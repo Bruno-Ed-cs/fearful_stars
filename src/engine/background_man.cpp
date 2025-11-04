@@ -1,13 +1,51 @@
 #include "background_man.hpp"
+#include "id_generator.hpp"
 #include "render_man.hpp"
+#include <vector>
 
 using namespace Engine;
 
-uint32_t BackgroundMan::create_element(sptr<Texture> sprite, Game::Position initial_pos, double speed, double rotation, mode_func mode) {
+void BackgroundMan::init() {
+
+    element_bank = std::vector<ElementContainer>();
 
 }
 
+uint32_t BackgroundMan::create_element(sptr<Texture> sprite,Rectangle source, Rectangle projection, Game::Position initial_pos, double speed, double rotation, mode_func mode) {
+
+    BackgroundElement element{
+        .canva_location = initial_pos,
+        .sprite = sprite,
+        .source = source,
+        .projection = projection,
+        .rotation = rotation,
+        .speed = speed,
+        .mode = mode,
+    };
+
+    uint32_t id = generate_id<BackgroundMan>([](uint32_t id){
+
+        for (auto& container: element_bank) {
+
+            if (container.id == id) {
+                return true;
+            }
+
+        };
+        return false;
+
+    });
+
+    element_bank.push_back(ElementContainer{
+        .id = id,
+        .element = element});
+
+    return id;
+}
+
 void BackgroundMan::clear_background() {
+
+    element_bank.clear();
 
 }
 
@@ -51,21 +89,31 @@ void BackgroundMan::draw() {
 
     for (auto& container : element_bank) {
 
+        Texture sprite = *container.element.sprite;
+
+        RenderMan::send_texture(
+            RenderMan::Plane::back,
+            sprite,
+            container.element.projection,
+            container.element.source,
+            0,
+            container.element.rotation);
 
     }
 
 }
 
+bool BackgroundElement::Mode::stay(BackgroundElement& element, double dt) {
 
+    element.projection.x = element.canva_location.x;
+    element.projection.y = element.canva_location.y;
+    return true;
+}
 
-bool BackgroundElement::Mode::stay(BackgroundElement&, double dt) {
+bool BackgroundElement::Mode::across(BackgroundElement& element, double dt) {
 
 }
 
-bool BackgroundElement::Mode::across(BackgroundElement&, double dt) {
-
-}
-
-bool BackgroundElement::Mode::loop(BackgroundElement&, double dt) {
+bool BackgroundElement::Mode::loop(BackgroundElement& element, double dt) {
 
 }

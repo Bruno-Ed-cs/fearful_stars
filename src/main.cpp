@@ -1,4 +1,5 @@
 #include "asset_man.hpp"
+#include "background_man.hpp"
 #include "deps.hpp"
 
 #include "gameplay/levels/level_actions/play_ost.hpp"
@@ -47,6 +48,7 @@ int main(void)
     Engine::AssetMan::init();
     Engine::MusicMan::init();
     Engine::RenderMan::init(320, 180);
+    Engine::BackgroundMan::init();
 
     Engine::AssetMan::get_texture("Connor_fodder2");
 
@@ -114,6 +116,8 @@ int main(void)
     sys.level->level = std::move(level);
 
     SeekMusicStream(*Engine::AssetMan::get_music("space-ambient"), 122.0);
+
+    Engine::BackgroundMan::create_element(Engine::AssetMan::get_texture("earthBackgroudeErased"), Rectangle{112, 112, 16, 16}, Rectangle{0, 0, 100, 200}, Game::Position(Vector2{100, 100}), 0, 0, Engine::BackgroundElement::Mode::stay);
 
     // Main game loop
     while (!WindowShouldClose())    // Detect window close button or ESC key
