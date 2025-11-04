@@ -8,16 +8,8 @@
 
 namespace Engine {
 
-    inline std::unique_ptr<Engine::WinMan> g_window;
-    inline RenderTexture2D g_canva;
-    inline Vector2 g_canva_size;
-    inline bool g_debug = false;
-
-}
-
-namespace Game::Assets {
-
-    inline std::shared_ptr<Texture> ship_tilemap;
+    inline Vector2 g_world_size;
+    inline bool g_debug = true;
 
 }
 

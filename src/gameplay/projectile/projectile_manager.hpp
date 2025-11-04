@@ -18,10 +18,10 @@ class ProjectileMan {
 
 public:
 
-    struct CollisionRes {
+    struct Collision {
 
         bool collided;
-        IProjectile& projectile;
+        std::list<int32_t> targets;
     };
 
 
@@ -30,9 +30,11 @@ public:
 
     void update(double dt, Engine::Systems& sys);
     void draw();
-    void debug();
+    void debug_ui();
+    void debug_world();
     void append_delete_queue(uint32_t id);
     uint32_t get_id(IProjectile* target);
+    Collision check_collisions(Rectangle collider);
 
     template<is_projectile Proj>
     void insert_projectile(std::unique_ptr<Proj> projectile) {

@@ -20,6 +20,7 @@
 #include "gameplay/enemy/enemy_man.hpp"
 #include "gameplay/enemy/basic/basic_enemy.hpp"
 #include "systems.hpp"
+#include "winman.hpp"
 
 //------------------------------------------------------------------------------------
 // Program main entry point
@@ -31,12 +32,9 @@ int main(void)
     // Initialization
     //--------------------------------------------------------------------------------------
     
-    Engine::g_window = std::make_unique<Engine::WinMan>(1280, 720, "Fearful Stars");
+    Engine::WinMan::init(1280, 720, "Fearful Stars", 0, false);
 
-
-    Engine::g_canva_size = Vector2{320, 180};
-    Engine::g_canva = LoadRenderTexture(Engine::g_canva_size.x, Engine::g_canva_size.y);
-
+    Engine::g_world_size = Vector2{320, 180};
 
     //load controller mappings from sdl database
     char* mappings = LoadFileText("./assets/mappings/mapping.txt");
@@ -45,12 +43,10 @@ int main(void)
 
     double dt;
 
-    Engine::AssetMan::init();
     InitAudioDevice();
+    Engine::AssetMan::init();
     Engine::MusicMan::init();
     Engine::RenderMan::init(320, 180);
-
-    Game::Assets::ship_tilemap = Engine::AssetMan::get_texture("Space_VH");
 
     Engine::AssetMan::get_texture("Connor_fodder2");
 
@@ -66,7 +62,7 @@ int main(void)
 
     Engine::Systems sys{};
 
-    sys.player->create_player1(Vector2{ 60, 150 });
+    sys.player->init_player(Vector2{ 60, 150 });
 
     //    auto enemy = std::make_unique<Game::BasicEnemy>();
     //    systems.enemy.insert_enemy(std::move(enemy));
@@ -89,12 +85,12 @@ int main(void)
     event1->add_action(new Game::WaitAction(2));
 
     event1->add_action(new Game::SpawnEnemiesAction({
-        std::tuple("Basic", Vector2{22, 55}),
-        std::tuple("Basic", Vector2{11, 55}),
-        std::tuple("Basic", Vector2{44, 20}),
-        std::tuple("Basic", Vector2{35, 20}),
-        std::tuple("Basic", Vector2{98, 58}),
-        std::tuple("Basic", Vector2{100, 3})
+        std::tuple("Basic", Vector2{230, 55}),
+        std::tuple("Basic", Vector2{222, 55}),
+        std::tuple("Basic", Vector2{310, 20}),
+        std::tuple("Basic", Vector2{190, 20}),
+        std::tuple("Basic", Vector2{198, 58}),
+        std::tuple("Basic", Vector2{200, 3})
     }));
 
     event1->add_action(new Game::WaitAction(1));
@@ -127,13 +123,14 @@ int main(void)
         Engine::InputMan::pull_events();
 
         if (IsKeyPressed(KEY_ENTER)) 
-            Engine::g_window->toggle_fullscreen();
+            Engine::WinMan::toggle_fullscreen();
 
         if (IsKeyPressed(KEY_F3)) {
 
             Engine::g_debug = !Engine::g_debug;
 
         }
+        Engine::WinMan::update_window();
 
 
         Engine::MusicMan::update();
@@ -149,7 +146,5 @@ int main(void)
     }
 
     rlImGuiShutdown();
-    //Engine::InputMan::close();
-    Engine::AssetMan::cleanup();
     return 0;
 }

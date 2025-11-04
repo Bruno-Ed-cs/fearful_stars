@@ -5,6 +5,8 @@
 #include "gameplay/player/player_manager.hpp"
 #include "gameplay/projectile/projectile_manager.hpp"
 #include "id_generator.hpp"
+#include "raylib.h"
+#include "render_man.hpp"
 #include "systems.hpp"
 #include <format>
 #include <stdexcept>
@@ -96,6 +98,22 @@ size_t EnemyMan::get_index(uint32_t enemy_id) {
     return index;
 
 }
+
+void EnemyMan::debug_ui() {
+
+};
+
+void EnemyMan::debug_world() {
+
+    Engine::RenderMan::begin_draw_debug();
+    for (auto& container: m_enemies_dock) {
+
+       DrawRectangleRec(container.enemy->get_hitbox(), RED);
+
+    }
+    Engine::RenderMan::end_draw_debug();
+
+};
 
 void EnemyMan::draw() {
 

@@ -15,10 +15,11 @@ public:
     void update(double dt, Engine::Systems& sys);
     void draw();
     Player& get_player();
-    void create_player1(Vector2 position);
+    void init_player(Vector2 position);
 
 
-    void debug();
+    void debug_ui();
+    void debug_world();
 
 private:
 

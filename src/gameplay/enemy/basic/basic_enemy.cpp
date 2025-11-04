@@ -1,13 +1,16 @@
 #include "basic_enemy.hpp"
 #include "gameplay/components/health.hpp"
+#include "gameplay/projectile/basic/basic_projectile.hpp"
 #include "gameplay/components/hitbox.hpp"
 #include "gameplay/components/position.hpp"
 #include "gameplay/enemy/enemy_man.hpp"
 #include "gameplay/projectile/projectile_manager.hpp"
 #include "globals.hpp"
+#include "raylib.h"
 #include "raymath.h"
 #include "gameplay/player/player_manager.hpp"
 #include "systems.hpp"
+#include "timer.hpp"
 
 using namespace Game;
 
@@ -23,7 +26,7 @@ void BasicEnemy::update(double dt, Engine::Systems& sys) {
     Player& player = sys.player->get_player();
 
     if (Vector2Distance(pos.vec(), player.pos.vec()) > 50){
-        if (direction == Vector2{0,1} && pos.y > Engine::g_canva_size.y) 
+        if (direction == Vector2{0,1} && pos.y > Engine::g_world_size.y) 
             direction = Vector2{0, -1};
 
         if (direction == Vector2{0,-1} && pos.y < 0) 
@@ -31,6 +34,15 @@ void BasicEnemy::update(double dt, Engine::Systems& sys) {
 
         Vector2 movement = direction * speed * dt;
         pos += movement;
+
+        static Engine::Timer shot_time{0.2};
+
+        shot_time.update(dt);
+        if (shot_time.past_limit()) {
+            shot_time.reset();
+
+            sys.projectile->request_projectile<BasicProjectile>(pos.vec(), Vector2{-1, 0}, 120, true);
+        }
 
     } else {
 

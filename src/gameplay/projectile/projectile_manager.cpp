@@ -6,6 +6,8 @@
 #include "basic/basic_projectile.hpp"
 #include "globals.hpp"
 #include "imgui.h"
+#include "raylib.h"
+#include "render_man.hpp"
 #include "systems.hpp"
 
 using namespace Game;
@@ -40,8 +42,8 @@ void ProjectileMan::update(double dt, Engine::Systems& sys) {
  //           std::cout << i << "  past update" << '\n';
             auto pos = cur_proj.projectile_ptr->get_position();
 
-            if ((pos.x > Engine::g_canva_size.x || pos.x < 0) ||
-                (pos.y > Engine::g_canva_size.y || pos.y < 0)) {
+            if ((pos.x > Engine::g_world_size.x || pos.x < 0) ||
+                (pos.y > Engine::g_world_size.y || pos.y < 0)) {
 
                 cur_proj.active = false;
                 cur_proj.deadtime.reset();
@@ -77,7 +79,34 @@ void ProjectileMan::draw() {
 
 }
 
-void ProjectileMan::debug() {
+void ProjectileMan::debug_world() {
+
+    Engine::RenderMan::begin_draw_debug();
+
+
+    for (auto& container : m_projectiles) {
+
+        Color tint = BLUE;
+        if (container.projectile_ptr->is_foe())
+            tint = YELLOW;
+
+        if (container.active)
+            DrawRectangleRec(container.projectile_ptr->get_hitbox(), tint);
+
+        else {
+
+            tint.a = 100;
+
+            DrawRectangleRec(container.projectile_ptr->get_hitbox(), tint);
+
+        };
+    };
+
+    Engine::RenderMan::end_draw_debug();
+
+};
+
+void ProjectileMan::debug_ui() {
 
 
     static bool window_open = false;
@@ -165,5 +194,26 @@ IProjectile* ProjectileMan::get_projectile(uint32_t id) {
     }
 
     throw std::logic_error("Projectile not found");
+
+}
+
+ProjectileMan::Collision ProjectileMan::check_collisions(Rectangle collider) {
+
+    auto response = Collision{
+        .collided = false,
+        .targets = std::list<int32_t>()
+    };
+
+    for (auto& container: m_projectiles) {
+
+        if (CheckCollisionRecs(collider, container.projectile_ptr->get_hitbox())) {
+
+            response.collided = true;
+            response.targets.push_back(container.id);
+        }
+
+    }
+
+    return response;
 
 }

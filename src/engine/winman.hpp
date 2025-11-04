@@ -2,43 +2,51 @@
 
 #include "deps.hpp"
 
+#include "raylib.h"
 #include "rlImGui.h"
 
 namespace Engine{
 
 class WinMan {
 
-    uint32_t m_width;
-    uint32_t m_height;
-    std::string m_title;
-    uint32_t m_display;
+    inline static uint32_t m_width;
+    inline static uint32_t m_height;
+    inline static std::string m_title;
+    inline static uint32_t m_display;
 
-    Vector2 m_prev_size;
+    inline static Vector2 m_prev_size;
 
 public:
-    WinMan(const uint32_t width, const uint32_t height, const std::string& title) :
-    m_width(width), m_height(height) , m_title(title){
+    static void init(const uint32_t width, const uint32_t height, std::string_view title, int target_fps, bool vsync) {
+
+        m_width = width;
+        m_height = height;
+        m_title = std::string(title);
+
+        if (vsync) SetConfigFlags(FLAG_VSYNC_HINT);
+        SetConfigFlags(FLAG_WINDOW_RESIZABLE);
 
         InitWindow(m_width, m_height, m_title.c_str());
         m_display = GetCurrentMonitor();
 
-        SetTargetFPS(0);
+        SetTargetFPS(target_fps);
+
 
         rlImGuiSetup(true);
         m_prev_size = Vector2{(float)width, (float)height};
 
     }
 
-    uint32_t get_width() { return m_width; }
-    uint32_t get_height() { return m_height; }
+    static uint32_t get_width() { return m_width; }
+    static uint32_t get_height() { return m_height; }
 
-    ~WinMan() {
+    static void close() {
 
         std::cout << "window closed\n";
         CloseWindow();
     }
 
-    void toggle_fullscreen() {
+    static void toggle_fullscreen() {
 
         //the window size setting is there because imgui only updates its viewport when the window is resized, not when it goes fullscreen
 
@@ -68,7 +76,7 @@ public:
 
     }
 
-    void update_window() {
+    static void update_window() {
 
         m_width = GetScreenWidth();
         m_height = GetScreenHeight();

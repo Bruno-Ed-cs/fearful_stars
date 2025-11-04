@@ -1,7 +1,9 @@
 #include "component.hpp"
 #include "deps.hpp"
+#include "raylib.h"
 #include "render_man.hpp"
 #include "systems.hpp"
+#include "timer.hpp"
 
 #include "player.hpp"
 
@@ -36,7 +38,7 @@ void Player::update(double dt, Engine::Systems& sys) {
 
     }
 
-    shooting_machine.run(this, *sys.projectile);
+    primary_shot->run(this, *sys.projectile);
 
     cooldown.update(dt);
 
@@ -62,8 +64,18 @@ void Player::update(double dt, Engine::Systems& sys) {
 
     pos += movement;
 
-    pos.x = Clamp(pos.x, 0.0, Engine::g_canva_size.x);
-    pos.y = Clamp(pos.y, 0.0, Engine::g_canva_size.y);
+    pos.x = Clamp(pos.x, 0.0, Engine::g_world_size.x);
+    pos.y = Clamp(pos.y, 0.0, Engine::g_world_size.y);
+
+    graze_cooldown.update(dt);
+
+    if (sys.projectile->check_collisions(graze_range.get(pos.vec())).collided && graze_cooldown.past_limit()) {
+
+        graze_cooldown.reset();
+
+        special_meter += 1;
+        special_meter = std::clamp(special_meter, 0, 100);
+    }
 
     //std::cout << position.get_round().x << " " << position.get_round().y << " " << direction.x << " " << direction.y <<'\n';
 }
@@ -71,10 +83,10 @@ void Player::update(double dt, Engine::Systems& sys) {
 void Player::draw() {
 
 
-    Rectangle dest{pos.x - 8, pos.y - 8, 16.0f, 16};
-    Rectangle origin{3 * 16, 0, -16, 16};
+    Rectangle dest{pos.x - 12, pos.y - 8, 24.0f, 16};
+    Rectangle origin{0, 0, 24, 16};
 
-    Engine::RenderMan::send_middle(*spritesheet, dest, origin);
+    Engine::RenderMan::send_texture(Engine::RenderMan::Plane::middle, *spritesheet, dest, origin);
 }
 
 Engine::ComponentContainer Player::get_components() { 
