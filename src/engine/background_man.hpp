@@ -2,7 +2,6 @@
 
 #include "deps.hpp"
 #include "gameplay/components/position.hpp"
-#include <vector>
 
 namespace Engine {
 
@@ -34,6 +33,7 @@ class BackgroundMan {
     static void clear_background();
     static void remove_element(uint32_t id);
     static void update(double dt);
+    static void draw();
 
 private:
 
