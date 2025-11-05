@@ -18,7 +18,7 @@ public:
     struct Collision {
 
         bool has_collided;
-        uint32_t enemy_id;
+        std::list<uint32_t> enemy_ids;
 
     };
 

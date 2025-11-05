@@ -37,6 +37,14 @@ void PlayerMan::debug_ui() {
         ImGui::Text("Position:\nx: %f\ny: %f", position.x, position.y);
         ImGui::Text("Shooting cooldown: %f", m_player1->cooldown.get_time());
         ImGui::Text("Special meter: %d", m_player1->special_meter);
+        ImGui::Text("Lives: %d", m_player1->lives.points);
+        ImGui::Text("Dead: %d", m_player1->dead);
+
+        if (ImGui::Button("Revive")) {
+
+            m_player1->revive();
+
+        }
     }
     ImGui::End();
 

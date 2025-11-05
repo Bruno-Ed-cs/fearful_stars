@@ -126,7 +126,7 @@ void EnemyMan::draw() {
 
 EnemyMan::Collision EnemyMan::check_collisions(Rectangle collider) {
 
-    uint32_t enemy_id = 0;
+    std::list<uint32_t> enemy_ids;
     bool collided = false;
 
     for (auto& enemy_container : m_enemies_dock) {
@@ -139,13 +139,12 @@ EnemyMan::Collision EnemyMan::check_collisions(Rectangle collider) {
         if (CheckCollisionRecs(collider, hitbox.get(position))) {
 
             collided = true;
-            enemy_id = enemy_container.id;
-            break;
+            enemy_ids.push_back(enemy_container.id);
         }
 
     }
 
-    return EnemyMan::Collision{collided, enemy_id};
+    return EnemyMan::Collision{collided, enemy_ids};
 
 }
 

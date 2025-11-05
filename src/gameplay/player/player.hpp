@@ -56,6 +56,9 @@ public:
     void update(double dt, Engine::Systems& sys) override; 
     void draw() override;
     Engine::ComponentContainer get_components() override;
+    void turn_invincible(double seconds);
+    void die(Engine::Systems& sys);
+    void revive();
 
 public:
 
@@ -77,7 +80,11 @@ public:
     Direction dir = Direction(0.0, 0.0);
     Hitbox hitbox = Hitbox(4.0f, 4.0f);
     Hitbox graze_range = Hitbox(28, 18);
-    Health hp = Health(3);
+    Health lives = Health(5);
+
+    bool dead = false;
+    bool invincible = false;
+    Engine::Timer invis_timer;
 
 };
 

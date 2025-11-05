@@ -24,7 +24,7 @@ void BasicProjectile::update(double dt, Engine::Systems& sys) {
 
         if (collision.has_collided) {
 
-            IEnemy& enemy = sys.enemy->get_enemy(collision.enemy_id);
+            IEnemy& enemy = sys.enemy->get_enemy(collision.enemy_ids.front());
             Engine::ComponentContainer enemy_components = enemy.get_components();
 
             if (enemy_components.has_component<Health>()){
@@ -33,7 +33,6 @@ void BasicProjectile::update(double dt, Engine::Systems& sys) {
 
             uint32_t id = sys.projectile->get_id(this);
             sys.projectile->append_delete_queue(id);
-
 
         }
 

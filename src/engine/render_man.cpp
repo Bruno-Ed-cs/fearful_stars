@@ -106,17 +106,17 @@ void RenderMan::render_to_canva() {
 
     for (auto& element: s_background) {
 
-        DrawTexturePro(element.source, element.source_view, element.render_view, Vector2{0, 0}, element.rotation, WHITE);
+        DrawTexturePro(element.source, element.source_view, element.render_view, Vector2{0, 0}, element.rotation, element.tint);
     };
 
     for (auto& element: s_middleground) {
 
-        DrawTexturePro(element.source, element.source_view, element.render_view, Vector2{0, 0}, element.rotation, WHITE);
+        DrawTexturePro(element.source, element.source_view, element.render_view, Vector2{0, 0}, element.rotation, element.tint);
     };
 
     for (auto& element: s_foreground) {
 
-        DrawTexturePro(element.source, element.source_view, element.render_view, Vector2{0, 0}, element.rotation, WHITE);
+        DrawTexturePro(element.source, element.source_view, element.render_view, Vector2{0, 0}, element.rotation, element.tint);
     };
     EndMode2D();
 
