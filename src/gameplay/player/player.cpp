@@ -69,7 +69,7 @@ void Player::update(double dt, Engine::Systems& sys) {
 
     graze_cooldown.update(dt);
 
-    if (sys.projectile->check_collisions(graze_range.get(pos.vec())).collided && graze_cooldown.past_limit()) {
+   if (sys.projectile->check_collisions(graze_range.get(pos.vec()), true).collided && graze_cooldown.past_limit()) {
 
         graze_cooldown.reset();
 
@@ -81,7 +81,7 @@ void Player::update(double dt, Engine::Systems& sys) {
     if (invis_timer.past_limit()) 
         invincible = false;
 
-    if (sys.projectile->check_collisions(hitbox.get(pos.vec())).collided ||
+    if (sys.projectile->check_collisions(hitbox.get(pos.vec()), true).collided ||
         sys.enemy->check_collisions(hitbox.get(pos.vec())).has_collided) {
 
         if (!invincible) { 

@@ -197,7 +197,7 @@ IProjectile* ProjectileMan::get_projectile(uint32_t id) {
 
 }
 
-ProjectileMan::Collision ProjectileMan::check_collisions(Rectangle collider) {
+ProjectileMan::Collision ProjectileMan::check_collisions(Rectangle collider, bool colide_foe) {
 
     auto response = Collision{
         .collided = false,
@@ -206,7 +206,7 @@ ProjectileMan::Collision ProjectileMan::check_collisions(Rectangle collider) {
 
     for (auto& container: m_projectiles) {
 
-        if (CheckCollisionRecs(collider, container.projectile_ptr->get_hitbox())) {
+        if (CheckCollisionRecs(collider, container.projectile_ptr->get_hitbox()) && container.projectile_ptr->is_foe() == colide_foe) {
 
             response.collided = true;
             response.targets.push_back(container.id);

@@ -78,7 +78,7 @@ public:
 
     Position pos = Position(0.0, 0.0);
     Direction dir = Direction(0.0, 0.0);
-    Hitbox hitbox = Hitbox(4.0f, 4.0f);
+    Hitbox hitbox = Hitbox(2.0f, 2.0f);
     Hitbox graze_range = Hitbox(28, 18);
     Health lives = Health(5);
 

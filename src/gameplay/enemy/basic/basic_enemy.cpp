@@ -41,7 +41,7 @@ void BasicEnemy::update(double dt, Engine::Systems& sys) {
         if (shot_time.past_limit()) {
             shot_time.reset();
 
-            sys.projectile->request_projectile<BasicProjectile>(pos.vec(), Vector2{-1, 0}, 120, true);
+            sys.projectile->request_projectile<BasicProjectile>(pos.vec(), Vector2{-1, 0}, 75, true);
         }
 
     } else {
