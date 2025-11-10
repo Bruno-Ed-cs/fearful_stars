@@ -16,6 +16,7 @@ struct BackgroundElement {
     Rectangle projection;
     double rotation;
     double speed;
+    int z_index;
     std::function<bool(BackgroundElement&, double)> mode;
 
     struct Mode {
@@ -33,7 +34,14 @@ public:
 
     using mode_func = std::function<bool(BackgroundElement&, double)>;
 
-    static uint32_t create_element(sptr<Texture> sprite, Rectangle source, Rectangle projection, Game::Position initial_pos, double speed, double rotation, mode_func mode);
+    static uint32_t create_element(sptr<Texture> sprite,
+                                   Rectangle source,
+                                   Rectangle projection,
+                                   Game::Position initial_pos,
+                                   double speed,
+                                   double rotation,
+                                   int z_index,
+                                   mode_func mode);
     static void clear_background();
     static void remove_element(uint32_t id);
     static void update(double dt);

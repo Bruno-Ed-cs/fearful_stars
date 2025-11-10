@@ -11,7 +11,15 @@ void BackgroundMan::init() {
 
 }
 
-uint32_t BackgroundMan::create_element(sptr<Texture> sprite,Rectangle source, Rectangle projection, Game::Position initial_pos, double speed, double rotation, mode_func mode) {
+uint32_t BackgroundMan::create_element(sptr<Texture> sprite,
+                                       Rectangle source,
+                                       Rectangle projection,
+                                       Game::Position initial_pos,
+                                       double speed,
+                                       double rotation,
+                                       int z_index,
+                                       mode_func mode)
+    {
 
     BackgroundElement element{
         .canva_location = initial_pos,
@@ -20,6 +28,7 @@ uint32_t BackgroundMan::create_element(sptr<Texture> sprite,Rectangle source, Re
         .projection = projection,
         .rotation = rotation,
         .speed = speed,
+        .z_index = z_index,
         .mode = mode,
     };
 
