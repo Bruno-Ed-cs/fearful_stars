@@ -32,6 +32,8 @@ public:
     Rectangle get_hitbox() override { return hitbox.get(pos.vec()); };
     void take_damage(EnemyMan& enemy_man, int damage) override;
     Engine::ComponentContainer get_components() override { return Engine::ComponentContainer{&hp, &hitbox, &pos}; };
+    EnemyType get_type() override { return EnemyType::basic; };
+    bool destroy_self() override { return self_destruct; };
 
 
 public:
@@ -41,6 +43,8 @@ public:
     Health hp = Health(2);
     Hitbox hitbox = Hitbox(10.0, 10.0);
     Position pos = Position(200, 50);
+
+    bool self_destruct = false;
 
 private:
 

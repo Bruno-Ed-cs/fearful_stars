@@ -7,6 +7,7 @@
 #include "music_man.hpp"
 #include "globals.hpp"
 #include "systems.hpp"
+#include "background_man.hpp"
 
 void update_loop(double dt, Engine::Systems& sys) {
 
@@ -14,6 +15,7 @@ void update_loop(double dt, Engine::Systems& sys) {
     sys.enemy->update(dt, sys);
     sys.player->update(dt, sys);
     sys.level->update(dt);
+    Engine::BackgroundMan::update(dt);
 
 
 }

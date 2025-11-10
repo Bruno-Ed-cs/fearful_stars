@@ -1,8 +1,7 @@
 #include "render_man.hpp"
-#include "raylib.h"
+#include "deps.hpp"
 #include "globals.hpp"
 #include "winman.hpp"
-#include <cmath>
 
 using namespace Engine;
 
@@ -152,5 +151,16 @@ void RenderMan::draw_to_window() {
     Rectangle dest = { position.x, position.y, render_wid, render_height};
     Vector2 origin = { 0, 0 };
     DrawTexturePro(s_canva.texture, source, dest, origin, 0.0f, WHITE);
+
+}
+
+RenderTexture& RenderMan::get_canva() {
+
+    return s_canva;
+}
+
+Camera2D& RenderMan::get_camera() {
+
+    return s_camera;
 
 }

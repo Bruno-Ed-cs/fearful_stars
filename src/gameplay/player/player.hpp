@@ -59,6 +59,7 @@ public:
     void turn_invincible(double seconds);
     void die(Engine::Systems& sys);
     void revive();
+    bool destroy_self() override { return self_destruct; };
 
 public:
 
@@ -85,6 +86,8 @@ public:
     bool dead = false;
     bool invincible = false;
     Engine::Timer invis_timer;
+
+    bool self_destruct = false;
 
 };
 

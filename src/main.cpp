@@ -1,4 +1,5 @@
 #include "asset_man.hpp"
+#include "background_man.hpp"
 #include "deps.hpp"
 
 #include "gameplay/levels/level_actions/play_ost.hpp"
@@ -12,7 +13,6 @@
 #include "gameplay/levels/level_actions/wave_end_action.hpp"
 #include "gameplay/levels/levels.hpp"
 #include "music_man.hpp"
-#include "raylib.h"
 #include "render_man.hpp"
 #include "update_loop.hpp"
 #include "draw_loop.hpp"
@@ -22,45 +22,21 @@
 #include "systems.hpp"
 #include "winman.hpp"
 
-//------------------------------------------------------------------------------------
-// Program main entry point
-//------------------------------------------------------------------------------------
-int main(void)
-{
-    
-//    SetConfigFlags(FLAG_VSYNC_HINT);
-    // Initialization
-    //--------------------------------------------------------------------------------------
-    
-    Engine::WinMan::init(1280, 720, "Fearful Stars", 0, false);
+void make_background() {
 
-    Engine::g_world_size = Vector2{320, 180};
+    Engine::BackgroundMan::create_element(Engine::AssetMan::get_texture("earthBackgroudeErased"), Rectangle{112, 112, 16, 16}, Rectangle{0, 0, 100, 100}, Game::Position(Vector2{10, 10}), 0, 0, -1, Engine::BackgroundElement::Mode::stay);
 
-    //load controller mappings from sdl database
-    char* mappings = LoadFileText("./assets/mappings/mapping.txt");
-    SetGamepadMappings(mappings);
+    Engine::BackgroundMan::create_element(Engine::AssetMan::get_texture("earthBackgroudeErased"), Rectangle{16 * 3, 0, 16, 16}, Rectangle{0, 0, 16, 16}, Game::Position(Vector2{300, 10}), 0, 0, 0, Engine::BackgroundElement::Mode::stay);
 
+    Engine::BackgroundMan::create_element(Engine::AssetMan::get_texture("earthBackgroudeErased"), Rectangle{16 * 2, 0, 16, 16}, Rectangle{0, 0, 16, 16}, Game::Position(Vector2{201, 40}), 0, 0, 0, Engine::BackgroundElement::Mode::stay);
 
-    double dt;
+    Engine::BackgroundMan::create_element(Engine::AssetMan::get_texture("earthBackgroudeErased"), Rectangle{16 * 1, 0, 16, 16}, Rectangle{0, 0, 16, 16}, Game::Position(Vector2{22, 160}), 0, 0, 0, Engine::BackgroundElement::Mode::stay);
 
-    InitAudioDevice();
-    Engine::AssetMan::init();
-    Engine::MusicMan::init();
-    Engine::RenderMan::init(320, 180);
+    Engine::BackgroundMan::create_element(Engine::AssetMan::get_texture("earthBackgroudeErased"), Rectangle{0, 0, 16, 16}, Rectangle{0, 0, 16, 16}, Game::Position(Vector2{160, 85}), 0, 0, 0, Engine::BackgroundElement::Mode::stay);
 
-    Engine::AssetMan::get_texture("Connor_fodder2");
+}
 
-
-    Engine::InputMan::load_events(controls);
-
-    if(IsGamepadAvailable(0)) {
-        std::cout << "gamepad 0 is ready\n";
-    } else {
-        std::cout << "gamepad not ready\n";
-
-    }
-
-    Engine::Systems sys{};
+void make_level(Engine::Systems& sys) {
 
     sys.player->init_player(Vector2{ 60, 150 });
 
@@ -113,7 +89,54 @@ int main(void)
 
     sys.level->level = std::move(level);
 
+
+}
+
+//------------------------------------------------------------------------------------
+// Program main entry point
+//------------------------------------------------------------------------------------
+int main(void)
+{
+    
+//    SetConfigFlags(FLAG_VSYNC_HINT);
+    // Initialization
+    //--------------------------------------------------------------------------------------
+    
+    Engine::WinMan::init(1280, 720, "Fearful Stars", 0, false);
+
+    Engine::g_world_size = Vector2{320, 180};
+
+    //load controller mappings from sdl database
+    char* mappings = LoadFileText("./assets/mappings/mapping.txt");
+    SetGamepadMappings(mappings);
+
+
+    double dt;
+
+    InitAudioDevice();
+    Engine::AssetMan::init();
+    Engine::MusicMan::init();
+    Engine::RenderMan::init(320, 180);
+    Engine::BackgroundMan::init();
+
+    Engine::AssetMan::get_texture("Connor_fodder2");
+
+
+    Engine::InputMan::load_events(controls);
+
+    if(IsGamepadAvailable(0)) {
+        std::cout << "gamepad 0 is ready\n";
+    } else {
+        std::cout << "gamepad not ready\n";
+
+    }
+
+    Engine::Systems sys{};
+
     SeekMusicStream(*Engine::AssetMan::get_music("space-ambient"), 122.0);
+
+    make_level(sys);
+    make_background();
 
     // Main game loop
     while (!WindowShouldClose())    // Detect window close button or ESC key
@@ -148,3 +171,5 @@ int main(void)
     rlImGuiShutdown();
     return 0;
 }
+
+

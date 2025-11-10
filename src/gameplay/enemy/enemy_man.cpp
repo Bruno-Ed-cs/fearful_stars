@@ -32,6 +32,16 @@ uint32_t EnemyMan::emplace_enemy(std::string_view enemy_type, Vector2 position) 
 
 void EnemyMan::update(double dt, Engine::Systems& sys) {
 
+    for (auto& container: m_enemies_dock) {
+
+        if (container.enemy->destroy_self()) {
+
+            append_delete_queue(container.id);
+
+        }
+
+    }
+
     while (!m_delete_queue.empty()) {
 
         destroy_enemy(m_delete_queue.front());

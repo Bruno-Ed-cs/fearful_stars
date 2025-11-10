@@ -40,7 +40,11 @@ public:
     static void init(int canva_wid, int canva_hei);
     static void draw_to_window();
 
+    static RenderTexture& get_canva();
+    static Camera2D& get_camera();
+
     static void render_to_canva();
+
     static void begin_draw_debug();
     static void end_draw_debug();
     

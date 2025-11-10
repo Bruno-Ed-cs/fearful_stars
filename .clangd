@@ -1,0 +1,24 @@
+CompileFlags:
+  # Remove existing flags that cause issues
+  Remove: 
+    - -fprebuilt-module-path=*
+    - -fmodule-file=*
+  
+  Add: 
+    - -std=c++23
+    - -fmodules-ts
+    - -Xclang
+    - -fmodules-embed-all-files
+    - -I./include
+    - -I./src
+    - -I./src/engine
+    - -I./dependencies/raylib-5.5/src
+    - -I./dependencies/dear_imgui
+    - -DGRAPHICS_API_OPENGL_33
+    - -DPLATFORM_DESKTOP
+
+Diagnostics:
+  ClangTidy: false  # Disable if causing issues
+  UnusedIncludes: Strict
+
+HeaderInsertion: Never
