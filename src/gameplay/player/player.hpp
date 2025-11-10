@@ -56,6 +56,7 @@ public:
     void update(double dt, Engine::Systems& sys) override; 
     void draw() override;
     Engine::ComponentContainer get_components() override;
+    bool destroy_self() override { return self_destruct; };
 
 public:
 
@@ -78,6 +79,8 @@ public:
     Hitbox hitbox = Hitbox(4.0f, 4.0f);
     Hitbox graze_range = Hitbox(28, 18);
     Health hp = Health(3);
+
+    bool self_destruct = false;
 
 };
 

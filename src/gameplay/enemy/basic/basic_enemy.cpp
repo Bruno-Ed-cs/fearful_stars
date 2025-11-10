@@ -61,7 +61,7 @@ void BasicEnemy::take_damage(EnemyMan& enemy_man, int damage) {
 
         uint32_t id = enemy_man.get_enemy(this);
 
-        enemy_man.append_delete_queue(id);
+        self_destruct = true;
     }
 
 }

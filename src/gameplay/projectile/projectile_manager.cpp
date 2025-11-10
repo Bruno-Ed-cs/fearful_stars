@@ -20,6 +20,15 @@ void ProjectileMan::update(double dt, Engine::Systems& sys) {
 
 //    std::cout << "update\n" << m_projectiles.size() << '\n';
 
+    for (auto& container: m_projectiles) {
+
+        if (container.projectile_ptr->destroy_self() && container.active) {
+
+            append_delete_queue(container.id);
+
+        }
+
+    }
 
     while (!m_delete_queue.empty()) {
 
@@ -60,6 +69,8 @@ void ProjectileMan::update(double dt, Engine::Systems& sys) {
         }
 
     }
+
+
 
 }
 

@@ -32,9 +32,7 @@ void BasicProjectile::update(double dt, Engine::Systems& sys) {
             }
 
             uint32_t id = sys.projectile->get_id(this);
-            sys.projectile->append_delete_queue(id);
-
-
+            self_destruct = true;
         }
 
 

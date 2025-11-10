@@ -32,6 +32,7 @@ public:
         this->speed = speed;
         this->direction = direction;
         this->foe = foe;
+        this->self_destruct = false;
 
     }
 
@@ -39,6 +40,7 @@ public:
     void draw() override;
     const std::type_info& get_type() override { return typeid(BasicProjectile); };
     Engine::ComponentContainer get_components() override { return Engine::ComponentContainer{}; };
+    bool destroy_self() override { return self_destruct; };
 
 public:
 
@@ -47,6 +49,8 @@ public:
     Vector2 pos;
     double speed = 0;
     Vector2 direction{0, 0};
+
+    bool self_destruct = false;
 };
 
 }
