@@ -41,7 +41,7 @@ public:
     Player() {
 
         shooting_sound = Engine::AssetMan::get_sound("space-laser");
-        spritesheet = Engine::AssetMan::get_texture("vic_viper");
+        spritesheet = Engine::AssetMan::get_texture("player");
         primary_shot = std::make_unique<BasicShot>();
     }
 
@@ -49,7 +49,7 @@ public:
 
         this->pos = pos;
         shooting_sound = Engine::AssetMan::get_sound("space-laser");
-        spritesheet = Engine::AssetMan::get_texture("vic_viper");
+        spritesheet = Engine::AssetMan::get_texture("player");
         primary_shot = std::make_unique<BasicShot>();
     }
 

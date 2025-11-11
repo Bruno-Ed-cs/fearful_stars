@@ -97,11 +97,11 @@ void make_level(Engine::Systems& sys) {
 //------------------------------------------------------------------------------------
 int main(void)
 {
-    
-//    SetConfigFlags(FLAG_VSYNC_HINT);
+
+    //    SetConfigFlags(FLAG_VSYNC_HINT);
     // Initialization
     //--------------------------------------------------------------------------------------
-    
+
     Engine::WinMan::init(1280, 720, "Fearful Stars", 0, false);
 
     Engine::g_world_size = Vector2{320, 180};

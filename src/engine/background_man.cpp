@@ -1,7 +1,6 @@
 #include "background_man.hpp"
 #include "id_generator.hpp"
 #include "render_man.hpp"
-#include <vector>
 
 using namespace Engine;
 
