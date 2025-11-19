@@ -3,6 +3,7 @@
 
 #include <string_view>
 #include <list>
+#include <algorithm>
 #include <initializer_list>
 #include <type_traits>
 #include <functional>
