@@ -38,8 +38,7 @@ pub fn build(b: *std.Build) void {
     const target = b.standardTargetOptions(.{});
     const optimize = b.standardOptimizeOption(.{});
 
-    const raylib_dep = b.dependency("raylib", .{
-    });
+    const raylib_dep = b.dependency("raylib", .{});
 
     const raylib_lib = raylib_dep.artifact("raylib");
 
