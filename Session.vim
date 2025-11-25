@@ -13,20 +13,24 @@ if &shortmess =~ 'A'
 else
   set shortmess=aoO
 endif
-badd +49 src/gameplay/player/player.hpp
+badd +23 src/gameplay/player/player.hpp
 badd +12 imgui.ini
-badd +1 src/gameplay/player/player.cpp
-badd +22 ~/Projects/gamedev/fearful_stars/src/gameplay/projectile/simple/simple.hpp
+badd +72 src/gameplay/player/player.cpp
+badd +12 ~/Projects/gamedev/fearful_stars/src/gameplay/projectile/simple/simple.hpp
 badd +1 ~/Projects/gamedev/fearful_stars/src/gameplay/projectile/projectile_template.txt
 badd +1 src/gameplay/projectile/projectile_manager.cpp
 badd +1 src/gameplay/player/player_manager.hpp
 badd +17 src/gameplay/projectile/projectile_manager.hpp
+badd +0 oil:///home/huevo/Projects/gamedev/fearful_stars/
+badd +13 ~/Projects/gamedev/fearful_stars/src/gameplay/player/primary_shots/shooting_machine.hpp
+badd +4 ~/Projects/gamedev/fearful_stars/src/gameplay/player/primary_shots/basic_shot.hpp
+badd +45 ~/Projects/gamedev/fearful_stars/src/gameplay/player/primary_shots/basic_shot.cpp
 argglobal
 %argdel
 $argadd oil:///home/huevo/Projects/gamedev/fearful_stars/
-edit ~/Projects/gamedev/fearful_stars/src/gameplay/projectile/simple/simple.hpp
+edit ~/Projects/gamedev/fearful_stars/src/gameplay/player/primary_shots/basic_shot.hpp
 argglobal
-balt ~/Projects/gamedev/fearful_stars/src/gameplay/projectile/projectile_template.txt
+balt ~/Projects/gamedev/fearful_stars/src/gameplay/player/primary_shots/basic_shot.cpp
 setlocal foldmethod=indent
 setlocal foldexpr=0
 setlocal foldmarker={{{,}}}
@@ -35,11 +39,11 @@ setlocal foldlevel=10
 setlocal foldminlines=1
 setlocal foldnestmax=20
 setlocal foldenable
-let s:l = 22 - ((21 * winheight(0) + 21) / 43)
+let s:l = 4 - ((3 * winheight(0) + 21) / 43)
 if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
-keepjumps 22
+keepjumps 4
 normal! 0
 tabnext 1
 if exists('s:wipebuf') && len(win_findbuf(s:wipebuf)) == 0 && getbufvar(s:wipebuf, '&buftype') isnot# 'terminal'
@@ -53,6 +57,7 @@ if filereadable(s:sx)
   exe "source " . fnameescape(s:sx)
 endif
 let &g:so = s:so_save | let &g:siso = s:siso_save
+nohlsearch
 doautoall SessionLoadPost
 unlet SessionLoad
 " vim: set ft=vim :

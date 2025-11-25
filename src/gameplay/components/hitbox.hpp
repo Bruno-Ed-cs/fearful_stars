@@ -2,6 +2,7 @@
 
 #include "deps.hpp"
 #include "component.hpp"
+#include "gameplay/components/position.hpp"
 
 namespace Game {
 
@@ -23,6 +24,13 @@ public:
         return Rectangle{position.x - (width / 2), position.y - (height / 2), width, height};
 
     };
+
+    Rectangle get(Position position) {
+
+        return Rectangle{position.x - (width / 2), position.y - (height / 2), width, height};
+
+    };
+
 
     std::string get_name() { return typeid(Hitbox).name(); };
 
