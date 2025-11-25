@@ -4,6 +4,7 @@
 #include "deps.hpp"
 
 #include "gameplay/player/aux_powers/aux_machine.hpp"
+#include "gameplay/player/primary_shots/plasma_shot.hpp"
 #include "gameplay/player/secondary_shots/secondary_machine.hpp"
 #include "gameplay/player/special_shots/special_machine.hpp"
 #include "i_entity.hpp"
@@ -42,7 +43,7 @@ public:
 
         shooting_sound = Engine::AssetMan::get_sound("space-laser");
         spritesheet = Engine::AssetMan::get_texture("player");
-        primary_shot = std::make_unique<BasicShot>();
+        primary_shot = std::make_unique<PlasmaShooter>();
     }
 
     Player(Vector2 pos) {
@@ -50,7 +51,7 @@ public:
         this->pos = pos;
         shooting_sound = Engine::AssetMan::get_sound("space-laser");
         spritesheet = Engine::AssetMan::get_texture("player");
-        primary_shot = std::make_unique<BasicShot>();
+        primary_shot = std::make_unique<PlasmaShooter>();
     }
 
     void update(double dt, Engine::Systems& sys) override; 
@@ -69,6 +70,8 @@ public:
     Engine::Timer graze_cooldown = Engine::Timer(0.10);
 
     uptr<ShootingMachine> primary_shot;
+    int primary_level = 1;
+
     uptr<SecondaryMachine> secondary_shot;
     uptr<SpecialMachine> special_shot;
     uptr<AuxMachine> aux_power;

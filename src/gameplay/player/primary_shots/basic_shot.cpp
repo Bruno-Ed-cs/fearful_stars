@@ -7,7 +7,7 @@
 
 using namespace Game;
 
-void BasicShot::run(Player& player, ProjectileMan& projectile_man) {
+void BasicShot::run(Player& player, ProjectileMan& projectile_man, double dt) {
 
     while (state_func(this, player, projectile_man));
 }

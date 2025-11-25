@@ -19,7 +19,7 @@ public:
     BasicShot(const ShootingMachine&) = delete;
     BasicShot& operator=(const ShootingMachine&) = delete;
 
-    void run(Player& player, ProjectileMan& projectile_man) override;
+    void run(Player& player, ProjectileMan& projectile_man, double dt) override;
 
     bool idle(Player& player, ProjectileMan& projectile_man);
     bool shoot(Player& player, ProjectileMan& projectile_man);

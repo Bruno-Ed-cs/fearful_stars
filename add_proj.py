@@ -17,6 +17,7 @@ class {0} : public IProjectile{{
 
 public:
 
+    {0}() = default;
     {0}(Vector2 position, double speed, Vector2 direction, bool foe, int damage) :
         pos(position), orientation(direction), foe(foe), damage(damage), speed(speed) {{}}
 
@@ -34,6 +35,8 @@ public:
     void reset(Vector2 pos, double speed, Vector2 direction, bool foe, int damage = 0);
 
 public:
+
+//Inicialize as variaveis 
 
     Position pos;
     Direction orientation;
