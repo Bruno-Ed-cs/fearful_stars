@@ -10,9 +10,7 @@ class ShootingMachine {
 
 public:
 
-
-    virtual void run(Player* player, ProjectileMan& projectile_man) = 0;
-    virtual void transition_to(const std::string& state_name) = 0;
+    virtual void run(Player& player, ProjectileMan& projectile_man) = 0;
 
 };
 }
