@@ -26,6 +26,7 @@ public:
     double get_speed() {{ return speed; }}
     const std::type_info& get_type() {{ return typeid({0}); }}
     bool destroy_self() {{ return destruct; }}
+    int get_damage() {{ return damage; }}
 
     void update(double dt, Engine::Systems& sys);
     void draw();

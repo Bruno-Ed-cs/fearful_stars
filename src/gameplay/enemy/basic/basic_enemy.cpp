@@ -49,6 +49,13 @@ void BasicEnemy::update(double dt, Engine::Systems& sys) {
         pos = Vector2MoveTowards(pos.vec(), player.pos.vec(), speed * dt);
     }
 
+    auto collisions = sys.projectile->check_collisions(hitbox.get(pos), false);
+    if (!collisions.targets.empty()) {
+
+        auto damage = sys.projectile->get_projectile(collisions.targets.front()).get_damage();
+        take_damage(*sys.enemy, damage);
+
+    }
 
 };
 
@@ -68,6 +75,6 @@ void BasicEnemy::take_damage(EnemyMan& enemy_man, int damage) {
 
 void BasicEnemy::reset(Vector2 position) {
 
-    position = position;
+    this->pos = position;
 
 };

@@ -138,8 +138,3 @@ void Player::draw() {
         Engine::RenderMan::send_texture(Engine::RenderMan::Plane::middle, *spritesheet, dest, origin);
 }
 
-Engine::ComponentContainer Player::get_components() { 
-
-    return Engine::ComponentContainer{&pos, &hitbox, &dir, &lives};
-
-};

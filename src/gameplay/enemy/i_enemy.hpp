@@ -20,6 +20,8 @@ public:
     virtual EnemyType get_type() = 0;
 
     virtual Rectangle get_hitbox() = 0;
+    virtual Vector2 get_position() = 0;
+    
 
 };
     

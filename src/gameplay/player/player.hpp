@@ -55,7 +55,6 @@ public:
 
     void update(double dt, Engine::Systems& sys) override; 
     void draw() override;
-    Engine::ComponentContainer get_components() override;
     void turn_invincible(double seconds);
     void die(Engine::Systems& sys);
     void revive();

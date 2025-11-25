@@ -20,20 +20,21 @@ public:
 
     Engine::ComponentContainer components;
 
+    BasicEnemy():
+    pos(Vector2{100, 100}){};
+
     BasicEnemy(Vector2 position) :
         pos(position) {};
 
-    BasicEnemy() {
-    };
 
     void draw() override;
     void update(double dt, Engine::Systems& sys) override;
     void reset(Vector2 position) override;
     Rectangle get_hitbox() override { return hitbox.get(pos.vec()); };
     void take_damage(EnemyMan& enemy_man, int damage) override;
-    Engine::ComponentContainer get_components() override { return Engine::ComponentContainer{&hp, &hitbox, &pos}; };
     EnemyType get_type() override { return EnemyType::basic; };
     bool destroy_self() override { return self_destruct; };
+    Vector2 get_position() override { return pos.vec(); };
 
 
 public:
@@ -42,7 +43,7 @@ public:
     double speed {70};
     Health hp = Health(2);
     Hitbox hitbox = Hitbox(10.0, 10.0);
-    Position pos = Position(200, 50);
+    Position pos;
 
     bool self_destruct = false;
 

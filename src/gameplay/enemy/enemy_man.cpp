@@ -8,8 +8,6 @@
 #include "raylib.h"
 #include "render_man.hpp"
 #include "systems.hpp"
-#include <format>
-#include <stdexcept>
 
 using namespace Game;
 
@@ -18,7 +16,7 @@ uint32_t EnemyMan::emplace_enemy(std::string_view enemy_type, Vector2 position) 
     if (enemy_type == "Basic") {
 
         auto enemy = EnemyMan::make_enemy<BasicEnemy>();
-        enemy->get_components().get<Position>() = position;
+        enemy->reset(position);
 
         return insert_enemy(std::move(enemy));
 
@@ -141,12 +139,9 @@ EnemyMan::Collision EnemyMan::check_collisions(Rectangle collider) {
 
     for (auto& enemy_container : m_enemies_dock) {
 
-        auto& hitbox = enemy_container.enemy->get_components().get<Hitbox>();
-        Vector2 position = enemy_container.enemy->get_components()
-            .get<Position>()
-            .vec();
+        auto hitbox = enemy_container.enemy->get_hitbox();
 
-        if (CheckCollisionRecs(collider, hitbox.get(position))) {
+        if (CheckCollisionRecs(collider, hitbox)) {
 
             collided = true;
             enemy_ids.push_back(enemy_container.id);

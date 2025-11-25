@@ -22,19 +22,10 @@ void BasicProjectile::update(double dt, Engine::Systems& sys) {
 
         EnemyMan::Collision collision = sys.enemy->check_collisions(hitbox);
 
-        if (collision.has_collided) {
+        if (!collision.enemy_ids.empty()) {
 
-            IEnemy& enemy = sys.enemy->get_enemy(collision.enemy_ids.front());
-            Engine::ComponentContainer enemy_components = enemy.get_components();
-
-            if (enemy_components.has_component<Health>()){
-                enemy.take_damage(*sys.enemy, 3);
-            }
-
-            uint32_t id = sys.projectile->get_id(this);
-            self_destruct = true;
+            this->self_destruct = true;
         }
-
 
     } 
 

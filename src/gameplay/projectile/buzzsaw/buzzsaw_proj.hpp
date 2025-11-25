@@ -23,6 +23,7 @@ public:
     double get_speed() { return speed; }
     const std::type_info& get_type() { return typeid(BuzzsawProj); }
     bool destroy_self() { return destruct; }
+    int get_damage() { return damage; }
 
     void update(double dt, Engine::Systems& sys);
     void draw();
@@ -34,7 +35,7 @@ public:
     Position pos;
     Direction orientation;
     Hitbox hitbox = Hitbox(10, 6);
-    int damage;
+    int damage = 1;
     double speed;
     bool foe;
     bool destruct = false;
