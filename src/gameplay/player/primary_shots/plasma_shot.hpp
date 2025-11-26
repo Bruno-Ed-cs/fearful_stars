@@ -14,15 +14,19 @@ public:
     void run(Player& player, ProjectileMan& projectile_man, double dt) override;
 
     bool idle(Player& player, ProjectileMan& projectile_man);
-    bool chain_shot(Player& player, ProjectileMan& projectile_man);
-    bool shoot(Player& player, ProjectileMan& projectile_man);
+    bool shoot_lv1(Player& player, ProjectileMan& projectile_man);
+    bool shoot_lv2(Player& player, ProjectileMan& projectile_man);
+    bool shoot_lv3(Player& player, ProjectileMan& projectile_man);
 
 private:
 
     std::function<bool(PlasmaShooter*, Player&, ProjectileMan&)> state_func = &PlasmaShooter::idle;
 
+    double dt;
+
     Engine::Timer idle_cooldown;
     Engine::Timer chain_cooldown;
+    bool shot = false;
 };
 
 }

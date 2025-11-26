@@ -45,6 +45,9 @@ void PlayerMan::debug_ui() {
             m_player1->revive();
 
         }
+
+        ImGui::Text("Primary level");
+        ImGui::SliderInt("Lv", &m_player1->primary_level, 1, 3, "%d");
     }
     ImGui::End();
 

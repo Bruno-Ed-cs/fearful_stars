@@ -1,5 +1,6 @@
 #include "component.hpp"
 #include "deps.hpp"
+#include "input_man.hpp"
 #include "raylib.h"
 #include "render_man.hpp"
 #include "systems.hpp"
@@ -38,9 +39,10 @@ void Player::update(double dt, Engine::Systems& sys) {
 
     }
 
+
     primary_shot->run(*this, *sys.projectile, dt);
 
-    cooldown.update(dt);
+
 
 
     direction = Vector2Normalize(direction);
