@@ -73,8 +73,12 @@ public:
     int primary_level = 1;
 
     uptr<SecondaryMachine> secondary_shot;
+    int secondary_level = 0;
+
     uptr<SpecialMachine> special_shot;
+
     uptr<AuxMachine> aux_power;
+    int aux_level = 0;
     
     sptr<Sound> shooting_sound;
     sptr<Texture> spritesheet;

@@ -3,6 +3,7 @@
 #include "gameplay/projectile/plasma/plasma.hpp"
 #include "gameplay/projectile/projectile_manager.hpp"
 #include "input_man.hpp"
+#include "music_man.hpp"
 
 using namespace Game;
 
@@ -80,6 +81,7 @@ bool PlasmaShooter::shoot_lv1(Player& player, ProjectileMan& projectile_man) {
     auto direction = Direction(1, 0);
     double speed = 140;
 
+    Engine::MusicMan::play_sfx(shooting_sound);
     projectile_man.request_projectile<PlasmaProj>(position, direction.vec(), speed, false);
 
     state_func = &PlasmaShooter::idle;
@@ -97,9 +99,10 @@ bool PlasmaShooter::shoot_lv2(Player& player, ProjectileMan& projectile_man) {
         chain_cooldown.reset();
 
         position.y += 5;
+        Engine::MusicMan::play_sfx(shooting_sound);
         projectile_man.request_projectile<PlasmaProj>(position, direction.vec(), speed, false);
 
-        std::println("p2");
+        //std::println("p2");
 
         state_func = &PlasmaShooter::idle;
         shot = false;
@@ -108,7 +111,7 @@ bool PlasmaShooter::shoot_lv2(Player& player, ProjectileMan& projectile_man) {
     } else if (this->shot) {
 
         chain_cooldown.update(dt);
-        std::println("p3");
+        //std::println("p3");
         return false;
     }
 
@@ -116,7 +119,7 @@ bool PlasmaShooter::shoot_lv2(Player& player, ProjectileMan& projectile_man) {
     projectile_man.request_projectile<PlasmaProj>(position, direction.vec(), speed, false);
     shot = true;
 
-    std::println("p1");
+    //std::println("p1");
     return false;
 
 }
@@ -136,10 +139,11 @@ bool PlasmaShooter::shoot_lv3(Player& player, ProjectileMan& projectile_man) {
         pos1.y += 8;
         pos2.y -= 8;
 
+        Engine::MusicMan::play_sfx(shooting_sound);
         projectile_man.request_projectile<PlasmaProj>(pos1, direction.vec(), speed, false);
         projectile_man.request_projectile<PlasmaProj>(pos2, direction.vec(), speed, false);
 
-        std::println("p2");
+        //std::println("p2");
 
         state_func = &PlasmaShooter::idle;
         shot = false;
@@ -148,14 +152,14 @@ bool PlasmaShooter::shoot_lv3(Player& player, ProjectileMan& projectile_man) {
     } else if (this->shot) {
 
         chain_cooldown.update(dt);
-        std::println("p3");
+        //std::println("p3");
         return false;
     }
 
     projectile_man.request_projectile<PlasmaProj>(position, direction.vec(), speed, false);
     shot = true;
 
-    std::println("p1");
+    //std::println("p1");
     return false;
 
 }

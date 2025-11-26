@@ -46,8 +46,17 @@ void PlayerMan::debug_ui() {
 
         }
 
+
         ImGui::Text("Primary level");
-        ImGui::SliderInt("Lv", &m_player1->primary_level, 1, 3, "%d");
+        ImGui::SliderInt("Lv##1", &m_player1->primary_level, 1, 3, "%d");
+
+        ImGui::Text("Secondary Level");
+        ImGui::SliderInt("Lv##2", &m_player1->secondary_level, 0, 2, "%d");
+
+
+        ImGui::Text("Aux Level");
+        ImGui::SliderInt("Lv##3", &m_player1->aux_level, 0, 2, "%d");
+
     }
     ImGui::End();
 

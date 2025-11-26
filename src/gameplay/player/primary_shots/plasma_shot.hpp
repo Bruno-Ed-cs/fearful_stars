@@ -1,4 +1,5 @@
 #pragma once 
+#include "asset_man.hpp"
 #include "deps.hpp"
 #include "gameplay/player/primary_shots/shooting_machine.hpp"
 #include "timer.hpp"
@@ -9,7 +10,11 @@ class PlasmaShooter : public ShootingMachine {
 
 public:
 
-    PlasmaShooter() {}
+    PlasmaShooter() {
+
+        shooting_sound = Engine::AssetMan::get_sound("space-laser");
+
+    }
 
     void run(Player& player, ProjectileMan& projectile_man, double dt) override;
 
@@ -27,6 +32,9 @@ private:
     Engine::Timer idle_cooldown;
     Engine::Timer chain_cooldown;
     bool shot = false;
+
+    std::shared_ptr<Sound> shooting_sound;
+
 };
 
 }

@@ -5,6 +5,7 @@
 namespace Engine {
 
 using MusicRef = std::shared_ptr<Music>;
+using SoundRef = std::shared_ptr<Sound>;
 template<typename T>
 using vector = std::vector<T>;
 
@@ -27,6 +28,7 @@ public:
     static void reset_pitch();
     static void set_volume(double volume);
     static void reset_volumet();
+    static void play_sfx(SoundRef sfx_ptr);
 
     static void start_music();
     static void stop_music();

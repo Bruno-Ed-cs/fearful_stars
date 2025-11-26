@@ -125,6 +125,11 @@ void MusicMan::stop_music() {
 
 }
 
+void MusicMan::play_sfx(SoundRef sfx_ptr) {
 
+    SetSoundVolume(*sfx_ptr, m_volume);
+    PlaySound(*sfx_ptr);
+
+}
 
 
