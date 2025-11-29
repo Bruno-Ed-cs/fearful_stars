@@ -3,6 +3,8 @@
 #include "component.hpp"
 #include "deps.hpp"
 
+#include "gameplay/components/hitbox.hpp"
+#include "gameplay/components/position.hpp"
 #include "gameplay/projectile/i_projectile.hpp"
 #include "timer.hpp"
 
@@ -16,14 +18,11 @@ public:
 
     BasicProjectile(Vector2 position, Vector2 direction, double speed, bool foe) : 
         pos(position), direction(direction), speed(speed), foe(foe) {
-
-        hitbox.y = position.y;
-        hitbox.x = position.x;
     }
 
     bool is_foe() override { return foe; }
-    Rectangle get_hitbox() override { return hitbox; }
-    Vector2 get_position() override { return pos; }
+    Rectangle get_hitbox() override { return hitbox.get(pos); }
+    Vector2 get_position() override { return pos.vec(); }
     double get_speed() override { return speed; }
 
     void reset(Vector2 pos, double speed, Vector2 direction, bool foe, int damage = 0) override {
@@ -46,8 +45,8 @@ public:
 public:
 
     bool foe = false;
-    Rectangle hitbox = Rectangle{0, 0, 5, 5};
-    Vector2 pos;
+    Hitbox hitbox = Hitbox{5, 5};
+    Position pos;
     double speed = 0;
     Vector2 direction{0, 0};
     int damage = 1;

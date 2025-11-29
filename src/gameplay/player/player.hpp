@@ -69,6 +69,7 @@ public:
     void die(Engine::Systems& sys);
     void revive();
     bool destroy_self() override { return self_destruct; };
+    void take_damage();
 
 public:
 

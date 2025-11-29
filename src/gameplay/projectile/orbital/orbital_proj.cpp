@@ -38,6 +38,17 @@ void OrbitalProj::update(double dt, Engine::Systems& sys) {
         }
 
     }
+
+    auto enemy_collision = sys.enemy->check_collisions(hitbox.get(pos));
+    if (enemy_collision.has_collided) {
+
+        if (!foe) {
+            auto& enemy = sys.enemy->get_enemy(enemy_collision.enemy_ids.front());
+            enemy.take_damage(sys, damage);
+        }
+
+        destruct = true; 
+    }
 }
 
 void OrbitalProj::draw() {

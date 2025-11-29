@@ -167,6 +167,7 @@ void Player::update(double dt, Engine::Systems& sys) {
             if (proj.get_type() == typeid(UpgradeProj)) {
 
                 upgrade++;
+                sys.projectile->append_delete_queue(id);
 
             }
 
@@ -184,6 +185,12 @@ void Player::update(double dt, Engine::Systems& sys) {
 
 
     //std::cout << position.get_round().x << " " << position.get_round().y << " " << direction.x << " " << direction.y <<'\n';
+}
+
+void Player::take_damage() {
+
+    lives.take_damage(1);
+    turn_invincible(2);
 }
 
 void Player::die(Engine::Systems& sys) {

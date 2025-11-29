@@ -11,13 +11,6 @@ void UpgradeProj::update(double dt, Engine::Systems& sys) {
 
     pos += movement;
 
-    auto player_hitbox = sys.player->get_player().hitbox.get(sys.player->get_player().pos);
-
-    if (CheckCollisionRecs(player_hitbox, hitbox.get(pos.vec()))) {
-
-        destruct = true;
-    }
-
 }
 
 void UpgradeProj::draw() {

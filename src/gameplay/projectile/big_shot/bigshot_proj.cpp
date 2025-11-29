@@ -1,5 +1,6 @@
 #include "bigshot_proj.hpp"
 #include "raymath.h"
+#include "gameplay/enemy/enemy_man.hpp"
 
 using namespace Game;
 
@@ -10,6 +11,18 @@ void BigShotProj::update(double dt, Engine::Systems& sys) {
 
     pos += movement;
 
+    auto enemy_collision = sys.enemy->check_collisions(hitbox.get(pos));
+    if (enemy_collision.has_collided) {
+
+        if (!foe) {
+
+            for (auto& id : enemy_collision.enemy_ids) {
+                auto& enemy = sys.enemy->get_enemy(id);
+                enemy.take_damage(sys, damage);
+            }
+        }
+
+    }
 }
 
 void BigShotProj::draw() {

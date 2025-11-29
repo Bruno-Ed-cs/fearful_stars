@@ -20,17 +20,23 @@ void BasicProjectile::update(double dt, Engine::Systems& sys) {
 
     if (!foe) {
 
-        EnemyMan::Collision collision = sys.enemy->check_collisions(hitbox);
+        EnemyMan::Collision collision = sys.enemy->check_collisions(hitbox.get(pos.vec()));
 
         if (!collision.enemy_ids.empty()) {
 
             this->self_destruct = true;
         }
 
-    } 
+    } else {
 
-    hitbox.x = pos.x;
-    hitbox.y = pos.y;
+        auto player_hitbox = sys.player->get_player().hitbox.get(sys.player->get_player().pos.vec());
+        if (CheckCollisionRecs(player_hitbox, hitbox.get(pos.vec()))) {
+
+            sys.player->get_player().lives
+
+        }
+    
+    }
 
 //    std::cout << pos.get_real().x << " " << pos.get_real().y << '\n';
 }

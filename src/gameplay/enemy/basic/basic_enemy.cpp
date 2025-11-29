@@ -50,14 +50,6 @@ void BasicEnemy::update(double dt, Engine::Systems& sys) {
         pos = Vector2MoveTowards(pos.vec(), player.pos.vec(), speed * dt);
     }
 
-    auto collisions = sys.projectile->check_collisions(hitbox.get(pos), false);
-    if (collisions.collided) {
-
-        auto damage = sys.projectile->get_projectile(collisions.targets.front()).get_damage();
-        take_damage(sys, damage);
-
-    }
-
 };
 
 void BasicEnemy::take_damage(Engine::Systems& sys, int damage) {
