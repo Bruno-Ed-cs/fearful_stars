@@ -46,6 +46,13 @@ void PlayerMan::debug_ui() {
 
         }
 
+        if (ImGui::Button("Fill special")) {
+
+            m_player1->special_meter = 100;
+
+        }
+
+
 
         ImGui::Text("Primary level");
         ImGui::SliderInt("Lv##1", &m_player1->primary_level, 1, 3, "%d");

@@ -42,7 +42,7 @@ void Player::update(double dt, Engine::Systems& sys) {
 
     primary_shot->run(*this, *sys.projectile, dt);
     secondary_shot->run(*this, sys, dt);
-//    special_shot->run(*this, sys, dt);
+    special_shot->run(*this, sys, dt);
 //    aux_power->run(*this, sys, dt);
 
     direction = Vector2Normalize(direction);

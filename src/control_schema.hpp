@@ -4,6 +4,15 @@
 #include "raylib.h"
 
 static Engine::Event controls[] = {
+
+    {
+        "special",
+        std::vector{KEY_LEFT_CONTROL, KEY_RIGHT_CONTROL},
+        std::vector{GAMEPAD_BUTTON_RIGHT_FACE_UP}
+
+
+    },
+
     {
         "slowdown",
         std::vector{KEY_RIGHT_SHIFT, KEY_LEFT_SHIFT},
@@ -13,7 +22,7 @@ static Engine::Event controls[] = {
     {
         "shoot",
         std::vector{KEY_SPACE, KEY_C},
-        std::vector{GAMEPAD_BUTTON_RIGHT_FACE_RIGHT, GAMEPAD_BUTTON_RIGHT_FACE_LEFT}
+        std::vector{GAMEPAD_BUTTON_RIGHT_FACE_LEFT}
     },
 
     {

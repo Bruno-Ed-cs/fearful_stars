@@ -7,6 +7,7 @@
 #include "gameplay/player/primary_shots/plasma_shot.hpp"
 #include "gameplay/player/secondary_shots/missile_shooter.hpp"
 #include "gameplay/player/secondary_shots/secondary_machine.hpp"
+#include "gameplay/player/special_shots/big_shooter.hpp"
 #include "gameplay/player/special_shots/special_machine.hpp"
 #include "i_entity.hpp"
 #include "systems.hpp"
@@ -46,6 +47,7 @@ public:
         spritesheet = Engine::AssetMan::get_texture("player");
         primary_shot = std::make_unique<PlasmaShooter>();
         secondary_shot = std::make_unique<MissileShooter>();
+        special_shot = std::make_unique<BigShooter>();
     }
 
     Player(Vector2 pos) {
@@ -55,6 +57,7 @@ public:
         spritesheet = Engine::AssetMan::get_texture("player");
         primary_shot = std::make_unique<PlasmaShooter>();
         secondary_shot = std::make_unique<MissileShooter>();
+        special_shot = std::make_unique<BigShooter>();
     }
 
     void update(double dt, Engine::Systems& sys) override; 
