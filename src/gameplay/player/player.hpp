@@ -4,6 +4,7 @@
 #include "deps.hpp"
 
 #include "gameplay/player/aux_powers/aux_machine.hpp"
+#include "gameplay/player/aux_powers/orbital_shield.hpp"
 #include "gameplay/player/primary_shots/plasma_shot.hpp"
 #include "gameplay/player/secondary_shots/missile_shooter.hpp"
 #include "gameplay/player/secondary_shots/secondary_machine.hpp"
@@ -48,6 +49,7 @@ public:
         primary_shot = std::make_unique<PlasmaShooter>();
         secondary_shot = std::make_unique<MissileShooter>();
         special_shot = std::make_unique<BigShooter>();
+        aux_power = std::make_unique<OrbitalShield>();
     }
 
     Player(Vector2 pos) {
@@ -58,6 +60,7 @@ public:
         primary_shot = std::make_unique<PlasmaShooter>();
         secondary_shot = std::make_unique<MissileShooter>();
         special_shot = std::make_unique<BigShooter>();
+        aux_power = std::make_unique<OrbitalShield>();
     }
 
     void update(double dt, Engine::Systems& sys) override; 

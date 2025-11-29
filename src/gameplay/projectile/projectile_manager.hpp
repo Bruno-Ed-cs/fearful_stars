@@ -65,7 +65,7 @@ public:
     }
 
     template<is_projectile Proj>
-    void request_projectile(Vector2 pos,
+    uint32_t request_projectile(Vector2 pos,
                            Vector2 direction,
                            double speed,
                            bool foe) {
@@ -99,6 +99,7 @@ public:
                 Engine::Timer(s_inactive_deadtime),
                 id);
 
+            return id;
         } else {
 
             //std::cout << "found remaking\n";
@@ -107,6 +108,7 @@ public:
             proj.projectile_ptr->reset(pos, speed, direction, foe);
             proj.active = true;
 
+            return proj.id;
         }
 
     }
