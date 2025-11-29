@@ -36,6 +36,7 @@ public:
     uint32_t get_id(IProjectile* target);
     Collision check_collisions(Rectangle collider, bool colide_foe);
     IProjectile& get_projectile(uint32_t id);
+    bool exists(uint32_t id);
 
     template<is_projectile Proj>
     void insert_projectile(std::unique_ptr<Proj> projectile) {

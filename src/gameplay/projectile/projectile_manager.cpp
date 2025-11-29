@@ -229,3 +229,19 @@ ProjectileMan::Collision ProjectileMan::check_collisions(Rectangle collider, boo
 
 }
 
+bool ProjectileMan::exists(uint32_t id) {
+
+    for (auto& container : m_projectiles) {
+
+        if (container.id == id && container.active) {
+
+            return true;
+        }
+
+    }
+
+    return false;
+
+
+
+}

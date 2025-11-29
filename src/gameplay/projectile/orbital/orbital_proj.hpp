@@ -38,13 +38,13 @@ public:
     Position pos;
     Direction orientation;
     Hitbox hitbox = Hitbox(6, 6);
-    int damage;
-    double speed;
+    int damage = 1;
+    double speed = 10;
     bool foe;
     bool destruct = false;
 
     Position anchor;
-    double radius = 5.0;
+    double radius = 12.0;
 
 };
 

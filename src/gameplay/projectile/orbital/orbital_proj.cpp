@@ -1,4 +1,5 @@
 #include "orbital_proj.hpp"
+#include "gameplay/player/player_manager.hpp"
 #include "deps.hpp"
 #include "raymath.h"
 #include <cmath>
@@ -14,20 +15,29 @@ double clamp_angle(double angle) {
 }
 
 void OrbitalProj::update(double dt, Engine::Systems& sys) {
-    if (anchor.x == 0 && anchor.y == 0) {
-        // Initialize anchor to player position + offset
-        anchor = pos.vec(); // Start to the right of player
-        anchor.x += radius;
+
+    pos = sys.player->get_player().pos;
+    
+    if (orientation.y > 0) {
+
+        pos.y = pos.y + radius;
+
+    } else if (orientation.y < 0) {
+
+        pos.y = pos.y - radius;
+    
     }
 
-    // Get current angle and update it
-    double current_angle = atan2(pos.y - anchor.y, pos.x - anchor.x);
-    double angle = current_angle + speed * dt;
-    angle = clamp_angle(angle);
+    auto collision_projs = sys.projectile->check_collisions(hitbox.get(pos.vec()), true);
 
-    // Calculate new position using proper orbital mechanics
-    pos.x = anchor.x + radius * std::cos(angle);
-    pos.y = anchor.y + radius * std::sin(angle);
+    if (collision_projs.collided) {
+
+        for (auto& id : collision_projs.targets) {
+
+            sys.projectile->append_delete_queue(id);
+        }
+
+    }
 }
 
 void OrbitalProj::draw() {
