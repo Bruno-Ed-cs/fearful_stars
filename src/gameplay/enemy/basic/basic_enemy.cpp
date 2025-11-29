@@ -5,6 +5,7 @@
 #include "gameplay/components/position.hpp"
 #include "gameplay/enemy/enemy_man.hpp"
 #include "gameplay/projectile/projectile_manager.hpp"
+#include "gameplay/projectile/upgrade/upgrade_proj.hpp"
 #include "globals.hpp"
 #include "raylib.h"
 #include "raymath.h"
@@ -53,20 +54,23 @@ void BasicEnemy::update(double dt, Engine::Systems& sys) {
     if (collisions.collided) {
 
         auto damage = sys.projectile->get_projectile(collisions.targets.front()).get_damage();
-        take_damage(*sys.enemy, damage);
+        take_damage(sys, damage);
 
     }
 
 };
 
-void BasicEnemy::take_damage(EnemyMan& enemy_man, int damage) {
+void BasicEnemy::take_damage(Engine::Systems& sys, int damage) {
 
 
     hp.take_damage(damage);
 
     if (hp.is_dead()){
 
-        uint32_t id = enemy_man.get_enemy(this);
+        uint32_t id = sys.enemy->get_enemy(this);
+
+        
+        sys.projectile->request_projectile<UpgradeProj>(pos.vec(), Vector2{-1, 0}, 100, false);
 
         self_destruct = true;
     }

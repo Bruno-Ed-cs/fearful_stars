@@ -1,15 +1,70 @@
 #include "component.hpp"
 #include "deps.hpp"
+#include "gameplay/projectile/upgrade/upgrade_proj.hpp"
 #include "input_man.hpp"
 #include "raylib.h"
 #include "render_man.hpp"
 #include "systems.hpp"
 #include "timer.hpp"
+#include <algorithm>
 
 #include "player.hpp"
 
 
 using namespace Game;
+
+void upgrader(Player& player) {
+
+
+    switch (player.upgrade) {
+
+        case 0:
+        break;
+
+        case 1:
+
+            if (player.primary_level >= 3)
+                break;
+
+            player.primary_level++;
+            player.primary_level = std::clamp(player.primary_level, 1, 3);
+            player.upgrade -= 1;
+
+        break;
+
+        case 2:
+
+            if (player.secondary_level >= 2)
+                break;
+
+            player.secondary_level++;
+            player.secondary_level = std::clamp(player.secondary_level, 0, 2);
+            player.upgrade -= 2;
+
+        break;
+
+        case 3:
+
+            if (player.aux_level >= 2)
+                break;
+
+            player.aux_level++;
+            player.aux_level = std::clamp(player.aux_level, 0, 2);
+            player.upgrade -= 3;
+
+        break;
+
+        default:
+            
+            player.lives.points++;
+            player.upgrade -= 4;
+
+        break;
+    
+    }
+    
+
+}
 
 void Player::update(double dt, Engine::Systems& sys) {
 
@@ -36,6 +91,12 @@ void Player::update(double dt, Engine::Systems& sys) {
     if (Engine::InputMan::is_event_active("move_left")) {
 
         direction.x = -1;
+
+    }
+
+    if (Engine::InputMan::is_event_active("upgrade")) {
+
+        upgrader(*this);
 
     }
 
@@ -70,8 +131,9 @@ void Player::update(double dt, Engine::Systems& sys) {
     pos.y = Clamp(pos.y, 0.0, Engine::g_world_size.y);
 
     graze_cooldown.update(dt);
+    invis_timer.update(dt);
 
-   if (sys.projectile->check_collisions(graze_range.get(pos.vec()), true).collided && graze_cooldown.past_limit()) {
+    if (sys.projectile->check_collisions(graze_range.get(pos.vec()), true).collided && graze_cooldown.past_limit()) {
 
         graze_cooldown.reset();
 
@@ -79,12 +141,15 @@ void Player::update(double dt, Engine::Systems& sys) {
         special_meter = std::clamp(special_meter, 0, 100);
     }
 
-    invis_timer.update(dt);
     if (invis_timer.past_limit()) 
         invincible = false;
 
-    if (sys.projectile->check_collisions(hitbox.get(pos.vec()), true).collided ||
-        sys.enemy->check_collisions(hitbox.get(pos.vec())).has_collided) {
+    auto collisions_proj_foe = sys.projectile->check_collisions(hitbox.get(pos.vec()), true);
+    auto collisions_proj = sys.projectile->check_collisions(hitbox.get(pos.vec()), false);
+    auto collisions_enemy = sys.enemy->check_collisions(hitbox.get(pos.vec()));
+
+    if (collisions_proj_foe.collided ||
+        collisions_enemy.has_collided) {
 
         if (!invincible) { 
             turn_invincible(3);
@@ -92,6 +157,24 @@ void Player::update(double dt, Engine::Systems& sys) {
         }
 
     }
+
+    if (collisions_proj.collided) {
+
+        for (auto& id : collisions_proj.targets) {
+
+            auto& proj = sys.projectile->get_projectile(id);
+
+            if (proj.get_type() == typeid(UpgradeProj)) {
+
+                upgrade++;
+
+            }
+
+        }
+
+    }
+
+
 
     if (lives.points == 0) {
 
@@ -137,6 +220,6 @@ void Player::draw() {
 
     }
     else 
-        Engine::RenderMan::send_texture(Engine::RenderMan::Plane::middle, *spritesheet, dest, origin);
+    Engine::RenderMan::send_texture(Engine::RenderMan::Plane::middle, *spritesheet, dest, origin);
 }
 

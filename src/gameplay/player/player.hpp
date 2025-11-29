@@ -74,6 +74,7 @@ public:
 
     double speed = 135.0f;
     int special_meter = 0;
+    int upgrade = 0;
 
     Engine::Timer cooldown = Engine::Timer(0.5f);
     Engine::Timer graze_cooldown = Engine::Timer(0.10);

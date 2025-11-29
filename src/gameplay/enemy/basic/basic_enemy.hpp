@@ -31,7 +31,7 @@ public:
     void update(double dt, Engine::Systems& sys) override;
     void reset(Vector2 position) override;
     Rectangle get_hitbox() override { return hitbox.get(pos.vec()); };
-    void take_damage(EnemyMan& enemy_man, int damage) override;
+    void take_damage(Engine::Systems& sys, int damage) override;
     EnemyType get_type() override { return EnemyType::basic; };
     bool destroy_self() override { return self_destruct; };
     Vector2 get_position() override { return pos.vec(); };

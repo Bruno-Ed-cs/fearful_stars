@@ -4,6 +4,13 @@
 #include "raylib.h"
 
 static Engine::Event controls[] = {
+    {
+
+        "upgrade",
+        std::vector{KEY_Z, KEY_I},
+        std::vector{GAMEPAD_BUTTON_RIGHT_FACE_RIGHT}
+
+    },
 
     {
         "special",

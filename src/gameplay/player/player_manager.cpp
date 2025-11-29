@@ -39,6 +39,7 @@ void PlayerMan::debug_ui() {
         ImGui::Text("Special meter: %d", m_player1->special_meter);
         ImGui::Text("Lives: %d", m_player1->lives.points);
         ImGui::Text("Dead: %d", m_player1->dead);
+        ImGui::Text("Upgrades: %d", m_player1->upgrade);
 
         if (ImGui::Button("Revive")) {
 

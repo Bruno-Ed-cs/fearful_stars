@@ -18,17 +18,8 @@ using namespace Game;
 
 void ProjectileMan::update(double dt, Engine::Systems& sys) {
 
-//    std::cout << "update\n" << m_projectiles.size() << '\n';
+    //    std::cout << "update\n" << m_projectiles.size() << '\n';
 
-    for (auto& container: m_projectiles) {
-
-        if (container.projectile_ptr->destroy_self() && container.active) {
-
-            append_delete_queue(container.id);
-
-        }
-
-    }
 
     while (!m_delete_queue.empty()) {
 
@@ -48,7 +39,7 @@ void ProjectileMan::update(double dt, Engine::Systems& sys) {
 
             cur_proj.projectile_ptr->update(dt, sys);
 
- //           std::cout << i << "  past update" << '\n';
+            //           std::cout << i << "  past update" << '\n';
             auto pos = cur_proj.projectile_ptr->get_position();
 
             if ((pos.x > Engine::g_world_size.x || pos.x < 0) ||
@@ -71,6 +62,15 @@ void ProjectileMan::update(double dt, Engine::Systems& sys) {
     }
 
 
+    for (auto& container: m_projectiles) {
+
+        if (container.projectile_ptr->destroy_self() && container.active) {
+
+            append_delete_queue(container.id);
+
+        }
+
+    }
 
 }
 
@@ -217,7 +217,7 @@ ProjectileMan::Collision ProjectileMan::check_collisions(Rectangle collider, boo
 
     for (auto& container: m_projectiles) {
 
-        if (CheckCollisionRecs(collider, container.projectile_ptr->get_hitbox()) && container.projectile_ptr->is_foe() == colide_foe) {
+        if (CheckCollisionRecs(collider, container.projectile_ptr->get_hitbox()) && container.projectile_ptr->is_foe() == colide_foe && container.active) {
 
             response.collided = true;
             response.targets.push_back(container.id);
