@@ -50,7 +50,7 @@ void BasicEnemy::update(double dt, Engine::Systems& sys) {
     }
 
     auto collisions = sys.projectile->check_collisions(hitbox.get(pos), false);
-    if (!collisions.targets.empty()) {
+    if (collisions.collided) {
 
         auto damage = sys.projectile->get_projectile(collisions.targets.front()).get_damage();
         take_damage(*sys.enemy, damage);

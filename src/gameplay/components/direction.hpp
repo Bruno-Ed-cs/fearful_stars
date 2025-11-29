@@ -13,6 +13,9 @@ public:
 
 public:
 
+    Direction() :
+    x(0), y(0) {}
+
     Direction (float x, float y) :
     x(x), y(y) {};
 

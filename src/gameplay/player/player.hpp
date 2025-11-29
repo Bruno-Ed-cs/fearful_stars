@@ -5,6 +5,7 @@
 
 #include "gameplay/player/aux_powers/aux_machine.hpp"
 #include "gameplay/player/primary_shots/plasma_shot.hpp"
+#include "gameplay/player/secondary_shots/missile_shooter.hpp"
 #include "gameplay/player/secondary_shots/secondary_machine.hpp"
 #include "gameplay/player/special_shots/special_machine.hpp"
 #include "i_entity.hpp"
@@ -44,6 +45,7 @@ public:
         shooting_sound = Engine::AssetMan::get_sound("space-laser");
         spritesheet = Engine::AssetMan::get_texture("player");
         primary_shot = std::make_unique<PlasmaShooter>();
+        secondary_shot = std::make_unique<MissileShooter>();
     }
 
     Player(Vector2 pos) {
@@ -52,6 +54,7 @@ public:
         shooting_sound = Engine::AssetMan::get_sound("space-laser");
         spritesheet = Engine::AssetMan::get_texture("player");
         primary_shot = std::make_unique<PlasmaShooter>();
+        secondary_shot = std::make_unique<MissileShooter>();
     }
 
     void update(double dt, Engine::Systems& sys) override; 
