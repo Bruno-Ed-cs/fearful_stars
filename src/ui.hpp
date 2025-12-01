@@ -11,7 +11,9 @@
 void player_ui(Engine::Systems& sys) {
 
     static std::shared_ptr<Texture2D> ui_texture = Engine::AssetMan::get_texture("player_ui");
+    static std::shared_ptr<Texture2D> cursor_texture = Engine::AssetMan::get_texture("cursor");
     static std::shared_ptr<Font> font_ui = Engine::AssetMan::get_font("EXEPixelPerfect");
+
 
     static auto screen_canva = LoadRenderTexture(320, 180);
 
@@ -37,6 +39,30 @@ void player_ui(Engine::Systems& sys) {
         DrawTextureEx(*ui_texture, Vector2{0,0}, 0.0f, 1.0f, WHITE);
 
         DrawTextEx(*font_ui, live_text.c_str(), Vector2{0, 0}, 15.0f, 1.0f, WHITE);
+
+        switch (upgrades) {
+
+            case 0:
+            break;
+
+            case 1:
+                DrawTextureEx(*cursor_texture, Vector2{10, 118}, 1.0f, 1.0f, WHITE);
+            break;
+
+            case 2:
+                DrawTextureEx(*cursor_texture, Vector2{10, 129}, 1.0f, 1.0f, WHITE);
+            break;               
+
+            case 3:
+                DrawTextureEx(*cursor_texture, Vector2{10, 140}, 1.0f, 1.0f, WHITE);
+            break;
+
+            default:
+                DrawTextureEx(*cursor_texture, Vector2{10, 151}, 1.0f, 1.0f, WHITE);
+            break;
+
+        
+        }
         
         
 

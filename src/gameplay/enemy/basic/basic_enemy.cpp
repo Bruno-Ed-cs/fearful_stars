@@ -61,6 +61,9 @@ void BasicEnemy::take_damage(Engine::Systems& sys, int damage) {
 
         uint32_t id = sys.enemy->get_enemy(this);
 
+        
+        sys.projectile->request_projectile<UpgradeProj>(pos.vec(), Vector2{-1, 0}, 100, false);
+
         self_destruct = true;
     }
 

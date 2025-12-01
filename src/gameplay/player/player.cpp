@@ -19,7 +19,7 @@ void upgrader(Player& player) {
     switch (player.upgrade) {
 
         case 0:
-        break;
+            break;
 
         case 1:
 
@@ -30,7 +30,7 @@ void upgrader(Player& player) {
             player.primary_level = std::clamp(player.primary_level, 1, 3);
             player.upgrade -= 1;
 
-        break;
+            break;
 
         case 2:
 
@@ -41,7 +41,7 @@ void upgrader(Player& player) {
             player.secondary_level = std::clamp(player.secondary_level, 0, 2);
             player.upgrade -= 2;
 
-        break;
+            break;
 
         case 3:
 
@@ -52,21 +52,24 @@ void upgrader(Player& player) {
             player.aux_level = std::clamp(player.aux_level, 0, 2);
             player.upgrade -= 3;
 
-        break;
+            break;
 
         default:
-            
+
             player.lives.points++;
             player.upgrade -= 4;
 
-        break;
-    
+            break;
+
     }
-    
+
 
 }
 
 void Player::update(double dt, Engine::Systems& sys) {
+
+    static Engine::Timer press_colldown = Engine::Timer(0.5);
+    press_colldown.update(dt);
 
     Vector2 direction = {0,0};
 
@@ -96,7 +99,13 @@ void Player::update(double dt, Engine::Systems& sys) {
 
     if (Engine::InputMan::is_event_active("upgrade")) {
 
-        upgrader(*this);
+
+
+        if (press_colldown.past_limit()) {
+
+            press_colldown.reset();
+            upgrader(*this);
+        }
 
     }
 
@@ -151,10 +160,7 @@ void Player::update(double dt, Engine::Systems& sys) {
     if (collisions_proj_foe.collided ||
         collisions_enemy.has_collided) {
 
-        if (!invincible) { 
-            turn_invincible(3);
-            lives.take_damage(1);
-        }
+        take_damage();
 
     }
 
@@ -189,8 +195,10 @@ void Player::update(double dt, Engine::Systems& sys) {
 
 void Player::take_damage() {
 
-    lives.take_damage(1);
-    turn_invincible(2);
+    if (!invincible) {
+        lives.take_damage(1);
+        turn_invincible(2);
+    }
 }
 
 void Player::die(Engine::Systems& sys) {
