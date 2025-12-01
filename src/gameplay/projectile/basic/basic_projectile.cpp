@@ -32,7 +32,7 @@ void BasicProjectile::update(double dt, Engine::Systems& sys) {
         auto player_hitbox = sys.player->get_player().hitbox.get(sys.player->get_player().pos.vec());
         if (CheckCollisionRecs(player_hitbox, hitbox.get(pos.vec()))) {
 
-            sys.player->get_player().lives
+            sys.player->get_player().take_damage();
 
         }
     

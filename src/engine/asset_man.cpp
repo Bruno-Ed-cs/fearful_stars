@@ -129,7 +129,7 @@ sptr<Font> AssetMan::get_font(const str& font_name){
     str search_result = search_asset("assets/fonts", font_name, ".otf;.ttf");
 
     Font* font_ptr = new Font;
-    *font_ptr = LoadFont(search_result.c_str());
+    *font_ptr = LoadFontEx(search_result.c_str(), 600, NULL, 0);
 
     auto font_reference = sptr<Font>(font_ptr, FontDestroyer{});
     font_bank.emplace(str(font_name), font_reference);

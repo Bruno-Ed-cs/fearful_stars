@@ -14,6 +14,7 @@
 #include "gameplay/levels/levels.hpp"
 #include "music_man.hpp"
 #include "render_man.hpp"
+#include "ui.hpp"
 #include "update_loop.hpp"
 #include "draw_loop.hpp"
 #include "control_schema.hpp"
@@ -159,7 +160,10 @@ int main(void)
         Engine::MusicMan::update();
 
         update_loop(dt, sys);
+
+        player_ui(sys);
         draw_loop(sys);
+
 
         //----------------------------------------------------------------------------------
         // window.update_window();
