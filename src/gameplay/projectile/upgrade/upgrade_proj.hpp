@@ -1,5 +1,6 @@
 #pragma once
 
+#include "asset_man.hpp"
 #include "deps.hpp"
 
 #include "gameplay/components/direction.hpp"
@@ -14,9 +15,17 @@ class UpgradeProj : public IProjectile{
 
 public:
 
-    UpgradeProj() = default;
+    UpgradeProj()  {
+
+        sprite = Engine::AssetMan::get_texture("upgrade_proj");
+
+    }
     UpgradeProj(Vector2 position, double speed, Vector2 direction, bool foe, int damage) :
-        pos(position), orientation(direction), foe(foe), damage(damage), speed(speed) {}
+        pos(position), orientation(direction), foe(foe), damage(damage), speed(speed) {
+
+        sprite = Engine::AssetMan::get_texture("upgrade_proj");
+
+    }
 
     bool is_foe() { return foe; }
     Rectangle get_hitbox() { return hitbox.get(pos); }
@@ -39,9 +48,11 @@ public:
     Direction orientation;
     Hitbox hitbox = Hitbox(16, 16);
     int damage = 0;
-    double speed = 100;
+    double speed = 90;
     bool foe = false;
     bool destruct = false;
+
+    std::shared_ptr<Texture> sprite;
 
 };
 

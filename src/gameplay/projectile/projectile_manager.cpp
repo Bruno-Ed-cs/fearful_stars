@@ -40,13 +40,15 @@ void ProjectileMan::update(double dt, Engine::Systems& sys) {
             cur_proj.projectile_ptr->update(dt, sys);
 
             //           std::cout << i << "  past update" << '\n';
-            auto pos = cur_proj.projectile_ptr->get_position();
+            if (cur_proj.projectile_ptr != nullptr) {
+                auto pos = cur_proj.projectile_ptr->get_position();
 
-            if ((pos.x > Engine::g_world_size.x || pos.x < 0) ||
-                (pos.y > Engine::g_world_size.y || pos.y < 0)) {
+                if ((pos.x > Engine::g_world_size.x || pos.x < 0) ||
+                    (pos.y > Engine::g_world_size.y || pos.y < 0)) {
 
-                cur_proj.active = false;
-                cur_proj.deadtime.reset();
+                    cur_proj.active = false;
+                    cur_proj.deadtime.reset();
+                }
             }
 
         } else {

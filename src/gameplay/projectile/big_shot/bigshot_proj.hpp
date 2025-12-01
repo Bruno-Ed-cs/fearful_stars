@@ -1,5 +1,6 @@
 #pragma once
 
+#include "asset_man.hpp"
 #include "deps.hpp"
 
 #include "gameplay/components/direction.hpp"
@@ -14,9 +15,16 @@ class BigShotProj : public IProjectile{
 
 public:
 
-    BigShotProj() = default;
+    BigShotProj() {
+
+        sprite = Engine::AssetMan::get_texture("super_proj");
+
+    }
     BigShotProj(Vector2 position, double speed, Vector2 direction, bool foe, int damage) :
-        pos(position), orientation(direction), foe(foe), damage(damage), speed(speed) {}
+        pos(position), orientation(direction), foe(foe), damage(damage), speed(speed) {
+
+        sprite = Engine::AssetMan::get_texture("super_proj");
+    }
 
     bool is_foe() { return foe; }
     Rectangle get_hitbox() { return hitbox.get(pos); }
@@ -42,6 +50,8 @@ public:
     double speed = 100;
     bool foe = false;
     bool destruct = false;
+
+    std::shared_ptr<Texture> sprite;
 
 };
 

@@ -1,6 +1,7 @@
 #include "render_man.hpp"
 #include "deps.hpp"
 #include "globals.hpp"
+#include "raylib.h"
 #include "winman.hpp"
 
 using namespace Engine;
@@ -101,6 +102,8 @@ void RenderMan::render_to_canva() {
     BeginTextureMode(s_canva);
     BeginMode2D(s_camera);
 
+
+
     ClearBackground(BLANK);
 
     for (auto& element: s_background) {
@@ -120,6 +123,7 @@ void RenderMan::render_to_canva() {
     EndMode2D();
 
     EndTextureMode();
+    EndBlendMode();
 
     s_background.clear();
     s_middleground.clear();

@@ -1,4 +1,5 @@
 #include "upgrade_proj.hpp"
+#include "render_man.hpp"
 #include "gameplay/player/player_manager.hpp"
 #include "raylib.h"
 
@@ -14,6 +15,19 @@ void UpgradeProj::update(double dt, Engine::Systems& sys) {
 }
 
 void UpgradeProj::draw() {
+    
+    Rectangle source = Rectangle{0, 0, 16, 16};
+    Rectangle view = Rectangle{pos.x - 8, pos.y -8, 16, 16};
+
+    Engine::RenderMan::send_texture(Engine::RenderMan::Plane::middle,
+                                    *sprite,
+                                    view,
+                                    source,
+                                    0,
+                                    0,
+                                    WHITE);
+
+
 
 }
 

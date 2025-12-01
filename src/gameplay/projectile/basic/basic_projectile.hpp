@@ -1,5 +1,6 @@
 #pragma once
 
+#include "asset_man.hpp"
 #include "component.hpp"
 #include "deps.hpp"
 
@@ -14,10 +15,16 @@ class BasicProjectile : public IProjectile {
 
 public:
 
-    BasicProjectile() {};
+    BasicProjectile() {
+
+        sprite = Engine::AssetMan::get_texture("basic_proj");
+
+    };
 
     BasicProjectile(Vector2 position, Vector2 direction, double speed, bool foe) : 
         pos(position), direction(direction), speed(speed), foe(foe) {
+
+        sprite = Engine::AssetMan::get_texture("basic_proj");
     }
 
     bool is_foe() override { return foe; }
@@ -52,6 +59,8 @@ public:
     int damage = 1;
 
     bool self_destruct = false;
+
+    std::shared_ptr<Texture> sprite;
 };
 
 }

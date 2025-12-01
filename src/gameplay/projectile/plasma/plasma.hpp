@@ -1,5 +1,6 @@
 #pragma once
 
+#include "asset_man.hpp"
 #include "deps.hpp"
 
 #include "gameplay/components/direction.hpp"
@@ -14,9 +15,16 @@ class PlasmaProj : public IProjectile{
 
 public:
 
-    PlasmaProj() = default;
+    PlasmaProj() {
+
+        sprite = Engine::AssetMan::get_texture("plasma_proj");
+
+    }
     PlasmaProj(Vector2 position, double speed, Vector2 direction, bool foe, int damage) :
-        pos(position), orientation(direction), foe(foe), damage(damage), speed(speed) {}
+        pos(position), orientation(direction), foe(foe), damage(damage), speed(speed) {
+
+        sprite = Engine::AssetMan::get_texture("plasma_proj");
+    }
 
     bool is_foe() override { return foe; }
     Rectangle get_hitbox() override { return hitbox.get(pos); }
@@ -40,6 +48,7 @@ public:
     double speed = 50;
     bool foe = false;
     bool destruct = false;
+    std::shared_ptr<Texture> sprite;
 
 };
 

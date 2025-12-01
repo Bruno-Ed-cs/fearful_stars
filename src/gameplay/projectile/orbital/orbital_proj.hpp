@@ -1,5 +1,6 @@
 #pragma once
 
+#include "asset_man.hpp"
 #include "deps.hpp"
 
 #include "gameplay/components/direction.hpp"
@@ -7,6 +8,7 @@
 #include "gameplay/components/position.hpp"
 #include "gameplay/projectile/i_projectile.hpp"
 #include "systems.hpp"
+#include "timer.hpp"
 
 namespace Game {
 
@@ -14,9 +16,17 @@ class OrbitalProj : public IProjectile{
 
 public:
 
-    OrbitalProj() = default;
+    OrbitalProj() {
+        sprite = Engine::AssetMan::get_texture("orbital_proj");
+
+    };
+
     OrbitalProj(Vector2 position, double speed, Vector2 direction, bool foe, int damage) :
-        pos(position), orientation(direction), foe(foe), damage(damage), speed(speed) {}
+        pos(position), orientation(direction), foe(foe), damage(damage), speed(speed) {
+
+        sprite = Engine::AssetMan::get_texture("orbital_proj");
+
+    };
 
     bool is_foe() { return foe; }
     Rectangle get_hitbox() { return hitbox.get(pos); }
@@ -42,6 +52,10 @@ public:
     double speed = 10;
     bool foe;
     bool destruct = false;
+
+    Engine::Timer lifetime = Engine::Timer(30);
+
+    std::shared_ptr<Texture> sprite;
 
     Position anchor;
     double radius = 12.0;

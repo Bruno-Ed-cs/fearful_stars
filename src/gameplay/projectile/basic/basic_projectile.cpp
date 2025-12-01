@@ -5,6 +5,7 @@
 #include "gameplay/player/player_manager.hpp"
 #include "gameplay/projectile/projectile_manager.hpp"
 #include "globals.hpp"
+#include "raymath.h"
 #include "render_man.hpp"
 #include "systems.hpp"
 
@@ -14,7 +15,8 @@ using namespace Game;
 
 void BasicProjectile::update(double dt, Engine::Systems& sys) {
 
-    Vector2 movement = direction * speed * dt;
+    
+    Vector2 movement = Vector2Normalize(direction) * speed * dt;
 
     pos += movement;
 
@@ -42,7 +44,36 @@ void BasicProjectile::update(double dt, Engine::Systems& sys) {
 }
 
 void BasicProjectile::draw() {
+    Color tint = Color{111, 236, 255, 255};
+    Color e_tint = Color{255, 78, 78, 255};
 
+    if (!foe) {
+
+        Rectangle source = Rectangle{0, 0, 5, 5};
+        Rectangle view = Rectangle{pos.x - 2, pos.y -2, 5, 5};
+
+        Engine::RenderMan::send_texture(Engine::RenderMan::Plane::middle,
+                                        *sprite,
+                                        view,
+                                        source,
+                                        0,
+                                        0,
+                                        tint);
+
+    } else {
+
+        Rectangle source = Rectangle{0, 0, -5, 5};
+        Rectangle view = Rectangle{pos.x - 2, pos.y -2, 5, 5};
+
+        Engine::RenderMan::send_texture(Engine::RenderMan::Plane::middle,
+                                        *sprite,
+                                        view,
+                                        source,
+                                        0,
+                                        0,
+                                        e_tint);
+
+    }
 
 }
 

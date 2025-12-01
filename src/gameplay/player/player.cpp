@@ -6,7 +6,6 @@
 #include "render_man.hpp"
 #include "systems.hpp"
 #include "timer.hpp"
-#include <algorithm>
 
 #include "player.hpp"
 

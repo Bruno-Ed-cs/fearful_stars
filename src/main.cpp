@@ -168,7 +168,6 @@ int main(void)
         //----------------------------------------------------------------------------------
         // window.update_window();
 
-        Engine::AssetMan::cleanup();
         Engine::InputMan::flush_events();
     }
 

@@ -10,17 +10,8 @@
 #include "winman.hpp"
 #include "asset_man.hpp"
 
-auto font = Engine::AssetMan::get_font("EXEPixelPerfect");
 
 void draw_loop(Engine::Systems& sys) {
-
-    sys.player->draw();
-    sys.projectile->draw();
-    sys.enemy->draw();
-    Engine::BackgroundMan::draw();
-
-
-    Engine::RenderMan::render_to_canva();
 
     BeginDrawing();
     {
@@ -64,4 +55,13 @@ void draw_loop(Engine::Systems& sys) {
 
 
     EndDrawing();
+
+    sys.player->draw();
+    sys.projectile->draw();
+    sys.enemy->draw();
+    Engine::BackgroundMan::draw();
+
+
+    Engine::RenderMan::render_to_canva();
+
 }

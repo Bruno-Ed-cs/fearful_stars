@@ -1,5 +1,6 @@
 #pragma once
 
+#include "asset_man.hpp"
 #include "deps.hpp"
 
 #include "timer.hpp"
@@ -16,10 +17,18 @@ class MissileProj : public IProjectile{
 public:
 
     MissileProj() 
-    {}
+    {
+
+        sprite = Engine::AssetMan::get_texture("missile");
+
+    }
 
     MissileProj(Vector2 position, double speed, Vector2 direction, bool foe, int damage) :
-        pos(position), orientation(direction), foe(foe), damage(damage), speed(speed) {}
+        pos(position), orientation(direction), foe(foe), damage(damage), speed(speed) {
+
+        sprite = Engine::AssetMan::get_texture("missile");
+
+    }
 
     bool is_foe() { return foe; }
     Rectangle get_hitbox() { return hitbox.get(pos); }
@@ -47,6 +56,8 @@ public:
     bool destruct = false;
     Hitbox search_area = Hitbox(100, 70);
     Engine::Timer dorment_time = Engine::Timer(0.25f);
+
+    std::shared_ptr<Texture> sprite;
 
 };
 

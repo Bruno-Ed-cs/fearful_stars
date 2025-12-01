@@ -1,6 +1,6 @@
 #include "levels.hpp"
 #include "systems.hpp"
-#include <exception>
+#include "asset_man.hpp"
 #include <stdexcept>
 
 using namespace Game;
@@ -16,6 +16,8 @@ void LevelManager::loop_level() {
 
 void LevelManager::exit_level() {
 
+
+    Engine::AssetMan::cleanup();
 }
 
 void LevelManager::update(double dt) {

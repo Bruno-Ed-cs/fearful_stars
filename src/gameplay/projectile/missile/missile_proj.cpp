@@ -3,6 +3,7 @@
 #include "raymath.h"
 #include "timer.hpp"
 #include "gameplay/enemy/enemy_man.hpp"
+#include "render_man.hpp"
 
 using namespace Game;
 
@@ -56,6 +57,37 @@ void MissileProj::update(double dt, Engine::Systems& sys) {
 }
 
 void MissileProj::draw() {
+
+    Color tint = Color{111, 236, 255, 255};
+    Color e_tint = Color{255, 78, 78, 255};
+
+    if (!foe) {
+
+        Rectangle source = Rectangle{0, 0, 6, 3};
+        Rectangle view = Rectangle{pos.x - 3, pos.y -1, 6, 3};
+
+        Engine::RenderMan::send_texture(Engine::RenderMan::Plane::middle,
+                                        *sprite,
+                                        view,
+                                        source,
+                                        0,
+                                        0,
+                                        tint);
+
+    } else {
+
+        Rectangle source = Rectangle{0, 0, -6, 3};
+        Rectangle view = Rectangle{pos.x - 3, pos.y -1, 6, 3};
+
+        Engine::RenderMan::send_texture(Engine::RenderMan::Plane::middle,
+                                        *sprite,
+                                        view,
+                                        source,
+                                        0,
+                                        0,
+                                        e_tint);
+
+    }
 
 }
 

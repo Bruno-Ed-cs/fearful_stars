@@ -1,5 +1,6 @@
 #include "plasma.hpp"
 #include "gameplay/enemy/enemy_man.hpp"
+#include "render_man.hpp"
 
 using namespace Game;
 
@@ -24,6 +25,37 @@ void PlasmaProj::update(double dt, Engine::Systems& sys) {
 }
 
 void PlasmaProj::draw() {
+
+    Color tint = Color{111, 236, 255, 255};
+    Color e_tint = Color{255, 78, 78, 255};
+
+    if (!foe) {
+
+        Rectangle source = Rectangle{0, 0, 10, 6};
+        Rectangle view = Rectangle{pos.x - 5, pos.y -3, 10, 6};
+
+        Engine::RenderMan::send_texture(Engine::RenderMan::Plane::middle,
+                                        *sprite,
+                                        view,
+                                        source,
+                                        0,
+                                        0,
+                                        tint);
+
+    } else {
+
+        Rectangle source = Rectangle{0, 0, -10, 6};
+        Rectangle view = Rectangle{pos.x - 5, pos.y -6, 10, 6};
+
+        Engine::RenderMan::send_texture(Engine::RenderMan::Plane::middle,
+                                        *sprite,
+                                        view,
+                                        source,
+                                        0,
+                                        0,
+                                        e_tint);
+
+    }
 
 }
 
