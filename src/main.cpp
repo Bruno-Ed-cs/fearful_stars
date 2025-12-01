@@ -63,6 +63,7 @@ void make_level(Engine::Systems& sys) {
 
     event1->add_action(new Game::SpawnEnemiesAction({
         std::tuple("Basic", Vector2{230, 55}),
+        std::tuple("BrokenShip", Vector2{100, 100}),
         std::tuple("Basic", Vector2{222, 55}),
         std::tuple("Basic", Vector2{310, 20}),
         std::tuple("Basic", Vector2{190, 20}),

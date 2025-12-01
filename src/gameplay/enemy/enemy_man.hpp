@@ -61,6 +61,8 @@ private:
     std::vector<EnemyContainer> m_enemies_dock;
     std::queue<uint32_t> m_delete_queue;
 
+    Rectangle despawn_rect = Rectangle{-50, -50, 420, 280};
+
     size_t get_index(uint32_t enemy_id);
     void destroy_enemy(uint32_t enemy_id);
 

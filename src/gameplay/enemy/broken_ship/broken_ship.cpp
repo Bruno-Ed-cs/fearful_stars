@@ -1,4 +1,4 @@
-#include "basic_enemy.hpp"
+#include "broken_ship.hpp"
 #include "gameplay/components/health.hpp"
 #include "gameplay/projectile/basic/basic_projectile.hpp"
 #include "gameplay/components/hitbox.hpp"
@@ -16,33 +16,19 @@
 using namespace Game;
 
 
-void BasicEnemy::draw() {
+void BrokenShip::draw() {
 
 
 };
 
-void BasicEnemy::update(double dt, Engine::Systems& sys) {
+void BrokenShip::update(double dt, Engine::Systems& sys) {
 
     Vector2 movement = Vector2Normalize(direction.vec()) * dt * speed;
-    pos += movement;
+    this->pos += movement;
 
 };
 
-void BasicEnemy::take_damage(Engine::Systems& sys, int damage) {
-
-
-    hp.take_damage(damage);
-
-    if (hp.is_dead()){
-
-        uint32_t id = sys.enemy->get_enemy(this);
-
-        self_destruct = true;
-    }
-
-}
-
-void BasicEnemy::reset(Vector2 position) {
+void BrokenShip::reset(Vector2 position) {
 
     this->pos = position;
     this->hp.restore();

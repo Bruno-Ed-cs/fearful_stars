@@ -2,6 +2,7 @@
 #include "gameplay/components/hitbox.hpp"
 #include "gameplay/components/position.hpp"
 #include "gameplay/enemy/basic/basic_enemy.hpp"
+#include "gameplay/enemy/broken_ship/broken_ship.hpp"
 #include "gameplay/player/player_manager.hpp"
 #include "gameplay/projectile/projectile_manager.hpp"
 #include "id_generator.hpp"
@@ -21,6 +22,13 @@ uint32_t EnemyMan::emplace_enemy(std::string_view enemy_type, Vector2 position) 
         return insert_enemy(std::move(enemy));
 
 
+    } else if (enemy_type == "BrokenShip") {
+
+        auto enemy = EnemyMan::make_enemy<BrokenShip>();
+        enemy->reset(position);
+
+        return insert_enemy(std::move(enemy));
+
     } else {
 
         throw std::invalid_argument(std::format("The enemy type {} does not exists", enemy_type));
@@ -32,11 +40,11 @@ void EnemyMan::update(double dt, Engine::Systems& sys) {
 
     for (auto& container: m_enemies_dock) {
 
-        if (container.enemy->destroy_self()) {
+        if (container.enemy->destroy_self() ||
+            !CheckCollisionRecs(despawn_rect, container.enemy->get_hitbox())) {
 
             append_delete_queue(container.id);
-
-        }
+        } 
 
     }
 
@@ -52,6 +60,8 @@ void EnemyMan::update(double dt, Engine::Systems& sys) {
         m_enemies_dock[i].enemy->update(dt, sys);
 
     }
+
+
 
 }
 
@@ -116,7 +126,7 @@ void EnemyMan::debug_world() {
     Engine::RenderMan::begin_draw_debug();
     for (auto& container: m_enemies_dock) {
 
-       DrawRectangleRec(container.enemy->get_hitbox(), RED);
+        DrawRectangleRec(container.enemy->get_hitbox(), RED);
 
     }
     Engine::RenderMan::end_draw_debug();
