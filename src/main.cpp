@@ -13,6 +13,7 @@
 #include "gameplay/levels/level_actions/wave_end_action.hpp"
 #include "gameplay/levels/levels.hpp"
 #include "music_man.hpp"
+#include "raylib.h"
 #include "render_man.hpp"
 #include "ui.hpp"
 #include "update_loop.hpp"
@@ -63,6 +64,15 @@ void make_level(Engine::Systems& sys) {
 
     event1->add_action(new Game::SpawnEnemiesAction({
         std::tuple("Basic", Vector2{230, 55}),
+        std::tuple("Anemonae", Vector2{200, 120}),
+        std::tuple("Anemonae", Vector2{300, 100}),
+        std::tuple("Anemonae", Vector2{300, 20}),
+        std::tuple("Chaser", Vector2{320, 190}),
+        std::tuple("Chaser", Vector2{320, 10}),
+        std::tuple("Chaser", Vector2{320, 100}),
+        std::tuple("CrystalEye", Vector2{ 190, 110}),
+        std::tuple("CrystalEye", Vector2{ 107, 101}),
+        std::tuple("CrystalEye", Vector2{ 101, 200}),
         std::tuple("BrokenShip", Vector2{100, 100}),
         std::tuple("Basic", Vector2{222, 55}),
         std::tuple("Basic", Vector2{310, 20}),
@@ -99,6 +109,8 @@ void make_level(Engine::Systems& sys) {
 //------------------------------------------------------------------------------------
 int main(void)
 {
+
+    srand(time(NULL));
 
     //    SetConfigFlags(FLAG_VSYNC_HINT);
     // Initialization

@@ -3,20 +3,21 @@
 #include "deps.hpp"
 #include "gameplay/components/direction.hpp"
 #include "gameplay/enemy/basic/basic_enemy.hpp"
+#include "timer.hpp"
 
 namespace Game {
 
-class BrokenShip : public BasicEnemy {
+class CrystalEye : public BasicEnemy {
 
 public:
 
-    BrokenShip() {
+    CrystalEye() {
         pos = Position();
         init();
 
     }
 
-    BrokenShip(Vector2 position) {
+    CrystalEye(Vector2 position) {
         init();
         pos = position;
 
@@ -28,16 +29,22 @@ public:
 
     void init () {
 
-        direction  = Direction{-1,0};
-        speed = 80;
-        hp = Health(5);
-        hitbox = Hitbox(24, 16);
+        direction  = Direction{0,0};
+        speed = 40;
+        hp = Health(4);
+        hitbox = Hitbox(16, 22);
 
         self_destruct = false;
 
         //sprite;
     }
 
+    Engine::Timer shot_cooldown{2.0f};
+    Engine::Timer chain_cooldown{0.1};
+    int shot_count = 0;
+
+    bool in_position = false;
+    Vector2 target_pos{0,0};
 };
 
 }

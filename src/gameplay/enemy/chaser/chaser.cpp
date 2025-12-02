@@ -1,4 +1,4 @@
-#include "anemonae.hpp"
+#include "chaser.hpp"
 #include "gameplay/components/health.hpp"
 #include "gameplay/projectile/basic/basic_projectile.hpp"
 #include "gameplay/components/hitbox.hpp"
@@ -12,23 +12,33 @@
 #include "gameplay/player/player_manager.hpp"
 #include "systems.hpp"
 #include "timer.hpp"
+#include <cstddef>
+#include <cstdlib>
 
 using namespace Game;
 
 
-void BrokenShip::draw() {
+void Chaser::draw() {
 
 
 };
 
-void BrokenShip::update(double dt, Engine::Systems& sys) {
+void Chaser::update(double dt, Engine::Systems& sys) {
 
-    Vector2 movement = Vector2Normalize(direction.vec()) * dt * speed;
-    this->pos += movement;
+    player_pos_update.update(dt);
+
+    if (player_pos_update.past_limit()) {
+
+        player_pos_update.reset();
+        player_pos = sys.player->get_player().pos.vec();
+
+    }
+
+    pos = Vector2MoveTowards(pos.vec(), player_pos, speed * dt);
 
 };
 
-void BrokenShip::reset(Vector2 position) {
+void Chaser::reset(Vector2 position) {
 
     this->pos = position;
     this->hp.restore();

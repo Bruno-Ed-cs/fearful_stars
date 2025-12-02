@@ -1,8 +1,11 @@
 #include "enemy_man.hpp"
 #include "gameplay/components/hitbox.hpp"
 #include "gameplay/components/position.hpp"
+#include "gameplay/enemy/anemonae/anemonae.hpp"
 #include "gameplay/enemy/basic/basic_enemy.hpp"
 #include "gameplay/enemy/broken_ship/broken_ship.hpp"
+#include "gameplay/enemy/chaser/chaser.hpp"
+#include "gameplay/enemy/eye/crystal_eye.hpp"
 #include "gameplay/player/player_manager.hpp"
 #include "gameplay/projectile/projectile_manager.hpp"
 #include "id_generator.hpp"
@@ -21,6 +24,49 @@ uint32_t EnemyMan::emplace_enemy(std::string_view enemy_type, Vector2 position) 
 
         return insert_enemy(std::move(enemy));
 
+
+    } else if (enemy_type == "BrokenShip") {
+
+        auto enemy = EnemyMan::make_enemy<BrokenShip>();
+        enemy->reset(position);
+
+        return insert_enemy(std::move(enemy));
+
+    } else if (enemy_type == "Anemonae") {
+
+        auto enemy = EnemyMan::make_enemy<Anemonae>();
+        enemy->reset(position);
+
+        return insert_enemy(std::move(enemy));
+
+    } else if (enemy_type == "Chaser") {
+
+        auto enemy = EnemyMan::make_enemy<Chaser>();
+        enemy->reset(position);
+
+        return insert_enemy(std::move(enemy));
+
+    } else if (enemy_type == "CrystalEye") {
+
+        auto enemy = EnemyMan::make_enemy<CrystalEye>();
+        enemy->reset(position);
+
+        return insert_enemy(std::move(enemy));
+
+
+    } else if (enemy_type == "BrokenShip") {
+
+        auto enemy = EnemyMan::make_enemy<BrokenShip>();
+        enemy->reset(position);
+
+        return insert_enemy(std::move(enemy));
+
+    } else if (enemy_type == "BrokenShip") {
+
+        auto enemy = EnemyMan::make_enemy<BrokenShip>();
+        enemy->reset(position);
+
+        return insert_enemy(std::move(enemy));
 
     } else if (enemy_type == "BrokenShip") {
 

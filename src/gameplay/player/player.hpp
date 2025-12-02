@@ -66,6 +66,7 @@ public:
     void update(double dt, Engine::Systems& sys) override; 
     void draw() override;
     void turn_invincible(double seconds);
+    Rectangle get_hitbox() { return hitbox.get(pos.vec()); };
     void die(Engine::Systems& sys);
     void revive();
     bool destroy_self() override { return self_destruct; };
