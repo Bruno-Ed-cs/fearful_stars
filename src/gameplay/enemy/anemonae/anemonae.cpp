@@ -18,10 +18,6 @@
 using namespace Game;
 
 
-void Anemonae::draw() {
-
-
-};
 
 void Anemonae::update(double dt, Engine::Systems& sys) {
 

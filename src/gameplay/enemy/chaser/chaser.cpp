@@ -18,10 +18,6 @@
 using namespace Game;
 
 
-void Chaser::draw() {
-
-
-};
 
 void Chaser::update(double dt, Engine::Systems& sys) {
 

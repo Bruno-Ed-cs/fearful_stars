@@ -7,17 +7,17 @@
 
 namespace Game {
 
-class Anemonae : public BasicEnemy {
+class Minion : public BasicEnemy {
 
 public:
 
-    Anemonae() {
+    Minion() {
         pos = Position();
         init();
 
     }
 
-    Anemonae(Vector2 position) {
+    Minion(Vector2 position) {
         init();
         pos = position;
 
@@ -29,17 +29,31 @@ public:
     void init () {
 
         direction  = Direction{-1,0};
-        speed = 50;
-        hp = Health(10);
-        hitbox = Hitbox(32, 32);
+        speed = 80;
+        hp = Health(20);
+        hitbox = Hitbox(18, 28);
 
         self_destruct = false;
+
+        targets = std::to_array({Vector2{300, 90},
+                                Vector2{190, 90},
+                                Vector2{288, 10},
+                                Vector2{288, 170}}
+                                );
+
+
 
         //sprite;
     }
 
     Engine::Timer shot_cooldown{1.5f};
-    float final_x = 0;
+
+    int cur_target = 0;
+
+    std::array<Vector2, 4> targets;
+
+    std::shared_ptr<Texture> sprite;
+
 
 };
 

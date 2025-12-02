@@ -53,7 +53,7 @@ public:
     bool foe;
     bool destruct = false;
 
-    Engine::Timer lifetime = Engine::Timer(30);
+    Engine::Timer lifetime = Engine::Timer(10);
 
     std::shared_ptr<Texture> sprite;
 

@@ -19,10 +19,6 @@
 using namespace Game;
 
 
-void BrokenShip::draw() {
-
-
-};
 
 
 

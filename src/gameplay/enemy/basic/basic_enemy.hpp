@@ -27,7 +27,7 @@ public:
         pos(position) {};
 
 
-    virtual void draw() override;
+    void draw() override;
     virtual void update(double dt, Engine::Systems& sys) override;
     virtual void reset(Vector2 position) override;
     Rectangle get_hitbox() override { return hitbox.get(pos.vec()); };

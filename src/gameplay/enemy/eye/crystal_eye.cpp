@@ -19,10 +19,6 @@
 using namespace Game;
 
 
-void CrystalEye::draw() {
-
-
-};
 
 void CrystalEye::update(double dt, Engine::Systems& sys) {
 

@@ -6,6 +6,8 @@
 #include "gameplay/enemy/broken_ship/broken_ship.hpp"
 #include "gameplay/enemy/chaser/chaser.hpp"
 #include "gameplay/enemy/eye/crystal_eye.hpp"
+#include "gameplay/enemy/minion/minion.hpp"
+#include "gameplay/enemy/vagant/vagant.hpp"
 #include "gameplay/player/player_manager.hpp"
 #include "gameplay/projectile/projectile_manager.hpp"
 #include "id_generator.hpp"
@@ -54,23 +56,17 @@ uint32_t EnemyMan::emplace_enemy(std::string_view enemy_type, Vector2 position) 
         return insert_enemy(std::move(enemy));
 
 
-    } else if (enemy_type == "BrokenShip") {
+    } else if (enemy_type == "Vagant") {
 
-        auto enemy = EnemyMan::make_enemy<BrokenShip>();
+        auto enemy = EnemyMan::make_enemy<Vagant>();
         enemy->reset(position);
 
         return insert_enemy(std::move(enemy));
 
-    } else if (enemy_type == "BrokenShip") {
 
-        auto enemy = EnemyMan::make_enemy<BrokenShip>();
-        enemy->reset(position);
+    } else if (enemy_type == "Minion") {
 
-        return insert_enemy(std::move(enemy));
-
-    } else if (enemy_type == "BrokenShip") {
-
-        auto enemy = EnemyMan::make_enemy<BrokenShip>();
+        auto enemy = EnemyMan::make_enemy<Minion>();
         enemy->reset(position);
 
         return insert_enemy(std::move(enemy));

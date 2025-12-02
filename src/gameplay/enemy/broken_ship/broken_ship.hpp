@@ -23,7 +23,6 @@ public:
 
     }
 
-    void draw() override;
     void update(double dt, Engine::Systems& sys) override;
     void reset(Vector2 position) override;
 

@@ -73,8 +73,8 @@ void OrbitalProj::draw() {
 
     } else {
 
-        Rectangle source = Rectangle{0, 0, -10, 6};
-        Rectangle view = Rectangle{pos.x - 5, pos.y -6, 10, 6};
+        Rectangle source = Rectangle{0, 0, 6, 6};
+        Rectangle view = Rectangle{pos.x - 3, pos.y -3, 6, 6};
 
         Engine::RenderMan::send_texture(Engine::RenderMan::Plane::middle,
                                         *sprite,

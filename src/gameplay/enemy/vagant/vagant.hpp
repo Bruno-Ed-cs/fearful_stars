@@ -7,17 +7,17 @@
 
 namespace Game {
 
-class CrystalEye : public BasicEnemy {
+class Vagant : public BasicEnemy {
 
 public:
 
-    CrystalEye() {
+    Vagant() {
         pos = Position();
         init();
 
     }
 
-    CrystalEye(Vector2 position) {
+    Vagant(Vector2 position) {
         init();
         pos = position;
 
@@ -28,22 +28,18 @@ public:
 
     void init () {
 
-        direction  = Direction{0,0};
-        speed = 40;
-        hp = Health(4);
-        hitbox = Hitbox(16, 22);
+        direction  = Direction{-1,0};
+        speed = 50;
+        hp = Health(10);
+        hitbox = Hitbox(70, 30);
 
         self_destruct = false;
 
         //sprite;
     }
 
-    Engine::Timer shot_cooldown{2.0f};
-    Engine::Timer chain_cooldown{0.1};
-    int shot_count = 0;
+    Engine::Timer shot_cooldown{0.5f};
 
-    bool in_position = false;
-    Vector2 target_pos{0,0};
 };
 
 }

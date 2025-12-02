@@ -65,6 +65,7 @@ void make_level(Engine::Systems& sys) {
     event1->add_action(new Game::SpawnEnemiesAction({
         std::tuple("Basic", Vector2{230, 55}),
         std::tuple("Anemonae", Vector2{200, 120}),
+        std::tuple("Vagant", Vector2{300, 120}),
         std::tuple("Anemonae", Vector2{300, 100}),
         std::tuple("Anemonae", Vector2{300, 20}),
         std::tuple("Chaser", Vector2{320, 190}),
@@ -75,6 +76,7 @@ void make_level(Engine::Systems& sys) {
         std::tuple("CrystalEye", Vector2{ 101, 200}),
         std::tuple("BrokenShip", Vector2{100, 100}),
         std::tuple("Basic", Vector2{222, 55}),
+        std::tuple("Minion", Vector2{10, 10}),
         std::tuple("Basic", Vector2{310, 20}),
         std::tuple("Basic", Vector2{190, 20}),
         std::tuple("Basic", Vector2{198, 58}),
