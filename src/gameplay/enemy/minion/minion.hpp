@@ -1,5 +1,6 @@
 #pragma once
 
+#include "asset_man.hpp"
 #include "deps.hpp"
 #include "gameplay/components/direction.hpp"
 #include "gameplay/enemy/basic/basic_enemy.hpp"
@@ -43,7 +44,7 @@ public:
 
 
 
-        //sprite;
+        sprite = Engine::AssetMan::get_texture("minion");
     }
 
     Engine::Timer shot_cooldown{1.5f};
@@ -52,7 +53,6 @@ public:
 
     std::array<Vector2, 4> targets;
 
-    std::shared_ptr<Texture> sprite;
 
 
 };

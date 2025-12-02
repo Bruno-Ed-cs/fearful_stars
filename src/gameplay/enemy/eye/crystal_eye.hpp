@@ -1,5 +1,6 @@
 #pragma once
 
+#include "asset_man.hpp"
 #include "deps.hpp"
 #include "gameplay/components/direction.hpp"
 #include "gameplay/enemy/basic/basic_enemy.hpp"
@@ -35,7 +36,7 @@ public:
 
         self_destruct = false;
 
-        //sprite;
+        sprite = Engine::AssetMan::get_texture("eye");
     }
 
     Engine::Timer shot_cooldown{2.0f};
@@ -44,6 +45,8 @@ public:
 
     bool in_position = false;
     Vector2 target_pos{0,0};
+
+    
 };
 
 }

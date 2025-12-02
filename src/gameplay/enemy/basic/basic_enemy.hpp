@@ -1,5 +1,6 @@
 #pragma once
 
+#include "asset_man.hpp"
 #include "component.hpp"
 #include "deps.hpp"
 #include "gameplay/components/direction.hpp"
@@ -21,10 +22,18 @@ public:
 
 
     BasicEnemy():
-    pos(Vector2{100, 100}){};
+    pos(Vector2{100, 100}){
+
+        sprite = Engine::AssetMan::get_texture("meteorite");
+
+    };
 
     BasicEnemy(Vector2 position) :
-        pos(position) {};
+        pos(position) {
+
+        sprite = Engine::AssetMan::get_texture("meteorite");
+
+    };
 
 
     void draw() override;

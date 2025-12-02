@@ -1,4 +1,5 @@
 #include "basic_enemy.hpp"
+#include "render_man.hpp"
 #include "gameplay/components/health.hpp"
 #include "gameplay/projectile/basic/basic_projectile.hpp"
 #include "gameplay/components/hitbox.hpp"
@@ -17,6 +18,17 @@ using namespace Game;
 
 
 void BasicEnemy::draw() {
+
+
+    Rectangle sorce = Rectangle{0, 0, hitbox.width, hitbox.height};
+
+    Engine::RenderMan::send_texture(Engine::RenderMan::Plane::middle,
+                                    *sprite,
+                                    hitbox.get(pos.vec()),
+                                    sorce,
+                                    0,
+                                    0,
+                                    WHITE);
 
 
 };

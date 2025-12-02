@@ -1,5 +1,6 @@
 #pragma once
 
+#include "asset_man.hpp"
 #include "deps.hpp"
 #include "gameplay/components/direction.hpp"
 #include "gameplay/enemy/basic/basic_enemy.hpp"
@@ -35,7 +36,7 @@ public:
 
         self_destruct = false;
 
-        //sprite;
+        sprite = Engine::AssetMan::get_texture("chaser");
     }
 
     Engine::Timer player_pos_update{3.0f};

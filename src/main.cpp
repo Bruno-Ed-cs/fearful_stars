@@ -3,6 +3,7 @@
 #include "deps.hpp"
 
 #include "gameplay/levels/level_actions/play_ost.hpp"
+#include "gameplay/levels/level_actions/spawn_upgrade_action.hpp"
 #include "gameplay/player/player_manager.hpp"
 #include "gameplay/projectile/projectile_manager.hpp"
 #include "globals.hpp"
@@ -61,6 +62,8 @@ void make_level(Engine::Systems& sys) {
     event1->add_action(new Game::PlayOstAction("space-ambient"));
 
     event1->add_action(new Game::WaitAction(2));
+
+    event1->add_action(new Game::SpawnUpgradeAction());
 
     event1->add_action(new Game::SpawnEnemiesAction({
         std::tuple("Basic", Vector2{230, 55}),
