@@ -3,6 +3,7 @@
 #include "player_manager.hpp"
 #include "gameplay/enemy/enemy_man.hpp"
 #include "gameplay/projectile/projectile_manager.hpp"
+#include "globals.hpp"
 #include "player.hpp"
 #include "gameplay/components/position.hpp"
 #include "raylib.h"
@@ -17,7 +18,7 @@ void PlayerMan::update(double dt, Engine::Systems& sys) {
     m_player1->update(dt, sys);
     if (m_player1->dead) {
 
-        CloseWindow();
+        Engine::g_running = false;
         std::println("you died");
 
     }

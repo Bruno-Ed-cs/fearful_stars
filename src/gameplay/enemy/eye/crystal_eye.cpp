@@ -44,7 +44,7 @@ void CrystalEye::update(double dt, Engine::Systems& sys) {
 
     if (target_pos.y == 0) {
 
-        target_pos.x = rand() % 320;
+        target_pos.x = (rand() % 270) + 50;
         target_pos.y = rand() % 180;
     }
 

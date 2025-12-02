@@ -3,6 +3,7 @@
 #include "deps.hpp"
 
 #include "gameplay/levels/level_actions/play_ost.hpp"
+#include "gameplay/levels/level_actions/player_move_action.hpp"
 #include "gameplay/levels/level_actions/spawn_upgrade_action.hpp"
 #include "gameplay/player/player_manager.hpp"
 #include "gameplay/projectile/projectile_manager.hpp"
@@ -55,7 +56,7 @@ void make_background() {
 
 void make_level(Engine::Systems& sys) {
 
-    sys.player->init_player(Vector2{ 60, 150 });
+    sys.player->init_player(Vector2{ 60, 90 });
 
     //    auto enemy = std::make_unique<Game::BasicEnemy>();
     //    systems.enemy.insert_enemy(std::move(enemy));
@@ -84,6 +85,8 @@ void make_level(Engine::Systems& sys) {
     auto wave10 = new Game::LevelEvent("wave10");
 
     wave1->add_action(new Game::PlayOstAction("space-ambient"));
+
+    wave1->add_action(new Game::PlayerMoveAction());
 
     wave1->add_action(new Game::SpawnEnemiesAction({
 
@@ -517,7 +520,7 @@ int main(void)
     // Initialization
     //--------------------------------------------------------------------------------------
 
-    Engine::WinMan::init(1280, 720, "Fearful Stars", 0, false);
+    Engine::WinMan::init(1280, 720, "Fearful Stars", 0, true);
 
     Engine::g_world_size = Vector2{320, 180};
 
@@ -554,11 +557,14 @@ int main(void)
     make_background();
 
     // Main game loop
-    while (!WindowShouldClose())    // Detect window close button or ESC key
+    while (Engine::g_running)    // Detect window close button or ESC key
     {
         //std::cout << "check 3\n";
         dt = GetFrameTime();
         Engine::InputMan::pull_events();
+
+        if (WindowShouldClose()) 
+            Engine::g_running = false;
 
         if (IsKeyPressed(KEY_ENTER)) 
             Engine::WinMan::toggle_fullscreen();
@@ -585,7 +591,6 @@ int main(void)
         Engine::InputMan::flush_events();
     }
 
-    rlImGuiShutdown();
     return 0;
 }
 

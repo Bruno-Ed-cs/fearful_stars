@@ -1,4 +1,5 @@
 #include "levels.hpp"
+#include "globals.hpp"
 #include "raylib.h"
 #include "systems.hpp"
 #include "asset_man.hpp"
@@ -17,7 +18,7 @@ void LevelManager::loop_level() {
 
 void LevelManager::exit_level() {
 
-    CloseWindow();
+    Engine::g_running = false;
 
     Engine::AssetMan::cleanup();
 }

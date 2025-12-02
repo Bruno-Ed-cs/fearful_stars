@@ -168,7 +168,7 @@ void EnemyMan::debug_world() {
     Engine::RenderMan::begin_draw_debug();
     for (auto& container: m_enemies_dock) {
 
-        DrawRectangleRec(container.enemy->get_hitbox(), RED);
+        DrawRectangleLinesEx(container.enemy->get_hitbox(), 1.0f, RED);
 
     }
     Engine::RenderMan::end_draw_debug();

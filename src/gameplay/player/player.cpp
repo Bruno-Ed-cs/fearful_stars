@@ -145,7 +145,7 @@ void Player::update(double dt, Engine::Systems& sys) {
 
         graze_cooldown.reset();
 
-        special_meter += 1;
+        special_meter += 2;
         special_meter = std::clamp(special_meter, 0, 100);
     }
 
