@@ -31,7 +31,7 @@ public:
 
         direction  = Direction{-1,0};
         speed = 50;
-        hp = Health(10);
+        hp = Health(30);
         hitbox = Hitbox(32, 32);
 
         self_destruct = false;

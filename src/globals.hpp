@@ -9,7 +9,7 @@
 namespace Engine {
 
     inline Vector2 g_world_size;
-    inline bool g_debug = true;
+    inline bool g_debug = false;
 
 }
 

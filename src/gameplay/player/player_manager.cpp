@@ -8,12 +8,19 @@
 #include "raylib.h"
 #include "render_man.hpp"
 #include "systems.hpp"
+#include <print>
 
 using namespace Game;
 
 void PlayerMan::update(double dt, Engine::Systems& sys) {
 
     m_player1->update(dt, sys);
+    if (m_player1->dead) {
+
+        CloseWindow();
+        std::println("you died");
+
+    }
 
 }
 

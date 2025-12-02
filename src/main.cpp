@@ -27,15 +27,29 @@
 
 void make_background() {
 
-    Engine::BackgroundMan::create_element(Engine::AssetMan::get_texture("earthBackgroudeErased"), Rectangle{112, 112, 16, 16}, Rectangle{0, 0, 100, 100}, Game::Position(Vector2{10, 10}), 0, 0, -1, Engine::BackgroundElement::Mode::stay);
+    // Distribute 15 background elements across 320x180 screen
+    // Group 1: Column 3 sprites (3 elements)
+    Engine::BackgroundMan::create_element(Engine::AssetMan::get_texture("earthBackgroudeErased"), Rectangle{16 * 3, 0, 16, 16}, Rectangle{0, 0, 16, 16}, Game::Position(Vector2{50, 30}), 0, 0, 0, Engine::BackgroundElement::Mode::stay);
+    Engine::BackgroundMan::create_element(Engine::AssetMan::get_texture("earthBackgroudeErased"), Rectangle{16 * 3, 0, 16, 16}, Rectangle{0, 0, 16, 16}, Game::Position(Vector2{270, 150}), 0, 0, 0, Engine::BackgroundElement::Mode::stay);
+    Engine::BackgroundMan::create_element(Engine::AssetMan::get_texture("earthBackgroudeErased"), Rectangle{16 * 3, 0, 16, 16}, Rectangle{0, 0, 16, 16}, Game::Position(Vector2{160, 90}), 0, 0, 0, Engine::BackgroundElement::Mode::stay);
 
-    Engine::BackgroundMan::create_element(Engine::AssetMan::get_texture("earthBackgroudeErased"), Rectangle{16 * 3, 0, 16, 16}, Rectangle{0, 0, 16, 16}, Game::Position(Vector2{300, 10}), 0, 0, 0, Engine::BackgroundElement::Mode::stay);
+    // Group 2: Column 2 sprites (4 elements)  
+    Engine::BackgroundMan::create_element(Engine::AssetMan::get_texture("earthBackgroudeErased"), Rectangle{16 * 2, 0, 16, 16}, Rectangle{0, 0, 16, 16}, Game::Position(Vector2{240, 40}), 0, 0, 0, Engine::BackgroundElement::Mode::stay);
+    Engine::BackgroundMan::create_element(Engine::AssetMan::get_texture("earthBackgroudeErased"), Rectangle{16 * 2, 0, 16, 16}, Rectangle{0, 0, 16, 16}, Game::Position(Vector2{80, 140}), 0, 0, 0, Engine::BackgroundElement::Mode::stay);
+    Engine::BackgroundMan::create_element(Engine::AssetMan::get_texture("earthBackgroudeErased"), Rectangle{16 * 2, 0, 16, 16}, Rectangle{0, 0, 16, 16}, Game::Position(Vector2{300, 100}), 0, 0, 0, Engine::BackgroundElement::Mode::stay);
+    Engine::BackgroundMan::create_element(Engine::AssetMan::get_texture("earthBackgroudeErased"), Rectangle{16 * 2, 0, 16, 16}, Rectangle{0, 0, 16, 16}, Game::Position(Vector2{20, 50}), 0, 0, 0, Engine::BackgroundElement::Mode::stay);
 
-    Engine::BackgroundMan::create_element(Engine::AssetMan::get_texture("earthBackgroudeErased"), Rectangle{16 * 2, 0, 16, 16}, Rectangle{0, 0, 16, 16}, Game::Position(Vector2{201, 40}), 0, 0, 0, Engine::BackgroundElement::Mode::stay);
+    // Group 3: Column 1 sprites (4 elements)
+    Engine::BackgroundMan::create_element(Engine::AssetMan::get_texture("earthBackgroudeErased"), Rectangle{16 * 1, 0, 16, 16}, Rectangle{0, 0, 16, 16}, Game::Position(Vector2{100, 20}), 0, 0, 0, Engine::BackgroundElement::Mode::stay);
+    Engine::BackgroundMan::create_element(Engine::AssetMan::get_texture("earthBackgroudeErased"), Rectangle{16 * 1, 0, 16, 16}, Rectangle{0, 0, 16, 16}, Game::Position(Vector2{220, 160}), 0, 0, 0, Engine::BackgroundElement::Mode::stay);
+    Engine::BackgroundMan::create_element(Engine::AssetMan::get_texture("earthBackgroudeErased"), Rectangle{16 * 1, 0, 16, 16}, Rectangle{0, 0, 16, 16}, Game::Position(Vector2{40, 100}), 0, 0, 0, Engine::BackgroundElement::Mode::stay);
+    Engine::BackgroundMan::create_element(Engine::AssetMan::get_texture("earthBackgroudeErased"), Rectangle{16 * 1, 0, 16, 16}, Rectangle{0, 0, 16, 16}, Game::Position(Vector2{280, 60}), 0, 0, 0, Engine::BackgroundElement::Mode::stay);
 
-    Engine::BackgroundMan::create_element(Engine::AssetMan::get_texture("earthBackgroudeErased"), Rectangle{16 * 1, 0, 16, 16}, Rectangle{0, 0, 16, 16}, Game::Position(Vector2{22, 160}), 0, 0, 0, Engine::BackgroundElement::Mode::stay);
-
-    Engine::BackgroundMan::create_element(Engine::AssetMan::get_texture("earthBackgroudeErased"), Rectangle{0, 0, 16, 16}, Rectangle{0, 0, 16, 16}, Game::Position(Vector2{160, 85}), 0, 0, 0, Engine::BackgroundElement::Mode::stay);
+    // Group 4: Column 0 sprites (4 elements)
+    Engine::BackgroundMan::create_element(Engine::AssetMan::get_texture("earthBackgroudeErased"), Rectangle{0, 0, 16, 16}, Rectangle{0, 0, 16, 16}, Game::Position(Vector2{140, 120}), 0, 0, 0, Engine::BackgroundElement::Mode::stay);
+    Engine::BackgroundMan::create_element(Engine::AssetMan::get_texture("earthBackgroudeErased"), Rectangle{0, 0, 16, 16}, Rectangle{0, 0, 16, 16}, Game::Position(Vector2{60, 160}), 0, 0, 0, Engine::BackgroundElement::Mode::stay);
+    Engine::BackgroundMan::create_element(Engine::AssetMan::get_texture("earthBackgroudeErased"), Rectangle{0, 0, 16, 16}, Rectangle{0, 0, 16, 16}, Game::Position(Vector2{200, 30}), 0, 0, 0, Engine::BackgroundElement::Mode::stay);
+    Engine::BackgroundMan::create_element(Engine::AssetMan::get_texture("earthBackgroudeErased"), Rectangle{0, 0, 16, 16}, Rectangle{0, 0, 16, 16}, Game::Position(Vector2{300, 170}), 0, 0, 0, Engine::BackgroundElement::Mode::stay);
 
 }
 
@@ -57,55 +71,437 @@ void make_level(Engine::Systems& sys) {
     //    systems.enemy.emplace_enemy("Basic", Vector2{100, 44});
 
 
-    auto event1 = new Game::LevelEvent("timed enemies");
+    //auto event1 = new Game::LevelEvent("timed enemies");
+    auto wave1 = new Game::LevelEvent("wave1");
+    auto wave2 = new Game::LevelEvent("wave2");
+    auto wave3 = new Game::LevelEvent("wave3");
+    auto wave4 = new Game::LevelEvent("wave4");
+    auto wave5 = new Game::LevelEvent("wave5");
+    auto wave6 = new Game::LevelEvent("wave6");
+    auto wave7 = new Game::LevelEvent("wave7");
+    auto wave8 = new Game::LevelEvent("wave8");
+    auto wave9 = new Game::LevelEvent("wave9");
+    auto wave10 = new Game::LevelEvent("wave10");
 
-    event1->add_action(new Game::PlayOstAction("space-ambient"));
+    wave1->add_action(new Game::PlayOstAction("space-ambient"));
 
-    event1->add_action(new Game::WaitAction(2));
+    wave1->add_action(new Game::SpawnEnemiesAction({
 
-    event1->add_action(new Game::SpawnUpgradeAction());
+        std::tuple("Basic", Vector2{360, 10}),
+        std::tuple("Basic", Vector2{360 , 80}),
 
-    event1->add_action(new Game::SpawnEnemiesAction({
-        std::tuple("Basic", Vector2{230, 55}),
-        std::tuple("Anemonae", Vector2{200, 120}),
-        std::tuple("Vagant", Vector2{300, 120}),
-        std::tuple("Anemonae", Vector2{300, 100}),
-        std::tuple("Anemonae", Vector2{300, 20}),
-        std::tuple("Chaser", Vector2{320, 190}),
-        std::tuple("Chaser", Vector2{320, 10}),
-        std::tuple("Chaser", Vector2{320, 100}),
-        std::tuple("CrystalEye", Vector2{ 190, 110}),
-        std::tuple("CrystalEye", Vector2{ 107, 101}),
-        std::tuple("CrystalEye", Vector2{ 101, 200}),
-        std::tuple("BrokenShip", Vector2{100, 100}),
-        std::tuple("Basic", Vector2{222, 55}),
-        std::tuple("Minion", Vector2{10, 10}),
-        std::tuple("Basic", Vector2{310, 20}),
-        std::tuple("Basic", Vector2{190, 20}),
-        std::tuple("Basic", Vector2{198, 58}),
-        std::tuple("Basic", Vector2{200, 3})
     }));
 
-    event1->add_action(new Game::WaitAction(1));
+    wave1->add_action(new Game::WaitAction(10.0f));
+    wave1->add_action(new Game::SpawnEnemiesAction({
 
-    event1->add_action(new Game::SpawnEnemiesAction(
-        {
-            std::tuple("Basic", Vector2{300, 0}),
-            std::tuple("Basic", Vector2{300, 100})
-        }
+        std::tuple("Basic", Vector2{360, 90}),
 
-    ));
+    }));
 
-    event1->add_action(new Game::WaveEndAction());
+    wave1->add_action(new Game::WaitAction(5.0f));
+    wave1->add_action(new Game::SpawnEnemiesAction({
 
-    auto level = Game::Level::make_level("testes");
+        std::tuple("Basic", Vector2{360, 40}),
+        std::tuple("Basic", Vector2{360, 150}),
+        std::tuple("Basic", Vector2{360, 100}),
 
-    event1->add_action(new Game::WaveEndAction());
+    }));
 
-    level->add_event(event1);
+    wave1->add_action(new Game::WaveEndAction());
+
+    wave1->add_action(new Game::SpawnUpgradeAction());
+
+    wave1->add_action(new Game::WaveEndAction());
+
+
+
+
+    wave2->add_action(new Game::SpawnEnemiesAction({
+
+        std::tuple("Basic", Vector2{360, 35}),
+
+    }));
+
+    wave2->add_action(new Game::WaitAction(5.0f));
+    wave2->add_action(new Game::SpawnEnemiesAction({
+
+        std::tuple("Basic", Vector2{360, 110}),
+
+    }));
+
+    wave2->add_action(new Game::WaitAction(5.0f));
+    wave2->add_action(new Game::SpawnEnemiesAction({
+
+        std::tuple("BrokenShip", Vector2{360, 90}),
+
+    }));
+
+    wave2->add_action(new Game::WaitAction(2.0f));
+    wave2->add_action(new Game::SpawnEnemiesAction({
+
+        std::tuple("Basic", Vector2{360, 160}),
+
+    }));
+
+    wave2->add_action(new Game::WaitAction(2.0f));
+    wave2->add_action(new Game::SpawnEnemiesAction({
+
+        std::tuple("Basic", Vector2{360, 40}),
+
+    }));
+
+    wave2->add_action(new Game::WaveEndAction());
+
+    wave2->add_action(new Game::SpawnUpgradeAction());
+
+
+    wave3->add_action(new Game::SpawnEnemiesAction({
+
+        std::tuple("BrokenShip", Vector2{360, 55}),
+
+    }));
+
+
+    wave3->add_action(new Game::WaitAction(3.0f));
+    wave3->add_action(new Game::SpawnEnemiesAction({
+
+        std::tuple("BrokenShip", Vector2{360, 20}),
+        std::tuple("BrokenShip", Vector2{360, 140}),
+
+    }));
+
+
+    wave3->add_action(new Game::WaitAction(2.0f));
+    wave3->add_action(new Game::SpawnEnemiesAction({
+
+        std::tuple("BrokenShip", Vector2{360, 100}),
+
+    }));
+
+    wave3->add_action(new Game::WaveEndAction());
+    wave3->add_action(new Game::SpawnEnemiesAction({
+
+        std::tuple("BrokenShip", Vector2{360, 180}),
+
+    }));
+
+    wave3->add_action(new Game::WaveEndAction());
+
+    wave3->add_action(new Game::SpawnUpgradeAction());
+
+    wave3->add_action(new Game::WaveEndAction());
+
+
+    wave4->add_action(new Game::SpawnEnemiesAction({
+
+        std::tuple("BrokenShip", Vector2{360, 20}),
+        std::tuple("BrokenShip", Vector2{360, 150}),
+
+    }));
+
+    wave4->add_action(new Game::WaveEndAction());
+    wave4->add_action(new Game::SpawnEnemiesAction({
+
+        std::tuple("CrystalEye", Vector2{360, 50}),
+
+    }));
+
+    wave4->add_action(new Game::WaitAction(4.0f));
+    wave4->add_action(new Game::SpawnEnemiesAction({
+
+        std::tuple("CrystalEye", Vector2{360, 150}),
+
+    }));
+
+    wave4->add_action(new Game::WaveEndAction());
+
+    wave4->add_action(new Game::SpawnUpgradeAction());
+
+    wave4->add_action(new Game::WaveEndAction());
+
+
+    wave5->add_action(new Game::SpawnEnemiesAction({
+
+        std::tuple("CrystalEye", Vector2{360, 20}),
+        std::tuple("CrystalEye", Vector2{360, 150}),
+
+    }));
+
+    wave5->add_action(new Game::WaitAction(4.0f));
+    wave5->add_action(new Game::SpawnEnemiesAction({
+
+
+        std::tuple("CrystalEye", Vector2{360, 90}),
+        std::tuple("CrystalEye", Vector2{360, 177}),
+
+    }));
+
+    wave5->add_action(new Game::WaveEndAction());
+
+    wave5->add_action(new Game::SpawnUpgradeAction());
+
+    wave5->add_action(new Game::WaitAction(3.0f));
+
+
+    wave6->add_action(new Game::SpawnEnemiesAction({
+
+        std::tuple("Anemonae", Vector2{360, 90}),
+
+    }));
+
+    wave6->add_action(new Game::WaitAction(3.0f));
+    wave6->add_action(new Game::SpawnEnemiesAction({
+
+
+        std::tuple("CrystalEye", Vector2{360, 20}),
+        std::tuple("CrystalEye", Vector2{360, 177}),
+
+    }));
+
+    wave6->add_action(new Game::WaveEndAction());
+    wave6->add_action(new Game::SpawnEnemiesAction({
+
+
+        std::tuple("Anemonae", Vector2{360, 30}),
+        std::tuple("Anemonae", Vector2{360, 130}),
+
+    }));
+
+    wave6->add_action(new Game::WaitAction(5.0f));
+    wave6->add_action(new Game::SpawnEnemiesAction({
+
+
+        std::tuple("CrystalEye", Vector2{360, 30}),
+        std::tuple("CrystalEye", Vector2{360, 130}),
+
+    }));
+
+
+    wave6->add_action(new Game::WaveEndAction());
+
+    wave6->add_action(new Game::SpawnUpgradeAction());
+
+    wave6->add_action(new Game::WaitAction(3.0f));
+
+
+    wave7->add_action(new Game::SpawnEnemiesAction({
+
+        std::tuple("Anemonae", Vector2{360, 70}),
+
+    }));
+
+    wave7->add_action(new Game::WaitAction(3.0f));
+    wave7->add_action(new Game::SpawnEnemiesAction({
+
+
+        std::tuple("Anemonae", Vector2{360, 140}),
+
+    }));
+
+    wave7->add_action(new Game::WaitAction(2.0f));
+    wave7->add_action(new Game::SpawnEnemiesAction({
+
+
+        std::tuple("Vagant", Vector2{360, 40}),
+        std::tuple("Vagant", Vector2{360, 170}),
+
+    }));
+
+    wave7->add_action(new Game::WaitAction(5.0f));
+    wave7->add_action(new Game::SpawnEnemiesAction({
+
+
+        std::tuple("Anemonae", Vector2{360, 80}),
+        std::tuple("Anemonae", Vector2{360, 130}),
+
+    }));
+
+
+    wave7->add_action(new Game::WaveEndAction());
+
+    wave7->add_action(new Game::SpawnUpgradeAction());
+
+    wave7->add_action(new Game::WaitAction(3.0f));
+
+
+    wave8->add_action(new Game::SpawnEnemiesAction({
+
+        std::tuple("Chaser", Vector2{360, 70}),
+
+    }));
+
+    wave8->add_action(new Game::WaitAction(3.0f));
+    wave8->add_action(new Game::SpawnEnemiesAction({
+
+
+        std::tuple("Chaser", Vector2{360, 140}),
+
+    }));
+
+    wave8->add_action(new Game::WaitAction(7.0f));
+    wave8->add_action(new Game::SpawnEnemiesAction({
+
+
+        std::tuple("Vagant", Vector2{360, 90}),
+        std::tuple("Chaser", Vector2{360, 60}),
+
+    }));
+
+    wave8->add_action(new Game::WaitAction(5.0f));
+    wave8->add_action(new Game::SpawnEnemiesAction({
+
+
+        std::tuple("Chaser", Vector2{360, 80}),
+        std::tuple("Chaser", Vector2{360, 20}),
+        std::tuple("Chaser", Vector2{360, 130}),
+
+    }));
+
+
+    wave8->add_action(new Game::WaveEndAction());
+
+    wave8->add_action(new Game::SpawnUpgradeAction());
+
+    wave8->add_action(new Game::WaitAction(3.0f));
+
+
+    wave9->add_action(new Game::SpawnEnemiesAction({
+
+        std::tuple("Vagant", Vector2{360, 40}),
+        std::tuple("Vagant", Vector2{360, 150}),
+
+    }));
+
+    wave9->add_action(new Game::WaitAction(5.0f));
+    wave9->add_action(new Game::SpawnEnemiesAction({
+
+
+        std::tuple("Minion", Vector2{360, 80}),
+
+    }));
+
+    wave9->add_action(new Game::WaitAction(5.0f));
+    wave9->add_action(new Game::SpawnEnemiesAction({
+
+
+        std::tuple("Minion", Vector2{360, 80}),
+
+    }));
+
+    wave9->add_action(new Game::WaveEndAction());
+
+    wave9->add_action(new Game::SpawnUpgradeAction());
+
+    wave9->add_action(new Game::WaitAction(3.0f));
+
+
+    wave10->add_action(new Game::SpawnEnemiesAction({
+
+        std::tuple("BrokenShip", Vector2{360, 90}),
+
+    }));
+
+    wave10->add_action(new Game::WaveEndAction());
+    wave10->add_action(new Game::SpawnEnemiesAction({
+
+
+        std::tuple("Chaser", Vector2{360, 80}),
+        std::tuple("Chaser", Vector2{360, 170}),
+        std::tuple("Minion", Vector2{360, 90}),
+
+    }));
+
+    wave10->add_action(new Game::WaitAction(5.0f));
+    wave10->add_action(new Game::SpawnEnemiesAction({
+
+        std::tuple("Anemonae", Vector2{360, 40}),
+        std::tuple("Anemonae", Vector2{360, 160}),
+
+    }));
+
+    wave10->add_action(new Game::WaitAction(5.0f));
+    wave10->add_action(new Game::SpawnEnemiesAction({
+
+        std::tuple("Minion", Vector2{360, 80}),
+        std::tuple("Minion", Vector2{360, 10}),
+        std::tuple("Vagant", Vector2{360, 130}),
+
+    }));
+
+    wave10->add_action(new Game::WaveEndAction());
+
+    wave10->add_action(new Game::SpawnUpgradeAction());
+
+    wave10->add_action(new Game::WaitAction(5.0f));
+    wave10->add_action(new Game::WaitAction(5.0f));
+
+
+
+
+                      //
+                      //    
+                      //
+                      //    event1->add_action(new Game::WaitAction(2));
+                      //
+                      //    event1->add_action(new Game::SpawnUpgradeAction());
+                      //
+                      //    event1->add_action(new Game::SpawnEnemiesAction({
+                      //        std::tuple("Basic", Vector2{230, 55}),
+                      //        std::tuple("Anemonae", Vector2{200, 120}),
+                      //        std::tuple("Vagant", Vector2{300, 120}),
+                      //        std::tuple("Anemonae", Vector2{300, 100}),
+                      //        std::tuple("Anemonae", Vector2{300, 20}),
+                      //        std::tuple("Chaser", Vector2{320, 190}),
+                      //        std::tuple("Chaser", Vector2{320, 10}),
+                      //        std::tuple("Chaser", Vector2{320, 100}),
+                      //        std::tuple("CrystalEye", Vector2{ 190, 110}),
+                      //        std::tuple("CrystalEye", Vector2{ 107, 101}),
+                      //        std::tuple("CrystalEye", Vector2{ 101, 200}),
+                      //        std::tuple("BrokenShip", Vector2{100, 100}),
+                      //        std::tuple("Basic", Vector2{222, 55}),
+                      //        std::tuple("Minion", Vector2{10, 10}),
+                      //        std::tuple("Basic", Vector2{310, 20}),
+                      //        std::tuple("Basic", Vector2{190, 20}),
+                      //        std::tuple("Basic", Vector2{198, 58}),
+                      //        std::tuple("Basic", Vector2{200, 3})
+                      //    }));
+                      //
+                      //    event1->add_action(new Game::WaitAction(1));
+                      //
+                      //    event1->add_action(new Game::SpawnEnemiesAction(
+                      //        {
+                      //            std::tuple("Basic", Vector2{300, 0}),
+                      //            std::tuple("Basic", Vector2{300, 100})
+                      //        }
+                      //
+                      //    ));
+                      //
+                      //    event1->add_action(new Game::WaveEndAction());
+                      //
+                      //    auto level = Game::Level::make_level("testes");
+                      //
+                      //    event1->add_action(new Game::WaveEndAction());
+                      //
+                      //    level->add_event(event1);
+
+
+                      
+
+    auto level = Game::Level::make_level("level1");
+
+    level->add_event(wave1);
+    level->add_event(wave2);
+    level->add_event(wave3);
+    level->add_event(wave4);
+    level->add_event(wave5);
+    level->add_event(wave6);
+    level->add_event(wave7);
+    level->add_event(wave8);
+    level->add_event(wave9);
+    level->add_event(wave10);
 
     sys.level->level = std::move(level);
-
 
 }
 

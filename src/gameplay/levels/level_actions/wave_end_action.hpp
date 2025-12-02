@@ -3,6 +3,7 @@
 #include "deps.hpp"
 #include "gameplay/levels/i_action.hpp"
 #include "systems.hpp"
+#include "gameplay/enemy/enemy_man.hpp"
 
 namespace Game {
 

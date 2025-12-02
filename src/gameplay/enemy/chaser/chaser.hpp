@@ -30,8 +30,8 @@ public:
     void init () {
 
         direction  = Direction{-1,0};
-        speed = 50;
-        hp = Health(4);
+        speed = 70;
+        hp = Health(15);
         hitbox = Hitbox(28, 20);
 
         self_destruct = false;

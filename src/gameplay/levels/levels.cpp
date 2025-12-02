@@ -1,4 +1,5 @@
 #include "levels.hpp"
+#include "raylib.h"
 #include "systems.hpp"
 #include "asset_man.hpp"
 #include <stdexcept>
@@ -16,6 +17,7 @@ void LevelManager::loop_level() {
 
 void LevelManager::exit_level() {
 
+    CloseWindow();
 
     Engine::AssetMan::cleanup();
 }
@@ -70,7 +72,10 @@ IAction& LevelEvent::current_action() {
 
     if (action_index >= action_list.size()) {
 
+        
+
         throw (std::range_error("Current action is out of bounds for the event"));
+
     }
 
     return *action_list[action_index];
@@ -142,8 +147,12 @@ IAction& Level::curr_action() {
 
 bool Level::at_end() {
 
-    if (event_index == events.size() -1)
+    if (event_index == events.size() -1){ 
+
+        std::println("you win");
+        CloseWindow();
         return true;
+    }
 
     return false;
 
