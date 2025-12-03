@@ -18,7 +18,10 @@ class LevelEvent {
 public:
 
     LevelEvent(std::string name) :
-    name(name) {}
+    name(name) {
+
+        cur_action = actions.begin();
+    }
 
     bool at_end();
     IAction& current_action();
@@ -28,8 +31,9 @@ public:
 
 public:
 
-    std::vector<subevent_ptr> action_list;
-    size_t action_index = 0;
+    std::list<subevent_ptr> actions;
+    std::list<subevent_ptr>::iterator cur_action;
+
     std::string name;
 
 

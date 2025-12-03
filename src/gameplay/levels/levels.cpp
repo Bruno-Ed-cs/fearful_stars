@@ -3,7 +3,6 @@
 #include "raylib.h"
 #include "systems.hpp"
 #include "asset_man.hpp"
-#include <stdexcept>
 
 using namespace Game;
 
@@ -39,7 +38,6 @@ void LevelManager::update(double dt) {
         level->curr_event().next();
 
         if (level->curr_event().at_end()) {
-            level->next();
 
             if (level->at_end()) {
                 end_level();
@@ -62,7 +60,7 @@ void LevelManager::rollback() {
 
 bool LevelEvent::at_end() {
 
-    if (action_index == action_list.size() -1) 
+    if (cur_action == actions.end()) 
         return true;
 
     return false;
@@ -71,43 +69,37 @@ bool LevelEvent::at_end() {
 
 IAction& LevelEvent::current_action() {
 
-    if (action_index >= action_list.size()) {
-
-        
+    if (at_end()) {
 
         throw (std::range_error("Current action is out of bounds for the event"));
-
     }
 
-    return *action_list[action_index];
+    return **cur_action;
 }
 
 void LevelEvent::next() {
 
-    if (action_index == action_list.size() -1) {
+    ++cur_action;
 
-        return;
-    }
-
-    if (action_index >= action_list.size()) {
-
-        action_index = action_list.size() -1;
-
-    } else {
-
-        ++action_index;
-
-    }
 }
 
 void LevelEvent::reset() {
 
-    action_index = 0;
+    if (at_end()) 
+        --cur_action;
 
-    for (auto& action : action_list) {
 
-        action->reset();
-    }
+    do {
+
+        cur_action->reset();
+
+    } while (cur_action != actions.begin());
+}
+
+void LevelEvent::add_action(IAction* action) {
+
+    actions.emplace_back(action);
+    cur_action = actions.begin();
 
 }
 
@@ -123,11 +115,6 @@ void Level::reset() {
 
 }
 
-void LevelEvent::add_action(IAction* action) {
-
-    action_list.emplace_back(action);
-
-}
 
 
 LevelEvent& Level::curr_event() {
