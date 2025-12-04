@@ -18,11 +18,11 @@ public:
 
     }
 
-    bool execute(Engine::Systems* sys, double dt) override {
+    bool execute(Engine::Systems& sys, double dt) override {
 
         for (auto spawn_target : spawn_targets) {
 
-            sys->enemy->emplace_enemy(std::get<std::string>(spawn_target), std::get<Vector2>(spawn_target));
+            sys.enemy->emplace_enemy(std::get<std::string>(spawn_target), std::get<Vector2>(spawn_target));
 
         }
 

@@ -20,15 +20,15 @@ public:
         upgrade_id = 0;
     }
 
-    bool execute(Engine::Systems* sys, double dt) override {
+    bool execute(Engine::Systems& sys, double dt) override {
 
         if (upgrade_id == 0 ) {
 
-            upgrade_id = sys->projectile->request_projectile<UpgradeProj>(Vector2{319, 90}, Vector2{-1, 0}, 30, false);
+            upgrade_id = sys.projectile->request_projectile<UpgradeProj>(Vector2{319, 90}, Vector2{-1, 0}, 30, false);
 
         }
 
-        if (sys->projectile->exists(upgrade_id)) {
+        if (sys.projectile->exists(upgrade_id)) {
 
             return false;
 

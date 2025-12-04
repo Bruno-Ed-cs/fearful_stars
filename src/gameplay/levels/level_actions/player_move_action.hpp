@@ -17,12 +17,12 @@ public:
 
     }
 
-    bool execute(Engine::Systems* sys, double dt) override {
+    bool execute(Engine::Systems& sys, double dt) override {
 
 
         //std::println("cur time = {}", timer.get_time());
 
-        if (sys->player->get_player().pos.vec() == Vector2{ 60, 90 })
+        if (sys.player->get_player().pos.vec() == Vector2{ 60, 90 })
             return false;
 
         return true;

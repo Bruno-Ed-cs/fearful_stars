@@ -16,7 +16,7 @@ public:
 
     void restart() override {    }
 
-    bool execute(Engine::Systems* sys, double dt) override {
+    bool execute(Engine::SystemsSystems* sys, double dt) override {
 
         sys->player->init_player(Vector2{40, 90});
 

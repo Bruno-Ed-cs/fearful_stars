@@ -25,6 +25,24 @@ public:
     static void cleanup();
     static void empty_out();
 
+public:
+
+    struct Ref {
+
+        std::string name;
+        
+        enum struct Type {
+
+            sprite,
+            music,
+            sound,
+            font,
+            shader,
+
+        } type;
+
+    };
+
 private:
 
     struct ShaderDestroyer {

@@ -11,9 +11,9 @@ struct WaveEndAction : public IAction{
 
     WaveEndAction() = default;
 
-    bool execute(Engine::Systems* sys, double dt) override {
+    bool execute(Engine::Systems& sys, double dt) override {
 
-        if (sys->enemy->no_enemy_left())
+        if (sys.enemy->no_enemy_left())
             return true;
 
         return false;

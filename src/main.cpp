@@ -27,6 +27,9 @@
 #include "winman.hpp"
 #include <utility>
 
+using string = std::string;
+using AssRef = Engine::AssetMan::Ref::Type;
+
 void make_background() {
 
     // Distribute 15 background elements across 320x180 screen
@@ -59,591 +62,229 @@ void make_level(Engine::Systems& sys) {
 
     sys.player->init_player(Vector2{ 60, 90 });
 
-auto level = new Game::Level("level1", {
-    // Wave 1
-    new Game::PlayOstAction("space-ambient"),
-    new Game::PlayerMoveAction(),
-    new Game::SpawnEnemiesAction({
-        std::tuple("Basic", Vector2{360, 10}),
-        std::tuple("Basic", Vector2{360, 80}),
-    }),
-    new Game::WaitAction(10.0f),
-    new Game::SpawnEnemiesAction({
-        std::tuple("Basic", Vector2{360, 90}),
-    }),
-    new Game::WaitAction(5.0f),
-    new Game::SpawnEnemiesAction({
-        std::tuple("Basic", Vector2{360, 40}),
-        std::tuple("Basic", Vector2{360, 150}),
-        std::tuple("Basic", Vector2{360, 100}),
-    }),
-    new Game::WaveEndAction(),
-    new Game::SpawnUpgradeAction(),
-    
-    // Wave 2
-    new Game::SpawnEnemiesAction({
-        std::tuple("Basic", Vector2{360, 35}),
-    }),
-    new Game::WaitAction(5.0f),
-    new Game::SpawnEnemiesAction({
-        std::tuple("Basic", Vector2{360, 110}),
-    }),
-    new Game::WaitAction(5.0f),
-    new Game::SpawnEnemiesAction({
-        std::tuple("BrokenShip", Vector2{360, 90}),
-    }),
-    new Game::WaitAction(2.0f),
-    new Game::SpawnEnemiesAction({
-        std::tuple("Basic", Vector2{360, 160}),
-    }),
-    new Game::WaitAction(2.0f),
-    new Game::SpawnEnemiesAction({
-        std::tuple("Basic", Vector2{360, 40}),
-    }),
-    new Game::WaveEndAction(),
-    new Game::SpawnUpgradeAction(),
-    
-    // Wave 3
-    new Game::SpawnEnemiesAction({
-        std::tuple("BrokenShip", Vector2{360, 55}),
-    }),
-    new Game::WaitAction(3.0f),
-    new Game::SpawnEnemiesAction({
-        std::tuple("BrokenShip", Vector2{360, 20}),
-        std::tuple("BrokenShip", Vector2{360, 140}),
-    }),
-    new Game::WaitAction(2.0f),
-    new Game::SpawnEnemiesAction({
-        std::tuple("BrokenShip", Vector2{360, 100}),
-    }),
-    new Game::WaveEndAction(),
-    new Game::SpawnEnemiesAction({
-        std::tuple("BrokenShip", Vector2{360, 180}),
-    }),
-    new Game::WaveEndAction(),
-    new Game::SpawnUpgradeAction(),
-    
-    // Wave 4
-    new Game::SpawnEnemiesAction({
-        std::tuple("BrokenShip", Vector2{360, 20}),
-        std::tuple("BrokenShip", Vector2{360, 150}),
-    }),
-    new Game::WaveEndAction(),
-    new Game::SpawnEnemiesAction({
-        std::tuple("CrystalEye", Vector2{360, 50}),
-    }),
-    new Game::WaitAction(4.0f),
-    new Game::SpawnEnemiesAction({
-        std::tuple("CrystalEye", Vector2{360, 150}),
-    }),
-    new Game::WaveEndAction(),
-    new Game::SpawnUpgradeAction(),
-    
-    // Wave 5
-    new Game::SpawnEnemiesAction({
-        std::tuple("CrystalEye", Vector2{360, 20}),
-        std::tuple("CrystalEye", Vector2{360, 150}),
-    }),
-    new Game::WaitAction(4.0f),
-    new Game::SpawnEnemiesAction({
-        std::tuple("CrystalEye", Vector2{360, 90}),
-        std::tuple("CrystalEye", Vector2{360, 177}),
-    }),
-    new Game::WaveEndAction(),
-    new Game::SpawnUpgradeAction(),
-    new Game::WaitAction(3.0f),
-    
-    // Wave 6
-    new Game::SpawnEnemiesAction({
-        std::tuple("Anemonae", Vector2{360, 90}),
-    }),
-    new Game::WaitAction(3.0f),
-    new Game::SpawnEnemiesAction({
-        std::tuple("CrystalEye", Vector2{360, 20}),
-        std::tuple("CrystalEye", Vector2{360, 177}),
-    }),
-    new Game::WaveEndAction(),
-    new Game::SpawnEnemiesAction({
-        std::tuple("Anemonae", Vector2{360, 30}),
-        std::tuple("Anemonae", Vector2{360, 130}),
-    }),
-    new Game::WaitAction(5.0f),
-    new Game::SpawnEnemiesAction({
-        std::tuple("CrystalEye", Vector2{360, 30}),
-        std::tuple("CrystalEye", Vector2{360, 130}),
-    }),
-    new Game::WaveEndAction(),
-    new Game::SpawnUpgradeAction(),
-    new Game::WaitAction(3.0f),
-    
-    // Wave 7
-    new Game::SpawnEnemiesAction({
-        std::tuple("Anemonae", Vector2{360, 70}),
-    }),
-    new Game::WaitAction(3.0f),
-    new Game::SpawnEnemiesAction({
-        std::tuple("Anemonae", Vector2{360, 140}),
-    }),
-    new Game::WaitAction(2.0f),
-    new Game::SpawnEnemiesAction({
-        std::tuple("Vagant", Vector2{360, 40}),
-        std::tuple("Vagant", Vector2{360, 170}),
-    }),
-    new Game::WaitAction(5.0f),
-    new Game::SpawnEnemiesAction({
-        std::tuple("Anemonae", Vector2{360, 80}),
-        std::tuple("Anemonae", Vector2{360, 130}),
-    }),
-    new Game::WaveEndAction(),
-    new Game::SpawnUpgradeAction(),
-    new Game::WaitAction(3.0f),
-    
-    // Wave 8
-    new Game::SpawnEnemiesAction({
-        std::tuple("Chaser", Vector2{360, 70}),
-    }),
-    new Game::WaitAction(3.0f),
-    new Game::SpawnEnemiesAction({
-        std::tuple("Chaser", Vector2{360, 140}),
-    }),
-    new Game::WaitAction(7.0f),
-    new Game::SpawnEnemiesAction({
-        std::tuple("Vagant", Vector2{360, 90}),
-        std::tuple("Chaser", Vector2{360, 60}),
-    }),
-    new Game::WaitAction(5.0f),
-    new Game::SpawnEnemiesAction({
-        std::tuple("Chaser", Vector2{360, 80}),
-        std::tuple("Chaser", Vector2{360, 20}),
-        std::tuple("Chaser", Vector2{360, 130}),
-    }),
-    new Game::WaveEndAction(),
-    new Game::SpawnUpgradeAction(),
-    new Game::WaitAction(3.0f),
-    
-    // Wave 9
-    new Game::SpawnEnemiesAction({
-        std::tuple("Vagant", Vector2{360, 40}),
-        std::tuple("Vagant", Vector2{360, 150}),
-    }),
-    new Game::WaitAction(5.0f),
-    new Game::SpawnEnemiesAction({
-        std::tuple("Minion", Vector2{360, 80}),
-    }),
-    new Game::WaitAction(5.0f),
-    new Game::SpawnEnemiesAction({
-        std::tuple("Minion", Vector2{360, 80}),
-    }),
-    new Game::WaveEndAction(),
-    new Game::SpawnUpgradeAction(),
-    new Game::WaitAction(3.0f),
-    
-    // Wave 10
-    new Game::SpawnEnemiesAction({
-        std::tuple("BrokenShip", Vector2{360, 90}),
-    }),
-    new Game::WaveEndAction(),
-    new Game::SpawnEnemiesAction({
-        std::tuple("Chaser", Vector2{360, 80}),
-        std::tuple("Chaser", Vector2{360, 170}),
-        std::tuple("Minion", Vector2{360, 90}),
-    }),
-    new Game::WaitAction(5.0f),
-    new Game::SpawnEnemiesAction({
-        std::tuple("Anemonae", Vector2{360, 40}),
-        std::tuple("Anemonae", Vector2{360, 160}),
-    }),
-    new Game::WaitAction(5.0f),
-    new Game::SpawnEnemiesAction({
-        std::tuple("Minion", Vector2{360, 80}),
-        std::tuple("Minion", Vector2{360, 10}),
-        std::tuple("Vagant", Vector2{360, 130}),
-    }),
-    new Game::WaveEndAction(),
-    new Game::SpawnUpgradeAction(),
-    new Game::WaitAction(5.0f),
-});
+    auto level = new Game::Level("level1", {
+        // Wave 1
+        new Game::PlayOstAction("space-ambient"),
+        new Game::PlayerMoveAction(),
+        new Game::SpawnEnemiesAction({
+            std::tuple("Basic", Vector2{360, 10}),
+            std::tuple("Basic", Vector2{360, 80}),
+        }),
+        new Game::WaitAction(10.0f),
+        new Game::SpawnEnemiesAction({
+            std::tuple("Basic", Vector2{360, 90}),
+        }),
+        new Game::WaitAction(5.0f),
+        new Game::SpawnEnemiesAction({
+            std::tuple("Basic", Vector2{360, 40}),
+            std::tuple("Basic", Vector2{360, 150}),
+            std::tuple("Basic", Vector2{360, 100}),
+        }),
+        new Game::WaveEndAction(),
+        new Game::SpawnUpgradeAction(),
 
+        // Wave 2
+        new Game::SpawnEnemiesAction({
+            std::tuple("Basic", Vector2{360, 35}),
+        }),
+        new Game::WaitAction(5.0f),
+        new Game::SpawnEnemiesAction({
+            std::tuple("Basic", Vector2{360, 110}),
+        }),
+        new Game::WaitAction(5.0f),
+        new Game::SpawnEnemiesAction({
+            std::tuple("BrokenShip", Vector2{360, 90}),
+        }),
+        new Game::WaitAction(2.0f),
+        new Game::SpawnEnemiesAction({
+            std::tuple("Basic", Vector2{360, 160}),
+        }),
+        new Game::WaitAction(2.0f),
+        new Game::SpawnEnemiesAction({
+            std::tuple("Basic", Vector2{360, 40}),
+        }),
+        new Game::WaveEndAction(),
+        new Game::SpawnUpgradeAction(),
 
-    //    auto enemy = std::make_unique<Game::BasicEnemy>();
-    //    systems.enemy.insert_enemy(std::move(enemy));
-    //
-    //    systems.enemy.emplace_enemy("Basic", Vector2{32, 44});
-    //
-    //    systems.enemy.emplace_enemy("Basic", Vector2{32, 44});
-    //
-    //    systems.enemy.emplace_enemy("Basic", Vector2{20, 44});
-    //
-    //    systems.enemy.emplace_enemy("Basic", Vector2{150, 100});
-    //
-    //    systems.enemy.emplace_enemy("Basic", Vector2{100, 44});
+        // Wave 3
+        new Game::SpawnEnemiesAction({
+            std::tuple("BrokenShip", Vector2{360, 55}),
+        }),
+        new Game::WaitAction(3.0f),
+        new Game::SpawnEnemiesAction({
+            std::tuple("BrokenShip", Vector2{360, 20}),
+            std::tuple("BrokenShip", Vector2{360, 140}),
+        }),
+        new Game::WaitAction(2.0f),
+        new Game::SpawnEnemiesAction({
+            std::tuple("BrokenShip", Vector2{360, 100}),
+        }),
+        new Game::WaveEndAction(),
+        new Game::SpawnEnemiesAction({
+            std::tuple("BrokenShip", Vector2{360, 180}),
+        }),
+        new Game::WaveEndAction(),
+        new Game::SpawnUpgradeAction(),
 
+        // Wave 4
+        new Game::SpawnEnemiesAction({
+            std::tuple("BrokenShip", Vector2{360, 20}),
+            std::tuple("BrokenShip", Vector2{360, 150}),
+        }),
+        new Game::WaveEndAction(),
+        new Game::SpawnEnemiesAction({
+            std::tuple("CrystalEye", Vector2{360, 50}),
+        }),
+        new Game::WaitAction(4.0f),
+        new Game::SpawnEnemiesAction({
+            std::tuple("CrystalEye", Vector2{360, 150}),
+        }),
+        new Game::WaveEndAction(),
+        new Game::SpawnUpgradeAction(),
 
-//    auto wave1 = new Game::LevelEvent("wave1");
-//    auto wave2 = new Game::LevelEvent("wave2");
-//    auto wave3 = new Game::LevelEvent("wave3");
-//    auto wave4 = new Game::LevelEvent("wave4");
-//    auto wave5 = new Game::LevelEvent("wave5");
-//    auto wave6 = new Game::LevelEvent("wave6");
-//    auto wave7 = new Game::LevelEvent("wave7");
-//    auto wave8 = new Game::LevelEvent("wave8");
-//    auto wave9 = new Game::LevelEvent("wave9");
-//    auto wave10 = new Game::LevelEvent("wave10");
-//
-//    wave1->add_action(new Game::PlayOstAction("space-ambient"));
-//
-//    wave1->add_action(new Game::PlayerMoveAction());
-//
-//    wave1->add_action(new Game::SpawnEnemiesAction({
-//
-//        std::tuple("Basic", Vector2{360, 10}),
-//        std::tuple("Basic", Vector2{360 , 80}),
-//
-//    }));
-//
-//    wave1->add_action(new Game::WaitAction(10.0f));
-//    wave1->add_action(new Game::SpawnEnemiesAction({
-//
-//        std::tuple("Basic", Vector2{360, 90}),
-//
-//    }));
-//
-//    wave1->add_action(new Game::WaitAction(5.0f));
-//    wave1->add_action(new Game::SpawnEnemiesAction({
-//
-//        std::tuple("Basic", Vector2{360, 40}),
-//        std::tuple("Basic", Vector2{360, 150}),
-//        std::tuple("Basic", Vector2{360, 100}),
-//
-//    }));
-//
-//    wave1->add_action(new Game::WaveEndAction());
-//
-//    wave1->add_action(new Game::SpawnUpgradeAction());
-//
-//    wave1->add_action(new Game::WaveEndAction());
-//
-//
-//
-//
-//    wave2->add_action(new Game::SpawnEnemiesAction({
-//
-//        std::tuple("Basic", Vector2{360, 35}),
-//
-//    }));
-//
-//    wave2->add_action(new Game::WaitAction(5.0f));
-//    wave2->add_action(new Game::SpawnEnemiesAction({
-//
-//        std::tuple("Basic", Vector2{360, 110}),
-//
-//    }));
-//
-//    wave2->add_action(new Game::WaitAction(5.0f));
-//    wave2->add_action(new Game::SpawnEnemiesAction({
-//
-//        std::tuple("BrokenShip", Vector2{360, 90}),
-//
-//    }));
-//
-//    wave2->add_action(new Game::WaitAction(2.0f));
-//    wave2->add_action(new Game::SpawnEnemiesAction({
-//
-//        std::tuple("Basic", Vector2{360, 160}),
-//
-//    }));
-//
-//    wave2->add_action(new Game::WaitAction(2.0f));
-//    wave2->add_action(new Game::SpawnEnemiesAction({
-//
-//        std::tuple("Basic", Vector2{360, 40}),
-//
-//    }));
-//
-//    wave2->add_action(new Game::WaveEndAction());
-//
-//    wave2->add_action(new Game::SpawnUpgradeAction());
-//
-//
-//    wave3->add_action(new Game::SpawnEnemiesAction({
-//
-//        std::tuple("BrokenShip", Vector2{360, 55}),
-//
-//    }));
-//
-//
-//    wave3->add_action(new Game::WaitAction(3.0f));
-//    wave3->add_action(new Game::SpawnEnemiesAction({
-//
-//        std::tuple("BrokenShip", Vector2{360, 20}),
-//        std::tuple("BrokenShip", Vector2{360, 140}),
-//
-//    }));
-//
-//
-//    wave3->add_action(new Game::WaitAction(2.0f));
-//    wave3->add_action(new Game::SpawnEnemiesAction({
-//
-//        std::tuple("BrokenShip", Vector2{360, 100}),
-//
-//    }));
-//
-//    wave3->add_action(new Game::WaveEndAction());
-//    wave3->add_action(new Game::SpawnEnemiesAction({
-//
-//        std::tuple("BrokenShip", Vector2{360, 180}),
-//
-//    }));
-//
-//    wave3->add_action(new Game::WaveEndAction());
-//
-//    wave3->add_action(new Game::SpawnUpgradeAction());
-//
-//    wave3->add_action(new Game::WaveEndAction());
-//
-//
-//    wave4->add_action(new Game::SpawnEnemiesAction({
-//
-//        std::tuple("BrokenShip", Vector2{360, 20}),
-//        std::tuple("BrokenShip", Vector2{360, 150}),
-//
-//    }));
-//
-//    wave4->add_action(new Game::WaveEndAction());
-//    wave4->add_action(new Game::SpawnEnemiesAction({
-//
-//        std::tuple("CrystalEye", Vector2{360, 50}),
-//
-//    }));
-//
-//    wave4->add_action(new Game::WaitAction(4.0f));
-//    wave4->add_action(new Game::SpawnEnemiesAction({
-//
-//        std::tuple("CrystalEye", Vector2{360, 150}),
-//
-//    }));
-//
-//    wave4->add_action(new Game::WaveEndAction());
-//
-//    wave4->add_action(new Game::SpawnUpgradeAction());
-//
-//    wave4->add_action(new Game::WaveEndAction());
-//
-//
-//    wave5->add_action(new Game::SpawnEnemiesAction({
-//
-//        std::tuple("CrystalEye", Vector2{360, 20}),
-//        std::tuple("CrystalEye", Vector2{360, 150}),
-//
-//    }));
-//
-//    wave5->add_action(new Game::WaitAction(4.0f));
-//    wave5->add_action(new Game::SpawnEnemiesAction({
-//
-//
-//        std::tuple("CrystalEye", Vector2{360, 90}),
-//        std::tuple("CrystalEye", Vector2{360, 177}),
-//
-//    }));
-//
-//    wave5->add_action(new Game::WaveEndAction());
-//
-//    wave5->add_action(new Game::SpawnUpgradeAction());
-//
-//    wave5->add_action(new Game::WaitAction(3.0f));
-//
-//
-//    wave6->add_action(new Game::SpawnEnemiesAction({
-//
-//        std::tuple("Anemonae", Vector2{360, 90}),
-//
-//    }));
-//
-//    wave6->add_action(new Game::WaitAction(3.0f));
-//    wave6->add_action(new Game::SpawnEnemiesAction({
-//
-//
-//        std::tuple("CrystalEye", Vector2{360, 20}),
-//        std::tuple("CrystalEye", Vector2{360, 177}),
-//
-//    }));
-//
-//    wave6->add_action(new Game::WaveEndAction());
-//    wave6->add_action(new Game::SpawnEnemiesAction({
-//
-//
-//        std::tuple("Anemonae", Vector2{360, 30}),
-//        std::tuple("Anemonae", Vector2{360, 130}),
-//
-//    }));
-//
-//    wave6->add_action(new Game::WaitAction(5.0f));
-//    wave6->add_action(new Game::SpawnEnemiesAction({
-//
-//
-//        std::tuple("CrystalEye", Vector2{360, 30}),
-//        std::tuple("CrystalEye", Vector2{360, 130}),
-//
-//    }));
-//
-//
-//    wave6->add_action(new Game::WaveEndAction());
-//
-//    wave6->add_action(new Game::SpawnUpgradeAction());
-//
-//    wave6->add_action(new Game::WaitAction(3.0f));
-//
-//
-//    wave7->add_action(new Game::SpawnEnemiesAction({
-//
-//        std::tuple("Anemonae", Vector2{360, 70}),
-//
-//    }));
-//
-//    wave7->add_action(new Game::WaitAction(3.0f));
-//    wave7->add_action(new Game::SpawnEnemiesAction({
-//
-//
-//        std::tuple("Anemonae", Vector2{360, 140}),
-//
-//    }));
-//
-//    wave7->add_action(new Game::WaitAction(2.0f));
-//    wave7->add_action(new Game::SpawnEnemiesAction({
-//
-//
-//        std::tuple("Vagant", Vector2{360, 40}),
-//        std::tuple("Vagant", Vector2{360, 170}),
-//
-//    }));
-//
-//    wave7->add_action(new Game::WaitAction(5.0f));
-//    wave7->add_action(new Game::SpawnEnemiesAction({
-//
-//
-//        std::tuple("Anemonae", Vector2{360, 80}),
-//        std::tuple("Anemonae", Vector2{360, 130}),
-//
-//    }));
-//
-//
-//    wave7->add_action(new Game::WaveEndAction());
-//
-//    wave7->add_action(new Game::SpawnUpgradeAction());
-//
-//    wave7->add_action(new Game::WaitAction(3.0f));
-//
-//
-//    wave8->add_action(new Game::SpawnEnemiesAction({
-//
-//        std::tuple("Chaser", Vector2{360, 70}),
-//
-//    }));
-//
-//    wave8->add_action(new Game::WaitAction(3.0f));
-//    wave8->add_action(new Game::SpawnEnemiesAction({
-//
-//
-//        std::tuple("Chaser", Vector2{360, 140}),
-//
-//    }));
-//
-//    wave8->add_action(new Game::WaitAction(7.0f));
-//    wave8->add_action(new Game::SpawnEnemiesAction({
-//
-//
-//        std::tuple("Vagant", Vector2{360, 90}),
-//        std::tuple("Chaser", Vector2{360, 60}),
-//
-//    }));
-//
-//    wave8->add_action(new Game::WaitAction(5.0f));
-//    wave8->add_action(new Game::SpawnEnemiesAction({
-//
-//
-//        std::tuple("Chaser", Vector2{360, 80}),
-//        std::tuple("Chaser", Vector2{360, 20}),
-//        std::tuple("Chaser", Vector2{360, 130}),
-//
-//    }));
-//
-//
-//    wave8->add_action(new Game::WaveEndAction());
-//
-//    wave8->add_action(new Game::SpawnUpgradeAction());
-//
-//    wave8->add_action(new Game::WaitAction(3.0f));
-//
-//
-//    wave9->add_action(new Game::SpawnEnemiesAction({
-//
-//        std::tuple("Vagant", Vector2{360, 40}),
-//        std::tuple("Vagant", Vector2{360, 150}),
-//
-//    }));
-//
-//    wave9->add_action(new Game::WaitAction(5.0f));
-//    wave9->add_action(new Game::SpawnEnemiesAction({
-//
-//
-//        std::tuple("Minion", Vector2{360, 80}),
-//
-//    }));
-//
-//    wave9->add_action(new Game::WaitAction(5.0f));
-//    wave9->add_action(new Game::SpawnEnemiesAction({
-//
-//
-//        std::tuple("Minion", Vector2{360, 80}),
-//
-//    }));
-//
-//    wave9->add_action(new Game::WaveEndAction());
-//
-//    wave9->add_action(new Game::SpawnUpgradeAction());
-//
-//    wave9->add_action(new Game::WaitAction(3.0f));
-//
-//
-//    wave10->add_action(new Game::SpawnEnemiesAction({
-//
-//        std::tuple("BrokenShip", Vector2{360, 90}),
-//
-//    }));
-//
-//    wave10->add_action(new Game::WaveEndAction());
-//    wave10->add_action(new Game::SpawnEnemiesAction({
-//
-//
-//        std::tuple("Chaser", Vector2{360, 80}),
-//        std::tuple("Chaser", Vector2{360, 170}),
-//        std::tuple("Minion", Vector2{360, 90}),
-//
-//    }));
-//
-//    wave10->add_action(new Game::WaitAction(5.0f));
-//    wave10->add_action(new Game::SpawnEnemiesAction({
-//
-//        std::tuple("Anemonae", Vector2{360, 40}),
-//        std::tuple("Anemonae", Vector2{360, 160}),
-//
-//    }));
-//
-//    wave10->add_action(new Game::WaitAction(5.0f));
-//    wave10->add_action(new Game::SpawnEnemiesAction({
-//
-//        std::tuple("Minion", Vector2{360, 80}),
-//        std::tuple("Minion", Vector2{360, 10}),
-//        std::tuple("Vagant", Vector2{360, 130}),
-//
-//    }));
-//
-//    wave10->add_action(new Game::WaveEndAction());
-//
-//    wave10->add_action(new Game::SpawnUpgradeAction());
-//
-//    wave10->add_action(new Game::WaitAction(5.0f));
+        // Wave 5
+        new Game::SpawnEnemiesAction({
+            std::tuple("CrystalEye", Vector2{360, 20}),
+            std::tuple("CrystalEye", Vector2{360, 150}),
+        }),
+        new Game::WaitAction(4.0f),
+        new Game::SpawnEnemiesAction({
+            std::tuple("CrystalEye", Vector2{360, 90}),
+            std::tuple("CrystalEye", Vector2{360, 177}),
+        }),
+        new Game::WaveEndAction(),
+        new Game::SpawnUpgradeAction(),
+        new Game::WaitAction(3.0f),
 
+        // Wave 6
+        new Game::SpawnEnemiesAction({
+            std::tuple("Anemonae", Vector2{360, 90}),
+        }),
+        new Game::WaitAction(3.0f),
+        new Game::SpawnEnemiesAction({
+            std::tuple("CrystalEye", Vector2{360, 20}),
+            std::tuple("CrystalEye", Vector2{360, 177}),
+        }),
+        new Game::WaveEndAction(),
+        new Game::SpawnEnemiesAction({
+            std::tuple("Anemonae", Vector2{360, 30}),
+            std::tuple("Anemonae", Vector2{360, 130}),
+        }),
+        new Game::WaitAction(5.0f),
+        new Game::SpawnEnemiesAction({
+            std::tuple("CrystalEye", Vector2{360, 30}),
+            std::tuple("CrystalEye", Vector2{360, 130}),
+        }),
+        new Game::WaveEndAction(),
+        new Game::SpawnUpgradeAction(),
+        new Game::WaitAction(3.0f),
+
+        // Wave 7
+        new Game::SpawnEnemiesAction({
+            std::tuple("Anemonae", Vector2{360, 70}),
+        }),
+        new Game::WaitAction(3.0f),
+        new Game::SpawnEnemiesAction({
+            std::tuple("Anemonae", Vector2{360, 140}),
+        }),
+        new Game::WaitAction(2.0f),
+        new Game::SpawnEnemiesAction({
+            std::tuple("Vagant", Vector2{360, 40}),
+            std::tuple("Vagant", Vector2{360, 170}),
+        }),
+        new Game::WaitAction(5.0f),
+        new Game::SpawnEnemiesAction({
+            std::tuple("Anemonae", Vector2{360, 80}),
+            std::tuple("Anemonae", Vector2{360, 130}),
+        }),
+        new Game::WaveEndAction(),
+        new Game::SpawnUpgradeAction(),
+        new Game::WaitAction(3.0f),
+
+        // Wave 8
+        new Game::SpawnEnemiesAction({
+            std::tuple("Chaser", Vector2{360, 70}),
+        }),
+        new Game::WaitAction(3.0f),
+        new Game::SpawnEnemiesAction({
+            std::tuple("Chaser", Vector2{360, 140}),
+        }),
+        new Game::WaitAction(7.0f),
+        new Game::SpawnEnemiesAction({
+            std::tuple("Vagant", Vector2{360, 90}),
+            std::tuple("Chaser", Vector2{360, 60}),
+        }),
+        new Game::WaitAction(5.0f),
+        new Game::SpawnEnemiesAction({
+            std::tuple("Chaser", Vector2{360, 80}),
+            std::tuple("Chaser", Vector2{360, 20}),
+            std::tuple("Chaser", Vector2{360, 130}),
+        }),
+        new Game::WaveEndAction(),
+        new Game::SpawnUpgradeAction(),
+        new Game::WaitAction(3.0f),
+
+        // Wave 9
+        new Game::SpawnEnemiesAction({
+            std::tuple("Vagant", Vector2{360, 40}),
+            std::tuple("Vagant", Vector2{360, 150}),
+        }),
+        new Game::WaitAction(5.0f),
+        new Game::SpawnEnemiesAction({
+            std::tuple("Minion", Vector2{360, 80}),
+        }),
+        new Game::WaitAction(5.0f),
+        new Game::SpawnEnemiesAction({
+            std::tuple("Minion", Vector2{360, 80}),
+        }),
+        new Game::WaveEndAction(),
+        new Game::SpawnUpgradeAction(),
+        new Game::WaitAction(3.0f),
+
+        // Wave 10
+        new Game::SpawnEnemiesAction({
+            std::tuple("BrokenShip", Vector2{360, 90}),
+        }),
+        new Game::WaveEndAction(),
+        new Game::SpawnEnemiesAction({
+            std::tuple("Chaser", Vector2{360, 80}),
+            std::tuple("Chaser", Vector2{360, 170}),
+            std::tuple("Minion", Vector2{360, 90}),
+        }),
+        new Game::WaitAction(5.0f),
+        new Game::SpawnEnemiesAction({
+            std::tuple("Anemonae", Vector2{360, 40}),
+            std::tuple("Anemonae", Vector2{360, 160}),
+        }),
+        new Game::WaitAction(5.0f),
+        new Game::SpawnEnemiesAction({
+            std::tuple("Minion", Vector2{360, 80}),
+            std::tuple("Minion", Vector2{360, 10}),
+            std::tuple("Vagant", Vector2{360, 130}),
+        }),
+        new Game::WaveEndAction(),
+        new Game::SpawnUpgradeAction(),
+        new Game::WaitAction(5.0f),
+    }, {                                  
+                                 {"anemonae", AssRef::sprite},
+                                 {"basic_proj", AssRef::sprite},
+                                 {"broken_ship", AssRef::sprite},    
+                                 {"chaser", AssRef::sprite},         
+                                 {"Connor_fodder2", AssRef::sprite}, 
+                                 {"cursor", AssRef::sprite},         
+                                 {"eye", AssRef::sprite},            
+                                 {"meteorite", AssRef::sprite},      
+                                 {"minion", AssRef::sprite},         
+                                 {"missile", AssRef::sprite},        
+                                 {"orbital_proj", AssRef::sprite},   
+                                 {"plasma_proj", AssRef::sprite},    
+                                 {"player", AssRef::sprite},         
+                                 {"player_ui", AssRef::sprite},      
+                                 {"super_proj", AssRef::sprite},
+                                 {"upgrade_proj", AssRef::sprite},
+                                 {"vagant", AssRef::sprite},           
+                                 {"vic_viper", AssRef::sprite}         
+                                 });                                   
 
 
     auto teste = new Game::Level("testes", {
@@ -679,7 +320,27 @@ auto level = new Game::Level("level1", {
         ),
         new Game::WaveEndAction(),
 
-    });
+    }, 
+                                 {
+                                 {"anemonae", AssRef::sprite},
+                                 {"basic_proj", AssRef::sprite},
+                                 {"broken_ship", AssRef::sprite},
+                                 {"chaser", AssRef::sprite},
+                                 {"Connor_fodder2", AssRef::sprite},
+                                 {"cursor", AssRef::sprite},
+                                 {"eye", AssRef::sprite},
+                                 {"meteorite", AssRef::sprite},
+                                 {"minion", AssRef::sprite},
+                                 {"missile", AssRef::sprite},
+                                 {"orbital_proj", AssRef::sprite},
+                                 {"plasma_proj", AssRef::sprite},
+                                 {"player", AssRef::sprite},
+                                 {"player_ui", AssRef::sprite},
+                                 {"super_proj", AssRef::sprite},
+                                 {"upgrade_proj", AssRef::sprite},
+                                 {"vagant", AssRef::sprite},
+                                 {"vic_viper", AssRef::sprite}
+                                 });
 
 
     //auto level = Game::Level::make_level("level1");
