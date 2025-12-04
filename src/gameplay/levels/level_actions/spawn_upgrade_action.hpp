@@ -9,15 +9,16 @@ namespace Game {
 
 class SpawnUpgradeAction : public IAction {
 
-    std::vector<std::tuple<std::string, Vector2>> spawn_targets;
-
 public:
 
     uint32_t upgrade_id = 0;
 
     SpawnUpgradeAction() {}
 
-    void reset() override {    }
+    void restart() override {  
+
+        upgrade_id = 0;
+    }
 
     bool execute(Engine::Systems* sys, double dt) override {
 

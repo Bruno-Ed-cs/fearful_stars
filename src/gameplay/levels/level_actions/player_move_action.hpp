@@ -12,7 +12,7 @@ public:
 
     PlayerMoveAction(){}
 
-    void reset() override {
+    void restart() override {
 
 
     }

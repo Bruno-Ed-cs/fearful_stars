@@ -14,7 +14,9 @@ public:
     SpawnEnemiesAction(std::initializer_list<std::tuple<std::string, Vector2>> targets) :
     spawn_targets(std::move(targets)) {}
 
-    void reset() override {    }
+    void restart() override {
+
+    }
 
     bool execute(Engine::Systems* sys, double dt) override {
 

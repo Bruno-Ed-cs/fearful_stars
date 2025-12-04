@@ -14,10 +14,9 @@ public:
     WaitAction(double seconds) :
     timer(seconds) {}
 
-    void reset() override {
+    void restart() override {
 
         timer.reset();
-
     }
 
     bool execute(Engine::Systems* sys, double dt) override {

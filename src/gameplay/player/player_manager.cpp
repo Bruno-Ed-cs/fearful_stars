@@ -18,7 +18,7 @@ void PlayerMan::update(double dt, Engine::Systems& sys) {
     m_player1->update(dt, sys);
     if (m_player1->dead) {
 
-        Engine::g_running = false;
+        //Engine::g_running = false;
         std::println("you died");
 
     }

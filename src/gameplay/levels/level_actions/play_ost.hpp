@@ -28,7 +28,7 @@ public:
         return true;
     };
 
-    void reset() {
+    void restart() {
 
     };
 };

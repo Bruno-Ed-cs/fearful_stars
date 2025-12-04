@@ -11,53 +11,22 @@ namespace Game {
 template<typename T>
 using uptr = std::unique_ptr<T> ;
 
-class LevelEvent {
-
-    using subevent_ptr = std::unique_ptr<IAction>;
+class Level {
 
 public:
 
-    LevelEvent(std::string name) :
-    name(name) {
+    Level(std::string_view name);
+    Level(std::string_view, std::initializer_list<IAction*> action_list);
 
-        cur_action = actions.begin();
-    }
-
-    bool at_end();
-    IAction& current_action();
-    void next();
-    void reset();
-    void add_action(IAction* action);
+    void restart();
+    void execute(Engine::Systems& sys, double dt);
+    bool finished();
 
 public:
 
-    std::list<subevent_ptr> actions;
-    std::list<subevent_ptr>::iterator cur_action;
-
     std::string name;
-
-
-};
-
-struct Level{
-
-    size_t event_index = 0;
-    std::string name;
-    std::vector<uptr<LevelEvent>> events;
-
-    static uptr<Level> make_level(const std::string& name);
-
-    void next();
-
-    LevelEvent& curr_event();
-
-    IAction& curr_action();
-
-    void add_event(LevelEvent* event);
-
-    bool at_end();
-
-    void reset();
+    std::list<uptr<IAction>> actions;
+    std::list<uptr<IAction>>::iterator current_action;
 
 };
 
@@ -71,13 +40,9 @@ public:
 
 public:
 
-    LevelManager(Engine::Systems* sys) :
-    systems(sys) {
+    LevelManager();
 
-        end_level = std::bind(&LevelManager::loop_level, this);
-    };
-
-    void update(double dt);
+    void update(Engine::Systems& sys, double dt);
     void rollback();
     void set_level_mode(LevelMode mode);
 
@@ -86,7 +51,6 @@ public:
 
     uptr<Level> level;
     size_t checkpoint_event = 0;
-    Engine::Systems* systems;
     std::function<void()> end_level;
 
 

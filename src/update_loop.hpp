@@ -14,7 +14,7 @@ void update_loop(double dt, Engine::Systems& sys) {
     sys.projectile->update(dt, sys);
     sys.enemy->update(dt, sys);
     sys.player->update(dt, sys);
-    sys.level->update(dt);
+    sys.level->update(sys, dt);
     Engine::BackgroundMan::update(dt);
 
 

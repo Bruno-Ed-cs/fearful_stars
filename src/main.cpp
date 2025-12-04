@@ -25,6 +25,7 @@
 #include "gameplay/enemy/basic/basic_enemy.hpp"
 #include "systems.hpp"
 #include "winman.hpp"
+#include <utility>
 
 void make_background() {
 
@@ -57,6 +58,212 @@ void make_background() {
 void make_level(Engine::Systems& sys) {
 
     sys.player->init_player(Vector2{ 60, 90 });
+
+auto level = new Game::Level("level1", {
+    // Wave 1
+    new Game::PlayOstAction("space-ambient"),
+    new Game::PlayerMoveAction(),
+    new Game::SpawnEnemiesAction({
+        std::tuple("Basic", Vector2{360, 10}),
+        std::tuple("Basic", Vector2{360, 80}),
+    }),
+    new Game::WaitAction(10.0f),
+    new Game::SpawnEnemiesAction({
+        std::tuple("Basic", Vector2{360, 90}),
+    }),
+    new Game::WaitAction(5.0f),
+    new Game::SpawnEnemiesAction({
+        std::tuple("Basic", Vector2{360, 40}),
+        std::tuple("Basic", Vector2{360, 150}),
+        std::tuple("Basic", Vector2{360, 100}),
+    }),
+    new Game::WaveEndAction(),
+    new Game::SpawnUpgradeAction(),
+    
+    // Wave 2
+    new Game::SpawnEnemiesAction({
+        std::tuple("Basic", Vector2{360, 35}),
+    }),
+    new Game::WaitAction(5.0f),
+    new Game::SpawnEnemiesAction({
+        std::tuple("Basic", Vector2{360, 110}),
+    }),
+    new Game::WaitAction(5.0f),
+    new Game::SpawnEnemiesAction({
+        std::tuple("BrokenShip", Vector2{360, 90}),
+    }),
+    new Game::WaitAction(2.0f),
+    new Game::SpawnEnemiesAction({
+        std::tuple("Basic", Vector2{360, 160}),
+    }),
+    new Game::WaitAction(2.0f),
+    new Game::SpawnEnemiesAction({
+        std::tuple("Basic", Vector2{360, 40}),
+    }),
+    new Game::WaveEndAction(),
+    new Game::SpawnUpgradeAction(),
+    
+    // Wave 3
+    new Game::SpawnEnemiesAction({
+        std::tuple("BrokenShip", Vector2{360, 55}),
+    }),
+    new Game::WaitAction(3.0f),
+    new Game::SpawnEnemiesAction({
+        std::tuple("BrokenShip", Vector2{360, 20}),
+        std::tuple("BrokenShip", Vector2{360, 140}),
+    }),
+    new Game::WaitAction(2.0f),
+    new Game::SpawnEnemiesAction({
+        std::tuple("BrokenShip", Vector2{360, 100}),
+    }),
+    new Game::WaveEndAction(),
+    new Game::SpawnEnemiesAction({
+        std::tuple("BrokenShip", Vector2{360, 180}),
+    }),
+    new Game::WaveEndAction(),
+    new Game::SpawnUpgradeAction(),
+    
+    // Wave 4
+    new Game::SpawnEnemiesAction({
+        std::tuple("BrokenShip", Vector2{360, 20}),
+        std::tuple("BrokenShip", Vector2{360, 150}),
+    }),
+    new Game::WaveEndAction(),
+    new Game::SpawnEnemiesAction({
+        std::tuple("CrystalEye", Vector2{360, 50}),
+    }),
+    new Game::WaitAction(4.0f),
+    new Game::SpawnEnemiesAction({
+        std::tuple("CrystalEye", Vector2{360, 150}),
+    }),
+    new Game::WaveEndAction(),
+    new Game::SpawnUpgradeAction(),
+    
+    // Wave 5
+    new Game::SpawnEnemiesAction({
+        std::tuple("CrystalEye", Vector2{360, 20}),
+        std::tuple("CrystalEye", Vector2{360, 150}),
+    }),
+    new Game::WaitAction(4.0f),
+    new Game::SpawnEnemiesAction({
+        std::tuple("CrystalEye", Vector2{360, 90}),
+        std::tuple("CrystalEye", Vector2{360, 177}),
+    }),
+    new Game::WaveEndAction(),
+    new Game::SpawnUpgradeAction(),
+    new Game::WaitAction(3.0f),
+    
+    // Wave 6
+    new Game::SpawnEnemiesAction({
+        std::tuple("Anemonae", Vector2{360, 90}),
+    }),
+    new Game::WaitAction(3.0f),
+    new Game::SpawnEnemiesAction({
+        std::tuple("CrystalEye", Vector2{360, 20}),
+        std::tuple("CrystalEye", Vector2{360, 177}),
+    }),
+    new Game::WaveEndAction(),
+    new Game::SpawnEnemiesAction({
+        std::tuple("Anemonae", Vector2{360, 30}),
+        std::tuple("Anemonae", Vector2{360, 130}),
+    }),
+    new Game::WaitAction(5.0f),
+    new Game::SpawnEnemiesAction({
+        std::tuple("CrystalEye", Vector2{360, 30}),
+        std::tuple("CrystalEye", Vector2{360, 130}),
+    }),
+    new Game::WaveEndAction(),
+    new Game::SpawnUpgradeAction(),
+    new Game::WaitAction(3.0f),
+    
+    // Wave 7
+    new Game::SpawnEnemiesAction({
+        std::tuple("Anemonae", Vector2{360, 70}),
+    }),
+    new Game::WaitAction(3.0f),
+    new Game::SpawnEnemiesAction({
+        std::tuple("Anemonae", Vector2{360, 140}),
+    }),
+    new Game::WaitAction(2.0f),
+    new Game::SpawnEnemiesAction({
+        std::tuple("Vagant", Vector2{360, 40}),
+        std::tuple("Vagant", Vector2{360, 170}),
+    }),
+    new Game::WaitAction(5.0f),
+    new Game::SpawnEnemiesAction({
+        std::tuple("Anemonae", Vector2{360, 80}),
+        std::tuple("Anemonae", Vector2{360, 130}),
+    }),
+    new Game::WaveEndAction(),
+    new Game::SpawnUpgradeAction(),
+    new Game::WaitAction(3.0f),
+    
+    // Wave 8
+    new Game::SpawnEnemiesAction({
+        std::tuple("Chaser", Vector2{360, 70}),
+    }),
+    new Game::WaitAction(3.0f),
+    new Game::SpawnEnemiesAction({
+        std::tuple("Chaser", Vector2{360, 140}),
+    }),
+    new Game::WaitAction(7.0f),
+    new Game::SpawnEnemiesAction({
+        std::tuple("Vagant", Vector2{360, 90}),
+        std::tuple("Chaser", Vector2{360, 60}),
+    }),
+    new Game::WaitAction(5.0f),
+    new Game::SpawnEnemiesAction({
+        std::tuple("Chaser", Vector2{360, 80}),
+        std::tuple("Chaser", Vector2{360, 20}),
+        std::tuple("Chaser", Vector2{360, 130}),
+    }),
+    new Game::WaveEndAction(),
+    new Game::SpawnUpgradeAction(),
+    new Game::WaitAction(3.0f),
+    
+    // Wave 9
+    new Game::SpawnEnemiesAction({
+        std::tuple("Vagant", Vector2{360, 40}),
+        std::tuple("Vagant", Vector2{360, 150}),
+    }),
+    new Game::WaitAction(5.0f),
+    new Game::SpawnEnemiesAction({
+        std::tuple("Minion", Vector2{360, 80}),
+    }),
+    new Game::WaitAction(5.0f),
+    new Game::SpawnEnemiesAction({
+        std::tuple("Minion", Vector2{360, 80}),
+    }),
+    new Game::WaveEndAction(),
+    new Game::SpawnUpgradeAction(),
+    new Game::WaitAction(3.0f),
+    
+    // Wave 10
+    new Game::SpawnEnemiesAction({
+        std::tuple("BrokenShip", Vector2{360, 90}),
+    }),
+    new Game::WaveEndAction(),
+    new Game::SpawnEnemiesAction({
+        std::tuple("Chaser", Vector2{360, 80}),
+        std::tuple("Chaser", Vector2{360, 170}),
+        std::tuple("Minion", Vector2{360, 90}),
+    }),
+    new Game::WaitAction(5.0f),
+    new Game::SpawnEnemiesAction({
+        std::tuple("Anemonae", Vector2{360, 40}),
+        std::tuple("Anemonae", Vector2{360, 160}),
+    }),
+    new Game::WaitAction(5.0f),
+    new Game::SpawnEnemiesAction({
+        std::tuple("Minion", Vector2{360, 80}),
+        std::tuple("Minion", Vector2{360, 10}),
+        std::tuple("Vagant", Vector2{360, 130}),
+    }),
+    new Game::WaveEndAction(),
+    new Game::SpawnUpgradeAction(),
+    new Game::WaitAction(5.0f),
+});
+
 
     //    auto enemy = std::make_unique<Game::BasicEnemy>();
     //    systems.enemy.insert_enemy(std::move(enemy));
@@ -439,56 +646,41 @@ void make_level(Engine::Systems& sys) {
 
 
 
+    auto teste = new Game::Level("testes", {
+        new Game::WaitAction(2),
+        new Game::SpawnUpgradeAction(),
+        new Game::SpawnEnemiesAction({
+            std::tuple("Basic", Vector2{230, 55}),
+            std::tuple("Anemonae", Vector2{200, 120}),
+            std::tuple("Vagant", Vector2{300, 120}),
+            std::tuple("Anemonae", Vector2{300, 100}),
+            std::tuple("Anemonae", Vector2{300, 20}),
+            std::tuple("Chaser", Vector2{320, 190}),
+            std::tuple("Chaser", Vector2{320, 10}),
+            std::tuple("Chaser", Vector2{320, 100}),
+            std::tuple("CrystalEye", Vector2{ 190, 110}),
+            std::tuple("CrystalEye", Vector2{ 107, 101}),
+            std::tuple("CrystalEye", Vector2{ 101, 200}),
+            std::tuple("BrokenShip", Vector2{100, 100}),
+            std::tuple("Basic", Vector2{222, 55}),
+            std::tuple("Minion", Vector2{10, 10}),
+            std::tuple("Basic", Vector2{310, 20}),
+            std::tuple("Basic", Vector2{190, 20}),
+            std::tuple("Basic", Vector2{198, 58}),
+            std::tuple("Basic", Vector2{200, 3})
+        }),
+        new Game::WaitAction(1),
+        new Game::SpawnEnemiesAction(
+            {
+                std::tuple("Basic", Vector2{300, 0}),
+                std::tuple("Basic", Vector2{300, 100})
+            }
 
-    
-    auto event1 = new Game::LevelEvent("timed enemies");
-      
-    
-      event1->add_action(new Game::WaitAction(2));
-    
-      event1->add_action(new Game::SpawnUpgradeAction());
-    
-      event1->add_action(new Game::SpawnEnemiesAction({
-          std::tuple("Basic", Vector2{230, 55}),
-          std::tuple("Anemonae", Vector2{200, 120}),
-          std::tuple("Vagant", Vector2{300, 120}),
-          std::tuple("Anemonae", Vector2{300, 100}),
-          std::tuple("Anemonae", Vector2{300, 20}),
-          std::tuple("Chaser", Vector2{320, 190}),
-          std::tuple("Chaser", Vector2{320, 10}),
-          std::tuple("Chaser", Vector2{320, 100}),
-          std::tuple("CrystalEye", Vector2{ 190, 110}),
-          std::tuple("CrystalEye", Vector2{ 107, 101}),
-          std::tuple("CrystalEye", Vector2{ 101, 200}),
-          std::tuple("BrokenShip", Vector2{100, 100}),
-          std::tuple("Basic", Vector2{222, 55}),
-          std::tuple("Minion", Vector2{10, 10}),
-          std::tuple("Basic", Vector2{310, 20}),
-          std::tuple("Basic", Vector2{190, 20}),
-          std::tuple("Basic", Vector2{198, 58}),
-          std::tuple("Basic", Vector2{200, 3})
-      }));
-    
-      event1->add_action(new Game::WaitAction(1));
-    
-      event1->add_action(new Game::SpawnEnemiesAction(
-          {
-              std::tuple("Basic", Vector2{300, 0}),
-              std::tuple("Basic", Vector2{300, 100})
-          }
-    
-      ));
-    
-      event1->add_action(new Game::WaveEndAction());
-    
-      auto level = Game::Level::make_level("testes");
-    
-      event1->add_action(new Game::WaveEndAction());
-    
-      level->add_event(event1);
+        ),
+        new Game::WaveEndAction(),
 
+    });
 
-                      
 
     //auto level = Game::Level::make_level("level1");
 
@@ -503,7 +695,8 @@ void make_level(Engine::Systems& sys) {
     //level->add_event(wave9);
     //level->add_event(wave10);
 
-    sys.level->level = std::move(level);
+    std::unique_ptr<Game::Level> level_ptr(level);
+    sys.level->level = std::move(level_ptr);
 
 }
 

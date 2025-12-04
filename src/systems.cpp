@@ -12,7 +12,7 @@ Engine::Systems::Systems() :
     enemy(std::make_unique<Game::EnemyMan>()),
     projectile(std::make_unique<Game::ProjectileMan>()),
     player(std::make_unique<Game::PlayerMan>()),
-    level(std::make_unique<Game::LevelManager>(this))
+    level(std::make_unique<Game::LevelManager>())
 {}
 
 

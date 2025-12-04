@@ -3,180 +3,109 @@
 #include "raylib.h"
 #include "systems.hpp"
 #include "asset_man.hpp"
+#include <print>
 
 using namespace Game;
 
+Level::Level(std::string_view name) :
+name(name), actions() {
+
+    current_action = actions.end();
+}
+
+Level::Level(std::string_view, std::initializer_list<IAction*> action_list) :
+name(name) {
+
+    for (auto& action: action_list) {
+
+        this->actions.emplace_back(action);
+    }
+
+    this->current_action = actions.begin();
+}
+
+void Level::restart() {
+
+    for (auto& action: actions) {
+
+        action->restart();
+
+    }
+
+    this->current_action = actions.begin();
+
+}
+
+void Level::execute(Engine::Systems& sys, double dt) {
+
+    if (current_action == actions.end() || actions.empty()) 
+        return;
+
+    if (*current_action != nullptr) {
+
+        auto* action = current_action->get();
+
+        if (action->execute(&sys, dt)) {
+
+            current_action++;
+        }
+
+    } else {
+
+        std::println("the action pointer is null now");
+    }
+
+}
+
+bool Level::finished() {
+
+    if (current_action == actions.end())
+        return true;
+
+    return false;
+}
+
+
+
+
+LevelManager::LevelManager() 
+{
+    end_level = std::bind(&LevelManager::loop_level, this);
+}
+
+void LevelManager::update(Engine::Systems& sys, double dt) {
+
+    if (level == nullptr) {
+
+        return;
+        std::println("no level loaded");
+    }
+
+    level->execute(sys, dt);
+
+    if (level->finished()) {
+
+        end_level();
+    }
+
+}
+
+void LevelManager::rollback() {
+
+}
+
+void LevelManager::set_level_mode(LevelMode mode) {
+
+}
+
+
+
 void LevelManager::loop_level() {
 
-    level->event_index = 0;
-    checkpoint_event = 0; 
-
-    level->reset();
-
+    level->restart();
 }
 
 void LevelManager::exit_level() {
-
-    Engine::g_running = false;
-
-    Engine::AssetMan::cleanup();
-}
-
-void LevelManager::update(double dt) {
-
-    if (level->events.empty())
-        return;
-
-
-//    std::println("curent event = {}", level->event_index);
- //   std::println("current_action = {}", level->curr_event().action_index);
-
-    auto& curr_action = level->curr_action();
-
-    if (curr_action.execute(systems, dt)) {
-
-        level->curr_event().next();
-
-        if (level->curr_event().at_end()) {
-
-            if (level->at_end()) {
-                end_level();
-            }
-        }
-
-    }
-
-}
-
-
-void LevelManager::rollback() {
-    if (checkpoint_event < level->events.size()) {
-        level->event_index = checkpoint_event;
-    } else {
-        level->event_index = 0;   
-    }
-}
-
-
-bool LevelEvent::at_end() {
-
-    if (cur_action == actions.end()) 
-        return true;
-
-    return false;
-
-}
-
-IAction& LevelEvent::current_action() {
-
-    if (at_end()) {
-
-        throw (std::range_error("Current action is out of bounds for the event"));
-    }
-
-    return **cur_action;
-}
-
-void LevelEvent::next() {
-
-    ++cur_action;
-
-}
-
-void LevelEvent::reset() {
-
-    if (at_end()) 
-        --cur_action;
-
-
-    do {
-
-        cur_action->reset();
-
-    } while (cur_action != actions.begin());
-}
-
-void LevelEvent::add_action(IAction* action) {
-
-    actions.emplace_back(action);
-    cur_action = actions.begin();
-
-}
-
-void Level::reset() {
-
-    event_index = 0;
-
-    for (auto& event : events) {
-
-        event->reset();
-
-    }
-
-}
-
-
-
-LevelEvent& Level::curr_event() {
-    if (events.empty() || event_index >= events.size()) {
-        throw std::out_of_range("No current event available");
-    }
-
-    return *events[event_index];
-
-}
-
-IAction& Level::curr_action() {
-
-    return this->curr_event().current_action();
-
-}
-
-
-bool Level::at_end() {
-
-    if (event_index == events.size() -1){ 
-
-        std::println("you win");
-        CloseWindow();
-        return true;
-    }
-
-    return false;
-
-}
-
-
-void Level::next() {
-    if (event_index == events.size() -1) {
-
-        return;
-    }
-
-    if (event_index >= events.size()) {
-
-        event_index = events.size() -1;
-
-    } else {
-
-        ++event_index;
-
-    }
-}
-
-void Level::add_event(LevelEvent* event) {
-
-    events.emplace_back(event);
-
-}
-
-uptr<Level> Level::make_level(const std::string& name) {
-
-    auto level = std::make_unique<Level>();
-
-    level->name = name;
-
-    return std::move(level);
 
 }
 
