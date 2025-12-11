@@ -1,0 +1,183 @@
+{
+    "name": "testes",
+    "actions": [
+        {
+            "type": "WaitAction",
+            "duration": 2
+        },
+        {
+            "type": "SpawnUpgradeAction"
+        },
+        {
+            "type": "SpawnEnemiesAction",
+            "enemies": [
+                {
+                    "enemy_type": "Basic",
+                    "position": [230, 55]
+                },
+                {
+                    "enemy_type": "Anemonae",
+                    "position": [200, 120]
+                },
+                {
+                    "enemy_type": "Vagant",
+                    "position": [300, 120]
+                },
+                {
+                    "enemy_type": "Anemonae",
+                    "position": [300, 100]
+                },
+                {
+                    "enemy_type": "Anemonae",
+                    "position": [300, 20]
+                },
+                {
+                    "enemy_type": "Chaser",
+                    "position": [320, 190]
+                },
+                {
+                    "enemy_type": "Chaser",
+                    "position": [320, 10]
+                },
+                {
+                    "enemy_type": "Chaser",
+                    "position": [320, 100]
+                },
+                {
+                    "enemy_type": "CrystalEye",
+                    "position": [190, 110]
+                },
+                {
+                    "enemy_type": "CrystalEye",
+                    "position": [107, 101]
+                },
+                {
+                    "enemy_type": "CrystalEye",
+                    "position": [101, 200]
+                },
+                {
+                    "enemy_type": "BrokenShip",
+                    "position": [100, 100]
+                },
+                {
+                    "enemy_type": "Basic",
+                    "position": [222, 55]
+                },
+                {
+                    "enemy_type": "Minion",
+                    "position": [10, 10]
+                },
+                {
+                    "enemy_type": "Basic",
+                    "position": [310, 20]
+                },
+                {
+                    "enemy_type": "Basic",
+                    "position": [190, 20]
+                },
+                {
+                    "enemy_type": "Basic",
+                    "position": [198, 58]
+                },
+                {
+                    "enemy_type": "Basic",
+                    "position": [200, 3]
+                }
+            ]
+        },
+        {
+            "type": "WaitAction",
+            "duration": 1
+        },
+        {
+            "type": "SpawnEnemiesAction",
+            "enemies": [
+                {
+                    "enemy_type": "Basic",
+                    "position": [300, 0]
+                },
+                {
+                    "enemy_type": "Basic",
+                    "position": [300, 100]
+                }
+            ]
+        },
+        {
+            "type": "WaveEndAction"
+        }
+    ],
+    "assets": [
+        {
+            "name": "anemonae",
+            "type": "sprite"
+        },
+        {
+            "name": "basic_proj",
+            "type": "sprite"
+        },
+        {
+            "name": "broken_ship",
+            "type": "sprite"
+        },
+        {
+            "name": "chaser",
+            "type": "sprite"
+        },
+        {
+            "name": "Connor_fodder2",
+            "type": "sprite"
+        },
+        {
+            "name": "cursor",
+            "type": "sprite"
+        },
+        {
+            "name": "eye",
+            "type": "sprite"
+        },
+        {
+            "name": "meteorite",
+            "type": "sprite"
+        },
+        {
+            "name": "minion",
+            "type": "sprite"
+        },
+        {
+            "name": "missile",
+            "type": "sprite"
+        },
+        {
+            "name": "orbital_proj",
+            "type": "sprite"
+        },
+        {
+            "name": "plasma_proj",
+            "type": "sprite"
+        },
+        {
+            "name": "player",
+            "type": "sprite"
+        },
+        {
+            "name": "player_ui",
+            "type": "sprite"
+        },
+        {
+            "name": "super_proj",
+            "type": "sprite"
+        },
+        {
+            "name": "upgrade_proj",
+            "type": "sprite"
+        },
+        {
+            "name": "vagant",
+            "type": "sprite"
+        },
+        {
+            "name": "vic_viper",
+            "type": "sprite"
+        }
+    ]
+}

@@ -11,7 +11,7 @@ class SpawnEnemiesAction : public IAction {
 
 public:
 
-    SpawnEnemiesAction(std::initializer_list<std::tuple<std::string, Vector2>> targets) :
+    SpawnEnemiesAction(std::vector<std::tuple<std::string, Vector2>> targets) :
     spawn_targets(std::move(targets)) {}
 
     void restart() override {

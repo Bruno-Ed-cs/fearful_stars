@@ -1,0 +1,678 @@
+{
+    "name": "level1",
+    "actions": [
+        {
+            "type": "PlayOstAction",
+            "track": "space-ambient"
+        },
+        {
+            "type": "PlayerMoveAction"
+        },
+        {
+            "type": "SpawnEnemiesAction",
+            "enemies": [
+                {
+                    "enemy_type": "Basic",
+                    "position": [360, 10]
+                },
+                {
+                    "enemy_type": "Basic",
+                    "position": [360, 80]
+                }
+            ]
+        },
+        {
+            "type": "WaitAction",
+            "duration": 10.0
+        },
+        {
+            "type": "SpawnEnemiesAction",
+            "enemies": [
+                {
+                    "enemy_type": "Basic",
+                    "position": [360, 90]
+                }
+            ]
+        },
+        {
+            "type": "WaitAction",
+            "duration": 5.0
+        },
+        {
+            "type": "SpawnEnemiesAction",
+            "enemies": [
+                {
+                    "enemy_type": "Basic",
+                    "position": [360, 40]
+                },
+                {
+                    "enemy_type": "Basic",
+                    "position": [360, 150]
+                },
+                {
+                    "enemy_type": "Basic",
+                    "position": [360, 100]
+                }
+            ]
+        },
+        {
+            "type": "WaveEndAction"
+        },
+        {
+            "type": "SpawnUpgradeAction"
+        },
+        {
+            "type": "SpawnEnemiesAction",
+            "enemies": [
+                {
+                    "enemy_type": "Basic",
+                    "position": [360, 35]
+                }
+            ]
+        },
+        {
+            "type": "WaitAction",
+            "duration": 5.0
+        },
+        {
+            "type": "SpawnEnemiesAction",
+            "enemies": [
+                {
+                    "enemy_type": "Basic",
+                    "position": [360, 110]
+                }
+            ]
+        },
+        {
+            "type": "WaitAction",
+            "duration": 5.0
+        },
+        {
+            "type": "SpawnEnemiesAction",
+            "enemies": [
+                {
+                    "enemy_type": "BrokenShip",
+                    "position": [360, 90]
+                }
+            ]
+        },
+        {
+            "type": "WaitAction",
+            "duration": 2.0
+        },
+        {
+            "type": "SpawnEnemiesAction",
+            "enemies": [
+                {
+                    "enemy_type": "Basic",
+                    "position": [360, 160]
+                }
+            ]
+        },
+        {
+            "type": "WaitAction",
+            "duration": 2.0
+        },
+        {
+            "type": "SpawnEnemiesAction",
+            "enemies": [
+                {
+                    "enemy_type": "Basic",
+                    "position": [360, 40]
+                }
+            ]
+        },
+        {
+            "type": "WaveEndAction"
+        },
+        {
+            "type": "SpawnUpgradeAction"
+        },
+        {
+            "type": "SpawnEnemiesAction",
+            "enemies": [
+                {
+                    "enemy_type": "BrokenShip",
+                    "position": [360, 55]
+                }
+            ]
+        },
+        {
+            "type": "WaitAction",
+            "duration": 3.0
+        },
+        {
+            "type": "SpawnEnemiesAction",
+            "enemies": [
+                {
+                    "enemy_type": "BrokenShip",
+                    "position": [360, 20]
+                },
+                {
+                    "enemy_type": "BrokenShip",
+                    "position": [360, 140]
+                }
+            ]
+        },
+        {
+            "type": "WaitAction",
+            "duration": 2.0
+        },
+        {
+            "type": "SpawnEnemiesAction",
+            "enemies": [
+                {
+                    "enemy_type": "BrokenShip",
+                    "position": [360, 100]
+                }
+            ]
+        },
+        {
+            "type": "WaveEndAction"
+        },
+        {
+            "type": "SpawnEnemiesAction",
+            "enemies": [
+                {
+                    "enemy_type": "BrokenShip",
+                    "position": [360, 180]
+                }
+            ]
+        },
+        {
+            "type": "WaveEndAction"
+        },
+        {
+            "type": "SpawnUpgradeAction"
+        },
+        {
+            "type": "SpawnEnemiesAction",
+            "enemies": [
+                {
+                    "enemy_type": "BrokenShip",
+                    "position": [360, 20]
+                },
+                {
+                    "enemy_type": "BrokenShip",
+                    "position": [360, 150]
+                }
+            ]
+        },
+        {
+            "type": "WaveEndAction"
+        },
+        {
+            "type": "SpawnEnemiesAction",
+            "enemies": [
+                {
+                    "enemy_type": "CrystalEye",
+                    "position": [360, 50]
+                }
+            ]
+        },
+        {
+            "type": "WaitAction",
+            "duration": 4.0
+        },
+        {
+            "type": "SpawnEnemiesAction",
+            "enemies": [
+                {
+                    "enemy_type": "CrystalEye",
+                    "position": [360, 150]
+                }
+            ]
+        },
+        {
+            "type": "WaveEndAction"
+        },
+        {
+            "type": "SpawnUpgradeAction"
+        },
+        {
+            "type": "SpawnEnemiesAction",
+            "enemies": [
+                {
+                    "enemy_type": "CrystalEye",
+                    "position": [360, 20]
+                },
+                {
+                    "enemy_type": "CrystalEye",
+                    "position": [360, 150]
+                }
+            ]
+        },
+        {
+            "type": "WaitAction",
+            "duration": 4.0
+        },
+        {
+            "type": "SpawnEnemiesAction",
+            "enemies": [
+                {
+                    "enemy_type": "CrystalEye",
+                    "position": [360, 90]
+                },
+                {
+                    "enemy_type": "CrystalEye",
+                    "position": [360, 177]
+                }
+            ]
+        },
+        {
+            "type": "WaveEndAction"
+        },
+        {
+            "type": "SpawnUpgradeAction"
+        },
+        {
+            "type": "WaitAction",
+            "duration": 3.0
+        },
+        {
+            "type": "SpawnEnemiesAction",
+            "enemies": [
+                {
+                    "enemy_type": "Anemonae",
+                    "position": [360, 90]
+                }
+            ]
+        },
+        {
+            "type": "WaitAction",
+            "duration": 3.0
+        },
+        {
+            "type": "SpawnEnemiesAction",
+            "enemies": [
+                {
+                    "enemy_type": "CrystalEye",
+                    "position": [360, 20]
+                },
+                {
+                    "enemy_type": "CrystalEye",
+                    "position": [360, 177]
+                }
+            ]
+        },
+        {
+            "type": "WaveEndAction"
+        },
+        {
+            "type": "SpawnEnemiesAction",
+            "enemies": [
+                {
+                    "enemy_type": "Anemonae",
+                    "position": [360, 30]
+                },
+                {
+                    "enemy_type": "Anemonae",
+                    "position": [360, 130]
+                }
+            ]
+        },
+        {
+            "type": "WaitAction",
+            "duration": 5.0
+        },
+        {
+            "type": "SpawnEnemiesAction",
+            "enemies": [
+                {
+                    "enemy_type": "CrystalEye",
+                    "position": [360, 30]
+                },
+                {
+                    "enemy_type": "CrystalEye",
+                    "position": [360, 130]
+                }
+            ]
+        },
+        {
+            "type": "WaveEndAction"
+        },
+        {
+            "type": "SpawnUpgradeAction"
+        },
+        {
+            "type": "WaitAction",
+            "duration": 3.0
+        },
+        {
+            "type": "SpawnEnemiesAction",
+            "enemies": [
+                {
+                    "enemy_type": "Anemonae",
+                    "position": [360, 70]
+                }
+            ]
+        },
+        {
+            "type": "WaitAction",
+            "duration": 3.0
+        },
+        {
+            "type": "SpawnEnemiesAction",
+            "enemies": [
+                {
+                    "enemy_type": "Anemonae",
+                    "position": [360, 140]
+                }
+            ]
+        },
+        {
+            "type": "WaitAction",
+            "duration": 2.0
+        },
+        {
+            "type": "SpawnEnemiesAction",
+            "enemies": [
+                {
+                    "enemy_type": "Vagant",
+                    "position": [360, 40]
+                },
+                {
+                    "enemy_type": "Vagant",
+                    "position": [360, 170]
+                }
+            ]
+        },
+        {
+            "type": "WaitAction",
+            "duration": 5.0
+        },
+        {
+            "type": "SpawnEnemiesAction",
+            "enemies": [
+                {
+                    "enemy_type": "Anemonae",
+                    "position": [360, 80]
+                },
+                {
+                    "enemy_type": "Anemonae",
+                    "position": [360, 130]
+                }
+            ]
+        },
+        {
+            "type": "WaveEndAction"
+        },
+        {
+            "type": "SpawnUpgradeAction"
+        },
+        {
+            "type": "WaitAction",
+            "duration": 3.0
+        },
+        {
+            "type": "SpawnEnemiesAction",
+            "enemies": [
+                {
+                    "enemy_type": "Chaser",
+                    "position": [360, 70]
+                }
+            ]
+        },
+        {
+            "type": "WaitAction",
+            "duration": 3.0
+        },
+        {
+            "type": "SpawnEnemiesAction",
+            "enemies": [
+                {
+                    "enemy_type": "Chaser",
+                    "position": [360, 140]
+                }
+            ]
+        },
+        {
+            "type": "WaitAction",
+            "duration": 7.0
+        },
+        {
+            "type": "SpawnEnemiesAction",
+            "enemies": [
+                {
+                    "enemy_type": "Vagant",
+                    "position": [360, 90]
+                },
+                {
+                    "enemy_type": "Chaser",
+                    "position": [360, 60]
+                }
+            ]
+        },
+        {
+            "type": "WaitAction",
+            "duration": 5.0
+        },
+        {
+            "type": "SpawnEnemiesAction",
+            "enemies": [
+                {
+                    "enemy_type": "Chaser",
+                    "position": [360, 80]
+                },
+                {
+                    "enemy_type": "Chaser",
+                    "position": [360, 20]
+                },
+                {
+                    "enemy_type": "Chaser",
+                    "position": [360, 130]
+                }
+            ]
+        },
+        {
+            "type": "WaveEndAction"
+        },
+        {
+            "type": "SpawnUpgradeAction"
+        },
+        {
+            "type": "WaitAction",
+            "duration": 3.0
+        },
+        {
+            "type": "SpawnEnemiesAction",
+            "enemies": [
+                {
+                    "enemy_type": "Vagant",
+                    "position": [360, 40]
+                },
+                {
+                    "enemy_type": "Vagant",
+                    "position": [360, 150]
+                }
+            ]
+        },
+        {
+            "type": "WaitAction",
+            "duration": 5.0
+        },
+        {
+            "type": "SpawnEnemiesAction",
+            "enemies": [
+                {
+                    "enemy_type": "Minion",
+                    "position": [360, 80]
+                }
+            ]
+        },
+        {
+            "type": "WaitAction",
+            "duration": 5.0
+        },
+        {
+            "type": "SpawnEnemiesAction",
+            "enemies": [
+                {
+                    "enemy_type": "Minion",
+                    "position": [360, 80]
+                }
+            ]
+        },
+        {
+            "type": "WaveEndAction"
+        },
+        {
+            "type": "SpawnUpgradeAction"
+        },
+        {
+            "type": "WaitAction",
+            "duration": 3.0
+        },
+        {
+            "type": "SpawnEnemiesAction",
+            "enemies": [
+                {
+                    "enemy_type": "BrokenShip",
+                    "position": [360, 90]
+                }
+            ]
+        },
+        {
+            "type": "WaveEndAction"
+        },
+        {
+            "type": "SpawnEnemiesAction",
+            "enemies": [
+                {
+                    "enemy_type": "Chaser",
+                    "position": [360, 80]
+                },
+                {
+                    "enemy_type": "Chaser",
+                    "position": [360, 170]
+                },
+                {
+                    "enemy_type": "Minion",
+                    "position": [360, 90]
+                }
+            ]
+        },
+        {
+            "type": "WaitAction",
+            "duration": 5.0
+        },
+        {
+            "type": "SpawnEnemiesAction",
+            "enemies": [
+                {
+                    "enemy_type": "Anemonae",
+                    "position": [360, 40]
+                },
+                {
+                    "enemy_type": "Anemonae",
+                    "position": [360, 160]
+                }
+            ]
+        },
+        {
+            "type": "WaitAction",
+            "duration": 5.0
+        },
+        {
+            "type": "SpawnEnemiesAction",
+            "enemies": [
+                {
+                    "enemy_type": "Minion",
+                    "position": [360, 80]
+                },
+                {
+                    "enemy_type": "Minion",
+                    "position": [360, 10]
+                },
+                {
+                    "enemy_type": "Vagant",
+                    "position": [360, 130]
+                }
+            ]
+        },
+        {
+            "type": "WaveEndAction"
+        },
+        {
+            "type": "SpawnUpgradeAction"
+        },
+        {
+            "type": "WaitAction",
+            "duration": 5.0
+        }
+    ],
+    "assets": [
+        {
+            "name": "anemonae",
+            "type": "sprite"
+        },
+        {
+            "name": "basic_proj",
+            "type": "sprite"
+        },
+        {
+            "name": "broken_ship",
+            "type": "sprite"
+        },
+        {
+            "name": "chaser",
+            "type": "sprite"
+        },
+        {
+            "name": "Connor_fodder2",
+            "type": "sprite"
+        },
+        {
+            "name": "cursor",
+            "type": "sprite"
+        },
+        {
+            "name": "eye",
+            "type": "sprite"
+        },
+        {
+            "name": "meteorite",
+            "type": "sprite"
+        },
+        {
+            "name": "minion",
+            "type": "sprite"
+        },
+        {
+            "name": "missile",
+            "type": "sprite"
+        },
+        {
+            "name": "orbital_proj",
+            "type": "sprite"
+        },
+        {
+            "name": "plasma_proj",
+            "type": "sprite"
+        },
+        {
+            "name": "player",
+            "type": "sprite"
+        },
+        {
+            "name": "player_ui",
+            "type": "sprite"
+        },
+        {
+            "name": "super_proj",
+            "type": "sprite"
+        },
+        {
+            "name": "upgrade_proj",
+            "type": "sprite"
+        },
+        {
+            "name": "vagant",
+            "type": "sprite"
+        },
+        {
+            "name": "vic_viper",
+            "type": "sprite"
+        }
+    ]
+}

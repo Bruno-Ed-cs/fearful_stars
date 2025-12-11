@@ -16,7 +16,7 @@ class Level {
 public:
 
     Level(std::string_view name);
-    Level(std::string_view, std::initializer_list<IAction*> action_list, std::initializer_list<Engine::AssetMan::Ref> preload_list = {});
+    Level(std::string_view, std::vector<IAction*> action_list, std::vector<Engine::AssetMan::Ref> preload_list = {});
 
     void restart();
     void execute(Engine::Systems& sys, double dt);
@@ -45,6 +45,7 @@ public:
     void update(Engine::Systems& sys, double dt);
     void rollback();
     void set_level_mode(Mode mode);
+    void load_level(std::string_view file_path);
 
 
 public:

@@ -406,7 +406,9 @@ int main(void)
 
     SeekMusicStream(*Engine::AssetMan::get_music("space-ambient"), 122.0);
 
-    make_level(sys);
+    //make_level(sys);
+    sys.level->load_level("demo/demo.json");
+    sys.player->init_player({90, 60});
     make_background();
 
     // Main game loop
