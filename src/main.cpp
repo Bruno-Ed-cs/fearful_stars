@@ -25,6 +25,7 @@
 #include "gameplay/enemy/basic/basic_enemy.hpp"
 #include "systems.hpp"
 #include "winman.hpp"
+#include <print>
 #include <utility>
 
 using string = std::string;
@@ -429,6 +430,15 @@ int main(void)
             Engine::g_debug = !Engine::g_debug;
 
         }
+
+        
+        if (IsKeyPressed(KEY_I)) {
+
+            Engine::AssetMan::cleanup();
+            std::println("Cleaning assets");
+
+        }
+
         Engine::WinMan::update_window();
 
 

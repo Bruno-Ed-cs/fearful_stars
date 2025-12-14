@@ -13,27 +13,12 @@ if &shortmess =~ 'A'
 else
   set shortmess=aoO
 endif
-badd +38 src/gameplay/player/player.hpp
-badd +6 ~/Projects/gamedev/fearful_stars/src/gameplay/player/primary_shots/shooting_machine.hpp
-badd +15 ~/Projects/gamedev/fearful_stars/src/gameplay/player/primary_shots/plasma_shot.hpp
-badd +40 ~/Projects/gamedev/fearful_stars/src/gameplay/projectile/plasma/plasma.hpp
-badd +15 ~/Projects/gamedev/fearful_stars/src/gameplay/projectile/missile/missile_proj.hpp
-badd +4 ~/Projects/gamedev/fearful_stars/src/gameplay/projectile/missile/missile_proj.cpp
-badd +1 ~/Projects/gamedev/fearful_stars/src/gameplay/player/primary_shots/plasma_shot.cpp
-badd +58 src/gameplay/player/player_manager.cpp
-badd +5 ~/Projects/gamedev/fearful_stars/src/gameplay/player/secondary_shots/secondary_machine.hpp
-badd +5 ~/Projects/gamedev/fearful_stars/src/gameplay/player/aux_powers/aux_machine.hpp
-badd +15 src/engine/music_man.hpp
-badd +131 ~/Projects/gamedev/fearful_stars/src/engine/music_man.cpp
-badd +7 ~/Projects/gamedev/fearful_stars/src/gameplay/components/position.hpp
-badd +17 ~/Projects/gamedev/fearful_stars/src/gameplay/components/direction.hpp
-badd +123 ~/Projects/gamedev/fearful_stars/src/engine/background_man.cpp
+badd +4 src/main.cpp
 argglobal
 %argdel
 $argadd oil:///home/huevo/Projects/gamedev/fearful_stars/
-edit ~/Projects/gamedev/fearful_stars/src/engine/background_man.cpp
+edit src/main.cpp
 argglobal
-balt ~/Projects/gamedev/fearful_stars/src/gameplay/projectile/missile/missile_proj.hpp
 setlocal foldmethod=indent
 setlocal foldexpr=0
 setlocal foldmarker={{{,}}}
@@ -42,11 +27,11 @@ setlocal foldlevel=10
 setlocal foldminlines=1
 setlocal foldnestmax=20
 setlocal foldenable
-let s:l = 123 - ((38 * winheight(0) + 21) / 43)
+let s:l = 4 - ((3 * winheight(0) + 21) / 43)
 if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
-keepjumps 123
+keepjumps 4
 normal! 0
 tabnext 1
 if exists('s:wipebuf') && len(win_findbuf(s:wipebuf)) == 0 && getbufvar(s:wipebuf, '&buftype') isnot# 'terminal'

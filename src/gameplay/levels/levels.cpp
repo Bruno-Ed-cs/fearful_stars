@@ -99,7 +99,9 @@ void LevelManager::update(Engine::Systems& sys, double dt) {
     if (!preloaded) {
 
         preloaded = true;
+        std::println("preloading");
         for (auto& asset: level->preloads) {
+
 
             switch (asset.type) {
 

@@ -41,6 +41,7 @@ static str search_asset(str_par base_dir, str_par asset_name, str_par filter) {
     if (target_path.empty())
         throw std::invalid_argument(std::format("The Asset {} could not be found", asset_name));
 
+    UnloadDirectoryFiles(files);
     return target_path;
 
 }
@@ -147,11 +148,11 @@ void AssetMan::preload_shaders(std::initializer_list<str_par> shaders) {
 
 void AssetMan::init(){
 
-    music_bank =    std::map<str, sptr<Music>>();
-    texture_bank =  std::map<str, sptr<Texture>>();
-    sound_bank =    std::map<str, sptr<Sound>>();
-    font_bank =     std::map<str, sptr<Font>>();
-    shader_bank =   std::map<str, sptr<Shader>>();
+    music_bank =    std::unordered_map<str, sptr<Music>>();
+    texture_bank =  std::unordered_map<str, sptr<Texture>>();
+    sound_bank =    std::unordered_map<str, sptr<Sound>>();
+    font_bank =     std::unordered_map<str, sptr<Font>>();
+    shader_bank =   std::unordered_map<str, sptr<Shader>>();
 }
 
 void AssetMan::cleanup() {

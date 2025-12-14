@@ -12,7 +12,6 @@ void player_ui(Engine::Systems& sys) {
 
     static std::shared_ptr<Texture2D> ui_texture = Engine::AssetMan::get_texture("player_ui");
     static std::shared_ptr<Texture2D> cursor_texture = Engine::AssetMan::get_texture("cursor");
-    static std::shared_ptr<Font> font_ui = Engine::AssetMan::get_font("EXEPixelPerfect");
 
 
     static auto screen_canva = LoadRenderTexture(320, 180);
@@ -38,7 +37,7 @@ void player_ui(Engine::Systems& sys) {
         DrawRectangleRec(bar, YELLOW);
         DrawTextureEx(*ui_texture, Vector2{0,0}, 0.0f, 1.0f, WHITE);
 
-        DrawTextEx(*font_ui, live_text.c_str(), Vector2{0, 0}, 15.0f, 1.0f, WHITE);
+        DrawText(live_text.c_str(), 0, 0, 1, WHITE);
 
         switch (upgrades) {
 

@@ -90,11 +90,11 @@ private:
 
     };
 
-    inline static std::map<std::string, sptr<Texture>> texture_bank;
-    inline static std::map<std::string, sptr<Sound>> sound_bank;
-    inline static std::map<std::string, sptr<Music>> music_bank;
-    inline static std::map<std::string, sptr<Font>> font_bank;
-    inline static std::map<std::string, sptr<Shader>> shader_bank;
+    inline static std::unordered_map<std::string, sptr<Texture>> texture_bank;
+    inline static std::unordered_map<std::string, sptr<Sound>> sound_bank;
+    inline static std::unordered_map<std::string, sptr<Music>> music_bank;
+    inline static std::unordered_map<std::string, sptr<Font>> font_bank;
+    inline static std::unordered_map<std::string, sptr<Shader>> shader_bank;
 
 };
 
