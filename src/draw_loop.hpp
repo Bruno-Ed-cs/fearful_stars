@@ -5,6 +5,7 @@
 #include "gameplay/player/player_manager.hpp"
 #include "render_man.hpp"
 #include "gameplay/projectile/projectile_manager.hpp"
+#include "gameplay/ui/ui_man.hpp"
 #include "globals.hpp"
 #include "systems.hpp"
 #include "winman.hpp"
@@ -59,9 +60,8 @@ void draw_loop(Engine::Systems& sys) {
     sys.player->draw();
     sys.projectile->draw();
     sys.enemy->draw();
+    sys.ui->draw();
     Engine::BackgroundMan::draw();
 
-
     Engine::RenderMan::render_to_canva();
-
 }

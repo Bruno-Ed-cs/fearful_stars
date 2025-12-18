@@ -42,6 +42,11 @@ void RenderMan::send_texture(RenderMan::Plane layer, Texture sprite, Rectangle r
         case RenderMan::Plane::middle:
             s_middleground.push_back(element);
         break;
+
+        case RenderMan::Plane::ui:
+
+            s_ui.push_back(element);
+        break;
     
     }
 
@@ -54,6 +59,7 @@ void RenderMan::init(int canva_wid, int canva_hei) {
     s_background = std::vector<RenderElement>();
     s_foreground = std::vector<RenderElement>();
     s_middleground = std::vector<RenderElement>();
+    s_ui = std::vector<RenderElement>();
     s_camera = Camera2D{
         .offset = Vector2{0, 0},
         .target = Vector2{0, 0},
@@ -120,14 +126,20 @@ void RenderMan::render_to_canva() {
 
         DrawTexturePro(element.source, element.source_view, element.render_view, Vector2{0, 0}, element.rotation, element.tint);
     };
-    EndMode2D();
 
+    for (auto& element: s_ui) {
+
+        DrawTexturePro(element.source, element.source_view, element.render_view, Vector2{0, 0}, element.rotation, element.tint);
+    };
+
+    EndMode2D();
     EndTextureMode();
     EndBlendMode();
 
     s_background.clear();
     s_middleground.clear();
     s_foreground.clear();
+    s_ui.clear();
 }
 
 void RenderMan::draw_to_window() {

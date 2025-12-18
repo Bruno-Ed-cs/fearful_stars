@@ -8,6 +8,7 @@ class EnemyMan;
 class ProjectileMan;
 class PlayerMan;
 class LevelManager;
+struct UiMan;
 
 }
 
@@ -22,6 +23,7 @@ struct Systems {
     std::unique_ptr<Game::ProjectileMan> projectile;
     std::unique_ptr<Game::PlayerMan> player;
     std::unique_ptr<Game::LevelManager> level;
+    std::unique_ptr<Game::UiMan> ui;
 
     Systems();
 };

@@ -30,7 +30,8 @@ public:
     enum class Plane {
         front,
         middle,
-        back
+        back,
+        ui
     };
 
     static void send_texture(RenderMan::Plane layer, Texture sprite,
@@ -61,6 +62,7 @@ private:
     inline static buffer s_background;
     inline static buffer s_middleground;
     inline static buffer s_foreground;
+    inline static buffer s_ui;
     inline static Camera2D s_camera;
 
 };
