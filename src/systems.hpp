@@ -24,6 +24,8 @@ struct Systems {
     std::unique_ptr<Game::PlayerMan> player;
     std::unique_ptr<Game::LevelManager> level;
     std::unique_ptr<Game::UiMan> ui;
+    
+    bool pause = false;
 
     Systems();
 };

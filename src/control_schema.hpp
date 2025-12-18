@@ -2,8 +2,16 @@
 
 #include "input_man.hpp"
 #include "raylib.h"
+#include <vector>
 
 static Engine::Event controls[] = {
+    {
+        "pause",
+        std::vector{KEY_P},
+        std::vector{GAMEPAD_BUTTON_MIDDLE_RIGHT}
+
+    },
+
     {
 
         "upgrade",
