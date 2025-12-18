@@ -9,6 +9,13 @@ struct Event {
     std::string name;
     std::vector<KeyboardKey> keyboard_inputs;
     std::vector<GamepadButton> gamepad_inputs;
+
+    enum class Trigger {
+        pressed,
+        released,
+        down,
+        up
+    } trigger = Trigger::down;
 };
 
 class InputMan {
@@ -22,6 +29,7 @@ public:
     static void add_input_to_event(const std::string& event_name, const int new_input);
 
     static void close();
+
 
     constexpr static size_t buffer_size = 10;
 

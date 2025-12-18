@@ -12,10 +12,33 @@ void InputMan::pull_events() {
 
         for (auto key_input : event.keyboard_inputs) {
 
-            if (IsKeyDown(key_input)) {
+            switch (event.trigger) {
 
-                instance.activate_event(event.name);
-                break;
+                case Event::Trigger::pressed:
+
+                    if (IsKeyPressed(key_input))
+                        instance.activate_event(event.name);
+                    break;
+
+                case Event::Trigger::down:
+
+                    if (IsKeyDown(key_input))
+                        instance.activate_event(event.name);
+
+                    break;
+
+                case Event::Trigger::released:
+
+                    if (IsKeyReleased(key_input))
+                        instance.activate_event(event.name);
+                    break;
+
+                case Event::Trigger::up:
+
+                    if (IsKeyUp(key_input))
+                        instance.activate_event(event.name);
+
+                    break;
 
             }
 
@@ -27,12 +50,36 @@ void InputMan::pull_events() {
 
                 if (IsGamepadAvailable(i)) {
 
-//                    std::println("Gamepad {} is pressing {} {}", GetGamepadName(i), event.name, IsGamepadButtonDown(i, gamepad_input));
+                    //                    std::println("Gamepad {} is pressing {} {}", GetGamepadName(i), event.name, IsGamepadButtonDown(i, gamepad_input));
 
-                    if (IsGamepadButtonDown(i, gamepad_input)) {
 
-                        instance.activate_event(event.name);
-                        break;
+                    switch (event.trigger) {
+
+                        case Event::Trigger::pressed:
+
+                            if (IsGamepadButtonPressed(i, gamepad_input)) 
+                                instance.activate_event(event.name);
+                            break;
+
+                        case Event::Trigger::down:
+
+                            if (IsGamepadButtonDown(i, gamepad_input)) 
+                                instance.activate_event(event.name);
+
+                            break;
+
+                        case Event::Trigger::released:
+                            if (IsGamepadButtonReleased(i, gamepad_input)) 
+                                instance.activate_event(event.name);
+
+                            break;
+
+                        case Event::Trigger::up:
+                            if (IsGamepadButtonUp(i, gamepad_input)) 
+                                instance.activate_event(event.name);
+
+                            break;
+
                     }
                 }
             }

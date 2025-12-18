@@ -4,6 +4,7 @@
 #include "gameplay/ui/ui_layer.hpp"
 #include "asset_man.hpp"
 #include "gameplay/player/player_manager.hpp"
+#include "systems.hpp"
 
 namespace Game {
 
@@ -69,7 +70,7 @@ struct GameplayUi: public UiLayer {
         EndTextureMode();
     }
 
-    void process_input() {}
+    void process_input(Engine::Systems& sys) {}
 
     std::shared_ptr<Texture> ui_texture;
     std::shared_ptr<Texture> cursor_texture;

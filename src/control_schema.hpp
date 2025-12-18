@@ -8,7 +8,8 @@ static Engine::Event controls[] = {
     {
         "pause",
         std::vector{KEY_P},
-        std::vector{GAMEPAD_BUTTON_MIDDLE_RIGHT}
+        std::vector{GAMEPAD_BUTTON_MIDDLE_RIGHT},
+        Engine::Event::Trigger::pressed
 
     },
 
