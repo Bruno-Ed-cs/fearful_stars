@@ -37,15 +37,16 @@ void PlasmaProj::update(double dt, Engine::Systems& sys) {
 
 }
 
+
 void PlasmaProj::draw() {
 
-    Color tint = Color{111, 236, 255, 255};
+    Color tint = Color{0, 164, 255, 255};
     Color e_tint = Color{255, 78, 78, 255};
 
     if (!foe) {
 
-        Rectangle source = Rectangle{0, 0, 10, 6};
-        Rectangle view = Rectangle{pos.x - 5, pos.y -3, 10, 6};
+        Rectangle source = Rectangle{0, 0, 15, 7};
+        Rectangle view = Rectangle{pos.x - 8, pos.y -4, 15, 7};
 
         Engine::RenderMan::send_texture(Engine::RenderMan::Plane::middle,
                                         *sprite,
@@ -57,8 +58,8 @@ void PlasmaProj::draw() {
 
     } else {
 
-        Rectangle source = Rectangle{0, 0, -10, 6};
-        Rectangle view = Rectangle{pos.x - 5, pos.y -6, 10, 6};
+        Rectangle source = Rectangle{0, 0, -15, 7};
+        Rectangle view = Rectangle{pos.x - 8, pos.y -4, 15, 7};
 
         Engine::RenderMan::send_texture(Engine::RenderMan::Plane::middle,
                                         *sprite,
