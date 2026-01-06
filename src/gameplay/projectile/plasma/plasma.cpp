@@ -13,6 +13,8 @@ void PlasmaProj::update(double dt, Engine::Systems& sys) {
 
     this->pos += movement;
 
+    animation.update(dt);
+
     if (foe) {
 
         if (CheckCollisionRecs(get_hitbox(), sys.player->get_player().get_hitbox())) {
@@ -45,7 +47,7 @@ void PlasmaProj::draw() {
 
     if (!foe) {
 
-        Rectangle source = Rectangle{0, 0, 15, 7};
+        Rectangle source = animation.get_frame();
         Rectangle view = Rectangle{pos.x - 8, pos.y -4, 15, 7};
 
         Engine::RenderMan::send_texture(Engine::RenderMan::Plane::middle,
@@ -58,7 +60,9 @@ void PlasmaProj::draw() {
 
     } else {
 
-        Rectangle source = Rectangle{0, 0, -15, 7};
+        Rectangle source = animation.get_frame();
+        source.width *= -1;
+
         Rectangle view = Rectangle{pos.x - 8, pos.y -4, 15, 7};
 
         Engine::RenderMan::send_texture(Engine::RenderMan::Plane::middle,
@@ -81,5 +85,8 @@ void PlasmaProj::reset(Vector2 pos, double speed, Vector2 direction, bool foe, i
     this->foe = foe;
     this->damage = damage == 0 ? this->damage : damage;
     this->destruct = false;
+
+    animation.cur_mode = Engine::Animator::Mode::loop;
+    animation.reset();
 }
 

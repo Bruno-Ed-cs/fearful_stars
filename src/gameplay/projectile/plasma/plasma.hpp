@@ -1,5 +1,6 @@
 #pragma once
 
+#include "animator.hpp"
 #include "asset_man.hpp"
 #include "deps.hpp"
 
@@ -17,13 +18,18 @@ public:
 
     PlasmaProj() {
 
-        sprite = Engine::AssetMan::get_texture("plasma_proj");
+        sprite = Engine::AssetMan::get_texture("plasma_proj_ani");
+        animation.cur_animation = "main";
+        animation.cur_mode = Engine::Animator::Mode::loop;
 
     }
+
     PlasmaProj(Vector2 position, double speed, Vector2 direction, bool foe, int damage) :
         pos(position), orientation(direction), foe(foe), damage(damage), speed(speed) {
 
-        sprite = Engine::AssetMan::get_texture("plasma_proj");
+        sprite = Engine::AssetMan::get_texture("plasma_proj_ani");
+        animation.cur_animation = "main";
+        animation.cur_mode = Engine::Animator::Mode::loop;
     }
 
     bool is_foe() override { return foe; }
@@ -49,6 +55,10 @@ public:
     bool foe = false;
     bool destruct = false;
     std::shared_ptr<Texture> sprite;
+    Engine::Animator animation = Engine::Animator(
+        Vector2{15, 7},  // Each frame is 15x7 pixels
+        {{"main", {0, 5}}},  // Animation "main" uses row 0, has 5 frames
+        1.0/12.0);  // Each frame displays for 1/15th of a second
 
 };
 
