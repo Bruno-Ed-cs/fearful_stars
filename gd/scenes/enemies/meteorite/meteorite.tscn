@@ -1,0 +1,30 @@
+[gd_scene format=3 uid="uid://5ib7a2763p6v"]
+
+[ext_resource type="Script" uid="uid://b766bcpcxnwsv" path="res://scenes/enemies/meteorite/meteorite.gd" id="1_4bef6"]
+[ext_resource type="Texture2D" uid="uid://bkyqdymsnljo1" path="res://assets/sprites/meteorite.png" id="2_xeqvf"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_fv0gg"]
+size = Vector2(28, 17)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_snv60"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_xeqvf")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="Meteorite" type="Node2D" unique_id=957431534]
+script = ExtResource("1_4bef6")
+
+[node name="Area2D" type="Area2D" parent="." unique_id=1601748906]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=2029502139]
+position = Vector2(0, 0.5)
+shape = SubResource("RectangleShape2D_fv0gg")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1673553535]
+sprite_frames = SubResource("SpriteFrames_snv60")
