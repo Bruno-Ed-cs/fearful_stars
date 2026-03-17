@@ -2,6 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://cq77s78vfja7p" path="res://assets/sprites/player.png" id="1_8afob"]
 [ext_resource type="Script" uid="uid://chnm77mshjwqa" path="res://scenes/player/player.gd" id="1_dovo2"]
+[ext_resource type="PackedScene" uid="uid://c1flkycg7qfdr" path="res://scenes/components/persistent_collision.tscn" id="3_75vfm"]
 [ext_resource type="PackedScene" uid="uid://4k3imkvuwka3" path="res://scenes/components/health.tscn" id="3_gmlin"]
 [ext_resource type="PackedScene" uid="uid://cqojbk0f87s1g" path="res://scenes/components/shooter.tscn" id="4_p47bc"]
 [ext_resource type="PackedScene" uid="uid://hbnliqktlcgi" path="res://scenes/components/weapons/plasma.tscn" id="5_75vfm"]
@@ -28,17 +29,22 @@ script = ExtResource("1_dovo2")
 texture_filter = 1
 sprite_frames = SubResource("SpriteFrames_gmlin")
 
-[node name="Area2D" type="Area2D" parent="." unique_id=451004105 groups=["Entities", "Player"]]
+[node name="Area2D" type="Area2D" parent="." unique_id=451004105]
 disable_mode = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=2030274270]
 shape = SubResource("CapsuleShape2D_dovo2")
 
-[node name="Health" parent="." unique_id=1350422828 instance=ExtResource("3_gmlin")]
+[node name="PersistentCollision" parent="Area2D" unique_id=1236133063 instance=ExtResource("3_75vfm")]
+damage_groups = Array[String](["Entity", "Projectile"])
+
+[node name="Health" parent="." unique_id=1350422828 node_paths=PackedStringArray("invis_timer") instance=ExtResource("3_gmlin")]
+invis_timer = NodePath("Timer")
+single_damage = true
 total = 5
 
-[node name="Timer" type="Timer" parent="." unique_id=1523527217 groups=["Entities", "Projectiles"]]
-wait_time = 1.1649999999999998
+[node name="Timer" type="Timer" parent="Health" unique_id=1523527217 groups=["Entities", "Projectiles"]]
+wait_time = 1.6549999999999998
 one_shot = true
 
 [node name="Shooter" parent="." unique_id=612338618 node_paths=PackedStringArray("weapon") instance=ExtResource("4_p47bc")]
@@ -46,6 +52,6 @@ weapon = NodePath("Plasma")
 
 [node name="Plasma" parent="Shooter" unique_id=817687161 instance=ExtResource("5_75vfm")]
 
-[connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]
-[connection signal="area_exited" from="Area2D" to="." method="_on_area_2d_area_exited"]
-[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[connection signal="area_entered" from="Area2D" to="Area2D/PersistentCollision" method="_on_area_entered"]
+[connection signal="area_exited" from="Area2D" to="Area2D/PersistentCollision" method="_on_area_exited"]
+[connection signal="timeout" from="Health/Timer" to="." method="_on_timer_timeout"]

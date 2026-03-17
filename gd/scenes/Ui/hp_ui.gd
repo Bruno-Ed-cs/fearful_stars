@@ -14,7 +14,10 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 
 
-	label_p.text = "x " + str(player_hp.value)
-	label_m.text = "m = " + str(meteor_hp.value)
+	if (player_hp != null):
+		label_p.text = "x " + str(player_hp.value)
+
+	if (meteor_hp != null):
+		label_m.text = "m = " + str(meteor_hp.value)
 
 	pass

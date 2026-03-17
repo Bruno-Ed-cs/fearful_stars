@@ -20,20 +20,26 @@ func _process(delta: float) -> void:
 	pass
 
 
-func _on_area_2d_area_entered(area: Area2D) -> void:
+#func _on_area_2d_area_entered(area: Area2D) -> void:
 
-	var groups := area.get_parent().get_groups()
-	#print(groups)
-	if ("Entity" in groups and not "Player" in groups):
-		var health := area.get_parent().get_node("Health")
+#	var groups := area.get_parent().get_groups()
+#	#print(groups)
+#	if ("Entity" in groups and not "Player" in groups):
+#		var health := area.get_parent().get_node("Health")
+#
+#		if (area.get_parent().has_node("Health")):
+#
+#			#print("that hurts")
+#			health.take_damage(damage)
+#		else:
+#			print("Does not exist")
+#			#print(area.get_parent().get_children())
+#
+#
+#	pass # Replace with function body.
+#
 
-		if (area.get_parent().has_node("Health")):
+func _on_dealt_damage() -> void:
 
-			#print("that hurts")
-			health.take_damage(damage)
-		else:
-			print("Does not exist")
-			#print(area.get_parent().get_children())
-
-
-	pass # Replace with function body.
+	#print("die")
+	queue_free()

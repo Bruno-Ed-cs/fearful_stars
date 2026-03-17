@@ -36,9 +36,9 @@ folder_colors={
 
 [global_group]
 
-Projectiles=""
 Player=""
 Entity=""
+Projectile=""
 
 [input]
 

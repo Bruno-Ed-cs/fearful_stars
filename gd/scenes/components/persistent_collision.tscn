@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://c1flkycg7qfdr"]
+
+[ext_resource type="Script" uid="uid://d00rp0kboa2fc" path="res://scenes/components/persistent_collision.gd" id="1_0fs65"]
+
+[node name="PersistentCollision" type="Node" unique_id=1236133063]
+script = ExtResource("1_0fs65")
