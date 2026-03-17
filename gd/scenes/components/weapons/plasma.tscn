@@ -1,0 +1,11 @@
+[gd_scene format=3 uid="uid://hbnliqktlcgi"]
+
+[ext_resource type="Script" uid="uid://de5s14c28m3aa" path="res://scenes/components/weapons/plasma.gd" id="1_0nans"]
+
+[node name="Plasma" type="Node" unique_id=817687161]
+script = ExtResource("1_0nans")
+metadata/_custom_type_script = "uid://b2vv5ruoin36k"
+
+[node name="Timer" type="Timer" parent="." unique_id=1488480084]
+wait_time = 0.5
+one_shot = true

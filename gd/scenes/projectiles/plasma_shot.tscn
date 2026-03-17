@@ -1,0 +1,75 @@
+[gd_scene format=3 uid="uid://dscvq6bawdtgh"]
+
+[ext_resource type="Script" uid="uid://d2k01vaq52q3k" path="res://scenes/projectiles/plasma_shot.gd" id="1_b25ap"]
+[ext_resource type="Texture2D" uid="uid://bct6gi45hr7um" path="res://assets/sprites/plasma_proj_ani.png" id="1_m73gf"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_b25ap"]
+size = Vector2(15, 6)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_uo0j5"]
+atlas = ExtResource("1_m73gf")
+region = Rect2(0, 0, 15, 7)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6tru6"]
+atlas = ExtResource("1_m73gf")
+region = Rect2(15, 0, 15, 7)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5o1y4"]
+atlas = ExtResource("1_m73gf")
+region = Rect2(30, 0, 15, 7)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_q3q6t"]
+atlas = ExtResource("1_m73gf")
+region = Rect2(45, 0, 15, 7)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_x4ovq"]
+atlas = ExtResource("1_m73gf")
+region = Rect2(60, 0, 15, 7)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tq3qh"]
+atlas = ExtResource("1_m73gf")
+region = Rect2(75, 0, 15, 7)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_pu05p"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_uo0j5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6tru6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5o1y4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_q3q6t")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_x4ovq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tq3qh")
+}],
+"loop": true,
+"name": &"active",
+"speed": 16.0
+}]
+
+[node name="PlasmaShot" type="Node2D" unique_id=1655224644 groups=["Player", "Projectiles"]]
+script = ExtResource("1_b25ap")
+speed = 110.0
+
+[node name="Area2D" type="Area2D" parent="." unique_id=1795703677]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=1363685531]
+position = Vector2(-0.5, 0)
+shape = SubResource("RectangleShape2D_b25ap")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=650449137]
+sprite_frames = SubResource("SpriteFrames_pu05p")
+animation = &"active"
+autoplay = "active"
+frame_progress = 0.42417103
+
+[connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]

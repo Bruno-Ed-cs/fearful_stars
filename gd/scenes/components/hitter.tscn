@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://s1rb4vuoofi8"]
+
+[ext_resource type="Script" uid="uid://stlkd77rxqxw" path="res://scenes/components/hitter.gd" id="1_su1kg"]
+
+[node name="Hitter" type="Node" unique_id=223184771]
+script = ExtResource("1_su1kg")

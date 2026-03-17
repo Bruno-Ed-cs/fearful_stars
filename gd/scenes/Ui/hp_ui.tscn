@@ -1,0 +1,32 @@
+[gd_scene format=3 uid="uid://dcwqjkhcikym3"]
+
+[ext_resource type="Script" uid="uid://d1486igk5wnhg" path="res://scenes/Ui/hp_ui.gd" id="1_gyim5"]
+[ext_resource type="FontFile" uid="uid://lravniudxj84" path="res://assets/fonts/EXEPixelPerfect.ttf" id="2_vyye7"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_dvqc8"]
+font = ExtResource("2_vyye7")
+
+[node name="HpUi" type="Control" unique_id=1589681561]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("1_gyim5")
+
+[node name="LabelPlayer" type="Label" parent="." unique_id=1914829668]
+texture_filter = 1
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+text = "x"
+label_settings = SubResource("LabelSettings_dvqc8")
+
+[node name="LabelMeteor" type="Label" parent="." unique_id=1246524064]
+texture_filter = 1
+layout_mode = 0
+offset_left = 62.0
+offset_top = 1.0
+offset_right = 102.0
+offset_bottom = 24.0
+text = "m ="
+label_settings = SubResource("LabelSettings_dvqc8")
