@@ -2,13 +2,12 @@ extends Node2D
 
 @export var speed: float = 145.0
 @onready var hp := $Health
-@onready var collision := $Area2D/PersistentCollision
 
-var in_collision: bool = false
 #@onready var timer: Timer = $Timer
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	
 	pass # Replace with function body.
 
 
@@ -18,10 +17,9 @@ func _process(delta: float) -> void:
 	var movement: Vector2 = (direction * speed) * delta
 
 	movement.normalized()
-
 	position += movement
 
-	if (collision.colliding ):
-		var damage: Node = collision.collider.find_child("Damage")
-		if (damage != null):
-			hp.take_damage(damage.value)
+func _on_collision(collider: Area2D) -> void:
+	var damage: Node = collider.find_child("Damage")
+	if (damage != null):
+		hp.take_damage(damage.value)

@@ -5,6 +5,8 @@ extends Control
 @onready var player_hp := $/root/Main/Player/Health
 @onready var meteor_hp := $/root/Main/Meteorite/Health
 
+
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	pass # Replace with function body.

@@ -1,0 +1,18 @@
+[gd_scene format=3 uid="uid://b6djoigfavx82"]
+
+[ext_resource type="Script" uid="uid://csrvukab2gix2" path="res://scenes/systems/projectile_man.gd" id="1_7m6oc"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_sqbwn"]
+size = Vector2(424, 304.75)
+
+[node name="ProjectileMan" type="Node" unique_id=1908370797]
+script = ExtResource("1_7m6oc")
+
+[node name="Area2D" type="Area2D" parent="." unique_id=315860583]
+position = Vector2(0, -1)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=1318649264]
+position = Vector2(163, 118)
+shape = SubResource("RectangleShape2D_sqbwn")
+
+[connection signal="area_exited" from="Area2D" to="." method="_on_projectile_exit"]

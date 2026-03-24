@@ -24,6 +24,7 @@ height = 6.0
 
 [node name="Player" type="Node2D" unique_id=955819291]
 script = ExtResource("1_dovo2")
+speed = null
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1166198534]
 texture_filter = 1
@@ -52,6 +53,5 @@ weapon = NodePath("Plasma")
 
 [node name="Plasma" parent="Shooter" unique_id=817687161 instance=ExtResource("5_75vfm")]
 
-[connection signal="area_entered" from="Area2D" to="Area2D/PersistentCollision" method="_on_area_entered"]
-[connection signal="area_exited" from="Area2D" to="Area2D/PersistentCollision" method="_on_area_exited"]
+[connection signal="collision" from="Area2D/PersistentCollision" to="." method="_on_collision"]
 [connection signal="timeout" from="Health/Timer" to="." method="_on_timer_timeout"]

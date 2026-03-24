@@ -3,30 +3,41 @@ extends Node
 var colliding: bool = false
 var collider: Area2D
 
+signal collision(collider: Area2D)
+
 @export var damage_groups: Array[String]
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+
+	var parent := get_parent()
+	if (parent.name == "Area2D"):
+		parent.area_entered.connect(_on_area_entered)
+		parent.area_exited.connect(_on_area_exited)
 	pass # Replace with function body.
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 
+	if (colliding):
+		collision.emit(collider)
+
 	pass
 
 
 func validate_collision(area: Area2D) -> bool:
+
 	#print(area.get_parent().get_groups())
 
 	var valid = true
 	var parent_groups := area.get_parent().get_groups()
 
+	
+
 	for group in parent_groups:
 		if (group not in damage_groups):
 			valid = false
-
-
 
 
 	if (valid):

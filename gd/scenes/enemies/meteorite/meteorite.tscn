@@ -50,7 +50,6 @@ one_shot = true
 
 [connection signal="area_entered" from="Area2D" to="." method="_on_collision"]
 [connection signal="area_entered" from="Area2D" to="Area2D" method="_on_area_entered"]
-[connection signal="area_entered" from="Area2D" to="Area2D/PersistentCollision" method="_on_area_entered"]
 [connection signal="area_exited" from="Area2D" to="Area2D" method="_on_area_exited"]
-[connection signal="area_exited" from="Area2D" to="Area2D/PersistentCollision" method="_on_area_exited"]
+[connection signal="collision" from="Area2D/PersistentCollision" to="." method="_on_collision"]
 [connection signal="death" from="Health" to="." method="_on_death"]
