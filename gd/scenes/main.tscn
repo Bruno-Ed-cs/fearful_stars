@@ -5,6 +5,21 @@
 [ext_resource type="PackedScene" uid="uid://dcwqjkhcikym3" path="res://scenes/Ui/hp_ui.tscn" id="3_sugp2"]
 [ext_resource type="PackedScene" uid="uid://b6djoigfavx82" path="res://scenes/systems/projectile_man.tscn" id="4_jyhfs"]
 
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_jyhfs"]
+distance = -160.0
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_tbgi4"]
+normal = Vector2(-1, 0)
+distance = -120.77226
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_tefeu"]
+normal = Vector2(1, 0)
+distance = -154.01118
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_o6xl0"]
+normal = Vector2(0, 1)
+distance = -143.0
+
 [node name="Main" type="Node2D" unique_id=936029984]
 
 [node name="Player" parent="." unique_id=955819291 instance=ExtResource("1_o5qli")]
@@ -20,4 +35,34 @@ offset_bottom = 25.0
 
 [node name="ProjectileMan" parent="." unique_id=1908370797 instance=ExtResource("4_jyhfs")]
 
+[node name="CollisionShape2D" parent="ProjectileMan/Area2D" parent_id_path=PackedInt32Array(1908370797, 315860583) index="0" unique_id=1318649264]
+visible = false
+
+[node name="Boundaries" type="Node2D" parent="." unique_id=1028106303]
+
+[node name="Bottom" type="StaticBody2D" parent="Boundaries" unique_id=1028078248]
+position = Vector2(-2, 22)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Boundaries/Bottom" unique_id=393146990]
+shape = SubResource("WorldBoundaryShape2D_jyhfs")
+
+[node name="Right" type="StaticBody2D" parent="Boundaries" unique_id=221560058]
+position = Vector2(201, 85)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Boundaries/Right" unique_id=1551456191]
+shape = SubResource("WorldBoundaryShape2D_tbgi4")
+
+[node name="Left" type="StaticBody2D" parent="Boundaries" unique_id=221140448]
+position = Vector2(152, 79)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Boundaries/Left" unique_id=928720579]
+shape = SubResource("WorldBoundaryShape2D_tefeu")
+
+[node name="Top" type="StaticBody2D" parent="Boundaries" unique_id=580732761]
+position = Vector2(148, 141)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Boundaries/Top" unique_id=996381799]
+shape = SubResource("WorldBoundaryShape2D_o6xl0")
+
 [editable path="Player"]
+[editable path="ProjectileMan"]

@@ -22,21 +22,23 @@ animations = [{
 radius = 3.0
 height = 6.0
 
-[node name="Player" type="Node2D" unique_id=955819291]
+[node name="Player" type="CharacterBody2D" unique_id=947175943]
+motion_mode = 1
 script = ExtResource("1_dovo2")
-speed = null
+speed = 135.0
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1166198534]
 texture_filter = 1
+position = Vector2(-1, 0)
 sprite_frames = SubResource("SpriteFrames_gmlin")
 
-[node name="Area2D" type="Area2D" parent="." unique_id=451004105]
+[node name="Hitbox" type="Area2D" parent="." unique_id=451004105]
 disable_mode = 2
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=2030274270]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox" unique_id=2030274270]
 shape = SubResource("CapsuleShape2D_dovo2")
 
-[node name="PersistentCollision" parent="Area2D" unique_id=1236133063 instance=ExtResource("3_75vfm")]
+[node name="PersistentCollision" parent="Hitbox" unique_id=1236133063 instance=ExtResource("3_75vfm")]
 damage_groups = Array[String](["Entity", "Projectile"])
 
 [node name="Health" parent="." unique_id=1350422828 node_paths=PackedStringArray("invis_timer") instance=ExtResource("3_gmlin")]
@@ -53,5 +55,7 @@ weapon = NodePath("Plasma")
 
 [node name="Plasma" parent="Shooter" unique_id=817687161 instance=ExtResource("5_75vfm")]
 
-[connection signal="collision" from="Area2D/PersistentCollision" to="." method="_on_collision"]
-[connection signal="timeout" from="Health/Timer" to="." method="_on_timer_timeout"]
+[node name="BoundaryCollider" type="CollisionShape2D" parent="." unique_id=108495911]
+shape = SubResource("CapsuleShape2D_dovo2")
+
+[connection signal="collision" from="Hitbox/PersistentCollision" to="." method="_on_collision"]

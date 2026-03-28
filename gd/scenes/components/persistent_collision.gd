@@ -11,13 +11,24 @@ signal collision(collider: Area2D)
 func _ready() -> void:
 
 	var parent := get_parent()
-	if (parent.name == "Area2D"):
+	var signals := parent.get_signal_list()
+
+	var can_enter: bool = false
+	var can_exit: bool = false
+
+	for sig in signals:
+		if (sig["name"] == "area_entered"): can_enter = true
+		if (sig["name"] == "area_exited"): can_exit = true
+
+		if (can_enter and can_exit): break
+
+	if (can_enter and can_exit):
+		print("true")
 		parent.area_entered.connect(_on_area_entered)
 		parent.area_exited.connect(_on_area_exited)
-	pass # Replace with function body.
+	return
 
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 
 	if (colliding):

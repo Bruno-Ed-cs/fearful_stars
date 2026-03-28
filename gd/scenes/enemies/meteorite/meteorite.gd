@@ -25,7 +25,7 @@ func _process(delta: float) -> void:
 
 func _on_collision(collider: Area2D) -> void:
 
-	var damage_taken: Node = collider.find_child("Damage")
+	var damage_taken: Node = collider.owner.find_child("Damage")
 	if (damage_taken != null):
 		$Health.take_damage(damage_taken.value)
 

@@ -1,6 +1,6 @@
-extends Node2D
+extends CharacterBody2D
 
-@export var speed: float = 145.0
+@export var speed: float = 100
 @onready var hp := $Health
 
 #@onready var timer: Timer = $Timer
@@ -14,12 +14,19 @@ func _ready() -> void:
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	var direction: Vector2 = Input.get_vector("move_left", "move_right", "move_up", "move_down")
-	var movement: Vector2 = (direction * speed) * delta
 
-	movement.normalized()
-	position += movement
+	if (Input.is_action_pressed("slow_down")):
+
+		velocity = direction * (speed * 0.70)
+	else :
+		velocity = direction * speed 
+
+
+	#print(velocity)
+
+	move_and_slide()
 
 func _on_collision(collider: Area2D) -> void:
-	var damage: Node = collider.find_child("Damage")
+	var damage: Node = collider.owner.find_child("Damage")
 	if (damage != null):
 		hp.take_damage(damage.value)
