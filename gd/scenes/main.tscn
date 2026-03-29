@@ -5,6 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://dcwqjkhcikym3" path="res://scenes/Ui/hp_ui.tscn" id="3_sugp2"]
 [ext_resource type="PackedScene" uid="uid://b6djoigfavx82" path="res://scenes/systems/projectile_man.tscn" id="4_jyhfs"]
 [ext_resource type="PackedScene" uid="uid://bv1kbge1ta516" path="res://scenes/systems/background_man.tscn" id="5_tbgi4"]
+[ext_resource type="AudioStream" uid="uid://4pumyosua1wh" path="res://assets/musics/space-ambient.mp3" id="6_tefeu"]
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_jyhfs"]
 distance = -160.0
@@ -35,6 +36,7 @@ offset_right = 44.0
 offset_bottom = 25.0
 
 [node name="ProjectileMan" parent="." unique_id=1908370797 instance=ExtResource("4_jyhfs")]
+unique_name_in_owner = true
 
 [node name="Area2D" parent="ProjectileMan" index="0" unique_id=315860583]
 collision_layer = 2
@@ -69,6 +71,12 @@ position = Vector2(148, 141)
 shape = SubResource("WorldBoundaryShape2D_o6xl0")
 
 [node name="BackgroundMan" parent="." unique_id=741335102 instance=ExtResource("5_tbgi4")]
+unique_name_in_owner = true
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." unique_id=370776549]
+stream = ExtResource("6_tefeu")
+autoplay = true
+bus = &"Music"
 
 [editable path="Player"]
 [editable path="ProjectileMan"]
