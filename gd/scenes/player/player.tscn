@@ -2,7 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://cq77s78vfja7p" path="res://assets/sprites/player.png" id="1_8afob"]
 [ext_resource type="Script" uid="uid://chnm77mshjwqa" path="res://scenes/player/player.gd" id="1_dovo2"]
-[ext_resource type="PackedScene" uid="uid://c1flkycg7qfdr" path="res://scenes/components/persistent_collision.tscn" id="3_75vfm"]
+[ext_resource type="PackedScene" uid="uid://brh5ckbdo7r53" path="res://scenes/components/hitbox.tscn" id="3_75vfm"]
 [ext_resource type="PackedScene" uid="uid://4k3imkvuwka3" path="res://scenes/components/health.tscn" id="3_gmlin"]
 [ext_resource type="PackedScene" uid="uid://cqojbk0f87s1g" path="res://scenes/components/shooter.tscn" id="4_p47bc"]
 [ext_resource type="PackedScene" uid="uid://hbnliqktlcgi" path="res://scenes/components/weapons/plasma.tscn" id="5_75vfm"]
@@ -32,14 +32,12 @@ texture_filter = 1
 position = Vector2(-1, 0)
 sprite_frames = SubResource("SpriteFrames_gmlin")
 
-[node name="Hitbox" type="Area2D" parent="." unique_id=451004105]
-disable_mode = 2
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox" unique_id=2030274270]
-shape = SubResource("CapsuleShape2D_dovo2")
-
-[node name="PersistentCollision" parent="Hitbox" unique_id=1236133063 instance=ExtResource("3_75vfm")]
+[node name="Hitbox" parent="." unique_id=2056314460 instance=ExtResource("3_75vfm")]
+collision_mask = 2
 damage_groups = Array[String](["Entity", "Projectile"])
+
+[node name="HitboxShape" type="CollisionShape2D" parent="Hitbox" unique_id=1236529567]
+shape = SubResource("CapsuleShape2D_dovo2")
 
 [node name="Health" parent="." unique_id=1350422828 node_paths=PackedStringArray("invis_timer") instance=ExtResource("3_gmlin")]
 invis_timer = NodePath("Timer")
@@ -58,4 +56,5 @@ weapon = NodePath("Plasma")
 [node name="BoundaryCollider" type="CollisionShape2D" parent="." unique_id=108495911]
 shape = SubResource("CapsuleShape2D_dovo2")
 
-[connection signal="collision" from="Hitbox/PersistentCollision" to="." method="_on_collision"]
+[connection signal="collision" from="Hitbox" to="." method="_on_collision"]
+[connection signal="death" from="Health" to="." method="_on_death"]

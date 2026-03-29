@@ -4,11 +4,10 @@
 [ext_resource type="Script" uid="uid://d00rp0kboa2fc" path="res://scenes/components/persistent_collision.gd" id="2_snv60"]
 [ext_resource type="Texture2D" uid="uid://bkyqdymsnljo1" path="res://assets/sprites/meteorite.png" id="2_xeqvf"]
 [ext_resource type="PackedScene" uid="uid://4k3imkvuwka3" path="res://scenes/components/health.tscn" id="3_xeqvf"]
-[ext_resource type="PackedScene" uid="uid://c1flkycg7qfdr" path="res://scenes/components/persistent_collision.tscn" id="4_coh4e"]
 [ext_resource type="PackedScene" uid="uid://cyj5x7siu46hu" path="res://scenes/components/damages/damage.tscn" id="4_fv0gg"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_fv0gg"]
-size = Vector2(28, 17)
+size = Vector2(28, 17.5)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_snv60"]
 animations = [{
@@ -26,19 +25,18 @@ position = Vector2(13, 0)
 script = ExtResource("1_4bef6")
 
 [node name="Hitbox" type="Area2D" parent="." unique_id=1601748906]
+position = Vector2(-1, 1)
+collision_layer = 2
 script = ExtResource("2_snv60")
-damage_groups = Array[String](["Projectile", "Player"])
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox" unique_id=2029502139]
-position = Vector2(0, 0.5)
+position = Vector2(-1, 0.75)
 shape = SubResource("RectangleShape2D_fv0gg")
 
 [node name="Damage" parent="Hitbox" unique_id=368731476 instance=ExtResource("4_fv0gg")]
 
-[node name="PersistentCollision" parent="Hitbox" unique_id=1236133063 instance=ExtResource("4_coh4e")]
-damage_groups = Array[String](["Projectile", "Player"])
-
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1673553535]
+position = Vector2(-2, 1)
 sprite_frames = SubResource("SpriteFrames_snv60")
 
 [node name="Health" parent="." unique_id=1350422828 node_paths=PackedStringArray("invis_timer") instance=ExtResource("3_xeqvf")]
@@ -46,11 +44,10 @@ invis_timer = NodePath("Timer")
 total = 20
 
 [node name="Timer" type="Timer" parent="Health" unique_id=484866902]
-wait_time = 0.467
+wait_time = 0.145
 one_shot = true
 
 [connection signal="area_entered" from="Hitbox" to="." method="_on_collision"]
 [connection signal="area_entered" from="Hitbox" to="Hitbox" method="_on_area_entered"]
 [connection signal="area_exited" from="Hitbox" to="Hitbox" method="_on_area_exited"]
-[connection signal="collision" from="Hitbox/PersistentCollision" to="." method="_on_collision"]
 [connection signal="death" from="Health" to="." method="_on_death"]

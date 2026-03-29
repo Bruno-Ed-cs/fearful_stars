@@ -10,6 +10,12 @@ var value: int = 1:
 
 signal death
 
+func is_dead() -> bool:
+	if (value <= 0):
+		return true
+	return false
+
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 

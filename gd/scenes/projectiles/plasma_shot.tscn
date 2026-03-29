@@ -67,6 +67,7 @@ script = ExtResource("1_b25ap")
 speed = 110.0
 
 [node name="Area2D" type="Area2D" parent="." unique_id=1795703677]
+collision_mask = 2
 script = ExtResource("2_6tru6")
 damage_groups = Array[String](["Entity"])
 

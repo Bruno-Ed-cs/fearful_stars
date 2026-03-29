@@ -32,6 +32,7 @@ window/vsync/vsync_mode=0
 [file_customization]
 
 folder_colors={
+"res://scenes/Ui/": "orange",
 "res://scenes/enemies/": "green",
 "res://scenes/levels/": "purple",
 "res://scenes/player/": "pink",
@@ -89,6 +90,11 @@ pause={
 "deadzone": 0.2,
 "events": []
 }
+
+[layer_names]
+
+2d_physics/layer_1="Player"
+2d_physics/layer_2="Enemy"
 
 [physics]
 

@@ -1,0 +1,10 @@
+[gd_scene format=3 uid="uid://brh5ckbdo7r53"]
+
+[ext_resource type="Script" uid="uid://d00rp0kboa2fc" path="res://scenes/components/persistent_collision.gd" id="1_2otwd"]
+
+[node name="Hitbox" type="Area2D" unique_id=2056314460]
+disable_mode = 2
+script = ExtResource("1_2otwd")
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]
+[connection signal="area_exited" from="." to="." method="_on_area_exited"]

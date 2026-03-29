@@ -27,6 +27,12 @@ func _process(delta: float) -> void:
 	move_and_slide()
 
 func _on_collision(collider: Area2D) -> void:
+	#print("collided")
 	var damage: Node = collider.owner.find_child("Damage")
 	if (damage != null):
 		hp.take_damage(damage.value)
+
+func _on_death() -> void:
+	print("you died")
+	get_tree().reload_current_scene()
+

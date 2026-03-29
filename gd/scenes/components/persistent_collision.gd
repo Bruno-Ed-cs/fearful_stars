@@ -1,11 +1,11 @@
-extends Node
+extends Area2D
 
 var colliding: bool = false
 var collider: Area2D
 
 signal collision(collider: Area2D)
 
-@export var damage_groups: Array[String]
+#@export var damage_groups: Array[String]
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -23,7 +23,7 @@ func _ready() -> void:
 		if (can_enter and can_exit): break
 
 	if (can_enter and can_exit):
-		print("true")
+		#print("true")
 		parent.area_entered.connect(_on_area_entered)
 		parent.area_exited.connect(_on_area_exited)
 	return
@@ -32,39 +32,37 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 
 	if (colliding):
+		#print(owner.name)
 		collision.emit(collider)
+		#print("colliding with " + collider.name)
 
 	pass
 
 
-func validate_collision(area: Area2D) -> bool:
-
-	#print(area.get_parent().get_groups())
-
-	var valid = true
-	var parent_groups := area.get_parent().get_groups()
-
-	
-
-	for group in parent_groups:
-		if (group not in damage_groups):
-			valid = false
-
-
-	if (valid):
-		return true
-
-	#print("valid")
-	return false
+# not in use right now because collision layers are just better
+# func validate_collision(area: Area2D) -> bool:
+# 
+# 	#print(area.get_parent().get_groups())
+# 
+# 	var valid = true
+# 	var parent_groups := area.get_parent().get_groups()
+# 
+# 	for group in parent_groups:
+# 		if (group not in damage_groups):
+# 			valid = false
+# 
+# 	if (valid):
+# 		return true
+# 
+# 	#print("valid")
+# 	return false
 
 func _on_area_exited(area: Area2D) -> void:
 
-	if (validate_collision(area)):
-		colliding = false
+	colliding = false
 
 
 func _on_area_entered(area: Area2D) -> void:
 
-	if (validate_collision(area)):
-		collider = area
-		colliding = true
+	collider = area
+	colliding = true
