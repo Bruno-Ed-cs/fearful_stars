@@ -3,4 +3,5 @@
 .cache/
 .zig-cache/
 zig-out/
+gd/export/*
 

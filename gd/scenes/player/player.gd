@@ -12,7 +12,7 @@ func _ready() -> void:
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
+func _physics_process(delta: float) -> void:
 	var direction: Vector2 = Input.get_vector("move_left", "move_right", "move_up", "move_down")
 
 	if (Input.is_action_pressed("slow_down")):

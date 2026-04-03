@@ -8,4 +8,14 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
+
+	if (Input.is_action_just_pressed("toggle_fullscreen")):
+		var cur_mode := DisplayServer.window_get_mode()
+
+		if (cur_mode == DisplayServer.WINDOW_MODE_WINDOWED):
+			DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_FULLSCREEN)
+
+		else:
+			DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_WINDOWED)
+
 	pass

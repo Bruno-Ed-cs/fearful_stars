@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://girhb8rtbdyw"]
 
 [ext_resource type="PackedScene" uid="uid://dtkl5ugv18nlg" path="res://scenes/player/player.tscn" id="1_o5qli"]
+[ext_resource type="Script" uid="uid://dctsen40bhr5x" path="res://scenes/main.gd" id="1_tipki"]
 [ext_resource type="PackedScene" uid="uid://5ib7a2763p6v" path="res://scenes/enemies/meteorite/meteorite.tscn" id="2_0wfyh"]
 [ext_resource type="PackedScene" uid="uid://dcwqjkhcikym3" path="res://scenes/Ui/hp_ui.tscn" id="3_sugp2"]
 [ext_resource type="PackedScene" uid="uid://b6djoigfavx82" path="res://scenes/systems/projectile_man.tscn" id="4_jyhfs"]
@@ -37,6 +38,7 @@ atlas = ExtResource("7_o6xl0")
 region = Rect2(10, 9, 5.3495274, 6)
 
 [node name="Main" type="Node2D" unique_id=936029984]
+script = ExtResource("1_tipki")
 
 [node name="Player" parent="." unique_id=955819291 instance=ExtResource("1_o5qli")]
 position = Vector2(97, 117)
