@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://b6djoigfavx82" path="res://scenes/systems/projectile_man.tscn" id="4_jyhfs"]
 [ext_resource type="PackedScene" uid="uid://bv1kbge1ta516" path="res://scenes/systems/background_man.tscn" id="5_tbgi4"]
 [ext_resource type="AudioStream" uid="uid://4pumyosua1wh" path="res://assets/musics/space-ambient.mp3" id="6_tefeu"]
+[ext_resource type="Texture2D" uid="uid://dfcm3oi7p5hfs" path="res://assets/sprites/Space_pack/verseauMap.png" id="7_o6xl0"]
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_jyhfs"]
 distance = -160.0
@@ -21,6 +22,19 @@ distance = -154.01118
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_o6xl0"]
 normal = Vector2(0, 1)
 distance = -143.0
+
+[sub_resource type="Gradient" id="Gradient_tefeu"]
+offsets = PackedFloat32Array(0.07633588, 1)
+colors = PackedColorArray(0.0649641, 0.037882898, 0.1732723, 1, 0.013941172, 0.013803269, 0.053806484, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_o6xl0"]
+gradient = SubResource("Gradient_tefeu")
+fill_from = Vector2(0.4974359, 0.5589744)
+fill_to = Vector2(0.4974359, 1)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tipki"]
+atlas = ExtResource("7_o6xl0")
+region = Rect2(10, 9, 5.3495274, 6)
 
 [node name="Main" type="Node2D" unique_id=936029984]
 
@@ -77,6 +91,72 @@ unique_name_in_owner = true
 stream = ExtResource("6_tefeu")
 autoplay = true
 bus = &"Music"
+
+[node name="Parallax2D" type="Parallax2D" parent="." unique_id=863494878]
+z_index = -10
+scroll_offset = Vector2(-1, 0)
+repeat_size = Vector2(320, 0)
+autoscroll = Vector2(-10, 0)
+repeat_times = 2
+ignore_camera_scroll = true
+
+[node name="Sprite2D" type="Sprite2D" parent="Parallax2D" unique_id=1769078822]
+z_index = -10
+position = Vector2(160.5, 90)
+scale = Vector2(5.015625, 2.84375)
+texture = SubResource("GradientTexture2D_o6xl0")
+
+[node name="star" type="Sprite2D" parent="Parallax2D" unique_id=1709134389]
+position = Vector2(17, 12)
+texture = SubResource("AtlasTexture_tipki")
+
+[node name="star2" type="Sprite2D" parent="Parallax2D" unique_id=1077787616]
+position = Vector2(42, 37)
+texture = SubResource("AtlasTexture_tipki")
+
+[node name="star3" type="Sprite2D" parent="Parallax2D" unique_id=2038080228]
+position = Vector2(102, 31)
+texture = SubResource("AtlasTexture_tipki")
+
+[node name="star4" type="Sprite2D" parent="Parallax2D" unique_id=1550978446]
+position = Vector2(73, 77)
+texture = SubResource("AtlasTexture_tipki")
+
+[node name="star5" type="Sprite2D" parent="Parallax2D" unique_id=1257166493]
+position = Vector2(192, 47)
+texture = SubResource("AtlasTexture_tipki")
+
+[node name="star6" type="Sprite2D" parent="Parallax2D" unique_id=126577659]
+position = Vector2(265, 38)
+texture = SubResource("AtlasTexture_tipki")
+
+[node name="star7" type="Sprite2D" parent="Parallax2D" unique_id=1791804801]
+position = Vector2(214, 117)
+texture = SubResource("AtlasTexture_tipki")
+
+[node name="star8" type="Sprite2D" parent="Parallax2D" unique_id=1025432957]
+position = Vector2(274, 115)
+texture = SubResource("AtlasTexture_tipki")
+
+[node name="star10" type="Sprite2D" parent="Parallax2D" unique_id=150574515]
+position = Vector2(35, 145)
+texture = SubResource("AtlasTexture_tipki")
+
+[node name="star11" type="Sprite2D" parent="Parallax2D" unique_id=1343917264]
+position = Vector2(40, 105)
+texture = SubResource("AtlasTexture_tipki")
+
+[node name="star12" type="Sprite2D" parent="Parallax2D" unique_id=1613339291]
+position = Vector2(101, 165)
+texture = SubResource("AtlasTexture_tipki")
+
+[node name="star13" type="Sprite2D" parent="Parallax2D" unique_id=196836108]
+position = Vector2(274, 156)
+texture = SubResource("AtlasTexture_tipki")
+
+[node name="star9" type="Sprite2D" parent="Parallax2D" unique_id=1111597906]
+position = Vector2(135, 99)
+texture = SubResource("AtlasTexture_tipki")
 
 [editable path="Player"]
 [editable path="ProjectileMan"]
