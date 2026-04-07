@@ -11,6 +11,7 @@
 #include "gameplay/player/special_shots/big_shooter.hpp"
 #include "gameplay/player/special_shots/special_machine.hpp"
 #include "i_entity.hpp"
+#include "raylib.h"
 #include "systems.hpp"
 #include "timer.hpp"
 #include "component.hpp"
@@ -42,25 +43,64 @@ class Player : public Engine::IEntity{
 
 public:
 
+    void setup_sprite() {
+
+        Image sprite = LoadImageFromTexture(*this->spritesheet);
+        int size = sprite.height * sprite.width;
+        Color* tar_arr = LoadImageColors(sprite);
+        Color* col_arr = LoadImageColors(sprite);
+
+        for (int i = 0; i < size; i++) {
+            int left = i +1;
+            int right = i -1;
+            int down = i + sprite.width;
+            int up = i - sprite.width;
+
+            if (left >= size) left = size -1;
+            if (up < 0) up = 0;
+            if (down >= size) down = size -1;
+            if (right < 0) right = 0;
+
+            if (ColorIsEqual(col_arr[i], BLANK) && !ColorIsEqual(col_arr[i], PURPLE) &&
+                    (
+                     !ColorIsEqual(col_arr[left],  BLANK) ||
+                     !ColorIsEqual(col_arr[down],  BLANK) ||
+                     !ColorIsEqual(col_arr[right], BLANK) ||
+                     !ColorIsEqual(col_arr[up],    BLANK) 
+                    ) ) {
+
+                tar_arr[i] = PURPLE;
+            }
+        }
+
+
+        UpdateTexture(*spritesheet, tar_arr);
+        UnloadImageColors(col_arr);
+        UnloadImageColors(tar_arr);
+        UnloadImage(sprite);
+
+    }
+
     Player() {
 
         shooting_sound = Engine::AssetMan::get_sound("space-laser");
-        spritesheet = Engine::AssetMan::get_texture("player");
         primary_shot = std::make_unique<PlasmaShooter>();
         secondary_shot = std::make_unique<MissileShooter>();
         special_shot = std::make_unique<BigShooter>();
         aux_power = std::make_unique<OrbitalShield>();
+        setup_sprite();
+
     }
 
     Player(Vector2 pos) {
 
         this->pos = pos;
         shooting_sound = Engine::AssetMan::get_sound("space-laser");
-        spritesheet = Engine::AssetMan::get_texture("player");
         primary_shot = std::make_unique<PlasmaShooter>();
         secondary_shot = std::make_unique<MissileShooter>();
         special_shot = std::make_unique<BigShooter>();
         aux_power = std::make_unique<OrbitalShield>();
+        setup_sprite();
     }
 
     void update(double dt, Engine::Systems& sys) override; 
@@ -93,7 +133,7 @@ public:
     int aux_level = 0;
     
     sptr<Sound> shooting_sound;
-    sptr<Texture> spritesheet;
+    sptr<Texture> spritesheet = Engine::AssetMan::get_texture("player_ship");
 
     Position pos = Position(0.0, 0.0);
     Direction dir = Direction(0.0, 0.0);

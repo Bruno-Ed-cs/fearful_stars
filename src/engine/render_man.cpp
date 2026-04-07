@@ -20,7 +20,7 @@ void RenderMan::send_texture(RenderMan::Plane layer, Texture sprite, Rectangle r
 
     int index = render_view.x + render_view.y + z_index;
 
-    RenderElement element = RenderElement{
+    RenderElement element = {
         .source = sprite,
         .render_view = render_view,
         .source_view = source_view,
@@ -107,9 +107,6 @@ void RenderMan::render_to_canva() {
 
     BeginTextureMode(s_canva);
     BeginMode2D(s_camera);
-
-
-
     ClearBackground(BLANK);
 
     for (auto& element: s_background) {
