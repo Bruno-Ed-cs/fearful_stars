@@ -5,7 +5,7 @@
 #include "gameplay/projectile/projectile_manager.hpp"
 #include "globals.hpp"
 #include "player.hpp"
-#include "gameplay/components/position.hpp"
+#include "gameplay/components.hpp"
 #include "raylib.h"
 #include "render_man.hpp"
 #include "systems.hpp"

@@ -13,27 +13,16 @@ if &shortmess =~ 'A'
 else
   set shortmess=aoO
 endif
-badd +48 build.zig.zon
-badd +62 build.zig
-badd +84 src/gameplay/player/player.hpp
-badd +1202 term://~/projects/gamedev/fearful_stars//27133:/bin/bash
-badd +150 src/main.cpp
-badd +269 ~/.zvm/0.15.2/lib/libcxx/include/__memory/unique_ptr.h
-badd +3 src/engine/asset_man.hpp
-badd +7 src/deps.hpp
-badd +1858 ~/.zvm/0.15.2/lib/libcxx/include/algorithm
-badd +26 ~/.zvm/0.15.2/lib/libcxx/include/__algorithm/inplace_merge.h
-badd +15 src/draw_loop.hpp
-badd +224 term://~/projects/gamedev/fearful_stars//2056:/bin/bash
+badd +155 src/gameplay/components/components.hpp
+badd +7 src/gameplay/components/position.hpp
+badd +6 src/gameplay/components/direction.hpp
+badd +7 src/gameplay/components/hitbox.hpp
 argglobal
 %argdel
 $argadd .
-set stal=2
-tabnew +setlocal\ bufhidden=wipe
-tabrewind
-edit src/main.cpp
+edit src/gameplay/components/components.hpp
 argglobal
-balt src/gameplay/player/player.hpp
+balt src/gameplay/components/hitbox.hpp
 setlocal foldmethod=indent
 setlocal foldexpr=v:lua.vim.treesitter.foldexpr()
 setlocal foldmarker={{{,}}}
@@ -42,39 +31,25 @@ setlocal foldlevel=99
 setlocal foldminlines=1
 setlocal foldnestmax=20
 setlocal foldenable
-69
+19
 sil! normal! zo
-116
+41
 sil! normal! zo
-let s:l = 150 - ((29 * winheight(0) + 21) / 42)
+43
+sil! normal! zo
+49
+sil! normal! zo
+93
+sil! normal! zo
+134
+sil! normal! zo
+let s:l = 158 - ((42 * winheight(0) + 21) / 43)
 if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
-keepjumps 150
+keepjumps 158
 normal! 0
-tabnext
-argglobal
-if bufexists(fnamemodify("term://~/projects/gamedev/fearful_stars//27133:/bin/bash", ":p")) | buffer term://~/projects/gamedev/fearful_stars//27133:/bin/bash | else | edit term://~/projects/gamedev/fearful_stars//27133:/bin/bash | endif
-if &buftype ==# 'terminal'
-  silent file term://~/projects/gamedev/fearful_stars//27133:/bin/bash
-endif
-balt build.zig
-setlocal foldmethod=indent
-setlocal foldexpr=v:lua.vim.treesitter.foldexpr()
-setlocal foldmarker={{{,}}}
-setlocal foldignore=#
-setlocal foldlevel=99
-setlocal foldminlines=1
-setlocal foldnestmax=20
-setlocal foldenable
-let s:l = 1202 - ((41 * winheight(0) + 21) / 42)
-if s:l < 1 | let s:l = 1 | endif
-keepjumps exe s:l
-normal! zt
-keepjumps 1202
-normal! 02|
 tabnext 1
-set stal=1
 if exists('s:wipebuf') && len(win_findbuf(s:wipebuf)) == 0 && getbufvar(s:wipebuf, '&buftype') isnot# 'terminal'
   silent exe 'bwipe ' . s:wipebuf
 endif

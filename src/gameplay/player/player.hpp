@@ -10,21 +10,12 @@
 #include "gameplay/player/secondary_shots/secondary_machine.hpp"
 #include "gameplay/player/special_shots/big_shooter.hpp"
 #include "gameplay/player/special_shots/special_machine.hpp"
-#include "i_entity.hpp"
+#include "entity.hpp"
 #include "raylib.h"
 #include "systems.hpp"
 #include "timer.hpp"
-#include "component.hpp"
-#include "input_man.hpp"
-#include "globals.hpp"
-#include "gameplay/components/direction.hpp"
-#include "gameplay/components/health.hpp"
-#include "gameplay/components/hitbox.hpp"
-#include "gameplay/components/position.hpp"
+#include "gameplay/components.hpp"
 #include "gameplay/player/primary_shots/basic_shot.hpp"
-
-#include "gameplay/enemy/enemy_man.hpp"
-#include "gameplay/projectile/projectile_manager.hpp"
 #include <memory>
 
 
@@ -33,7 +24,7 @@ namespace Game {
 class ProjectileMan;
 class EnemyMan;
 
-class Player : public Engine::IEntity{
+class Player : public Engine::Entity{
 
     template<typename T>
     using uptr = std::unique_ptr<T>;
@@ -94,7 +85,7 @@ public:
 
     Player(Vector2 pos) {
 
-        this->pos = pos;
+        Containers::position[this->pos] = pos;
         shooting_sound = Engine::AssetMan::get_sound("space-laser");
         primary_shot = std::make_unique<PlasmaShooter>();
         secondary_shot = std::make_unique<MissileShooter>();
@@ -106,11 +97,22 @@ public:
     void update(double dt, Engine::Systems& sys) override; 
     void draw() override;
     void turn_invincible(double seconds);
-    Rectangle get_hitbox() { return hitbox.get(pos.vec()); };
+    Rectangle get_hitbox() { 
+        Rectangle copy = Containers::hitbox[this->hitbox].get(Containers::position[this->pos]);
+        return copy;
+    };
     void die(Engine::Systems& sys);
     void revive();
     bool destroy_self() override { return self_destruct; };
     void take_damage();
+
+    ~Player() {
+        Containers::position.remove(this->pos);
+        Containers::direction.remove(this->dir);
+        Containers::hitbox.remove(this->hitbox);
+        Containers::hitbox.remove(this->graze_range);
+        Containers::health.remove(this->lives);
+    };
 
 public:
 
@@ -135,11 +137,11 @@ public:
     sptr<Sound> shooting_sound;
     sptr<Texture> spritesheet = Engine::AssetMan::get_texture("player_ship");
 
-    Position pos = Position(0.0, 0.0);
-    Direction dir = Direction(0.0, 0.0);
-    Hitbox hitbox = Hitbox(2.0f, 2.0f);
-    Hitbox graze_range = Hitbox(42, 30);
-    Health lives = Health(5);
+    size_t pos = Containers::position.insert(Position(0.0, 0.0), &self_index);
+    size_t dir = Containers::direction.insert(Direction(0.0, 0.0), &self_index);
+    size_t hitbox = Containers::hitbox.insert(Hitbox(2.0f, 2.0f), &self_index);
+    size_t graze_range = Containers::hitbox.insert(Hitbox(42, 30), &self_index);
+    size_t lives = Containers::health.insert(Health(5), &self_index);
 
     bool dead = false;
     bool invincible = false;

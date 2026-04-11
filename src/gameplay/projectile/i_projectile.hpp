@@ -2,11 +2,11 @@
 
 #include "deps.hpp"
 
-#include "i_entity.hpp"
+#include "entity.hpp"
 
 namespace Game {
 
-class IProjectile : public Engine::IEntity{
+class IProjectile : public Engine::Entity{
 //    please have a default constructor
 //    for the projectile manager
 

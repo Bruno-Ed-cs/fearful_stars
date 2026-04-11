@@ -1,11 +1,12 @@
-#include "component.hpp"
 #include "deps.hpp"
-#include "gameplay/projectile/upgrade/upgrade_proj.hpp"
+// #include "gameplay/projectile/upgrade/upgrade_proj.hpp"
+#include "gameplay/components.hpp"
 #include "input_man.hpp"
 #include "raylib.h"
 #include "render_man.hpp"
 #include "systems.hpp"
 #include "timer.hpp"
+#include "globals.hpp"
 
 #include "player.hpp"
 
@@ -55,7 +56,7 @@ void upgrader(Player& player) {
 
         default:
 
-            player.lives.points++;
+            Containers::health[player.lives].points++;
             player.upgrade -= 4;
 
             break;
@@ -132,6 +133,7 @@ void Player::update(double dt, Engine::Systems& sys) {
 
     //std::println("movement = x{} y{}", movement.x, movement.y);
 
+    Position& pos = Containers::position[this->pos];
 
     pos += movement;
 
@@ -141,61 +143,61 @@ void Player::update(double dt, Engine::Systems& sys) {
     graze_cooldown.update(dt);
     invis_timer.update(dt);
 
-    if (sys.projectile->check_collisions(graze_range.get(pos.vec()), true).collided && graze_cooldown.past_limit()) {
-
-        graze_cooldown.reset();
-
-        special_meter += 2;
-        special_meter = std::clamp(special_meter, 0, 100);
-    }
-
-    if (invis_timer.past_limit()) 
-        invincible = false;
-
-    auto collisions_proj_foe = sys.projectile->check_collisions(hitbox.get(pos.vec()), true);
-    auto collisions_proj = sys.projectile->check_collisions(hitbox.get(pos.vec()), false);
-    auto collisions_enemy = sys.enemy->check_collisions(hitbox.get(pos.vec()));
-
-    if (collisions_proj_foe.collided ||
-        collisions_enemy.has_collided) {
-
-        take_damage();
-
-    }
-
-    if (collisions_proj.collided) {
-
-        for (auto& id : collisions_proj.targets) {
-
-            auto& proj = sys.projectile->get_projectile(id);
-
-            if (proj.get_type() == typeid(UpgradeProj)) {
-
-                upgrade++;
-                sys.projectile->append_delete_queue(id);
-
-            }
-
-        }
-
-    }
-
-
-
-    if (lives.points == 0) {
-
-        die(sys);
-
-    }
-
-
+//    if (sys.projectile->check_collisions(graze_range.get(pos.vec()), true).collided && graze_cooldown.past_limit()) {
+//
+//        graze_cooldown.reset();
+//
+//        special_meter += 2;
+//        special_meter = std::clamp(special_meter, 0, 100);
+//    }
+//
+//    if (invis_timer.past_limit()) 
+//        invincible = false;
+//
+//    auto collisions_proj_foe = sys.projectile->check_collisions(hitbox.get(pos.vec()), true);
+//    auto collisions_proj = sys.projectile->check_collisions(hitbox.get(pos.vec()), false);
+//    auto collisions_enemy = sys.enemy->check_collisions(hitbox.get(pos.vec()));
+//
+//    if (collisions_proj_foe.collided ||
+//        collisions_enemy.has_collided) {
+//
+//        take_damage();
+//
+//    }
+//
+//    if (collisions_proj.collided) {
+//
+//        for (auto& id : collisions_proj.targets) {
+//
+//            auto& proj = sys.projectile->get_projectile(id);
+//
+//            if (proj.get_type() == typeid(UpgradeProj)) {
+//
+//                upgrade++;
+//                sys.projectile->append_delete_queue(id);
+//
+//            }
+//
+//        }
+//
+//    }
+//
+//
+//
+//    if (lives.points == 0) {
+//
+//        die(sys);
+//
+//    }
+//
+//
     //std::cout << position.get_round().x << " " << position.get_round().y << " " << direction.x << " " << direction.y <<'\n';
 }
 
 void Player::take_damage() {
 
     if (!invincible) {
-        lives.take_damage(1);
+        Containers::health[this->lives].take_damage(1);
         turn_invincible(2);
     }
 }
@@ -208,7 +210,7 @@ void Player::die(Engine::Systems& sys) {
 
 void Player::revive() {
 
-    lives.restore();
+    Containers::health[this->lives].restore();
     dead = false;
 
 }
@@ -225,6 +227,7 @@ void Player::turn_invincible(double seconds) {
 
 void Player::draw() {
 
+    Position& pos = Containers::position[this->pos];
 
     Rectangle dest{pos.x - 12, pos.y - 8, 24, 16};
     Rectangle origin{0, 0, 24, 16};

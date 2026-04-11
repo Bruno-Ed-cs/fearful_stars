@@ -1,7 +1,7 @@
 #pragma once
 
 #include "deps.hpp"
-#include "gameplay/components/position.hpp"
+#include "gameplay/components.hpp"
 
 namespace Engine {
 

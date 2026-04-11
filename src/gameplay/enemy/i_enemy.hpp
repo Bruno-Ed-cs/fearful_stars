@@ -1,7 +1,7 @@
 #pragma once
 
 #include "deps.hpp"
-#include "i_entity.hpp"
+#include "entity.hpp"
 #include "systems.hpp"
 
 namespace Game {
@@ -12,7 +12,7 @@ enum class EnemyType {
 
 };
 
-class IEnemy : public Engine::IEntity {
+class IEnemy : public Engine::Entity {
 
 public:
 
