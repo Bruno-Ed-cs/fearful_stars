@@ -3,9 +3,7 @@
 #include "asset_man.hpp"
 #include "deps.hpp"
 
-#include "gameplay/components/direction.hpp"
-#include "gameplay/components/hitbox.hpp"
-#include "gameplay/components/position.hpp"
+#include "gameplay/components.hpp"
 #include "gameplay/projectile/i_projectile.hpp"
 #include "systems.hpp"
 

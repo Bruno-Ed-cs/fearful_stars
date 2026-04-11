@@ -4,8 +4,7 @@
 #include "component.hpp"
 #include "deps.hpp"
 
-#include "gameplay/components/hitbox.hpp"
-#include "gameplay/components/position.hpp"
+#include "gameplay/components.hpp"
 #include "gameplay/projectile/i_projectile.hpp"
 #include "timer.hpp"
 

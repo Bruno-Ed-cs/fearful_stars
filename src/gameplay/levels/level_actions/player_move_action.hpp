@@ -22,8 +22,8 @@ public:
 
         //std::println("cur time = {}", timer.get_time());
 
-        if (sys.player->get_player().pos.vec() == Vector2{ 60, 90 })
-            return false;
+//        if (sys.player->get_player().pos.vec() == Vector2{ 60, 90 })
+//            return false;
 
         return true;
 

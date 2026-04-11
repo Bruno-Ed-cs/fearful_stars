@@ -1,6 +1,5 @@
 #include "enemy_man.hpp"
-#include "gameplay/components/hitbox.hpp"
-#include "gameplay/components/position.hpp"
+#include "gameplay/components.hpp"
 #include "gameplay/enemy/anemonae/anemonae.hpp"
 #include "gameplay/enemy/basic/basic_enemy.hpp"
 #include "gameplay/enemy/broken_ship/broken_ship.hpp"

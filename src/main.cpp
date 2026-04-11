@@ -2,30 +2,22 @@
 #include "background_man.hpp"
 #include "deps.hpp"
 
-#include "gameplay/levels/level_actions/play_ost.hpp"
+#include "entity.hpp"
+#include "gameplay/components.hpp"
 #include "gameplay/ui/interfaces/gameplay_ui.hpp"
 #include "gameplay/ui/ui_man.hpp"
-#include "gameplay/levels/level_actions/player_move_action.hpp"
-#include "gameplay/levels/level_actions/spawn_upgrade_action.hpp"
-#include "gameplay/player/player_manager.hpp"
-#include "gameplay/projectile/projectile_manager.hpp"
 #include "globals.hpp"
 #include "gameplay/levels/i_action.hpp"
 #include "input_man.hpp"
-#include "gameplay/levels/level_actions/spawn_enemies_action.hpp"
-#include "gameplay/levels/level_actions/wait_action.hpp"
-#include "gameplay/levels/level_actions/wave_end_action.hpp"
-#include "gameplay/levels/levels.hpp"
 #include "music_man.hpp"
 #include "raylib.h"
 #include "render_man.hpp"
 #include "update_loop.hpp"
 #include "draw_loop.hpp"
 #include "control_schema.hpp"
-#include "gameplay/enemy/enemy_man.hpp"
-#include "gameplay/enemy/basic/basic_enemy.hpp"
 #include "systems.hpp"
 #include "winman.hpp"
+#include <memory>
 
 using string = std::string;
 using AssRef = Engine::AssetMan::Ref::Type;
@@ -104,9 +96,11 @@ int main(void)
 
     Engine::Systems sys{};
 
+    Containers::entity.insert(std::make_unique<Game::Player>());
+
     //make_level(sys);
-    sys.level->load_level("demo/demo.json");
-    sys.player->init_player({90, 60});
+    //sys.level->load_level("demo/demo.json");
+    //sys.player->init_player({90, 60});
     sys.ui->stack_interface(std::make_unique<Game::GameplayUi>());
     make_background();
 
@@ -152,6 +146,15 @@ int main(void)
         // window.update_window();
 
         Engine::InputMan::flush_events();
+
+    }
+
+    std::cout << Containers::hitbox.data.size() << std::endl << std::endl;
+
+    for (auto& hitbox : Containers::hitbox.data) {
+
+        std::cout << hitbox.self_index << ", owner: " << *hitbox.entity_owner << std::endl;
+
     }
 
     return 0;

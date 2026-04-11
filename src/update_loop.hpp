@@ -1,5 +1,6 @@
 #pragma once
 
+#include "entity.hpp"
 #include "gameplay/enemy/enemy_man.hpp"
 #include "gameplay/player/player_manager.hpp"
 #include "gameplay/projectile/projectile_manager.hpp"
@@ -23,14 +24,17 @@ void update_loop(double dt, Engine::Systems& sys) {
     }
 
     if (!sys.pause) {
-        sys.projectile->update(dt, sys);
-        sys.enemy->update(dt, sys);
-        sys.player->update(dt, sys);
-        sys.level->update(sys, dt);
+        //sys.projectile->update(dt, sys);
+        //sys.enemy->update(dt, sys);
+        //sys.player->update(dt, sys);
+        //sys.level->update(sys, dt);
         Engine::BackgroundMan::update(dt);
+        
+        for (auto& entity: Containers::entity.data) {
+
+            entity->update(dt, sys);
+        }
     }
 
     sys.ui->update(dt, sys);
-
-
 }

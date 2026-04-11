@@ -75,10 +75,10 @@ public:
     Player() {
 
         shooting_sound = Engine::AssetMan::get_sound("space-laser");
-        primary_shot = std::make_unique<PlasmaShooter>();
-        secondary_shot = std::make_unique<MissileShooter>();
-        special_shot = std::make_unique<BigShooter>();
-        aux_power = std::make_unique<OrbitalShield>();
+        //primary_shot = std::make_unique<PlasmaShooter>();
+        //secondary_shot = std::make_unique<MissileShooter>();
+        //special_shot = std::make_unique<BigShooter>();
+        //aux_power = std::make_unique<OrbitalShield>();
         setup_sprite();
 
     }
@@ -87,10 +87,10 @@ public:
 
         Containers::position[this->pos] = pos;
         shooting_sound = Engine::AssetMan::get_sound("space-laser");
-        primary_shot = std::make_unique<PlasmaShooter>();
-        secondary_shot = std::make_unique<MissileShooter>();
-        special_shot = std::make_unique<BigShooter>();
-        aux_power = std::make_unique<OrbitalShield>();
+//        primary_shot = std::make_unique<PlasmaShooter>();
+ //       secondary_shot = std::make_unique<MissileShooter>();
+ //       special_shot = std::make_unique<BigShooter>();
+ //       aux_power = std::make_unique<OrbitalShield>();
         setup_sprite();
     }
 
@@ -123,16 +123,16 @@ public:
     Engine::Timer cooldown = Engine::Timer(0.5f);
     Engine::Timer graze_cooldown = Engine::Timer(0.10);
 
-    uptr<ShootingMachine> primary_shot;
-    int primary_level = 1;
-
-    uptr<SecondaryMachine> secondary_shot;
-    int secondary_level = 0;
-
-    uptr<SpecialMachine> special_shot;
-
-    uptr<AuxMachine> aux_power;
-    int aux_level = 0;
+//    uptr<ShootingMachine> primary_shot;
+//    int primary_level = 1;
+//
+//    uptr<SecondaryMachine> secondary_shot;
+//    int secondary_level = 0;
+//
+//    uptr<SpecialMachine> special_shot;
+//
+//    uptr<AuxMachine> aux_power;
+//    int aux_level = 0;
     
     sptr<Sound> shooting_sound;
     sptr<Texture> spritesheet = Engine::AssetMan::get_texture("player_ship");

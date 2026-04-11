@@ -2,7 +2,7 @@
 
 #include "asset_man.hpp"
 #include "deps.hpp"
-#include "gameplay/components/direction.hpp"
+#include "gameplay/components.hpp"
 #include "gameplay/enemy/basic/basic_enemy.hpp"
 #include "timer.hpp"
 

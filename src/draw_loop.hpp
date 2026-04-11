@@ -21,9 +21,9 @@ void draw_loop(Engine::Systems& sys) {
 
         if (Engine::g_debug) {
 
-            sys.projectile->debug_world();
-            sys.enemy->debug_world();
-            sys.player->debug_world();
+            //sys.projectile->debug_world();
+            //sys.enemy->debug_world();
+            //sys.player->debug_world();
         }
 
         Engine::RenderMan::draw_to_window();
@@ -44,9 +44,9 @@ void draw_loop(Engine::Systems& sys) {
         }
         ImGui::End();
 
-        sys.projectile->debug_ui();
-        sys.enemy->debug_ui();
-        sys.player->debug_ui();
+        //sys.projectile->debug_ui();
+        //sys.enemy->debug_ui();
+        //sys.player->debug_ui();
 
         rlImGuiEnd();
         }
@@ -57,9 +57,14 @@ void draw_loop(Engine::Systems& sys) {
 
     EndDrawing();
 
-    sys.player->draw();
-    sys.projectile->draw();
-    sys.enemy->draw();
+    //sys.player->draw();
+    //sys.projectile->draw();
+    //sys.enemy->draw();
+
+    for (auto& entity: Containers::entity.data) {
+
+        entity->draw();
+    }
     sys.ui->draw();
     Engine::BackgroundMan::draw();
 

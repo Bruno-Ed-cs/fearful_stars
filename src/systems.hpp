@@ -19,10 +19,10 @@ class MusicMan;
 
 struct Systems {
 
-    std::unique_ptr<Game::EnemyMan> enemy;
-    std::unique_ptr<Game::ProjectileMan> projectile;
-    std::unique_ptr<Game::PlayerMan> player;
-    std::unique_ptr<Game::LevelManager> level;
+    //std::unique_ptr<Game::EnemyMan> enemy;
+    //std::unique_ptr<Game::ProjectileMan> projectile;
+    //std::unique_ptr<Game::PlayerMan> player;
+    //std::unique_ptr<Game::LevelManager> level;
     std::unique_ptr<Game::UiMan> ui;
     
     bool pause = false;

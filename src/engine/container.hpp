@@ -1,6 +1,5 @@
 #pragma once 
 
-#include "entity.hpp"
 #include "component.hpp"
 #include <stdexcept>
 
@@ -32,7 +31,7 @@ namespace Engine {
 
                 }
 
-                data.insert(component);
+                data.push_back(component);
                 size_t i = data.size() -1; 
                 data[i].entity_owner = owner;
                 data[i].self_index = i;
@@ -60,7 +59,7 @@ namespace Engine {
             //can throw an error if the item is not in the array
             comp& operator[](size_t index) {
 
-                if (index >= data.size()) throw std::range_error("component not found");
+                if (index > data.size()) throw std::range_error("component not found");
 
                 if (!data[index].active) std::range_error("component not found");
 

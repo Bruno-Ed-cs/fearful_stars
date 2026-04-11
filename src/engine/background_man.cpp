@@ -119,9 +119,10 @@ bool BackgroundElement::Mode::stay(BackgroundElement& element, double dt) {
 }
 
 bool BackgroundElement::Mode::across(BackgroundElement& element, double dt) {
+    return true;
 
 }
 
 bool BackgroundElement::Mode::loop(BackgroundElement& element, double dt) {
-
+    return true;
 }
