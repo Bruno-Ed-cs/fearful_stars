@@ -71,7 +71,7 @@ struct EntityContainer {
 
 namespace Containers {
 
-    inline static Engine::EntityContainer entity;
+    inline Engine::EntityContainer entity;
 
 }
 

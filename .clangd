@@ -21,4 +21,3 @@ Diagnostics:
   ClangTidy: false  # Disable if causing issues
   UnusedIncludes: Strict
 
-HeaderInsertion: Never

@@ -1,7 +1,5 @@
 #pragma once
 
-#ifndef COMPONENTS_HEADER
-#define COMPONENTS_HEADER 
 
 #include "deps.hpp"
 #include "container.hpp"
@@ -46,7 +44,7 @@ namespace Game {
 
 namespace Containers {
 
-    inline static Engine::Container<Game::Position> position;
+    inline Engine::Container<Game::Position> position;
 
 }
 
@@ -86,7 +84,7 @@ public:
 
 namespace Containers {
 
-    inline static Engine::Container<Game::Direction> direction;
+    inline Engine::Container<Game::Direction> direction;
 
 }
 
@@ -123,7 +121,7 @@ public:
 
 namespace Containers {
 
-    inline static Engine::Container<Game::Hitbox> hitbox;
+    inline Engine::Container<Game::Hitbox> hitbox;
 
 }
 
@@ -173,8 +171,48 @@ public:
 
 namespace Containers {
 
-    inline static Engine::Container<Game::Health> health;
+    inline Engine::Container<Game::Health> health;
 
 }
 
-#endif
+namespace Game {
+
+    struct PlayerTag : public Engine::Component {
+    };
+
+}
+
+namespace Containers {
+
+    inline Engine::Container<Game::PlayerTag> player_tag;
+
+}
+
+namespace Game {
+
+    struct EnemyTag : public Engine::Component {
+    };
+
+}
+
+namespace Containers {
+
+    inline Engine::Container<Game::EnemyTag> enemy_tag;
+
+}
+
+namespace Game {
+
+    struct ProjectileTag : public Engine::Component {
+
+        bool is_foe = true;
+
+    };
+
+}
+
+namespace Containers {
+
+    inline Engine::Container<Game::ProjectileTag> projectile_tag;
+
+}

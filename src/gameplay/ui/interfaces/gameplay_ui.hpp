@@ -4,6 +4,7 @@
 #include "gameplay/ui/ui_layer.hpp"
 #include "asset_man.hpp"
 #include "gameplay/player/player_manager.hpp"
+#include "gameplay/components.hpp"
 #include "systems.hpp"
 
 namespace Game {
@@ -20,9 +21,17 @@ struct GameplayUi: public UiLayer {
     void update(double dt, Engine::Systems& sys) {
 
 //        special = sys.player->get_player().special_meter;
-//        lives = sys.player->get_player().lives.points;
 //        upgrades = sys.player->get_player().upgrade;
 //        bar = Rectangle{1, 91, 4, 0};
+//
+        size_t player = *Containers::player_tag[0].entity_owner;
+
+        auto life_querry = Containers::health.querry_by_owner(player);
+
+        if (!life_querry.empty()) {
+            size_t life = life_querry.front();
+            lives = Containers::health[life].points;
+        }
 
         int height = 76 * (special / 100.0f);
         bar.height = height;

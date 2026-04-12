@@ -3,81 +3,159 @@
 #include "component.hpp"
 #include <stdexcept>
 
+#define INIT_SIZE 255
+
+
+// when putting something here in a container it servers as a public api, the components still can be used as normal variables
+
 template <typename T>
 concept component = std::is_base_of_v<Engine::Component, T>;
 
 namespace Engine {
-        template<component comp>
-        struct Container {
 
-            std::vector<comp> data;
+    struct ContainerHandler {
+        
+        virtual void cleanup() = 0;
+        virtual void remove(size_t index) = 0;
+        virtual void remove_by_owner(size_t owner) = 0;
 
-            Container() {
 
-                data.reserve(255);
-            }
+    };
+}
 
-            size_t insert(comp component, size_t* owner) {
 
-                for (size_t i = 0; i < data.size(); i++) {
 
-                    if (!data[i].active){
+namespace Containers {
 
-                        data[i] = component;
-                        data[i].entity_owner = owner;
-                        data[i].self_index = i;
-                        return i;
-                    }
+    inline std::vector<Engine::ContainerHandler*> containers;
 
+    inline void cleanup_by_owner(size_t owner) {
+
+        for(auto& container : containers) {
+
+            container->remove_by_owner(owner);
+        }
+
+
+    };
+}
+
+namespace Engine {
+
+
+    template<component comp>
+    struct Container: public ContainerHandler {
+
+        std::vector<comp> data;
+
+        Container() {
+
+            data.reserve(INIT_SIZE);
+            Containers::containers.push_back(this);
+
+        }
+
+        size_t insert(comp component, size_t* owner) {
+
+            for (size_t i = 0; i < data.size(); i++) {
+
+                if (!data[i].active){
+
+                    data[i] = component;
+                    data[i].entity_owner = owner;
+                    data[i].self_index = i;
+                    return i;
                 }
 
-                data.push_back(component);
-                size_t i = data.size() -1; 
-                data[i].entity_owner = owner;
-                data[i].self_index = i;
+            }
 
-                return i;
+            data.push_back(component);
+            size_t i = data.size() -1; 
+            data[i].entity_owner = owner;
+            data[i].self_index = i;
+
+            return i;
+
+        }
+
+        void remove(size_t index) override {
+
+            if (data[index].active) data[index].active = false;
+            std::cout << "Removed: " << index << "\n";
+
+        }
+
+        void remove_by_owner(size_t owner) override {
+
+            for (size_t i = 0; i < data.size(); ++i) {
+
+                if (*this->data[i].entity_owner == owner) {
+
+                    remove(i);
+                }
 
             }
 
-            void remove(size_t index) {
+        }
 
-                if (data[index].active) data[index].active = false;
+        void cleanup() override {
+
+            data.clear();
+            data.reserve(INIT_SIZE);
+
+        }
+
+        // if nullptr is returned the item was not found or is inactive
+        comp* get_ptr(size_t index) {
+
+            if (index >= data.size()) return nullptr;
+
+            if (!data[index].active) return nullptr;
+
+            return &data[index];
+
+        }
+
+        //can throw an error if the item is not in the array
+        comp& operator[](size_t index) {
+
+            if (index > data.size()) throw std::range_error("component not found");
+
+            if (!data[index].active) std::range_error("component not found");
+
+            return data[index];
+
+        }
+
+        comp get_copy(size_t index) {
+
+            if (index >= data.size()) throw std::range_error("component not found");
+
+            if (!data[index].active) std::range_error("component not found");
+
+            return data[index];
+
+        }
+
+        std::vector<size_t> querry_by_owner(size_t owner) {
+
+            std::vector<size_t> result;
+
+            for (size_t i = 0; i < data.size(); i++) {
+
+                if (*data[i].entity_owner == owner) {
+
+                    result.push_back(i);
+                }
+
             }
 
-            // if nullptr is returned the item was not found or is inactive
-            comp* get_ptr(size_t index) {
+            return result;
 
-                if (index >= data.size()) return nullptr;
-
-                if (!data[index].active) return nullptr;
-
-                return &data[index];
-
-            }
-
-            //can throw an error if the item is not in the array
-            comp& operator[](size_t index) {
-
-                if (index > data.size()) throw std::range_error("component not found");
-
-                if (!data[index].active) std::range_error("component not found");
-
-                return data[index];
-
-            }
-
-            comp get_copy(size_t index) {
-
-                if (index >= data.size()) throw std::range_error("component not found");
-
-                if (!data[index].active) std::range_error("component not found");
-
-                return data[index];
-
-            }
-        };
+        }
+    };
 
 
 }
+
 

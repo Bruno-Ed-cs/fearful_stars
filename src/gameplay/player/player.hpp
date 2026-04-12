@@ -1,6 +1,7 @@
 #pragma once
 
 #include "asset_man.hpp"
+#include "container.hpp"
 #include "deps.hpp"
 
 #include "gameplay/player/aux_powers/aux_machine.hpp"
@@ -107,11 +108,8 @@ public:
     void take_damage();
 
     ~Player() {
-        Containers::position.remove(this->pos);
-        Containers::direction.remove(this->dir);
-        Containers::hitbox.remove(this->hitbox);
-        Containers::hitbox.remove(this->graze_range);
-        Containers::health.remove(this->lives);
+
+        Containers::cleanup_by_owner(this->self_index);
     };
 
 public:
@@ -140,8 +138,10 @@ public:
     size_t pos = Containers::position.insert(Position(0.0, 0.0), &self_index);
     size_t dir = Containers::direction.insert(Direction(0.0, 0.0), &self_index);
     size_t hitbox = Containers::hitbox.insert(Hitbox(2.0f, 2.0f), &self_index);
-    size_t graze_range = Containers::hitbox.insert(Hitbox(42, 30), &self_index);
     size_t lives = Containers::health.insert(Health(5), &self_index);
+    size_t tag = Containers::player_tag.insert(PlayerTag(), &self_index);
+
+    Hitbox graze_range = Hitbox(42, 30);
 
     bool dead = false;
     bool invincible = false;

@@ -49,6 +49,8 @@ const cpp_source = [_][]const u8 {
 const cpp_flags = [_][]const u8 {
 
     "-std=c++23",
+   // "-fsanitize=address",
+   // "-fno-omit-frame-pointer",
 };
 
 pub fn build(b: *std.Build) void {
