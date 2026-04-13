@@ -1,6 +1,8 @@
 #pragma once 
 
 #include "component.hpp"
+#include "deps.hpp"
+#include <optional>
 #include <stdexcept>
 
 #define INIT_SIZE 255
@@ -81,7 +83,7 @@ namespace Engine {
         void remove(size_t index) override {
 
             if (data[index].active) data[index].active = false;
-            std::cout << "Removed: " << index << "\n";
+            //std::cout << "Removed: " << index << "\n";
 
         }
 
@@ -152,6 +154,29 @@ namespace Engine {
 
             return result;
 
+        }
+
+        std::optional<size_t> querry_by_owner_first(size_t owner) {
+
+
+            for (size_t i = 0; i < data.size(); i++) {
+
+                if (*data[i].entity_owner == owner) {
+
+                    return owner;
+                }
+
+            }
+
+            return std::nullopt;
+
+
+        }
+
+        std::optional<size_t> first() {
+
+            if (!data.empty()) return 0;
+            return std::nullopt;
         }
     };
 

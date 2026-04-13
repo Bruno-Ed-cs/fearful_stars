@@ -1,6 +1,7 @@
 #pragma once
 
 #include "deps.hpp"
+#include "entity.hpp"
 #include "gameplay/ui/ui_layer.hpp"
 #include "asset_man.hpp"
 #include "gameplay/player/player_manager.hpp"
@@ -20,13 +21,19 @@ struct GameplayUi: public UiLayer {
 
     void update(double dt, Engine::Systems& sys) {
 
-//        special = sys.player->get_player().special_meter;
-//        upgrades = sys.player->get_player().upgrade;
-//        bar = Rectangle{1, 91, 4, 0};
 //
-        size_t player = *Containers::player_tag[0].entity_owner;
+        auto player_tag = Containers::player_tag.first();
 
-        auto life_querry = Containers::health.querry_by_owner(player);
+        if (!player_tag) return;
+
+        size_t player_index = player_tag.value();
+        auto& player = dynamic_cast<Player&>(Containers::entity[player_index]);
+
+        special = player.special_meter;
+        upgrades = player.upgrade;
+        bar = Rectangle{1, 91, 4, 0};
+
+        auto life_querry = Containers::health.querry_by_owner(player_index);
 
         if (!life_querry.empty()) {
             size_t life = life_querry.front();

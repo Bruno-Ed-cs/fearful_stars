@@ -1,6 +1,7 @@
 #pragma once
 
 
+#include <optional>
 #include <numbers>
 #include <cstddef>
 #include <string_view>
