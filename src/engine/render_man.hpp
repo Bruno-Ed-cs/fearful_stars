@@ -51,6 +51,8 @@ public:
     
     static Vector2 canva_size();
 
+    // shader like functions
+    static void make_outline(Texture& sprite, Color outline_color);
 private:
 
     using buffer = std::vector<RenderElement>;

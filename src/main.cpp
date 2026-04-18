@@ -17,13 +17,12 @@
 #include "control_schema.hpp"
 #include "systems.hpp"
 #include "winman.hpp"
-#include <memory>
+#include <cstdio>
 
 using string = std::string;
 using AssRef = Engine::AssetMan::Ref::Type;
 
 void make_background() {
-
     // Distribute 15 background elements across 320x180 screen
     // Group 1: Column 3 sprites (3 elements)
     Engine::BackgroundMan::create_element(Engine::AssetMan::get_texture("earthBackgroudeErased"), Rectangle{16 * 3, 0, 16, 16}, Rectangle{0, 0, 16, 16}, Game::Position(Vector2{50, 30}), 0, 0, 0, Engine::BackgroundElement::Mode::stay);
@@ -50,14 +49,11 @@ void make_background() {
 
 }
 
-
-
 //------------------------------------------------------------------------------------
 // Program main entry point
 //------------------------------------------------------------------------------------
-int main(void)
+int main_func()
 {
-
     srand(time(NULL));
 
     //    SetConfigFlags(FLAG_VSYNC_HINT);
@@ -123,12 +119,10 @@ int main(void)
 
         }
 
-        
-        if (IsKeyPressed(KEY_I)) {
 
+        if (IsKeyPressed(KEY_I)) {
             Engine::AssetMan::cleanup();
             std::println("Cleaning assets");
-
         }
 
         Engine::WinMan::update_window();
@@ -146,11 +140,11 @@ int main(void)
         // window.update_window();
 
         Engine::InputMan::flush_events();
-
     }
 
     std::cout << Containers::hitbox.data.size() << std::endl << std::endl;
 
+    std::printf("say something");
     for (auto& hitbox : Containers::hitbox.data) {
 
         std::cout << hitbox.self_index << ", owner: " << *hitbox.entity_owner << std::endl;

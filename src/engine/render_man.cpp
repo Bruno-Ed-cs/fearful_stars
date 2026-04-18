@@ -178,3 +178,42 @@ Camera2D& RenderMan::get_camera() {
     return s_camera;
 
 }
+
+void RenderMan::make_outline(Texture &sprite, Color outline_color) {
+
+    Image target = LoadImageFromTexture(sprite);
+    int size = sprite.height * sprite.width;
+    Color* tar_arr = LoadImageColors(target);
+    Color* col_arr = LoadImageColors(target);
+
+    for (int i = 0; i < size; i++) {
+        int left = i +1;
+        int right = i -1;
+        int down = i + sprite.width;
+        int up = i - sprite.width;
+
+        if (left >= size) left = size -1;
+        if (up < 0) up = 0;
+        if (down >= size) down = size -1;
+        if (right < 0) right = 0;
+
+        if (ColorIsEqual(col_arr[i], BLANK) && !ColorIsEqual(col_arr[i], PURPLE) &&
+                (
+                 !ColorIsEqual(col_arr[left],  BLANK) ||
+                 !ColorIsEqual(col_arr[down],  BLANK) ||
+                 !ColorIsEqual(col_arr[right], BLANK) ||
+                 !ColorIsEqual(col_arr[up],    BLANK) 
+                ) ) {
+
+            tar_arr[i] = outline_color;
+        }
+    }
+
+
+    UpdateTexture(sprite, tar_arr);
+    UnloadImageColors(col_arr);
+    UnloadImageColors(tar_arr);
+    UnloadImage(target);
+
+
+}
