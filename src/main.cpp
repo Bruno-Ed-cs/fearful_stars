@@ -18,6 +18,7 @@
 #include "systems.hpp"
 #include "winman.hpp"
 #include <cstdio>
+#include <print>
 
 using string = std::string;
 using AssRef = Engine::AssetMan::Ref::Type;
@@ -49,16 +50,16 @@ void make_background() {
 
 }
 
-//------------------------------------------------------------------------------------
-// Program main entry point
-//------------------------------------------------------------------------------------
-int main_func()
-{
+extern "C" {
+
+Engine::Systems setup() {
+
     srand(time(NULL));
 
     //    SetConfigFlags(FLAG_VSYNC_HINT);
     // Initialization
     //--------------------------------------------------------------------------------------
+
 
     Engine::WinMan::init(1280, 720, "Fearful Stars", 0, true);
 
@@ -70,7 +71,6 @@ int main_func()
     UnloadFileText(mappings);
 
 
-    double dt;
 
     InitAudioDevice();
     Engine::AssetMan::init();
@@ -100,58 +100,62 @@ int main_func()
     sys.ui->stack_interface(std::make_unique<Game::GameplayUi>());
     make_background();
 
-    // Main game loop
-    while (Engine::g_running)    // Detect window close button or ESC key
-    {
-        //std::cout << "check 3\n";
-        dt = GetFrameTime();
-        Engine::InputMan::pull_events();
-
-        if (WindowShouldClose()) 
-            Engine::g_running = false;
-
-        if (IsKeyPressed(KEY_ENTER)) 
-            Engine::WinMan::toggle_fullscreen();
-
-        if (IsKeyPressed(KEY_F3)) {
-
-            Engine::g_debug = !Engine::g_debug;
-
-        }
-
-
-        if (IsKeyPressed(KEY_I)) {
-            Engine::AssetMan::cleanup();
-            std::println("Cleaning assets");
-        }
-
-        Engine::WinMan::update_window();
-
-
-        Engine::MusicMan::update();
-
-        update_loop(dt, sys);
-
-        //player_ui(sys);
-        draw_loop(sys);
-
-
-        //----------------------------------------------------------------------------------
-        // window.update_window();
-
-        Engine::InputMan::flush_events();
-    }
-
-    std::cout << Containers::hitbox.data.size() << std::endl << std::endl;
-
-    std::printf("say something");
-    for (auto& hitbox : Containers::hitbox.data) {
-
-        std::cout << hitbox.self_index << ", owner: " << *hitbox.entity_owner << std::endl;
-
-    }
-
-    return 0;
+    return sys;
 }
 
+//------------------------------------------------------------------------------------
+// Program main entry point
+//------------------------------------------------------------------------------------
+void main_loop(Engine::Systems& sys)
+{
+    // Main game loop
+    //std::cout << "check 3\n";
+    double dt = GetFrameTime();
+    Engine::InputMan::pull_events();
+
+    if (WindowShouldClose()) 
+        Engine::g_running = false;
+
+    if (IsKeyPressed(KEY_ENTER)) 
+        Engine::WinMan::toggle_fullscreen();
+
+    if (IsKeyPressed(KEY_F3)) {
+
+        Engine::g_debug = !Engine::g_debug;
+
+    }
+
+
+    if (IsKeyPressed(KEY_I)) {
+        Engine::AssetMan::cleanup();
+        std::println("Cleaning assets");
+    }
+
+    Engine::WinMan::update_window();
+
+    Engine::MusicMan::update();
+
+    update_loop(dt, sys);
+
+    //player_ui(sys);
+    draw_loop(sys);
+
+
+    //----------------------------------------------------------------------------------
+    // window.update_window();
+
+    Engine::InputMan::flush_events();
+
+    // std::cout << Containers::hitbox.data.size() << std::endl << std::endl;
+    //
+    // std::printf("say something");
+    // for (auto& hitbox : Containers::hitbox.data) {
+    //
+    //     std::cout << hitbox.self_index << ", owner: " << *hitbox.entity_owner << std::endl;
+    //
+    // }
+
+}
+
+}
 

@@ -42,7 +42,7 @@ public:
         //secondary_shot = std::make_unique<MissileShooter>();
         //special_shot = std::make_unique<BigShooter>();
         //aux_power = std::make_unique<OrbitalShield>();
-        Engine::RenderMan::make_outline(*spritesheet, BLUE);
+        Engine::RenderMan::make_outline(*spritesheet, PURPLE);
 
     }
 
@@ -53,7 +53,7 @@ public:
  //       secondary_shot = std::make_unique<MissileShooter>();
  //       special_shot = std::make_unique<BigShooter>();
  //       aux_power = std::make_unique<OrbitalShield>();
-        Engine::RenderMan::make_outline(*spritesheet, BLUE);
+        Engine::RenderMan::make_outline(*spritesheet, PURPLE);
     }
 
     void update(double dt, Engine::Systems& sys) override; 
@@ -99,7 +99,7 @@ public:
     size_t pos = Containers::position.insert(Position(0.0, 0.0), &self_index);
     size_t dir = Containers::direction.insert(Direction(0.0, 0.0), &self_index);
     size_t hitbox = Containers::hitbox.insert(Hitbox(2.0f, 2.0f), &self_index);
-    size_t lives = Containers::health.insert(Health(5), &self_index);
+    size_t lives = Containers::health.insert(Health(10), &self_index);
     size_t tag = Containers::player_tag.insert(PlayerTag(), &self_index);
 
     Hitbox graze_range = Hitbox(42, 30);
