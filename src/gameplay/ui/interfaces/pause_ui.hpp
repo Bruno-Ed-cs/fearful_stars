@@ -1,7 +1,6 @@
 #pragma once
 
 #include "deps.hpp"
-#include "gameplay/ui/ui_layer.hpp"
 #include "asset_man.hpp"
 #include "gameplay/player/player_manager.hpp"
 #include "input_man.hpp"
@@ -12,7 +11,7 @@
 
 namespace Game {
 
-struct PauseUi : public UiLayer {
+struct PauseUi : UiLayer {
 
     PauseUi() {
 

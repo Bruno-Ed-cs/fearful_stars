@@ -52,7 +52,7 @@ void make_background() {
 
 extern "C" {
 
-Engine::Systems setup() {
+Engine::Systems* setup() {
 
     srand(time(NULL));
 
@@ -90,14 +90,14 @@ Engine::Systems setup() {
 
     }
 
-    Engine::Systems sys{};
+    auto sys = new Engine::Systems();
 
     Containers::entity.insert(std::make_unique<Game::Player>());
 
     //make_level(sys);
     //sys.level->load_level("demo/demo.json");
     //sys.player->init_player({90, 60});
-    sys.ui->stack_interface(std::make_unique<Game::GameplayUi>());
+    sys->ui->stack_interface(std::make_unique<Game::GameplayUi>());
     make_background();
 
     return sys;

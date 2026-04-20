@@ -2,15 +2,15 @@
 
 #include "deps.hpp"
 #include "entity.hpp"
-#include "gameplay/ui/ui_layer.hpp"
 #include "asset_man.hpp"
 #include "gameplay/player/player_manager.hpp"
 #include "gameplay/components.hpp"
+#include "gameplay/ui/ui_man.hpp"
 #include "systems.hpp"
 
 namespace Game {
 
-struct GameplayUi: public UiLayer {
+struct GameplayUi: UiLayer {
 
     GameplayUi() {
 

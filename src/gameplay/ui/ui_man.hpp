@@ -1,10 +1,23 @@
 #pragma once
 
 #include "deps.hpp"
-#include "gameplay/ui/ui_layer.hpp"
-#include "systems.hpp"
+
+namespace Engine {
+
+    struct Systems;
+
+}
 
 namespace Game {
+
+struct UiLayer {
+
+    virtual ~UiLayer() = default;
+
+    virtual void update(double dt, Engine::Systems& sys) = 0;
+    virtual void draw(RenderTexture canva) = 0;
+    virtual void process_input(Engine::Systems& sys) = 0;
+};
 
 class UiMan {
 

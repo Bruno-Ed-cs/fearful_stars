@@ -5,7 +5,7 @@
 #include <dlfcn.h>
 
 using loop_func = void (*)(Engine::Systems&);
-using setup_func = Engine::Systems (*)();
+using setup_func = Engine::Systems* (*)();
 using running_func = bool (*)();
 
 void* gamelib = NULL;
@@ -65,11 +65,11 @@ int main() {
 
     }
 
-    Engine::Systems sys = setup();
+    auto sys = setup();
 
     while(running()) {
 
-        main_loop(sys);
+        main_loop(*sys);
 
         if (IsKeyPressed(KEY_R)) {
 
