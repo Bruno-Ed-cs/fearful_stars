@@ -6,7 +6,6 @@
 #include "gameplay/levels/level_actions/spawn_upgrade_action.hpp"
 #include "gameplay/levels/level_actions/wait_action.hpp"
 #include "gameplay/levels/level_actions/wave_end_action.hpp"
-#include "globals.hpp"
 #include "json.hpp"
 #include "raylib.h"
 #include "systems.hpp"

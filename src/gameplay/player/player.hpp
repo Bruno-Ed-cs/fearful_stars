@@ -1,6 +1,7 @@
 #pragma once
 
 #include "asset_man.hpp"
+#include "component.hpp"
 #include "container.hpp"
 #include "deps.hpp"
 
@@ -36,7 +37,8 @@ class Player : public Engine::Entity{
 
 public:
 
-    Player() {
+    Player(Engine::Systems& sys):
+    comp(&sys.comp){
 
         //primary_shot = std::make_unique<PlasmaShooter>();
         //secondary_shot = std::make_unique<MissileShooter>();
@@ -46,9 +48,10 @@ public:
 
     }
 
-    Player(Vector2 pos) {
+    Player(Engine::Systems& sys,Vector2 pos):
+    comp(&sys.comp){
 
-        Containers::position[this->pos] = pos;
+        comp->position[this->pos] = pos;
 //        primary_shot = std::make_unique<PlasmaShooter>();
  //       secondary_shot = std::make_unique<MissileShooter>();
  //       special_shot = std::make_unique<BigShooter>();
@@ -57,23 +60,24 @@ public:
     }
 
     void update(double dt, Engine::Systems& sys) override; 
-    void draw() override;
+    void draw(Engine::Systems& sys) override;
     void turn_invincible(double seconds);
-    Rectangle get_hitbox() { 
-        Rectangle copy = Containers::hitbox[this->hitbox].get(Containers::position[this->pos]);
+    Rectangle get_hitbox(Engine::Systems& sys) { 
+        Rectangle copy = comp->hitbox[this->hitbox].get(comp->position[this->pos]);
         return copy;
     };
     void die(Engine::Systems& sys);
-    void revive();
+    void revive(Engine::Systems& sys);
     bool destroy_self() override { return self_destruct; };
-    void take_damage();
+    void take_damage(Engine::Systems& sys);
 
     ~Player() {
 
-        Containers::cleanup_by_owner(this->self_index);
     };
 
 public:
+
+    ComponentMan* comp;
 
     double speed = 135.0f;
     int special_meter = 0;
@@ -96,11 +100,11 @@ public:
     sptr<Sound> shooting_sound =Engine::AssetMan::get_sound("space-laser");
     sptr<Texture> spritesheet = Engine::AssetMan::get_texture("player_ship");
 
-    size_t pos = Containers::position.insert(Position(0.0, 0.0), &self_index);
-    size_t dir = Containers::direction.insert(Direction(0.0, 0.0), &self_index);
-    size_t hitbox = Containers::hitbox.insert(Hitbox(2.0f, 2.0f), &self_index);
-    size_t lives = Containers::health.insert(Health(10), &self_index);
-    size_t tag = Containers::player_tag.insert(PlayerTag(), &self_index);
+    size_t pos = comp->position.insert(Position(0.0, 0.0), &self_index);
+    size_t dir = comp->direction.insert(Direction(0.0, 0.0), &self_index);
+    size_t hitbox = comp->hitbox.insert(Hitbox(2.0f, 2.0f), &self_index);
+    size_t lives = comp->health.insert(Health(10), &self_index);
+    size_t tag = comp->player_tag.insert(PlayerTag(), &self_index);
 
     Hitbox graze_range = Hitbox(42, 30);
 

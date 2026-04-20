@@ -6,7 +6,6 @@
 #include "gameplay/components.hpp"
 #include "gameplay/ui/interfaces/gameplay_ui.hpp"
 #include "gameplay/ui/ui_man.hpp"
-#include "globals.hpp"
 #include "gameplay/levels/i_action.hpp"
 #include "input_man.hpp"
 #include "music_man.hpp"
@@ -26,7 +25,14 @@ using AssRef = Engine::AssetMan::Ref::Type;
 void make_background() {
     // Distribute 15 background elements across 320x180 screen
     // Group 1: Column 3 sprites (3 elements)
-    Engine::BackgroundMan::create_element(Engine::AssetMan::get_texture("earthBackgroudeErased"), Rectangle{16 * 3, 0, 16, 16}, Rectangle{0, 0, 16, 16}, Game::Position(Vector2{50, 30}), 0, 0, 0, Engine::BackgroundElement::Mode::stay);
+    Engine::BackgroundMan::create_element(
+            Engine::AssetMan::get_texture("earthBackgroudeErased"),
+            Rectangle{16 * 3, 0, 16, 16},
+            Rectangle{0, 0, 16, 16},
+            Game::Position(Vector2{50, 30}),
+            0, 0, 0,
+            Engine::BackgroundElement::Mode::stay);
+
     Engine::BackgroundMan::create_element(Engine::AssetMan::get_texture("earthBackgroudeErased"), Rectangle{16 * 3, 0, 16, 16}, Rectangle{0, 0, 16, 16}, Game::Position(Vector2{270, 150}), 0, 0, 0, Engine::BackgroundElement::Mode::stay);
     Engine::BackgroundMan::create_element(Engine::AssetMan::get_texture("earthBackgroudeErased"), Rectangle{16 * 3, 0, 16, 16}, Rectangle{0, 0, 16, 16}, Game::Position(Vector2{160, 90}), 0, 0, 0, Engine::BackgroundElement::Mode::stay);
 
@@ -50,7 +56,6 @@ void make_background() {
 
 }
 
-extern "C" {
 
 Engine::Systems* setup() {
 
@@ -62,8 +67,6 @@ Engine::Systems* setup() {
 
 
     Engine::WinMan::init(1280, 720, "Fearful Stars", 0, true);
-
-    Engine::g_world_size = Vector2{320, 180};
 
     //load controller mappings from sdl database
     char* mappings = LoadFileText("./assets/mappings/mapping.txt");
@@ -92,7 +95,7 @@ Engine::Systems* setup() {
 
     auto sys = new Engine::Systems();
 
-    Containers::entity.insert(std::make_unique<Game::Player>());
+    sys->entity.insert(std::make_unique<Game::Player>(*sys));
 
     //make_level(sys);
     //sys.level->load_level("demo/demo.json");
@@ -116,14 +119,14 @@ void main_loop(Engine::Systems& sys)
     
 
     if (WindowShouldClose()) 
-        Engine::g_running = false;
+        sys.running = false;
 
     if (IsKeyPressed(KEY_ENTER)) 
         Engine::WinMan::toggle_fullscreen();
 
     if (IsKeyPressed(KEY_F3)) {
 
-        Engine::g_debug = !Engine::g_debug;
+        sys.debug = !sys.debug;
 
     }
 
@@ -159,10 +162,14 @@ void main_loop(Engine::Systems& sys)
 
 }
 
-bool is_running() {
+bool is_running(Engine::Systems& sys) {
 
-    return Engine::g_running;
+    return sys.running;
 }
 
-}
+extern "C" {
 
+Engine::Systems* wrap_setup() { return setup(); };
+bool wrap_is_running(Engine::Systems& sys) { return is_running(sys); };
+void wrap_main_loop(Engine::Systems& sys) { return main_loop(sys);}
+}

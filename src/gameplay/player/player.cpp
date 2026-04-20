@@ -6,7 +6,6 @@
 #include "render_man.hpp"
 #include "systems.hpp"
 #include "timer.hpp"
-#include "globals.hpp"
 
 #include "player.hpp"
 
@@ -56,7 +55,7 @@ using namespace Game;
 //
 //        default:
 //
-//            Containers::health[player.lives].points++;
+//            sys.comp.health[player.lives].points++;
 //            player.upgrade -= 4;
 //
 //            break;
@@ -133,12 +132,12 @@ void Player::update(double dt, Engine::Systems& sys) {
 
     //std::println("movement = x{} y{}", movement.x, movement.y);
 
-    Position& pos = Containers::position[this->pos];
+    Position& pos = sys.comp.position[this->pos];
 
     pos += movement;
 
-    pos.x = Clamp(pos.x, 0.0, Engine::g_world_size.x);
-    pos.y = Clamp(pos.y, 0.0, Engine::g_world_size.y);
+    pos.x = Clamp(pos.x, 0.0, sys.world_size.x);
+    pos.y = Clamp(pos.y, 0.0, sys.world_size.y);
 
     graze_cooldown.update(dt);
     invis_timer.update(dt);
@@ -194,10 +193,10 @@ void Player::update(double dt, Engine::Systems& sys) {
     //std::cout << position.get_round().x << " " << position.get_round().y << " " << direction.x << " " << direction.y <<'\n';
 }
 
-void Player::take_damage() {
+void Player::take_damage(Engine::Systems& sys) {
 
     if (!invincible) {
-        Containers::health[this->lives].take_damage(1);
+        sys.comp.health[this->lives].take_damage(1);
         turn_invincible(2);
     }
 }
@@ -208,9 +207,9 @@ void Player::die(Engine::Systems& sys) {
 
 }
 
-void Player::revive() {
+void Player::revive(Engine::Systems& sys) {
 
-    Containers::health[this->lives].restore();
+    sys.comp.health[this->lives].restore();
     dead = false;
 
 }
@@ -225,9 +224,9 @@ void Player::turn_invincible(double seconds) {
     invis_timer = Engine::Timer(seconds);
 }
 
-void Player::draw() {
+void Player::draw(Engine::Systems& sys) {
 
-    Position& pos = Containers::position[this->pos];
+    Position& pos = sys.comp.position[this->pos];
 
     Rectangle dest{pos.x - 12, pos.y - 8, 24, 16};
     Rectangle origin{0, 0, 24, 16};

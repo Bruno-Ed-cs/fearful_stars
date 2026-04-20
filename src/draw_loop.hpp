@@ -6,7 +6,6 @@
 #include "render_man.hpp"
 #include "gameplay/projectile/projectile_manager.hpp"
 #include "gameplay/ui/ui_man.hpp"
-#include "globals.hpp"
 #include "systems.hpp"
 #include "winman.hpp"
 #include "asset_man.hpp"
@@ -19,7 +18,7 @@ void draw_loop(Engine::Systems& sys) {
 
         ClearBackground(BLACK);
 
-        if (Engine::g_debug) {
+        if (sys.debug) {
 
             //sys.projectile->debug_world();
             //sys.enemy->debug_world();
@@ -28,7 +27,7 @@ void draw_loop(Engine::Systems& sys) {
 
         Engine::RenderMan::draw_to_window();
 
-        if (Engine::g_debug) {
+        if (sys.debug) {
 
         rlImGuiBegin();
 
@@ -61,9 +60,9 @@ void draw_loop(Engine::Systems& sys) {
     //sys.projectile->draw();
     //sys.enemy->draw();
 
-    for (auto& entity: Containers::entity.data) {
+    for (auto& entity: sys.entity.data) {
 
-        entity->draw();
+        entity->draw(sys);
     }
     sys.ui->draw();
     Engine::BackgroundMan::draw();

@@ -26,34 +26,19 @@ namespace Engine {
 }
 
 
-
-namespace Containers {
-
-    inline std::vector<Engine::ContainerHandler*> containers;
-
-    inline void cleanup_by_owner(size_t owner) {
-
-        for(auto& container : containers) {
-
-            container->remove_by_owner(owner);
-        }
-
-
-    };
-}
-
 namespace Engine {
 
 
     template<component comp>
-    struct Container: public ContainerHandler {
+    struct Container: ContainerHandler {
+
 
         std::vector<comp> data;
 
-        Container() {
+        Container(std::vector<ContainerHandler*>& tracker) {
 
             data.reserve(INIT_SIZE);
-            Containers::containers.push_back(this);
+            tracker.push_back(this);
 
         }
 
@@ -178,8 +163,20 @@ namespace Engine {
             if (!data.empty()) return 0;
             return std::nullopt;
         }
+
+
+//struct end
     };
 
+    inline void container_cleanup_by_owner(size_t owner, std::vector<ContainerHandler*>& tracker) {
+
+        for(auto& container : tracker) {
+
+            container->remove_by_owner(owner);
+        }
+
+
+    };
 
 }
 

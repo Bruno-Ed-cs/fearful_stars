@@ -1,6 +1,5 @@
 #include "render_man.hpp"
 #include "deps.hpp"
-#include "globals.hpp"
 #include "raylib.h"
 #include "winman.hpp"
 

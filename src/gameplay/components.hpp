@@ -4,6 +4,7 @@
 #include "deps.hpp"
 #include "container.hpp"
 #include "component.hpp"
+#include <vector>
 
 namespace Game {
 
@@ -42,11 +43,6 @@ namespace Game {
 
 }
 
-namespace Containers {
-
-    inline Engine::Container<Game::Position> position;
-
-}
 
 
 namespace Game {
@@ -82,11 +78,6 @@ public:
 
 }
 
-namespace Containers {
-
-    inline Engine::Container<Game::Direction> direction;
-
-}
 
 namespace Game {
 
@@ -119,11 +110,6 @@ public:
 
 }
 
-namespace Containers {
-
-    inline Engine::Container<Game::Hitbox> hitbox;
-
-}
 
 namespace Game {
 
@@ -169,11 +155,6 @@ public:
 
 }
 
-namespace Containers {
-
-    inline Engine::Container<Game::Health> health;
-
-}
 
 namespace Game {
 
@@ -182,11 +163,6 @@ namespace Game {
 
 }
 
-namespace Containers {
-
-    inline Engine::Container<Game::PlayerTag> player_tag;
-
-}
 
 namespace Game {
 
@@ -195,11 +171,6 @@ namespace Game {
 
 }
 
-namespace Containers {
-
-    inline Engine::Container<Game::EnemyTag> enemy_tag;
-
-}
 
 namespace Game {
 
@@ -211,8 +182,20 @@ namespace Game {
 
 }
 
-namespace Containers {
 
-    inline Engine::Container<Game::ProjectileTag> projectile_tag;
+namespace Game {
+
+    struct ComponentMan {
+
+        std::vector<Engine::ContainerHandler*> tracker;
+
+        Engine::Container<Game::Hitbox>             hitbox {tracker};
+        Engine::Container<Game::Direction>          direction {tracker};
+        Engine::Container<Game::Position>           position {tracker};
+        Engine::Container<Game::Health>             health {tracker};
+        Engine::Container<Game::PlayerTag>          player_tag {tracker};
+        Engine::Container<Game::ProjectileTag>      projectile_tag {tracker};
+        Engine::Container<Game::EnemyTag>           enemy_tag {tracker};
+    };
 
 }

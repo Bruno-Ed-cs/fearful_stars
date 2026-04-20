@@ -4,7 +4,6 @@
 #include "gameplay/enemy/enemy_man.hpp"
 #include "gameplay/player/player_manager.hpp"
 #include "gameplay/projectile/projectile_manager.hpp"
-#include "globals.hpp"
 #include "raymath.h"
 #include "render_man.hpp"
 #include "systems.hpp"

@@ -48,7 +48,7 @@ set(files
     #    "src/gameplay/player/primary_shots/plasma_shot.cpp"
     "src/gameplay/player/player.cpp"
     #    "src/gameplay/player/special_shots/big_shooter.cpp"
-    "src/gameplay/player/player_manager.cpp"
+    # "src/gameplay/player/player_manager.cpp"
     #    "src/gameplay/player/secondary_shots/missile_shooter.cpp"
     "src/gameplay/ui/ui_man.cpp"
     #    "src/gameplay/levels/levels.cpp"
@@ -58,11 +58,13 @@ set(files
 
 )
 
-add_library(game SHARED ${files})
+#add_library(game SHARED ${files})
+add_library(game STATIC ${files})
 
 file(GLOB imgui_files "dependencies/dear_imgui/*.cpp")
 
-add_executable(${PROJECT_NAME} src/runner.cpp)
+#add_executable(${PROJECT_NAME} src/dev_runner.cpp)
+add_executable(${PROJECT_NAME} src/prod_runner.cpp)
 
 include_directories(include src/engine src)
 
@@ -77,7 +79,7 @@ add_library(imgui-raylib STATIC dependencies/raylib-imgui/rlImGui.cpp)
 target_compile_options(imgui-raylib PRIVATE -fPIC)
 
 target_link_libraries(game raylib imgui-raylib imgui)
-target_link_libraries(${PROJECT_NAME} raylib )
+target_link_libraries(${PROJECT_NAME} game)
 
 target_precompile_headers(game PUBLIC src/deps.hpp)
 

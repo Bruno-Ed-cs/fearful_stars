@@ -1,10 +1,11 @@
 #pragma once
 
-#include "systems.hpp"
 #include "container.hpp"
 #include <stdexcept>
 
 namespace Engine {
+
+    struct Systems;
 
 class Entity {
 
@@ -15,7 +16,7 @@ public:
     virtual ~Entity() = default;
 
     virtual void update(double dt, Systems& sys) = 0;
-    virtual void draw() = 0;
+    virtual void draw(Engine::Systems& sys) = 0;
     virtual bool destroy_self() = 0;
 
 };
@@ -50,9 +51,11 @@ struct EntityContainer {
 
     }
 
-    void remove(size_t index) {
+    using containers_ref = std::vector<ContainerHandler*>&;
+    void remove(size_t index, containers_ref tracker) {
 
         data[index] = nullptr;
+        Engine::container_cleanup_by_owner(index, tracker);
 
     }
 
@@ -68,11 +71,4 @@ struct EntityContainer {
 };
 
 }
-
-namespace Containers {
-
-    inline Engine::EntityContainer entity;
-
-}
-
 

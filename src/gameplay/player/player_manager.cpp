@@ -3,7 +3,6 @@
 #include "player_manager.hpp"
 #include "gameplay/enemy/enemy_man.hpp"
 #include "gameplay/projectile/projectile_manager.hpp"
-#include "globals.hpp"
 #include "player.hpp"
 #include "gameplay/components.hpp"
 #include "raylib.h"

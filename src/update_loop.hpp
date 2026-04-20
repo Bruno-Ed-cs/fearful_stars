@@ -9,7 +9,6 @@
 #include "gameplay/ui/ui_man.hpp"
 #include "input_man.hpp"
 #include "music_man.hpp"
-#include "globals.hpp"
 #include "systems.hpp"
 #include "background_man.hpp"
 #include "timer.hpp"
@@ -30,7 +29,7 @@ void update_loop(double dt, Engine::Systems& sys) {
         //sys.level->update(sys, dt);
         Engine::BackgroundMan::update(dt);
         
-        for (auto& entity: Containers::entity.data) {
+        for (auto& entity: sys.entity.data) {
 
             entity->update(dt, sys);
         }
