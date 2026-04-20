@@ -109,9 +109,11 @@ Engine::Systems setup() {
 void main_loop(Engine::Systems& sys)
 {
     // Main game loop
-    //std::cout << "check 3\n";
+    //std::cout << "check 3";
+    //dou
     double dt = GetFrameTime();
     Engine::InputMan::pull_events();
+    
 
     if (WindowShouldClose()) 
         Engine::g_running = false;
@@ -155,6 +157,11 @@ void main_loop(Engine::Systems& sys)
     //
     // }
 
+}
+
+bool is_running() {
+
+    return Engine::g_running;
 }
 
 }

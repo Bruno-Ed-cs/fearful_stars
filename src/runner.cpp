@@ -6,16 +6,21 @@
 
 using loop_func = void (*)(Engine::Systems&);
 using setup_func = Engine::Systems (*)();
+using running_func = bool (*)();
 
 void* gamelib = NULL;
 loop_func main_loop = NULL;
 setup_func setup = NULL;
+running_func running = NULL;
 
 bool load_game() {
 
-    if (gamelib != NULL) dlclose(gamelib);
+    if (gamelib != NULL) {
+        dlclose(gamelib);
+        gamelib = NULL;
+    }
 
-    gamelib = dlopen("libgame.so", RTLD_NOW); 
+    gamelib = dlopen("./libgame.so", RTLD_NOW); 
     if (gamelib == NULL) {
 
         fprintf(stderr, "Error loading game: %s\n", dlerror());
@@ -24,6 +29,13 @@ bool load_game() {
 
     main_loop = (loop_func)dlsym(gamelib, "main_loop");
     setup = (setup_func)dlsym(gamelib, "setup");
+    running = (running_func)dlsym(gamelib, "is_running");
+
+    if (!running) {
+
+        fprintf(stderr, "Error loading g_running: %s\n", dlerror());
+        return false;
+    }
 
     if (!main_loop) {
 
@@ -55,7 +67,7 @@ int main() {
 
     Engine::Systems sys = setup();
 
-    while(Engine::g_running) {
+    while(running()) {
 
         main_loop(sys);
 

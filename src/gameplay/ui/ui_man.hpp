@@ -10,8 +10,17 @@ class UiMan {
 
 public:
     
-    UiMan(Vector2 canva_size);
-    ~UiMan();
+    UiMan(Vector2 canva_size) :
+        ui_stack() {
+
+            canva = LoadRenderTexture(canva_size.x, canva_size.y);
+        }
+
+    ~UiMan() {
+
+        UnloadRenderTexture(canva);
+    }
+
 
     void draw();
     void update(double dt, Engine::Systems& sys);

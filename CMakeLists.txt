@@ -77,7 +77,7 @@ add_library(imgui-raylib STATIC dependencies/raylib-imgui/rlImGui.cpp)
 target_compile_options(imgui-raylib PRIVATE -fPIC)
 
 target_link_libraries(game raylib imgui-raylib imgui)
-target_link_libraries(${PROJECT_NAME} game)
+target_link_libraries(${PROJECT_NAME} raylib )
 
 target_precompile_headers(game PUBLIC src/deps.hpp)
 

@@ -4,17 +4,6 @@
 
 using namespace Game;
 
-UiMan::UiMan(Vector2 canva_size) :
-ui_stack() {
-
-    canva = LoadRenderTexture(canva_size.x, canva_size.y);
-}
-
-UiMan::~UiMan() {
-
-    UnloadRenderTexture(canva);
-}
-
 void UiMan::draw() {
 
     BeginTextureMode(canva);
