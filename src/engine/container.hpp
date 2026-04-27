@@ -23,10 +23,13 @@ namespace Engine {
 
 
     };
-}
 
 
-namespace Engine {
+struct ComponentHeader {
+
+        std::vector<Engine::ContainerHandler*> tracker;
+};
+
 
 
     template<component comp>
@@ -108,9 +111,19 @@ namespace Engine {
 
             if (index > data.size()) throw std::range_error("component not found");
 
-            if (!data[index].active) std::range_error("component not found");
+            if (!data[index].active) throw std::range_error("component not found");
 
             return data[index];
+
+        }
+
+        bool is_index_valid(size_t index) {
+
+            if (index > data.size()) return false;
+
+            if (!data[index].active) return false;
+
+            return true;
 
         }
 

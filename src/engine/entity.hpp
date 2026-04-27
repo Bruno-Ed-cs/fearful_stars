@@ -1,6 +1,8 @@
 #pragma once
 
+#include "component.hpp"
 #include "container.hpp"
+#include "gameplay/components.hpp"
 #include <stdexcept>
 
 namespace Engine {
@@ -12,6 +14,10 @@ class Entity {
 public:
 
     size_t self_index = 0;
+    Game::ComponentMan& comp;
+
+    Entity(Game::ComponentMan& comp) :
+        comp(comp){}
 
     virtual ~Entity() = default;
 

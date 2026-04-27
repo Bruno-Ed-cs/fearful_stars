@@ -95,7 +95,7 @@ Engine::Systems* setup() {
 
     auto sys = new Engine::Systems();
 
-    sys->entity.insert(std::make_unique<Game::Player>(*sys));
+    sys->entity.insert(std::make_unique<Game::Player>(sys->comp));
 
     //make_level(sys);
     //sys.level->load_level("demo/demo.json");
@@ -130,6 +130,10 @@ void main_loop(Engine::Systems& sys)
 
     }
 
+    if (IsKeyPressed(KEY_E)) {
+        std::cout << "aaaaaaaaa\n";
+
+    }
 
     if (IsKeyPressed(KEY_I)) {
         Engine::AssetMan::cleanup();

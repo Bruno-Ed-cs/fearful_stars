@@ -132,15 +132,12 @@ void Player::update(double dt, Engine::Systems& sys) {
 
     //std::println("movement = x{} y{}", movement.x, movement.y);
 
-    Position& pos = sys.comp.position[this->pos];
+    Position& pos = comp.position[this->pos];
 
     pos += movement;
 
     pos.x = Clamp(pos.x, 0.0, sys.world_size.x);
     pos.y = Clamp(pos.y, 0.0, sys.world_size.y);
-
-    graze_cooldown.update(dt);
-    invis_timer.update(dt);
 
 //    if (sys.projectile->check_collisions(graze_range.get(pos.vec()), true).collided && graze_cooldown.past_limit()) {
 //
@@ -196,7 +193,7 @@ void Player::update(double dt, Engine::Systems& sys) {
 void Player::take_damage(Engine::Systems& sys) {
 
     if (!invincible) {
-        sys.comp.health[this->lives].take_damage(1);
+        comp.health[this->lives].take_damage(1);
         turn_invincible(2);
     }
 }
@@ -209,7 +206,7 @@ void Player::die(Engine::Systems& sys) {
 
 void Player::revive(Engine::Systems& sys) {
 
-    sys.comp.health[this->lives].restore();
+    comp.health[this->lives].restore();
     dead = false;
 
 }

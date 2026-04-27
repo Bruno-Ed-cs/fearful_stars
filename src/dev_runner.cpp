@@ -1,17 +1,15 @@
-#include "globals.hpp"
-#include "gameplay/ui/ui_man.hpp"
-#include "systems.hpp"
+#include "main.hpp"
 #include "raylib.h"
 #include <dlfcn.h>
 
 using loop_func = void (*)(Engine::Systems&);
 using setup_func = Engine::Systems* (*)();
-using running_func = bool (*)();
+using is_key_pressed_func = bool (*)(int);
 
 void* gamelib = NULL;
 loop_func main_loop = NULL;
 setup_func setup = NULL;
-running_func running = NULL;
+is_key_pressed_func is_key_pressed = NULL;
 
 bool load_game() {
 
@@ -27,13 +25,13 @@ bool load_game() {
         return false;
     }
 
-    main_loop = (loop_func)dlsym(gamelib, "main_loop");
-    setup = (setup_func)dlsym(gamelib, "setup");
-    running = (running_func)dlsym(gamelib, "is_running");
+    main_loop = (loop_func)dlsym(gamelib, "wrap_main_loop");
+    setup = (setup_func)dlsym(gamelib, "wrap_setup");
+    is_key_pressed = (is_key_pressed_func)dlsym(gamelib, "IsKeyPressed");
 
-    if (!running) {
+    if (!is_key_pressed) {
 
-        fprintf(stderr, "Error loading g_running: %s\n", dlerror());
+        fprintf(stderr, "Error loading IsKeyPressed: %s\n", dlerror());
         return false;
     }
 
@@ -67,12 +65,13 @@ int main() {
 
     auto sys = setup();
 
-    while(running()) {
+    while(sys->running) {
 
         main_loop(*sys);
 
-        if (IsKeyPressed(KEY_R)) {
+        if (is_key_pressed(KEY_R)) {
 
+            std::println("reloading.....");
             if (!load_game()) {
 
                 fprintf(stderr, "Error loading game: %s\n", dlerror());
@@ -81,5 +80,7 @@ int main() {
         }
 
     }
+
+    std::cout << "this is on the dev runner" << std::endl;
 
 }

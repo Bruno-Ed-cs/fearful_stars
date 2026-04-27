@@ -2,8 +2,6 @@
 
 #include "entity.hpp"
 #include "gameplay/enemy/enemy_man.hpp"
-#include "gameplay/player/player_manager.hpp"
-#include "gameplay/projectile/projectile_manager.hpp"
 #include "gameplay/levels/levels.hpp"
 #include "gameplay/ui/interfaces/pause_ui.hpp"
 #include "gameplay/ui/ui_man.hpp"
@@ -28,6 +26,10 @@ void update_loop(double dt, Engine::Systems& sys) {
         //sys.player->update(dt, sys);
         //sys.level->update(sys, dt);
         Engine::BackgroundMan::update(dt);
+        for (auto& timer : sys.comp.timer.data) {
+
+            timer.update(dt);
+        }
         
         for (auto& entity: sys.entity.data) {
 

@@ -58,13 +58,18 @@ set(files
 
 )
 
-#add_library(game SHARED ${files})
-add_library(game STATIC ${files})
 
 file(GLOB imgui_files "dependencies/dear_imgui/*.cpp")
 
-#add_executable(${PROJECT_NAME} src/dev_runner.cpp)
-add_executable(${PROJECT_NAME} src/prod_runner.cpp)
+if(${CMAKE_BUILD_TYPE} STREQUAL "Debug") 
+
+    add_library(game SHARED ${files})
+    add_executable(${PROJECT_NAME} src/dev_runner.cpp)
+else()
+
+    add_library(game STATIC ${files})
+    add_executable(${PROJECT_NAME} src/prod_runner.cpp)
+endif()
 
 include_directories(include src/engine src)
 
@@ -72,14 +77,30 @@ include(raylib_options.txt)
 
 add_subdirectory(dependencies/raylib-5.5 raylib)
 
-add_library(imgui STATIC ${imgui_files})
-target_compile_options(imgui PRIVATE -fPIC)
 
-add_library(imgui-raylib STATIC dependencies/raylib-imgui/rlImGui.cpp)
-target_compile_options(imgui-raylib PRIVATE -fPIC)
+if (${HOT_RELOADING})
 
-target_link_libraries(game raylib imgui-raylib imgui)
-target_link_libraries(${PROJECT_NAME} game)
+    add_library(imgui STATIC ${imgui_files})
+    target_compile_options(imgui PRIVATE -fPIC -rdynamic)
+
+    add_library(imgui-raylib STATIC dependencies/raylib-imgui/rlImGui.cpp)
+    target_compile_options(imgui-raylib PRIVATE -fPIC -rdynamic)
+
+    target_link_libraries(game imgui-raylib imgui raylib)
+    target_link_libraries(${PROJECT_NAME})
+
+else()
+
+    add_library(imgui STATIC ${imgui_files})
+    target_compile_options(imgui PRIVATE -fPIC -rdynamic)
+
+    add_library(imgui-raylib STATIC dependencies/raylib-imgui/rlImGui.cpp)
+    target_compile_options(imgui-raylib PRIVATE -fPIC -rdynamic)
+
+    target_link_libraries(game raylib imgui-raylib imgui)
+    target_link_libraries(${PROJECT_NAME} game)
+
+endif()
 
 target_precompile_headers(game PUBLIC src/deps.hpp)
 

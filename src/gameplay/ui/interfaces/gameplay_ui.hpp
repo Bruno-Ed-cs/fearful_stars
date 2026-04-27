@@ -3,7 +3,7 @@
 #include "deps.hpp"
 #include "entity.hpp"
 #include "asset_man.hpp"
-#include "gameplay/player/player_manager.hpp"
+#include "gameplay/player/player.hpp"
 #include "gameplay/components.hpp"
 #include "gameplay/ui/ui_man.hpp"
 #include "systems.hpp"

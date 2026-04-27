@@ -37,8 +37,8 @@ class Player : public Engine::Entity{
 
 public:
 
-    Player(Engine::Systems& sys):
-    comp(&sys.comp){
+    Player(ComponentMan& components):
+    Engine::Entity(components){
 
         //primary_shot = std::make_unique<PlasmaShooter>();
         //secondary_shot = std::make_unique<MissileShooter>();
@@ -48,10 +48,10 @@ public:
 
     }
 
-    Player(Engine::Systems& sys,Vector2 pos):
-    comp(&sys.comp){
+    Player(ComponentMan& components, Vector2 pos):
+    Engine::Entity(components){
 
-        comp->position[this->pos] = pos;
+        comp.position[this->pos] = pos;
 //        primary_shot = std::make_unique<PlasmaShooter>();
  //       secondary_shot = std::make_unique<MissileShooter>();
  //       special_shot = std::make_unique<BigShooter>();
@@ -63,7 +63,7 @@ public:
     void draw(Engine::Systems& sys) override;
     void turn_invincible(double seconds);
     Rectangle get_hitbox(Engine::Systems& sys) { 
-        Rectangle copy = comp->hitbox[this->hitbox].get(comp->position[this->pos]);
+        Rectangle copy = comp.hitbox[this->hitbox].get(comp.position[this->pos]);
         return copy;
     };
     void die(Engine::Systems& sys);
@@ -77,14 +77,12 @@ public:
 
 public:
 
-    ComponentMan* comp;
-
     double speed = 135.0f;
     int special_meter = 0;
     int upgrade = 0;
 
-    Engine::Timer cooldown = Engine::Timer(0.5f);
-    Engine::Timer graze_cooldown = Engine::Timer(0.10);
+    size_t cooldown =       comp.timer.insert(Timer(0.5f), &self_index);
+    size_t graze_cooldown = comp.timer.insert(Timer(0.10f), &self_index);
 
 //    uptr<ShootingMachine> primary_shot;
 //    int primary_level = 1;
@@ -97,14 +95,14 @@ public:
 //    uptr<AuxMachine> aux_power;
 //    int aux_level = 0;
     
-    sptr<Sound> shooting_sound =Engine::AssetMan::get_sound("space-laser");
+    sptr<Sound> shooting_sound = Engine::AssetMan::get_sound("space-laser");
     sptr<Texture> spritesheet = Engine::AssetMan::get_texture("player_ship");
 
-    size_t pos = comp->position.insert(Position(0.0, 0.0), &self_index);
-    size_t dir = comp->direction.insert(Direction(0.0, 0.0), &self_index);
-    size_t hitbox = comp->hitbox.insert(Hitbox(2.0f, 2.0f), &self_index);
-    size_t lives = comp->health.insert(Health(10), &self_index);
-    size_t tag = comp->player_tag.insert(PlayerTag(), &self_index);
+    size_t pos = comp.position.insert(Position(0.0, 0.0), &self_index);
+    size_t dir = comp.direction.insert(Direction(0.0, 0.0), &self_index);
+    size_t hitbox = comp.hitbox.insert(Hitbox(2.0f, 2.0f), &self_index);
+    size_t lives = comp.health.insert(Health(10), &self_index);
+    size_t tag = comp.player_tag.insert(PlayerTag(), &self_index);
 
     Hitbox graze_range = Hitbox(42, 30);
 

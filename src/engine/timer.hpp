@@ -2,7 +2,7 @@
 
 namespace Engine {
 
-class Timer {
+struct Timer {
 
 public:
 
@@ -56,7 +56,6 @@ public:
         return m_time;
     }
 
-private:
 
     double m_time = 0.0f;
     double m_limit = 0.0f;

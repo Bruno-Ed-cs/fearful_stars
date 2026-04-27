@@ -4,198 +4,196 @@
 #include "deps.hpp"
 #include "container.hpp"
 #include "component.hpp"
+#include "timer.hpp"
 #include <vector>
 
 namespace Game {
 
-    class Position : public Engine::Component {
+class Position : public Engine::Component {
 
-        public:
-            float x;
-            float y;
+    public:
+        float x;
+        float y;
 
-        public:
+    public:
 
-            Position() :
-                x(0), y(0) {};
+        Position() :
+            x(0), y(0) {};
 
-            Position(float x, float y) :
-                x(x), y(y) {};
+        Position(float x, float y) :
+            x(x), y(y) {};
 
-            Position(Vector2 pos) :
-                x(pos.x), y(pos.y) {};
+        Position(Vector2 pos) :
+            x(pos.x), y(pos.y) {};
 
-            Vector2 vec() { return Vector2{x, y}; };
+        Vector2 vec() { return Vector2{x, y}; };
 
-            void operator=(Vector2 pos) {
-                x = pos.x;
-                y = pos.y;
-            };
+        void operator=(Vector2 pos) {
+            x = pos.x;
+            y = pos.y;
+        };
 
-            void operator+=(Vector2 pos) {
+        void operator+=(Vector2 pos) {
 
-                x += pos.x;
-                y += pos.y;
+            x += pos.x;
+            y += pos.y;
 
-            }
+        }
 
-    };
-
-}
+};
 
 
 
-namespace Game {
+
 
 class Direction : public Engine::Component {
 
-public:
-    float x;
-    float y;
+    public:
+        float x;
+        float y;
 
-public:
+    public:
 
-    Direction() :
-    x(0), y(0) {}
+        Direction() :
+            x(0), y(0) {}
 
-    Direction (float x, float y) :
-    x(x), y(y) {};
+        Direction (float x, float y) :
+            x(x), y(y) {};
 
-    Direction(Vector2 pos) :
-    x(pos.x), y(pos.y) {};
+        Direction(Vector2 pos) :
+            x(pos.x), y(pos.y) {};
 
-    Vector2 vec() { return Vector2Normalize(Vector2{x, y}); };
+        Vector2 vec() { return Vector2Normalize(Vector2{x, y}); };
 
-    void operator=(Vector2 pos) {
+        void operator=(Vector2 pos) {
 
-        pos = Vector2Normalize(pos);
+            pos = Vector2Normalize(pos);
 
-        x = pos.x;
-        y = pos.y;
-    };
+            x = pos.x;
+            y = pos.y;
+        };
 
 };
 
-}
 
 
-namespace Game {
 
 class Hitbox : public Engine::Component {
 
-public:
+    public:
 
-    float width;
-    float height;
+        float width;
+        float height;
 
 
-public:
+    public:
 
-    Hitbox(float width, float height) :
-        width(width), height(height) {};
+        Hitbox(float width, float height) :
+            width(width), height(height) {};
 
-    Rectangle get(Vector2 position) {
+        Rectangle get(Vector2 position) {
 
-        return Rectangle{position.x - (width / 2), position.y - (height / 2), width, height};
+            return Rectangle{position.x - (width / 2), position.y - (height / 2), width, height};
 
-    };
+        };
 
-    Rectangle get(Position position) {
+        Rectangle get(Position position) {
 
-        return Rectangle{position.x - (width / 2), position.y - (height / 2), width, height};
+            return Rectangle{position.x - (width / 2), position.y - (height / 2), width, height};
 
-    };
+        };
 
 };
 
-}
 
 
-namespace Game {
 
 class Health : public Engine::Component {
 
-public:
+    public:
 
-    int points;
-    int capacity;
+        int points;
+        int capacity;
 
-    Health(int max_hp) :
-        points(max_hp),
-        capacity(max_hp) {};
+        Health(int max_hp) :
+            points(max_hp),
+            capacity(max_hp) {};
 
 
-    void take_damage(int damage) {
+        void take_damage(int damage) {
 
-        points -= damage;
+            points -= damage;
 
-        if (points < 0)
-            points = 0;
+            if (points < 0)
+                points = 0;
 
-    };
+        };
 
-    bool is_dead() {
+        bool is_dead() {
 
-        if (points <= 0)
-            return true;
+            if (points <= 0)
+                return true;
 
-        return false;
+            return false;
 
-    };
+        };
 
-    void restore() {
+        void restore() {
 
-        points = capacity;
+            points = capacity;
 
-    };
+        };
 
 
 
 };
 
-}
 
 
-namespace Game {
 
-    struct PlayerTag : public Engine::Component {
-    };
-
-}
+struct PlayerTag : public Engine::Component {
+};
 
 
-namespace Game {
-
-    struct EnemyTag : public Engine::Component {
-    };
-
-}
 
 
-namespace Game {
-
-    struct ProjectileTag : public Engine::Component {
-
-        bool is_foe = true;
-
-    };
-
-}
+struct EnemyTag : public Engine::Component {
+};
 
 
-namespace Game {
 
-    struct ComponentMan {
 
-        std::vector<Engine::ContainerHandler*> tracker;
+struct ProjectileTag : public Engine::Component {
 
-        Engine::Container<Game::Hitbox>             hitbox {tracker};
-        Engine::Container<Game::Direction>          direction {tracker};
-        Engine::Container<Game::Position>           position {tracker};
-        Engine::Container<Game::Health>             health {tracker};
-        Engine::Container<Game::PlayerTag>          player_tag {tracker};
-        Engine::Container<Game::ProjectileTag>      projectile_tag {tracker};
-        Engine::Container<Game::EnemyTag>           enemy_tag {tracker};
-    };
+    bool is_foe = true;
+
+};
+
+
+
+struct Timer : Engine::Timer, Engine::Component  {
+
+
+    Timer(): Engine::Timer() {}
+
+    Timer(double seconds) :
+        Engine::Timer(seconds) {}
+
+
+};
+
+
+
+struct ComponentMan: Engine::ComponentHeader {
+
+    Engine::Container<Timer>              timer {tracker};
+    Engine::Container<Hitbox>             hitbox {tracker};
+    Engine::Container<Direction>          direction {tracker};
+    Engine::Container<Position>           position {tracker};
+    Engine::Container<Health>             health {tracker};
+    Engine::Container<PlayerTag>          player_tag {tracker};
+    Engine::Container<ProjectileTag>      projectile_tag {tracker};
+    Engine::Container<EnemyTag>           enemy_tag {tracker};
+};
 
 }
