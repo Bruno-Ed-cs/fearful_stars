@@ -61,7 +61,7 @@ set(files
 
 file(GLOB imgui_files "dependencies/dear_imgui/*.cpp")
 
-if(${CMAKE_BUILD_TYPE} STREQUAL "Debug") 
+if(${HOT_RELOADING}) 
 
     add_library(game SHARED ${files})
     add_executable(${PROJECT_NAME} src/dev_runner.cpp)
@@ -92,10 +92,8 @@ if (${HOT_RELOADING})
 else()
 
     add_library(imgui STATIC ${imgui_files})
-    target_compile_options(imgui PRIVATE -fPIC -rdynamic)
 
     add_library(imgui-raylib STATIC dependencies/raylib-imgui/rlImGui.cpp)
-    target_compile_options(imgui-raylib PRIVATE -fPIC -rdynamic)
 
     target_link_libraries(game raylib imgui-raylib imgui)
     target_link_libraries(${PROJECT_NAME} game)

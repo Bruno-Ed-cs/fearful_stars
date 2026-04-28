@@ -174,6 +174,6 @@ bool is_running(Engine::Systems& sys) {
 extern "C" {
 
 Engine::Systems* wrap_setup() { return setup(); };
-bool wrap_is_running(Engine::Systems& sys) { return is_running(sys); };
-void wrap_main_loop(Engine::Systems& sys) { return main_loop(sys);}
+bool wrap_is_running(Engine::Systems* sys) { return is_running(*sys); };
+void wrap_main_loop(Engine::Systems* sys) { return main_loop(*sys);}
 }

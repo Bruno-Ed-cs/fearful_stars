@@ -100,7 +100,7 @@ public:
 
     size_t pos = comp.position.insert(Position(0.0, 0.0), &self_index);
     size_t dir = comp.direction.insert(Direction(0.0, 0.0), &self_index);
-    size_t hitbox = comp.hitbox.insert(Hitbox(2.0f, 2.0f), &self_index);
+    size_t hitbox = comp.hitbox.insert(Hitbox(2.0f, 2.0f, pos), &self_index);
     size_t lives = comp.health.insert(Health(10), &self_index);
     size_t tag = comp.player_tag.insert(PlayerTag(), &self_index);
 

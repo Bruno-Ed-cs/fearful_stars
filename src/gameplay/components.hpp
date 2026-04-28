@@ -5,6 +5,7 @@
 #include "container.hpp"
 #include "component.hpp"
 #include "timer.hpp"
+#include <cmath>
 #include <vector>
 
 namespace Game {
@@ -27,6 +28,8 @@ class Position : public Engine::Component {
             x(pos.x), y(pos.y) {};
 
         Vector2 vec() { return Vector2{x, y}; };
+        Vector2 floor() { return Vector2 {.x = std::floor(x), .y = std::floor(y)}; }
+        Vector2 ceil() { return Vector2 {.x = std::ceil(x), .y = std::ceil(y)}; }
 
         void operator=(Vector2 pos) {
             x = pos.x;
@@ -41,9 +44,6 @@ class Position : public Engine::Component {
         }
 
 };
-
-
-
 
 
 class Direction : public Engine::Component {
@@ -75,9 +75,6 @@ class Direction : public Engine::Component {
 
 };
 
-
-
-
 class Hitbox : public Engine::Component {
 
     public:
@@ -85,11 +82,16 @@ class Hitbox : public Engine::Component {
         float width;
         float height;
 
+        size_t position_link = NULL;
+
 
     public:
 
         Hitbox(float width, float height) :
             width(width), height(height) {};
+
+        Hitbox(float width, float height, size_t position_link) :
+            width(width), height(height), position_link(position_link){};
 
         Rectangle get(Vector2 position) {
 
@@ -104,9 +106,6 @@ class Hitbox : public Engine::Component {
         };
 
 };
-
-
-
 
 class Health : public Engine::Component {
 
@@ -144,24 +143,13 @@ class Health : public Engine::Component {
 
         };
 
-
-
 };
-
-
-
 
 struct PlayerTag : public Engine::Component {
 };
 
-
-
-
 struct EnemyTag : public Engine::Component {
 };
-
-
-
 
 struct ProjectileTag : public Engine::Component {
 
@@ -169,23 +157,41 @@ struct ProjectileTag : public Engine::Component {
 
 };
 
-
-
 struct Timer : Engine::Timer, Engine::Component  {
-
 
     Timer(): Engine::Timer() {}
 
     Timer(double seconds) :
         Engine::Timer(seconds) {}
 
+};
+
+struct Damage : Engine::Component {
+
+    private:
+    int value = 0;
+
+
+    public:
+    int delivery_count = 0;
+
+    Damage(int value) : 
+        value(value) {};
+
+    int get_value() { 
+
+        delivery_count++;
+        return value;
+    }
+
+
+
 
 };
 
-
-
 struct ComponentMan: Engine::ComponentHeader {
 
+    Engine::Container<Damage>             damage {tracker};
     Engine::Container<Timer>              timer {tracker};
     Engine::Container<Hitbox>             hitbox {tracker};
     Engine::Container<Direction>          direction {tracker};

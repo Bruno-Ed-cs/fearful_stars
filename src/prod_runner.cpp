@@ -4,11 +4,11 @@
 
 int main() {
 
-    auto sys = setup();
+    auto* sys = wrap_setup();
 
-    while(is_running(*sys)) {
+    while(sys->running) {
 
-        main_loop(*sys);
+        wrap_main_loop(sys);
 
     }
 
