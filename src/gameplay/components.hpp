@@ -6,6 +6,7 @@
 #include "component.hpp"
 #include "timer.hpp"
 #include <cmath>
+#include <optional>
 #include <vector>
 
 namespace Game {
@@ -82,7 +83,7 @@ class Hitbox : public Engine::Component {
         float width;
         float height;
 
-        size_t position_link = NULL;
+        std::optional<size_t> position_link = std::nullopt;
 
 
     public:
@@ -189,8 +190,25 @@ struct Damage : Engine::Component {
 
 };
 
+struct Speed : Engine::Component {
+
+    double value = 0.0f;
+
+    Speed(double value) :
+        value(value){}
+};
+
+struct Aceleration : Engine::Component {
+
+    double value = 0.0f;
+    Aceleration(double value) :
+        value(value){}
+};
+
 struct ComponentMan: Engine::ComponentHeader {
 
+    Engine::Container<Speed>              speed {tracker};
+    Engine::Container<Aceleration>        aceleration {tracker};
     Engine::Container<Damage>             damage {tracker};
     Engine::Container<Timer>              timer {tracker};
     Engine::Container<Hitbox>             hitbox {tracker};

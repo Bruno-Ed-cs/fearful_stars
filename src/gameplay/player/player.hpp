@@ -77,7 +77,6 @@ public:
 
 public:
 
-    double speed = 135.0f;
     int special_meter = 0;
     int upgrade = 0;
 
@@ -98,6 +97,7 @@ public:
     sptr<Sound> shooting_sound = Engine::AssetMan::get_sound("space-laser");
     sptr<Texture> spritesheet = Engine::AssetMan::get_texture("player_ship");
 
+    size_t speed = comp.speed.insert(Speed(135.0f), &self_index);
     size_t pos = comp.position.insert(Position(0.0, 0.0), &self_index);
     size_t dir = comp.direction.insert(Direction(0.0, 0.0), &self_index);
     size_t hitbox = comp.hitbox.insert(Hitbox(2.0f, 2.0f, pos), &self_index);

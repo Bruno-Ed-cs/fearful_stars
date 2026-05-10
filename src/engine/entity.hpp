@@ -1,9 +1,8 @@
 #pragma once
 
-#include "component.hpp"
+#include "deps.hpp"
 #include "container.hpp"
 #include "gameplay/components.hpp"
-#include <stdexcept>
 
 namespace Engine {
 
@@ -27,11 +26,11 @@ public:
 
 };
 
-struct EntityContainer {
+struct EntityMan {
 
     std::vector<std::unique_ptr<Engine::Entity>> data;
 
-    EntityContainer() {
+    EntityMan() {
 
         data.reserve(255);
     }

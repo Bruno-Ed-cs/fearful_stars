@@ -30,7 +30,10 @@ struct ProjectileMan {
                 for (auto& hitbox_id : hitboxes) {
 
                     Hitbox& hitbox = comp.hitbox[hitbox_id];
-                    Position& pos = comp.position[hitbox.position_link];
+
+                    if(!hitbox.position_link) continue;
+
+                    Position& pos = comp.position[hitbox.position_link.value()];
 
                     if (CheckCollisionRecs(target, hitbox.get(pos.vec())))
                         result.push_back(*hitbox.entity_owner);

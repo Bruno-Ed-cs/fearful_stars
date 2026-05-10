@@ -16,7 +16,7 @@ concept component = std::is_base_of_v<Engine::Component, T>;
 namespace Engine {
 
     struct ContainerHandler {
-        
+
         virtual void cleanup() = 0;
         virtual void remove(size_t index) = 0;
         virtual void remove_by_owner(size_t owner) = 0;
@@ -25,15 +25,16 @@ namespace Engine {
     };
 
 
-struct ComponentHeader {
+    struct ComponentHeader {
 
         std::vector<Engine::ContainerHandler*> tracker;
-};
+    };
 
 
 
     template<component comp>
     struct Container: ContainerHandler {
+
 
 
         std::vector<comp> data;
@@ -178,8 +179,8 @@ struct ComponentHeader {
         }
 
 
-//struct end
-    };
+        //struct end
+        };
 
     inline void container_cleanup_by_owner(size_t owner, std::vector<ContainerHandler*>& tracker) {
 

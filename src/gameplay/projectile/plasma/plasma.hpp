@@ -4,12 +4,12 @@
 #include "deps.hpp"
 
 #include "gameplay/components.hpp"
-#include "gameplay/projectile/i_projectile.hpp"
+#include "gameplay/projectile/projectile.hpp"
 #include "systems.hpp"
 
 namespace Game {
 
-class PlasmaProj : public IProjectile{
+class PlasmaProj : public Projectile{
 
 public:
 

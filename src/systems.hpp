@@ -17,7 +17,7 @@ struct ComponentMan;
 
 namespace Engine {
 
-    struct EntityContainer;
+    struct EntityMan;
 
 }
 
@@ -33,7 +33,7 @@ struct Systems {
     //std::unique_ptr<Game::LevelManager> level;
     std::unique_ptr<Game::UiMan> ui;
     Game::ComponentMan comp;
-    Engine::EntityContainer entity;
+    Engine::EntityMan entity;
     
     bool pause = false;
 

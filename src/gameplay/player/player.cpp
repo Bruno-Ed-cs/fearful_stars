@@ -119,14 +119,15 @@ void Player::update(double dt, Engine::Systems& sys) {
 
     Vector2 movement;
 
+    Speed& speed = comp.speed[this->speed];
 
     if (Engine::InputMan::is_event_active("slowdown")) {
 
-        movement = direction * (dt * (speed * 0.6));
+        movement = direction * (dt * (speed.value * 0.6));
 
     } else {
 
-        movement = direction * (dt * speed);
+        movement = direction * (dt * speed.value);
 
     }
 
