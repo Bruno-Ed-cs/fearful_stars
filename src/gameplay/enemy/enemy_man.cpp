@@ -8,7 +8,7 @@
 #include "gameplay/enemy/eye/crystal_eye.hpp"
 #include "gameplay/enemy/minion/minion.hpp"
 #include "gameplay/enemy/vagant/vagant.hpp"
-#include "gameplay/player/player_manager.hpp"
+#include "gameplay/player/player.hpp"
 #include "gameplay/projectile/projectile_manager.hpp"
 #include "id_generator.hpp"
 #include "raylib.h"

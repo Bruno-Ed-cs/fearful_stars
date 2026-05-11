@@ -1,6 +1,6 @@
 #include "upgrade_proj.hpp"
 #include "render_man.hpp"
-#include "gameplay/player/player_manager.hpp"
+#include "gameplay/player/player.hpp"
 #include "raylib.h"
 
 

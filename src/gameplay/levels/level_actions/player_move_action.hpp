@@ -1,7 +1,7 @@
 #pragma once
 #include "gameplay/levels/i_action.hpp"
 #include "systems.hpp"
-#include "gameplay/player/player_manager.hpp"
+#include "gameplay/player/player.hpp"
 
 namespace Game {
 

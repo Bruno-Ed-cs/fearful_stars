@@ -2,7 +2,7 @@
 
 #include "background_man.hpp"
 #include "gameplay/enemy/enemy_man.hpp"
-#include "gameplay/player/player_manager.hpp"
+#include "gameplay/player/player.hpp"
 #include "render_man.hpp"
 #include "gameplay/projectile/projectile_manager.hpp"
 #include "gameplay/ui/ui_man.hpp"

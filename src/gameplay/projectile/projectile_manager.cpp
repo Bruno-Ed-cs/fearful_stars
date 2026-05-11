@@ -1,6 +1,6 @@
 #include "deps.hpp"
 
-#include "gameplay/player/player_manager.hpp"
+#include "gameplay/player/player.hpp"
 #include "gameplay/projectile/i_projectile.hpp"
 #include "projectile_manager.hpp"
 #include "basic/basic_projectile.hpp"

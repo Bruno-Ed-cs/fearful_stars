@@ -10,7 +10,7 @@
 #include "globals.hpp"
 #include "raylib.h"
 #include "raymath.h"
-#include "gameplay/player/player_manager.hpp"
+#include "gameplay/player/player.hpp"
 #include "systems.hpp"
 #include "timer.hpp"
 

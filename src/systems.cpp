@@ -3,7 +3,7 @@
 #include "gameplay/enemy/enemy_man.hpp"
 #include "gameplay/projectile/projectile_manager.hpp"
 #include "gameplay/levels/levels.hpp"
-#include "gameplay/player/player_manager.hpp"
+#include "gameplay/player/player.hpp"
 #include "gameplay/ui/ui_man.hpp"
 #include "render_man.hpp"
 

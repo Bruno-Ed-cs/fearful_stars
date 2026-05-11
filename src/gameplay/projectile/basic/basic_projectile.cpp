@@ -2,7 +2,7 @@
 #include "deps.hpp"
 #include "gameplay/components/health.hpp"
 #include "gameplay/enemy/enemy_man.hpp"
-#include "gameplay/player/player_manager.hpp"
+#include "gameplay/player/player.hpp"
 #include "gameplay/projectile/projectile_manager.hpp"
 #include "globals.hpp"
 #include "raymath.h"

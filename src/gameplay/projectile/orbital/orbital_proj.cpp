@@ -1,6 +1,7 @@
 #include "orbital_proj.hpp"
 #include "render_man.hpp"
-#include "gameplay/player/player_manager.hpp"
+#include "gameplay/player/player.hpp"
+#include "gameplay/projectile/projectile_manager.hpp"
 #include "deps.hpp"
 #include "raymath.h"
 #include "timer.hpp"

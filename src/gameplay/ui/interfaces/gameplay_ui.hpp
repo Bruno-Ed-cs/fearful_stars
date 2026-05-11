@@ -3,7 +3,7 @@
 #include "deps.hpp"
 #include "gameplay/ui/ui_layer.hpp"
 #include "asset_man.hpp"
-#include "gameplay/player/player_manager.hpp"
+#include "gameplay/player/player.hpp"
 #include "systems.hpp"
 
 namespace Game {

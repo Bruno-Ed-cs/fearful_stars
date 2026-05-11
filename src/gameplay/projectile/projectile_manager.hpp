@@ -2,7 +2,7 @@
 
 #include "deps.hpp"
 #include "gameplay/enemy/enemy_man.hpp"
-#include "gameplay/player/player_manager.hpp"
+#include "gameplay/player/player.hpp"
 #include "i_projectile.hpp"
 #include "id_generator.hpp"
 #include "systems.hpp"

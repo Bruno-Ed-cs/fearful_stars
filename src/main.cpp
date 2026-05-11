@@ -7,7 +7,7 @@
 #include "gameplay/ui/ui_man.hpp"
 #include "gameplay/levels/level_actions/player_move_action.hpp"
 #include "gameplay/levels/level_actions/spawn_upgrade_action.hpp"
-#include "gameplay/player/player_manager.hpp"
+#include "gameplay/player/player.hpp"
 #include "gameplay/projectile/projectile_manager.hpp"
 #include "globals.hpp"
 #include "gameplay/levels/i_action.hpp"

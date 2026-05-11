@@ -7,7 +7,7 @@
 #include "gameplay/components/position.hpp"
 #include "gameplay/enemy/enemy_man.hpp"
 #include "gameplay/enemy/i_enemy.hpp"
-#include "gameplay/player/player_manager.hpp"
+#include "gameplay/player/player.hpp"
 #include "gameplay/projectile/projectile_manager.hpp"
 #include "gameplay/components/health.hpp"
 #include "gameplay/components/hitbox.hpp"
