@@ -35,7 +35,7 @@ bool BasicShot::shoot(Player& player, ProjectileMan& projectile_man) {
     Vector2 pos = player.pos.vec();
     pos += Vector2{0, -3};
 
-    projectile_man.request_projectile<BasicProjectile>(pos, direction, proj_speed, foe);
+    projectile_man.emplace<BasicProjectile>(pos, direction, proj_speed, foe);
     PlaySound(*player.shooting_sound);
 
 

@@ -16,7 +16,7 @@ void OrbitalShield::run(Player& player, Engine::Systems& sys, double dt) {
         case 1:
             if (!sys.projectile->exists(orb1)) {
 
-                orb1 = sys.projectile->request_projectile<OrbitalProj>(player.pos.vec(), Vector2{1,1} , 100, false);
+                orb1 = sys.projectile->emplace<OrbitalProj>(player.pos.vec(), Vector2{1,1} , 100, false);
             }
         break;
 
@@ -24,13 +24,13 @@ void OrbitalShield::run(Player& player, Engine::Systems& sys, double dt) {
 
             if (!sys.projectile->exists(orb1)) {
 
-                orb1 = sys.projectile->request_projectile<OrbitalProj>(player.pos.vec(), Vector2{1,1} , 100, false);
+                orb1 = sys.projectile->emplace<OrbitalProj>(player.pos.vec(), Vector2{1,1} , 100, false);
             }
 
 
             if (!sys.projectile->exists(orb2)) {
 
-                orb2 = sys.projectile->request_projectile<OrbitalProj>(player.pos.vec(), Vector2{1,-1} , 100, false);
+                orb2 = sys.projectile->emplace<OrbitalProj>(player.pos.vec(), Vector2{1,-1} , 100, false);
             }
 
         break;

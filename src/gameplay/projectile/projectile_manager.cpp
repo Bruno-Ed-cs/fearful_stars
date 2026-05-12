@@ -1,7 +1,7 @@
 #include "deps.hpp"
 
 #include "gameplay/player/player.hpp"
-#include "gameplay/projectile/i_projectile.hpp"
+#include "gameplay/projectile/projectile.hpp"
 #include "projectile_manager.hpp"
 #include "basic/basic_projectile.hpp"
 #include "globals.hpp"
@@ -177,7 +177,7 @@ void ProjectileMan::deactivate_projectile(uint32_t id) {
 
 }
 
-uint32_t ProjectileMan::get_id(IProjectile* target) {
+uint32_t ProjectileMan::get_id(Projectile* target) {
 
     for (size_t i = 0; i < m_projectiles.size(); ++i) {
 
@@ -197,7 +197,7 @@ void ProjectileMan::append_delete_queue(uint32_t id) {
 
 }
 
-IProjectile& ProjectileMan::get_projectile(uint32_t id) {
+Projectile& ProjectileMan::get_projectile(uint32_t id) {
 
     for (auto& container : m_projectiles) {
 

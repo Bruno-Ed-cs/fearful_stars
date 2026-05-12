@@ -6,13 +6,13 @@
 #include "gameplay/components/direction.hpp"
 #include "gameplay/components/hitbox.hpp"
 #include "gameplay/components/position.hpp"
-#include "gameplay/projectile/i_projectile.hpp"
+#include "gameplay/projectile/projectile.hpp"
 #include "systems.hpp"
 #include "timer.hpp"
 
 namespace Game {
 
-class OrbitalProj : public IProjectile{
+class OrbitalProj : public Projectile{
 
 public:
 

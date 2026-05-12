@@ -36,21 +36,21 @@ void Minion::update(double dt, Engine::Systems& sys) {
         float rad = spreadAngle * DEG2RAD;
 
         // Left-facing V
-        sys.projectile->request_projectile<PlasmaProj>(
+        sys.projectile->emplace<PlasmaProj>(
             Vector2{pos.x, pos.y - offsetY},
             Vector2Normalize(Vector2{-cosf(rad), -sinf(rad)}),
             80,
             true
         );
 
-        sys.projectile->request_projectile<PlasmaProj>(
+        sys.projectile->emplace<PlasmaProj>(
             pos.vec(),
             Vector2{-1, 0},
             80,
             true
         );
 
-        sys.projectile->request_projectile<PlasmaProj>(
+        sys.projectile->emplace<PlasmaProj>(
             Vector2{pos.x, pos.y + offsetY},
             Vector2Normalize(Vector2{-cosf(rad), sinf(rad)}),
             80,

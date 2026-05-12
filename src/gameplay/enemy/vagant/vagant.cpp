@@ -35,7 +35,7 @@ void Vagant::update(double dt, Engine::Systems& sys) {
         float offset = 9.0f;  // Offset from center for 7x7 gap
 
         // 1. Up projectile
-        sys.projectile->request_projectile<OrbitalProj>(
+        sys.projectile->emplace<OrbitalProj>(
             Vector2{center.x, center.y - offset},  // Position: above center
             Vector2{0, -1},                        // Direction: straight up
             70,                                    // Speed
@@ -43,7 +43,7 @@ void Vagant::update(double dt, Engine::Systems& sys) {
         );
 
         // 2. Down projectile
-        sys.projectile->request_projectile<OrbitalProj>(
+        sys.projectile->emplace<OrbitalProj>(
             Vector2{center.x, center.y + offset},  // Position: below center
             Vector2{0, 1},                         // Direction: straight down
             70,                                    // Speed
@@ -51,7 +51,7 @@ void Vagant::update(double dt, Engine::Systems& sys) {
         );
 
         // 3. Left projectile
-        sys.projectile->request_projectile<OrbitalProj>(
+        sys.projectile->emplace<OrbitalProj>(
             Vector2{center.x - offset, center.y},  // Position: left of center
             Vector2{-1, 0},                        // Direction: straight left
             70,                                    // Speed
@@ -59,7 +59,7 @@ void Vagant::update(double dt, Engine::Systems& sys) {
         );
 
         // 4. Right projectile
-        sys.projectile->request_projectile<OrbitalProj>(
+        sys.projectile->emplace<OrbitalProj>(
             Vector2{center.x + offset, center.y},  // Position: right of center
             Vector2{1, 0},                         // Direction: straight right
             70,                                    // Speed

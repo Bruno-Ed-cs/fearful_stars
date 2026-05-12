@@ -16,7 +16,7 @@
 #include "gameplay/components/position.hpp"
 #include "gameplay/player/primary_shots/basic_shot.hpp"
 
-#include "i_entity.hpp"
+#include "entity.hpp"
 #include "systems.hpp"
 #include "timer.hpp"
 
@@ -28,7 +28,7 @@ namespace Game {
     template<typename T>
         using sptr = std::shared_ptr<T>;
 
-    struct Player : public Engine::IEntity{
+    struct Player : public Engine::Entity{
 
             void setup_sprite() {
 

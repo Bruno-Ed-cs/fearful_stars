@@ -82,7 +82,7 @@ bool PlasmaShooter::shoot_lv1(Player& player, ProjectileMan& projectile_man) {
     double speed = 140;
 
     Engine::MusicMan::play_sfx(shooting_sound);
-    projectile_man.request_projectile<PlasmaProj>(position, direction.vec(), speed, false);
+    projectile_man.emplace<PlasmaProj>(position, direction.vec(), speed, false);
 
     state_func = &PlasmaShooter::idle;
     return false;
@@ -100,7 +100,7 @@ bool PlasmaShooter::shoot_lv2(Player& player, ProjectileMan& projectile_man) {
 
         position.y += 5;
         Engine::MusicMan::play_sfx(shooting_sound);
-        projectile_man.request_projectile<PlasmaProj>(position, direction.vec(), speed, false);
+        projectile_man.emplace<PlasmaProj>(position, direction.vec(), speed, false);
 
         //std::println("p2");
 
@@ -116,7 +116,7 @@ bool PlasmaShooter::shoot_lv2(Player& player, ProjectileMan& projectile_man) {
     }
 
     position.y -= 5;
-    projectile_man.request_projectile<PlasmaProj>(position, direction.vec(), speed, false);
+    projectile_man.emplace<PlasmaProj>(position, direction.vec(), speed, false);
     shot = true;
 
     //std::println("p1");
@@ -140,8 +140,8 @@ bool PlasmaShooter::shoot_lv3(Player& player, ProjectileMan& projectile_man) {
         pos2.y -= 8;
 
         Engine::MusicMan::play_sfx(shooting_sound);
-        projectile_man.request_projectile<PlasmaProj>(pos1, direction.vec(), speed, false);
-        projectile_man.request_projectile<PlasmaProj>(pos2, direction.vec(), speed, false);
+        projectile_man.emplace<PlasmaProj>(pos1, direction.vec(), speed, false);
+        projectile_man.emplace<PlasmaProj>(pos2, direction.vec(), speed, false);
 
         //std::println("p2");
 
@@ -156,7 +156,7 @@ bool PlasmaShooter::shoot_lv3(Player& player, ProjectileMan& projectile_man) {
         return false;
     }
 
-    projectile_man.request_projectile<PlasmaProj>(position, direction.vec(), speed, false);
+    projectile_man.emplace<PlasmaProj>(position, direction.vec(), speed, false);
     shot = true;
 
     //std::println("p1");

@@ -24,7 +24,7 @@ public:
 
         if (upgrade_id == 0 ) {
 
-            upgrade_id = sys.projectile->request_projectile<UpgradeProj>(Vector2{319, 90}, Vector2{-1, 0}, 30, false);
+            upgrade_id = sys.projectile->emplace<UpgradeProj>(Vector2{319, 90}, Vector2{-1, 0}, 30, false);
 
         }
 

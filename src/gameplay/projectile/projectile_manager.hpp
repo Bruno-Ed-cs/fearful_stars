@@ -3,7 +3,7 @@
 #include "deps.hpp"
 #include "gameplay/enemy/enemy_man.hpp"
 #include "gameplay/player/player.hpp"
-#include "i_projectile.hpp"
+#include "projectile.hpp"
 #include "id_generator.hpp"
 #include "systems.hpp"
 #include "timer.hpp"
@@ -12,7 +12,7 @@
 namespace Game {
 
 template <typename T>
-concept is_projectile = std::is_base_of_v<IProjectile, T> && std::is_default_constructible_v<T>;
+concept is_projectile = std::is_base_of_v<Projectile, T> && std::is_default_constructible_v<T>;
 
 class ProjectileMan {
 
@@ -24,7 +24,6 @@ public:
         std::list<int32_t> targets;
     };
 
-
     ProjectileMan() :
         m_projectiles(), m_delete_queue() {}
 
@@ -33,9 +32,9 @@ public:
     void debug_ui();
     void debug_world();
     void append_delete_queue(uint32_t id);
-    uint32_t get_id(IProjectile* target);
+    uint32_t get_id(Projectile* target);
     Collision check_collisions(Rectangle collider, bool colide_foe);
-    IProjectile& get_projectile(uint32_t id);
+    Projectile& get_projectile(uint32_t id);
     bool exists(uint32_t id);
 
     template<is_projectile Proj>
@@ -66,72 +65,72 @@ public:
     }
 
     template<is_projectile Proj>
-    uint32_t request_projectile(Vector2 pos,
-                           Vector2 direction,
-                           double speed,
-                           bool foe) {
+        uint32_t emplace(Vector2 pos,
+                Vector2 direction,
+                double speed,
+                bool foe) {
 
-        //std::cout << "bullet requested\n";
-        QuerryRes response = find_inactive<Proj>();
+            //std::cout << "bullet requested\n";
+            QuerryRes response = find_inactive<Proj>();
 
-        if (response.not_found) {
+            if (response.not_found) {
 
-            //   std::cout << "not found making new\n";
+                //   std::cout << "not found making new\n";
 
-            auto proj = make_projectile<Proj>(pos, direction, speed, foe);
+                auto proj = make_projectile<Proj>(pos, direction, speed, foe);
 
-            auto id_exists = [this](uint32_t id) {
+                auto id_exists = [this](uint32_t id) {
 
-                for (auto& projectile : m_projectiles) {
-                    if (projectile.id == id)
-                        return true;
-                }
-                return false;
-            };
+                    for (auto& projectile : m_projectiles) {
+                        if (projectile.id == id)
+                            return true;
+                    }
+                    return false;
+                };
 
-            uint32_t id = Engine::generate_id<ProjectileMan>(id_exists);
+                uint32_t id = Engine::generate_id<ProjectileMan>(id_exists);
 
-            //std::print("{} \n", id);
-            //  std::cout << "New projectile position: (" << pos.get_real().x << ", " << pos.get_real().y << ")\n";
+                //std::print("{} \n", id);
+                //  std::cout << "New projectile position: (" << pos.get_real().x << ", " << pos.get_real().y << ")\n";
 
-            m_projectiles.emplace_back(
-                std::move(proj), 
-                true,
-                Engine::Timer(s_inactive_deadtime),
-                id);
+                m_projectiles.emplace_back(
+                        std::move(proj), 
+                        true,
+                        Engine::Timer(s_inactive_deadtime),
+                        id);
 
-            return id;
-        } else {
+                return id;
+            } else {
 
-            //std::cout << "found remaking\n";
+                //std::cout << "found remaking\n";
 
-            auto& proj = m_projectiles[response.projectile_index];
-            proj.projectile_ptr->reset(pos, speed, direction, foe);
-            proj.active = true;
+                auto& proj = m_projectiles[response.projectile_index];
+                proj.projectile_ptr->reset(pos, speed, direction, foe);
+                proj.active = true;
 
-            return proj.id;
+                return proj.id;
+            }
+
         }
 
-    }
-
     template<is_projectile Projectile>
-    static std::unique_ptr<Projectile> make_projectile(Vector2 pos,
-                                Vector2 direction,
-                                double speed,
-                                bool foe) {
+        static std::unique_ptr<Projectile> make_projectile(Vector2 pos,
+                Vector2 direction,
+                double speed,
+                bool foe) {
 
-        auto proj = std::make_unique<Projectile>();
-        proj->reset(pos, speed, direction, foe);
-        return std::move(proj);
-    };
+            auto proj = std::make_unique<Projectile>();
+            proj->reset(pos, speed, direction, foe);
+            return std::move(proj);
+        };
 
 
     template<is_projectile Projectile>
-    static std::unique_ptr<Projectile> make_projectile() {
+        static std::unique_ptr<Projectile> make_projectile() {
 
-        auto proj = std::make_unique<Projectile>();
-        return std::move(proj);
-    };
+            auto proj = std::make_unique<Projectile>();
+            return std::move(proj);
+        };
 
 private:
 
@@ -143,7 +142,7 @@ private:
 
     struct ProjContainer {
 
-        std::unique_ptr<IProjectile> projectile_ptr;
+        std::unique_ptr<Projectile> projectile_ptr;
         bool active;
         Engine::Timer deadtime;
         uint32_t id;
@@ -158,26 +157,26 @@ private:
     void deactivate_projectile(uint32_t id);
 
     template<is_projectile Proj>
-    QuerryRes find_inactive() {
+        QuerryRes find_inactive() {
 
-        QuerryRes response{0, true};
+            QuerryRes response{0, true};
 
-        for (size_t i = 0; i < m_projectiles.size(); ++i) {
+            for (size_t i = 0; i < m_projectiles.size(); ++i) {
 
-            if (!m_projectiles[i].active && 
-                m_projectiles[i].projectile_ptr != nullptr &&
-                m_projectiles[i].projectile_ptr->get_type() == typeid(Proj)) {
+                if (!m_projectiles[i].active && 
+                        m_projectiles[i].projectile_ptr != nullptr &&
+                        m_projectiles[i].projectile_ptr->get_type() == typeid(Proj)) {
 
-                response.projectile_index = i;
-                response.not_found = false;
-                break;
+                    response.projectile_index = i;
+                    response.not_found = false;
+                    break;
+                }
+
             }
 
+            return response;
+
         }
-
-        return response;
-
-    }
 
 
 };

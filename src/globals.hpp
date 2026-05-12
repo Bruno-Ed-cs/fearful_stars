@@ -2,8 +2,8 @@
 
 #include "deps.hpp"
 
-#include "i_entity.hpp"
-#include "gameplay/projectile/i_projectile.hpp"
+#include "entity.hpp"
+#include "gameplay/projectile/projectile.hpp"
 #include "winman.hpp"
 
 namespace Engine {

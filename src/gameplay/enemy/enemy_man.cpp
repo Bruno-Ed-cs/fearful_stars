@@ -107,7 +107,7 @@ void EnemyMan::update(double dt, Engine::Systems& sys) {
 
 }
 
-uint32_t EnemyMan::insert_enemy(std::unique_ptr<IEnemy> enemy) {
+uint32_t EnemyMan::insert_enemy(std::unique_ptr<Enemy> enemy) {
 
     auto ver_id = [this](uint32_t id) { return this->enemy_exists(id); };
 
@@ -211,7 +211,7 @@ void EnemyMan::append_delete_queue(uint32_t target_id) {
 
 }
 
-uint32_t EnemyMan::get_enemy(IEnemy* enemy_ptr) {
+uint32_t EnemyMan::get_enemy(Enemy* enemy_ptr) {
 
     for (size_t i = 0; i < m_enemies_dock.size(); ++i) {
 
@@ -226,7 +226,7 @@ uint32_t EnemyMan::get_enemy(IEnemy* enemy_ptr) {
 
 }
 
-IEnemy& EnemyMan::get_enemy(uint32_t enemy_id) {
+Enemy& EnemyMan::get_enemy(uint32_t enemy_id) {
 
 
     for (size_t i = 0; i < m_enemies_dock.size(); ++i) {

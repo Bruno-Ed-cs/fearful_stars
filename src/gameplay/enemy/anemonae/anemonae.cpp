@@ -30,29 +30,29 @@ void Anemonae::update(double dt, Engine::Systems& sys) {
     if (shot_cooldown.past_limit()) {
         shot_cooldown.reset();
 
-        sys.projectile->request_projectile<BasicProjectile>(pos.vec(), Vector2{-1, 0}, 70, true);
+        sys.projectile->emplace<BasicProjectile>(pos.vec(), Vector2{-1, 0}, 70, true);
         // 1. Left
-        sys.projectile->request_projectile<BasicProjectile>(pos.vec(), Vector2{-1, 0}, 70, true);
+        sys.projectile->emplace<BasicProjectile>(pos.vec(), Vector2{-1, 0}, 70, true);
 
         // 2. Right  
-        sys.projectile->request_projectile<BasicProjectile>(pos.vec(), Vector2{1, 0}, 70, true);
+        sys.projectile->emplace<BasicProjectile>(pos.vec(), Vector2{1, 0}, 70, true);
 
         // 3. Up
-        sys.projectile->request_projectile<BasicProjectile>(pos.vec(), Vector2{0, -1}, 70, true);
+        sys.projectile->emplace<BasicProjectile>(pos.vec(), Vector2{0, -1}, 70, true);
 
         // 4. Down
-        sys.projectile->request_projectile<BasicProjectile>(pos.vec(), Vector2{0, 1}, 70, true);
+        sys.projectile->emplace<BasicProjectile>(pos.vec(), Vector2{0, 1}, 70, true);
         // 5. Up-Left
-        sys.projectile->request_projectile<BasicProjectile>(pos.vec(), Vector2{-0.707f, -0.707f}, 70, true);
+        sys.projectile->emplace<BasicProjectile>(pos.vec(), Vector2{-0.707f, -0.707f}, 70, true);
 
         // 6. Up-Right
-        sys.projectile->request_projectile<BasicProjectile>(pos.vec(), Vector2{0.707f, -0.707f}, 70, true);
+        sys.projectile->emplace<BasicProjectile>(pos.vec(), Vector2{0.707f, -0.707f}, 70, true);
 
         // 7. Down-Left
-        sys.projectile->request_projectile<BasicProjectile>(pos.vec(), Vector2{-0.707f, 0.707f}, 70, true);
+        sys.projectile->emplace<BasicProjectile>(pos.vec(), Vector2{-0.707f, 0.707f}, 70, true);
 
         // 8. Down-Right
-        sys.projectile->request_projectile<BasicProjectile>(pos.vec(), Vector2{0.707f, 0.707f}, 70, true);
+        sys.projectile->emplace<BasicProjectile>(pos.vec(), Vector2{0.707f, 0.707f}, 70, true);
     }
 
 

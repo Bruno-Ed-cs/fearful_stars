@@ -2,11 +2,11 @@
 
 #include "deps.hpp"
 
-#include "i_entity.hpp"
+#include "entity.hpp"
 
 namespace Game {
 
-class IProjectile : public Engine::IEntity{
+class Projectile : public Engine::Entity{
 //    please have a default constructor
 //    for the projectile manager
 
@@ -21,7 +21,7 @@ public:
 
     virtual void reset(Vector2 pos, double speed, Vector2 direction, bool foe, int damage = 0) = 0;
 
-    virtual ~IProjectile() = default;
+    virtual ~Projectile() = default;
 };
 
 }

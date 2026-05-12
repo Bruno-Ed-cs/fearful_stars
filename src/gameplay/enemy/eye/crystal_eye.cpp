@@ -31,7 +31,7 @@ void CrystalEye::update(double dt, Engine::Systems& sys) {
             shot_count++;
             chain_cooldown.reset();
 
-            sys.projectile->request_projectile<PlasmaProj>(pos.vec(), Vector2{-1,0}, 100, true);
+            sys.projectile->emplace<PlasmaProj>(pos.vec(), Vector2{-1,0}, 100, true);
 
             if (shot_count >= 4) {
                 shot_cooldown.reset();

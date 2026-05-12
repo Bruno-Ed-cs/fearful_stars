@@ -6,12 +6,12 @@
 #include "gameplay/components/direction.hpp"
 #include "gameplay/components/hitbox.hpp"
 #include "gameplay/components/position.hpp"
-#include "gameplay/projectile/i_projectile.hpp"
+#include "gameplay/projectile/projectile.hpp"
 #include "systems.hpp"
 
 namespace Game {
 
-class BigShotProj : public IProjectile{
+class BigShotProj : public Projectile{
 
 public:
 

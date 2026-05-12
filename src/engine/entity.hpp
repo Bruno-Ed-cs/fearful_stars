@@ -6,11 +6,11 @@ namespace Engine {
 
 class ComponentContainer;
 
-class IEntity {
+class Entity {
 
 public:
 
-    virtual ~IEntity() = default;
+    virtual ~Entity() = default;
 
     virtual void update(double dt, Systems& sys) = 0;
     virtual void draw() = 0;

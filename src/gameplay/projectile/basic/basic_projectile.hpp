@@ -6,12 +6,12 @@
 
 #include "gameplay/components/hitbox.hpp"
 #include "gameplay/components/position.hpp"
-#include "gameplay/projectile/i_projectile.hpp"
+#include "gameplay/projectile/projectile.hpp"
 #include "timer.hpp"
 
 namespace Game {
 
-class BasicProjectile : public IProjectile {
+class BasicProjectile : public Projectile {
 
 public:
 

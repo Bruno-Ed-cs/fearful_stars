@@ -8,7 +8,7 @@
 namespace Game {
 
 template<typename Enemy>
-concept is_enemy = std::is_base_of_v<IEnemy, Enemy> && std::is_default_constructible_v<Enemy>;
+concept is_enemy = std::is_base_of_v<Enemy, Enemy> && std::is_default_constructible_v<Enemy>;
 
 class EnemyMan {
 
@@ -29,9 +29,9 @@ public:
     }
 
     void update(double dt, Engine::Systems& sys);
-    uint32_t get_enemy(IEnemy* enemy_ptr);
-    IEnemy& get_enemy(uint32_t enemy_id);
-    uint32_t insert_enemy(std::unique_ptr<IEnemy> enemy);
+    uint32_t get_enemy(Enemy* enemy_ptr);
+    Enemy& get_enemy(uint32_t enemy_id);
+    uint32_t insert_enemy(std::unique_ptr<Enemy> enemy);
     uint32_t emplace_enemy(std::string_view enemy_type, Vector2 position);
     bool enemy_exists(uint32_t enemy_id);
     void append_delete_queue(uint32_t target_id);
@@ -56,7 +56,7 @@ public:
 private:
 
     struct EnemyContainer {
-        std::unique_ptr<IEnemy> enemy;
+        std::unique_ptr<Enemy> enemy;
         uint32_t id;
     };
 

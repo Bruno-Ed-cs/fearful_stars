@@ -56,7 +56,7 @@ void BrokenShip::update(double dt, Engine::Systems& sys) {
 
         shot_cooldown.reset();
 
-        sys.projectile->request_projectile<BasicProjectile>(pos.vec(), Vector2{-1, 0}, 90, true);
+        sys.projectile->emplace<BasicProjectile>(pos.vec(), Vector2{-1, 0}, 90, true);
 
     }
 

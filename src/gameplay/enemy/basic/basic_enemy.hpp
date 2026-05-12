@@ -16,7 +16,7 @@
 
 namespace Game {
 
-class BasicEnemy : public IEnemy {
+class BasicEnemy : public Enemy {
 
 public:
 

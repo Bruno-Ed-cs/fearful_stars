@@ -17,8 +17,7 @@ uint32_t BackgroundMan::create_element(sptr<Texture> sprite,
                                        double speed,
                                        double rotation,
                                        int z_index,
-                                       mode_func mode)
-    {
+                                       mode_func mode) {
 
     BackgroundElement element{
         .canva_location = initial_pos,
@@ -119,9 +118,9 @@ bool BackgroundElement::Mode::stay(BackgroundElement& element, double dt) {
 }
 
 bool BackgroundElement::Mode::across(BackgroundElement& element, double dt) {
-
+    return false;
 }
 
 bool BackgroundElement::Mode::loop(BackgroundElement& element, double dt) {
-
+    return false;
 }

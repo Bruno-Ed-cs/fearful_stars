@@ -14,9 +14,7 @@
 
 using namespace Game;
 
-void upgrader(Player& player) {
-
-
+constexpr void upgrader(Player& player) {
     switch (player.upgrade) {
 
         case 0:
@@ -99,8 +97,6 @@ void Player::update(double dt, Engine::Systems& sys) {
     }
 
     if (Engine::InputMan::is_event_active("upgrade")) {
-
-
 
         if (press_colldown.past_limit()) {
 
