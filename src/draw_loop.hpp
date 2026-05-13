@@ -12,7 +12,7 @@
 #include "asset_man.hpp"
 
 
-void draw_loop(Engine::Systems& sys) {
+void draw_loop(Engine::GameState& sys) {
 
     BeginDrawing();
     {

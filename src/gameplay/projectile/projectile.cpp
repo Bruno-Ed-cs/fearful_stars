@@ -16,7 +16,7 @@ using namespace Game;
 
 //}
 
-void ProjectileMan::update(double dt, Engine::Systems& sys) {
+void ProjectileMan::update(double dt, Engine::GameState& sys) {
 
     //    std::cout << "update\n" << m_projectiles.size() << '\n';
 

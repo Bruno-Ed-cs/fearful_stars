@@ -12,7 +12,7 @@ public:
 
     virtual ~Entity() = default;
 
-    virtual void update(double dt, Systems& sys) = 0;
+    virtual void update(double dt, GameState& sys) = 0;
     virtual void draw() = 0;
     virtual bool destroy_self() = 0;
 

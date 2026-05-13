@@ -19,7 +19,7 @@ using namespace Game;
 
 
 
-void Anemonae::update(double dt, Engine::Systems& sys) {
+void Anemonae::update(double dt, Engine::GameState& sys) {
 
     if (final_x == 0) {
         final_x = (rand() % 90) + 150;

@@ -2,19 +2,11 @@
 #include "background_man.hpp"
 #include "deps.hpp"
 
-#include "gameplay/levels/level_actions/play_ost.hpp"
 #include "gameplay/ui/interfaces/gameplay_ui.hpp"
 #include "gameplay/ui/ui_man.hpp"
-#include "gameplay/levels/level_actions/player_move_action.hpp"
-#include "gameplay/levels/level_actions/spawn_upgrade_action.hpp"
-#include "gameplay/player/player.hpp"
-#include "gameplay/projectile/projectile.hpp"
 #include "globals.hpp"
 #include "gameplay/levels/action.hpp"
 #include "input_man.hpp"
-#include "gameplay/levels/level_actions/spawn_enemies_action.hpp"
-#include "gameplay/levels/level_actions/wait_action.hpp"
-#include "gameplay/levels/level_actions/wave_end_action.hpp"
 #include "gameplay/levels/levels.hpp"
 #include "music_man.hpp"
 #include "raylib.h"
@@ -22,14 +14,11 @@
 #include "update_loop.hpp"
 #include "draw_loop.hpp"
 #include "control_schema.hpp"
-#include "gameplay/enemy/enemy.hpp"
-#include "gameplay/enemy/basic/basic_enemy.hpp"
 #include "systems.hpp"
 #include "winman.hpp"
 
 using string = std::string;
 using AssRef = Engine::AssetMan::Ref::Type;
-
 
 //------------------------------------------------------------------------------------
 // Program main entry point
@@ -73,12 +62,7 @@ int main(void)
 
     }
 
-    Engine::Systems sys{};
-
-    //make_level(sys);
-    sys.level->load_level("demo/demo.json");
-    sys.player->init_player({90, 60});
-    sys.ui->stack_interface(std::make_unique<Game::GameplayUi>());
+    Engine::GameState sys {"demo/demo.json"};
 
     // Main game loop
     while (Engine::g_running)    // Detect window close button or ESC key

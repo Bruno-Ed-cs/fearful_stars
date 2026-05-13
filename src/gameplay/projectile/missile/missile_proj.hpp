@@ -38,7 +38,7 @@ public:
     bool destroy_self() { return destruct; }
     int get_damage() { return damage; }
 
-    void update(double dt, Engine::Systems& sys);
+    void update(double dt, Engine::GameState& sys);
     void draw();
 
     void reset(Vector2 pos, double speed, Vector2 direction, bool foe, int damage = 0);

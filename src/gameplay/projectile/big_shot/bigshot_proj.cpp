@@ -5,7 +5,7 @@
 
 using namespace Game;
 
-void BigShotProj::update(double dt, Engine::Systems& sys) {
+void BigShotProj::update(double dt, Engine::GameState& sys) {
 
     orientation = Vector2Normalize(orientation.vec());
     Vector2 movement = orientation.vec() * dt * speed;

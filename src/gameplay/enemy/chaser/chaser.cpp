@@ -19,7 +19,7 @@ using namespace Game;
 
 
 
-void Chaser::update(double dt, Engine::Systems& sys) {
+void Chaser::update(double dt, Engine::GameState& sys) {
 
     player_pos_update.update(dt);
 

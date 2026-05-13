@@ -11,7 +11,7 @@ struct WaveEndAction : public Action{
 
     WaveEndAction() = default;
 
-    bool execute(Engine::Systems& sys, double dt) override {
+    bool execute(Engine::GameState& sys, double dt) override {
 
         if (sys.enemy->no_enemy_left())
             return true;

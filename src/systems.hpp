@@ -12,22 +12,23 @@ struct UiMan;
 
 }
 
+template<typename T>
+using uptr = std::unique_ptr<T>;
 
 namespace Engine {
 
-class MusicMan;
 
-struct Systems {
+struct GameState {
 
-    std::unique_ptr<Game::EnemyMan> enemy;
-    std::unique_ptr<Game::ProjectileMan> projectile;
-    std::unique_ptr<Game::PlayerMan> player;
-    std::unique_ptr<Game::LevelManager> level;
-    std::unique_ptr<Game::UiMan> ui;
+    uptr<Game::EnemyMan> enemy;
+    uptr<Game::ProjectileMan> projectile;
+    uptr<Game::PlayerMan> player;
+    uptr<Game::LevelManager> level;
+    uptr<Game::UiMan> ui;
     
     bool pause = false;
 
-    Systems();
+    GameState(std::string level_path);
 };
 
 }

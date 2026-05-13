@@ -19,7 +19,7 @@ public:
         m_ost = Engine::AssetMan::get_music(music_name);
     }
 
-    bool execute(Engine::Systems& sys, double dt) {
+    bool execute(Engine::GameState& sys, double dt) {
 
         Engine::MusicMan::set_mode(Engine::MusicMan::Mode::loop);
         Engine::MusicMan::add_music_to_buffer(m_ost);

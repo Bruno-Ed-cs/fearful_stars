@@ -20,7 +20,7 @@ using namespace Game;
 
 
 
-void CrystalEye::update(double dt, Engine::Systems& sys) {
+void CrystalEye::update(double dt, Engine::GameState& sys) {
 
     shot_cooldown.update(dt);
     chain_cooldown.update(dt);

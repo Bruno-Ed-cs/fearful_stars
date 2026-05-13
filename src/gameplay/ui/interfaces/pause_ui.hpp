@@ -20,7 +20,7 @@ struct PauseUi : public UiLayer {
 
     }
 
-    void update(double dt, Engine::Systems& sys) {
+    void update(double dt, Engine::GameState& sys) {
 
         sys.pause = true;
         //cooldown.update(dt);
@@ -36,7 +36,7 @@ struct PauseUi : public UiLayer {
         } EndTextureMode();
     }
 
-    void process_input(Engine::Systems& sys) { 
+    void process_input(Engine::GameState& sys) { 
 
         if (Engine::InputMan::is_event_active("pause") && sys.pause) {
 

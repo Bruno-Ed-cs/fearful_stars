@@ -7,7 +7,7 @@
 
 using namespace Game;
 
-void BigShooter::run(Player& player, Engine::Systems& sys, double dt) {
+void BigShooter::run(Player& player, Engine::GameState& sys, double dt) {
 
     if (player.special_meter >= 100 && Engine::InputMan::is_event_active("special")) {
 

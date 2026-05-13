@@ -9,7 +9,7 @@
 
 using namespace Game;
 
-void OrbitalProj::update(double dt, Engine::Systems& sys) {
+void OrbitalProj::update(double dt, Engine::GameState& sys) {
 
     if (!foe) {
         pos = sys.player->get_player().pos;

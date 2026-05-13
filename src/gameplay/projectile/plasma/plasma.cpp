@@ -6,7 +6,7 @@
 
 using namespace Game;
 
-void PlasmaProj::update(double dt, Engine::Systems& sys) {
+void PlasmaProj::update(double dt, Engine::GameState& sys) {
 
     auto dir = Vector2Normalize(orientation.vec());
     Vector2 movement = dir * speed * dt;

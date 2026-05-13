@@ -52,7 +52,7 @@ void Level::restart() {
 
 }
 
-void Level::execute(Engine::Systems& sys, double dt) {
+void Level::execute(Engine::GameState& sys, double dt) {
 
     if (current_action == actions.end() || actions.empty()) 
         return;
@@ -89,7 +89,7 @@ LevelManager::LevelManager()
     end_level = std::bind(&LevelManager::loop_level, this);
 }
 
-void LevelManager::update(Engine::Systems& sys, double dt) {
+void LevelManager::update(Engine::GameState& sys, double dt) {
 
     if (level == nullptr) {
 

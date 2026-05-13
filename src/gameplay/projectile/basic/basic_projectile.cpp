@@ -13,7 +13,7 @@
 
 using namespace Game;
 
-void BasicProjectile::update(double dt, Engine::Systems& sys) {
+void BasicProjectile::update(double dt, Engine::GameState& sys) {
 
     
     Vector2 movement = Vector2Normalize(direction) * speed * dt;

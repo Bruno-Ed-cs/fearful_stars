@@ -12,7 +12,7 @@ public:
 
     MissileShooter() = default;
 
-    void run(Player& player, Engine::Systems& sys, double dt);
+    void run(Player& player, Engine::GameState& sys, double dt);
 
     Engine::Timer cooldown = Engine::Timer(0.60f);
 

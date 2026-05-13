@@ -19,7 +19,7 @@ public:
         timer.reset();
     }
 
-    bool execute(Engine::Systems& sys, double dt) override {
+    bool execute(Engine::GameState& sys, double dt) override {
 
         timer.update(dt);
 

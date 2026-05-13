@@ -6,7 +6,7 @@
 
 using namespace Game;
 
-void MissileShooter::run(Player& player, Engine::Systems& sys, double dt) {
+void MissileShooter::run(Player& player, Engine::GameState& sys, double dt) {
 
     cooldown.update(dt);
 

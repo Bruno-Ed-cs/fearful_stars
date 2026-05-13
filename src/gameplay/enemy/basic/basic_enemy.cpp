@@ -33,14 +33,14 @@ void BasicEnemy::draw() {
 
 };
 
-void BasicEnemy::update(double dt, Engine::Systems& sys) {
+void BasicEnemy::update(double dt, Engine::GameState& sys) {
 
     Vector2 movement = Vector2Normalize(direction.vec()) * dt * speed;
     pos += movement;
 
 };
 
-void BasicEnemy::take_damage(Engine::Systems& sys, int damage) {
+void BasicEnemy::take_damage(Engine::GameState& sys, int damage) {
 
 
     hp.take_damage(damage);

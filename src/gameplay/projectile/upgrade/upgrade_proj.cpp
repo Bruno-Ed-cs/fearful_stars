@@ -6,7 +6,7 @@
 
 using namespace Game;
 
-void UpgradeProj::update(double dt, Engine::Systems& sys) {
+void UpgradeProj::update(double dt, Engine::GameState& sys) {
 
     Vector2 movement = Vector2Normalize(orientation.vec()) * (speed * dt);
 

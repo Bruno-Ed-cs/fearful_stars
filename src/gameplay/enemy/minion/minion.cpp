@@ -20,7 +20,7 @@ using namespace Game;
 
 
 
-void Minion::update(double dt, Engine::Systems& sys) {
+void Minion::update(double dt, Engine::GameState& sys) {
 
     
     shot_cooldown.update(dt);

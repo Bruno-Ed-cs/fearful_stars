@@ -11,7 +11,7 @@ class OrbitalShield : public AuxMachine {
 
 public:
 
-    void run(Player& player, Engine::Systems& sys, double dt);
+    void run(Player& player, Engine::GameState& sys, double dt);
 
     uint32_t orb1 = 0;
     uint32_t orb2 = 0;

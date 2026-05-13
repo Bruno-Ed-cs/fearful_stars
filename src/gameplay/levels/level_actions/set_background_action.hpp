@@ -23,7 +23,7 @@ public:
 
     }
 
-    bool execute(Engine::Systems& sys, double dt) override {
+    bool execute(Engine::GameState& sys, double dt) override {
 
         sptr<Texture> bg = Engine::AssetMan::get_texture(bg_name);
 

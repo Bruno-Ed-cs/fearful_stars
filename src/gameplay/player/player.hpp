@@ -38,11 +38,11 @@ namespace Game {
                 this->pos = pos;
             }
 
-            void update(double dt, Engine::Systems& sys) override; 
+            void update(double dt, Engine::GameState& sys) override; 
             void draw() override;
             void turn_invincible(double seconds);
             Rectangle get_hitbox() { return hitbox.get(pos.vec()); };
-            void die(Engine::Systems& sys);
+            void die(Engine::GameState& sys);
             void revive();
             bool destroy_self() override { return self_destruct; };
             void take_damage();
@@ -86,7 +86,7 @@ namespace Game {
 
         public:
 
-            void update(double dt, Engine::Systems& sys);
+            void update(double dt, Engine::GameState& sys);
             void draw();
             Player& get_player();
             void init_player(Vector2 position);

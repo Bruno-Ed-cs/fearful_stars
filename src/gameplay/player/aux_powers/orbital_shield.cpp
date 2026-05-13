@@ -8,7 +8,7 @@
 
 using namespace Game;
 
-void OrbitalShield::run(Player& player, Engine::Systems& sys, double dt) {
+void OrbitalShield::run(Player& player, Engine::GameState& sys, double dt) {
 
 
     switch (player.aux_level) {

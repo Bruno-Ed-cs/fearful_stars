@@ -36,7 +36,7 @@ void UiMan::draw() {
     Engine::RenderMan::send_texture(Engine::RenderMan::Plane::ui , canva.texture, view, source);
 }
 
-void UiMan::update(double dt, Engine::Systems& sys) {
+void UiMan::update(double dt, Engine::GameState& sys) {
 
     ui_stack.back()->process_input(sys);
 

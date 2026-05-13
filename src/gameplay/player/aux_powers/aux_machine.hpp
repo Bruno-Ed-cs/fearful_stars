@@ -10,7 +10,7 @@ class AuxMachine {
 
 public:
 
-    virtual void run(Player& player, Engine::Systems& sys, double dt) = 0;
+    virtual void run(Player& player, Engine::GameState& sys, double dt) = 0;
 
 
 };

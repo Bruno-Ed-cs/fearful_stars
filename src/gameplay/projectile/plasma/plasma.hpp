@@ -34,7 +34,7 @@ public:
     const std::type_info& get_type() override{ return typeid(PlasmaProj); }
     bool destroy_self() override { return destruct; }
 
-    void update(double dt, Engine::Systems& sys) override;
+    void update(double dt, Engine::GameState& sys) override;
     void draw() override;
 
     void reset(Vector2 pos, double speed, Vector2 direction, bool foe, int damage = 0) override;

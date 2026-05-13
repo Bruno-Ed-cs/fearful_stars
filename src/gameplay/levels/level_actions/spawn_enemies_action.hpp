@@ -18,7 +18,7 @@ public:
 
     }
 
-    bool execute(Engine::Systems& sys, double dt) override {
+    bool execute(Engine::GameState& sys, double dt) override {
 
         for (auto spawn_target : spawn_targets) {
 

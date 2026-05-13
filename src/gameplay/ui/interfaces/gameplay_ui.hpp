@@ -17,7 +17,7 @@ struct GameplayUi: public UiLayer {
 
     }
 
-    void update(double dt, Engine::Systems& sys) {
+    void update(double dt, Engine::GameState& sys) {
 
         special = sys.player->get_player().special_meter;
         lives = sys.player->get_player().lives.points;
@@ -70,7 +70,7 @@ struct GameplayUi: public UiLayer {
         EndTextureMode();
     }
 
-    void process_input(Engine::Systems& sys) {}
+    void process_input(Engine::GameState& sys) {}
 
     std::shared_ptr<Texture> ui_texture;
     std::shared_ptr<Texture> cursor_texture;

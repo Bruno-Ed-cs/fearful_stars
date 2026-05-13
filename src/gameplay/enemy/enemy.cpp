@@ -78,7 +78,7 @@ uint32_t EnemyMan::emplace_enemy(std::string_view enemy_type, Vector2 position) 
 
 }
 
-void EnemyMan::update(double dt, Engine::Systems& sys) {
+void EnemyMan::update(double dt, Engine::GameState& sys) {
 
     for (auto& container: m_enemies_dock) {
 

@@ -20,7 +20,7 @@ using namespace Game;
 
 
 
-void Vagant::update(double dt, Engine::Systems& sys) {
+void Vagant::update(double dt, Engine::GameState& sys) {
 
     shot_cooldown.update(dt);
 

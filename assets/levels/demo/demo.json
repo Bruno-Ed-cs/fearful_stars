@@ -11,9 +11,6 @@
             "track": "space-ambient"
         },
         {
-            "type": "PlayerMoveAction"
-        },
-        {
             "type": "SpawnEnemiesAction",
             "enemies": [
                 {

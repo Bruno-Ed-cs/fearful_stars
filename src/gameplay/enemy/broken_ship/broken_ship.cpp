@@ -22,7 +22,7 @@ using namespace Game;
 
 
 
-void BrokenShip::update(double dt, Engine::Systems& sys) {
+void BrokenShip::update(double dt, Engine::GameState& sys) {
 
     shot_cooldown.update(dt);
     pick_direction.update(dt);

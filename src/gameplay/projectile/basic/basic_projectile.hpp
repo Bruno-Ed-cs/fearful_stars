@@ -43,7 +43,7 @@ public:
 
     }
 
-    void update(double dt, Engine::Systems& sys) override;
+    void update(double dt, Engine::GameState& sys) override;
     void draw() override;
     const std::type_info& get_type() override { return typeid(BasicProjectile); };
     bool destroy_self() override { return self_destruct; };

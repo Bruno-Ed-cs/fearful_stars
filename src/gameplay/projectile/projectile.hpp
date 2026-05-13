@@ -45,7 +45,7 @@ public:
     ProjectileMan() :
         m_projectiles(), m_delete_queue() {}
 
-    void update(double dt, Engine::Systems& sys);
+    void update(double dt, Engine::GameState& sys);
     void draw();
     void debug_ui();
     void debug_world();

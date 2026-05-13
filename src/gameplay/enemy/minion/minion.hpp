@@ -24,7 +24,7 @@ public:
 
     }
 
-    void update(double dt, Engine::Systems& sys) override;
+    void update(double dt, Engine::GameState& sys) override;
     void reset(Vector2 position) override;
 
     void init () {

@@ -21,7 +21,7 @@ class Enemy : public Engine::Entity {
 public:
 
     virtual void reset(Vector2 position) = 0;
-    virtual void take_damage(Engine::Systems& sys, int damage) = 0;
+    virtual void take_damage(Engine::GameState& sys, int damage) = 0;
     virtual EnemyType get_type() = 0;
 
     virtual Rectangle get_hitbox() = 0;
@@ -48,7 +48,7 @@ public:
 
     }
 
-    void update(double dt, Engine::Systems& sys);
+    void update(double dt, Engine::GameState& sys);
     uint32_t get_enemy(Enemy* enemy_ptr);
     Enemy& get_enemy(uint32_t enemy_id);
     uint32_t insert_enemy(std::unique_ptr<Enemy> enemy);

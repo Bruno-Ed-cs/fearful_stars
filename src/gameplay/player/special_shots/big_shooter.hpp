@@ -11,7 +11,7 @@ class BigShooter : public SpecialMachine {
 
 public:
 
-    void run(Player& player, Engine::Systems& sys, double dt);
+    void run(Player& player, Engine::GameState& sys, double dt);
 
 
 };

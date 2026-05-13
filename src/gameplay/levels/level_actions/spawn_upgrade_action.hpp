@@ -20,7 +20,7 @@ public:
         upgrade_id = 0;
     }
 
-    bool execute(Engine::Systems& sys, double dt) override {
+    bool execute(Engine::GameState& sys, double dt) override {
 
         if (upgrade_id == 0 ) {
 

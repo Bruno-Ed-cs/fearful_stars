@@ -65,7 +65,7 @@ constexpr void upgrader(Player& player) {
 
 }
 
-void Player::update(double dt, Engine::Systems& sys) {
+void Player::update(double dt, Engine::GameState& sys) {
 
     static Engine::Timer press_colldown = Engine::Timer(0.5);
     press_colldown.update(dt);
@@ -198,7 +198,7 @@ void Player::take_damage() {
     }
 }
 
-void Player::die(Engine::Systems& sys) {
+void Player::die(Engine::GameState& sys) {
 
     dead = true;
 
@@ -237,7 +237,7 @@ void Player::draw() {
 
 //Player manager imp
 
-void PlayerMan::update(double dt, Engine::Systems& sys) {
+void PlayerMan::update(double dt, Engine::GameState& sys) {
 
     m_player1->update(dt, sys);
     if (m_player1->dead) {

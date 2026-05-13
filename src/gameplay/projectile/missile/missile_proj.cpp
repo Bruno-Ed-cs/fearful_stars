@@ -7,7 +7,7 @@
 
 using namespace Game;
 
-void MissileProj::update(double dt, Engine::Systems& sys) {
+void MissileProj::update(double dt, Engine::GameState& sys) {
 
     dorment_time.update(dt);
 
