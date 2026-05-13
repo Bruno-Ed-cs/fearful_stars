@@ -17,7 +17,6 @@ Engine::GameState::GameState(Engine::Mode& app_state) :
     app_state   (app_state)
 {
     player->init_player({60, 90});
-    ui->stack_interface(std::make_unique<Game::GameplayUi>());
 }
 
 
