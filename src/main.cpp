@@ -20,6 +20,12 @@
 using string = std::string;
 using AssRef = Engine::AssetMan::Ref::Type;
 
+enum struct Mode {
+
+    gameplay
+
+};
+
 //------------------------------------------------------------------------------------
 // Program main entry point
 //------------------------------------------------------------------------------------
@@ -62,6 +68,7 @@ int main(void)
 
     }
 
+    Mode state = Mode::gameplay;
     Engine::GameState sys {"demo/demo.json"};
 
     // Main game loop
@@ -83,7 +90,7 @@ int main(void)
 
         }
 
-        
+
         if (IsKeyPressed(KEY_I)) {
 
             Engine::AssetMan::cleanup();
@@ -93,13 +100,20 @@ int main(void)
 
         Engine::WinMan::update_window();
 
-
         Engine::MusicMan::update();
 
-        update_loop(dt, sys);
+        switch (state) {
+
+            case Mode::gameplay: {
+
+                gameplay_update_loop(dt, sys);
+                gameplay_draw_loop(sys);
+                break;
+             }
+
+        }
 
         //player_ui(sys);
-        draw_loop(sys);
 
 
         //----------------------------------------------------------------------------------

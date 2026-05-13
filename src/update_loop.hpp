@@ -14,7 +14,7 @@
 #include "timer.hpp"
 #include <print>
 
-void update_loop(double dt, Engine::GameState& sys) {
+void gameplay_update_loop(double dt, Engine::GameState& sys) {
 
     if (Engine::InputMan::is_event_active("pause") && !sys.pause) {
 
