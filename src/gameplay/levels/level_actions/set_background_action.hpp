@@ -27,7 +27,7 @@ public:
 
         sptr<Texture> bg = Engine::AssetMan::get_texture(bg_name);
 
-        std::println("{}", bg_name);
+        //std::println("{}", bg_name);
 
         //std::println("cur time = {}", timer.get_time());
         //

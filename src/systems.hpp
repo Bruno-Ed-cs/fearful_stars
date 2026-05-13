@@ -17,6 +17,14 @@ using uptr = std::unique_ptr<T>;
 
 namespace Engine {
 
+enum struct Mode {
+
+    gameplay,
+    main_menu,
+    level_select,
+    level_editor
+};
+
 
 struct GameState {
 
@@ -25,10 +33,19 @@ struct GameState {
     uptr<Game::PlayerMan> player;
     uptr<Game::LevelManager> level;
     uptr<Game::UiMan> ui;
+
+    Mode& app_state;    
     
     bool pause = false;
 
-    GameState(std::string level_path);
+    GameState(Mode& app_state);
+    void load(std::string level_path);
 };
+
+void start_gameplay(Mode& sys_mode, GameState& sys);
+void resume_gameplay(Mode& sys_mode);
+void go_to_main_menu(Mode& sys_mode);
+void go_to_level_editor(Mode& sys_mode);
+void go_to_level_select(Mode& sys_mode);
 
 }

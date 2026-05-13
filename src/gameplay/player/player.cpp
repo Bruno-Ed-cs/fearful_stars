@@ -224,8 +224,8 @@ void Player::turn_invincible(double seconds) {
 void Player::draw() {
 
 
-    Rectangle dest{pos.x - 12, pos.y - 8, 24, 16};
-    Rectangle origin{0, 0, 24, 16};
+    Rectangle dest{pos.x - 14, pos.y - 8, 26, 16};
+    Rectangle origin{0, 0, 26, 16};
 
     if (invincible) {
         Engine::RenderMan::send_texture(Engine::RenderMan::Plane::middle, *spritesheet, dest, origin, 0, 0, RED);

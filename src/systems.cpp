@@ -8,18 +8,26 @@
 #include "render_man.hpp"
 #include "gameplay/ui/interfaces/gameplay_ui.hpp"
 
-Engine::GameState::GameState(std::string level_path) :
+Engine::GameState::GameState(Engine::Mode& app_state) :
     enemy       (std::make_unique<Game::EnemyMan>()),
     projectile  (std::make_unique<Game::ProjectileMan>()),
     player      (std::make_unique<Game::PlayerMan>()),
     level       (std::make_unique<Game::LevelManager>()),
-    ui          (std::make_unique<Game::UiMan>(RenderMan::canva_size()))
+    ui          (std::make_unique<Game::UiMan>(RenderMan::canva_size())),
+    app_state   (app_state)
 {
-
-    level->load_level(level_path);
     player->init_player({60, 90});
     ui->stack_interface(std::make_unique<Game::GameplayUi>());
 }
 
 
+void Engine::GameState::load(std::string level_path) {
+    enemy.reset(new Game::EnemyMan());
+    projectile.reset(new Game::ProjectileMan());
+    player.reset(new Game::PlayerMan());
+    ui.reset(new Game::UiMan(RenderMan::canva_size()));
 
+    level->load_level(level_path);
+    player->init_player({60, 90});
+    ui->stack_interface(std::make_unique<Game::GameplayUi>());
+}

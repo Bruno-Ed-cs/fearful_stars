@@ -20,11 +20,6 @@
 using string = std::string;
 using AssRef = Engine::AssetMan::Ref::Type;
 
-enum struct Mode {
-
-    gameplay
-
-};
 
 //------------------------------------------------------------------------------------
 // Program main entry point
@@ -68,8 +63,10 @@ int main(void)
 
     }
 
-    Mode state = Mode::gameplay;
-    Engine::GameState sys {"demo/demo.json"};
+    Engine::Mode state = Engine::Mode::gameplay;
+    Engine::GameState sys {state};
+
+    sys.load("demo/demo.json");
 
     // Main game loop
     while (Engine::g_running)    // Detect window close button or ESC key
@@ -104,12 +101,29 @@ int main(void)
 
         switch (state) {
 
-            case Mode::gameplay: {
+            case Engine::Mode::gameplay: 
+                {
+                    gameplay_update_loop(dt, sys);
+                    gameplay_draw_loop(sys);
+                    break;
+                }
 
-                gameplay_update_loop(dt, sys);
-                gameplay_draw_loop(sys);
-                break;
-             }
+            case Engine::Mode::level_editor:
+                {
+
+                    break;
+                }
+            case Engine::Mode::level_select:
+                {
+
+                    break;
+                }
+
+            case Engine::Mode::main_menu:
+                {
+
+                    break;
+                }
 
         }
 
