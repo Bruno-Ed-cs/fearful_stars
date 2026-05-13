@@ -1,6 +1,6 @@
 #include "plasma.hpp"
 #include "gameplay/player/player.hpp"
-#include "gameplay/enemy/enemy_man.hpp"
+#include "gameplay/enemy/enemy.hpp"
 #include "raylib.h"
 #include "render_man.hpp"
 

@@ -1,11 +1,11 @@
 #pragma once
-#include "gameplay/levels/i_action.hpp"
+#include "gameplay/levels/action.hpp"
 #include "systems.hpp"
-#include "gameplay/enemy/enemy_man.hpp"
+#include "gameplay/enemy/enemy.hpp"
 
 namespace Game {
 
-class SpawnEnemiesAction : public IAction {
+class SpawnEnemiesAction : public Action {
 
     std::vector<std::tuple<std::string, Vector2>> spawn_targets;
 

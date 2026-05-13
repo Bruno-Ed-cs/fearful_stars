@@ -1,11 +1,11 @@
 #pragma once
-#include "gameplay/levels/i_action.hpp"
+#include "gameplay/levels/action.hpp"
 #include "systems.hpp"
 #include "gameplay/player/player.hpp"
 
 namespace Game {
 
-class PlayerMoveAction : public IAction {
+class PlayerMoveAction : public Action {
 
 
 public:

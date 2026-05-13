@@ -3,7 +3,7 @@
 #include "gameplay/player/player.hpp"
 #include "gameplay/projectile/big_shot/bigshot_proj.hpp"
 #include "input_man.hpp"
-#include "gameplay/projectile/projectile_manager.hpp"
+#include "gameplay/projectile/projectile.hpp"
 
 using namespace Game;
 

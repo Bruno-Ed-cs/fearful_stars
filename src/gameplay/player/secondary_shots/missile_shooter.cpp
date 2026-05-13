@@ -1,7 +1,7 @@
 #include "missile_shooter.hpp"
 #include "gameplay/projectile/missile/missile_proj.hpp"
 #include "input_man.hpp"
-#include "gameplay/projectile/projectile_manager.hpp"
+#include "gameplay/projectile/projectile.hpp"
 
 
 using namespace Game;

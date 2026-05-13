@@ -12,7 +12,7 @@
 
 namespace Game {
 
-class MissileProj : public Projectile{
+class MissileProj : public Projectile {
 
 public:
 

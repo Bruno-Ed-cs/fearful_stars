@@ -2,7 +2,7 @@
 #include "systems.hpp"
 #include "orbital_shield.hpp"
 #include "gameplay/player/player.hpp"
-#include "gameplay/projectile/projectile_manager.hpp"
+#include "gameplay/projectile/projectile.hpp"
 #include "deps.hpp"
 #include <memory>
 

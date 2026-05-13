@@ -2,7 +2,7 @@
 
 #include "asset_man.hpp"
 #include "deps.hpp"
-#include "gameplay/levels/i_action.hpp"
+#include "gameplay/levels/action.hpp"
 #include "systems.hpp"
 
 namespace Game {
@@ -16,7 +16,7 @@ class Level {
 public:
 
     Level(std::string_view name);
-    Level(std::string_view, std::vector<IAction*> action_list, std::vector<Engine::AssetMan::Ref> preload_list = {});
+    Level(std::string_view, std::vector<Action*> action_list, std::vector<Engine::AssetMan::Ref> preload_list = {});
 
     void restart();
     void execute(Engine::Systems& sys, double dt);
@@ -25,8 +25,8 @@ public:
 public:
 
     std::string name;
-    std::list<uptr<IAction>> actions;
-    std::list<uptr<IAction>>::iterator current_action;
+    std::list<uptr<Action>> actions;
+    std::list<uptr<Action>>::iterator current_action;
     std::vector<Engine::AssetMan::Ref> preloads;
 };
 

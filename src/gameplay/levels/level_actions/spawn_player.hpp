@@ -1,9 +1,9 @@
 #pragma once
-#include "gameplay/levels/i_action.hpp"
-#include "gameplay/projectile/projectile_manager.hpp"
+#include "gameplay/levels/action.hpp"
+#include "gameplay/projectile/projectile.hpp"
 #include "gameplay/projectile/upgrade/upgrade_proj.hpp"
 #include "systems.hpp"
-#include "gameplay/enemy/enemy_man.hpp"
+#include "gameplay/enemy/enemy.hpp"
 
 namespace Game {
 

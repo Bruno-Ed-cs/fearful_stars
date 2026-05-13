@@ -1,11 +1,11 @@
 #pragma once
-#include "gameplay/levels/i_action.hpp"
+#include "gameplay/levels/action.hpp"
 #include "systems.hpp"
 #include "timer.hpp"
 
 namespace Game {
 
-class WaitAction : public IAction {
+class WaitAction : public Action {
 
     Engine::Timer timer;
 

@@ -2,13 +2,13 @@
 
 #include "asset_man.hpp"
 #include "deps.hpp"
-#include "gameplay/levels/i_action.hpp"
+#include "gameplay/levels/action.hpp"
 #include "systems.hpp"
 #include "music_man.hpp"
 
 namespace Game {
 
-class PlayOstAction : public IAction {
+class PlayOstAction : public Action {
 
     std::shared_ptr<Music> m_ost;
 

@@ -1,7 +1,7 @@
 #include "bigshot_proj.hpp"
 #include "render_man.hpp"
 #include "raymath.h"
-#include "gameplay/enemy/enemy_man.hpp"
+#include "gameplay/enemy/enemy.hpp"
 
 using namespace Game;
 

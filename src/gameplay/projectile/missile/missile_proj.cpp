@@ -2,7 +2,7 @@
 #include "gameplay/components/direction.hpp"
 #include "raymath.h"
 #include "timer.hpp"
-#include "gameplay/enemy/enemy_man.hpp"
+#include "gameplay/enemy/enemy.hpp"
 #include "render_man.hpp"
 
 using namespace Game;

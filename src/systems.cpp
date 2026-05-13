@@ -1,7 +1,7 @@
 #include "systems.hpp"
 
-#include "gameplay/enemy/enemy_man.hpp"
-#include "gameplay/projectile/projectile_manager.hpp"
+#include "gameplay/enemy/enemy.hpp"
+#include "gameplay/projectile/projectile.hpp"
 #include "gameplay/levels/levels.hpp"
 #include "gameplay/player/player.hpp"
 #include "gameplay/ui/ui_man.hpp"

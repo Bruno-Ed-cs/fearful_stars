@@ -1,13 +1,13 @@
 #pragma once
 
 #include "deps.hpp"
-#include "gameplay/levels/i_action.hpp"
+#include "gameplay/levels/action.hpp"
 #include "systems.hpp"
-#include "gameplay/enemy/enemy_man.hpp"
+#include "gameplay/enemy/enemy.hpp"
 
 namespace Game {
 
-struct WaveEndAction : public IAction{
+struct WaveEndAction : public Action{
 
     WaveEndAction() = default;
 

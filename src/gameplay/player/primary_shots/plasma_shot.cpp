@@ -1,7 +1,7 @@
 #include "gameplay/player/primary_shots/plasma_shot.hpp"
 #include "gameplay/player/player.hpp"
 #include "gameplay/projectile/plasma/plasma.hpp"
-#include "gameplay/projectile/projectile_manager.hpp"
+#include "gameplay/projectile/projectile.hpp"
 #include "input_man.hpp"
 #include "music_man.hpp"
 

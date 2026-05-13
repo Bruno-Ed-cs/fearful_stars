@@ -8,10 +8,10 @@ using namespace Engine;
 template<typename T>
 using sptr = std::shared_ptr<T>;
 
-using str_par = std::string_view;
+using str_view = std::string_view;
 using str = std::string;
 
-static str search_asset(str_par base_dir, str_par asset_name, str_par filter) {
+static str search_asset(str_view base_dir, str_view asset_name, str_view filter) {
 
     str app_dir = GetApplicationDirectory();
     std::println("{}", app_dir);
@@ -46,7 +46,7 @@ static str search_asset(str_par base_dir, str_par asset_name, str_par filter) {
 
 }
 
-sptr<Shader> AssetMan::get_shader(str_par shader_name) {
+sptr<Shader> AssetMan::get_shader(str_view shader_name) {
 
     if (shader_bank.contains(str(shader_name))) {
 
@@ -137,7 +137,7 @@ sptr<Font> AssetMan::get_font(const str& font_name){
 
     return font_reference;
 }
-void AssetMan::preload_shaders(std::initializer_list<str_par> shaders) {
+void AssetMan::preload_shaders(std::initializer_list<str_view> shaders) {
 
     for (auto shader_name : shaders) {
 

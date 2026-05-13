@@ -1,11 +1,12 @@
 #include "levels.hpp"
-#include "gameplay/levels/i_action.hpp"
+#include "gameplay/levels/action.hpp"
 #include "gameplay/levels/level_actions/play_ost.hpp"
 #include "gameplay/levels/level_actions/player_move_action.hpp"
 #include "gameplay/levels/level_actions/spawn_enemies_action.hpp"
 #include "gameplay/levels/level_actions/spawn_upgrade_action.hpp"
 #include "gameplay/levels/level_actions/wait_action.hpp"
 #include "gameplay/levels/level_actions/wave_end_action.hpp"
+#include "gameplay/levels/level_actions/set_background_action.hpp"
 #include "globals.hpp"
 #include "json.hpp"
 #include "raylib.h"
@@ -22,7 +23,7 @@ name(name), actions(), preloads() {
     current_action = actions.end();
 }
 
-Level::Level(std::string_view name, std::vector<IAction*> action_list, std::vector<Engine::AssetMan::Ref> preload_list) :
+Level::Level(std::string_view name, std::vector<Action*> action_list, std::vector<Engine::AssetMan::Ref> preload_list) :
 name(name) {
 
     for (auto& action: action_list) {
@@ -174,10 +175,16 @@ void LevelManager::load_level(std::string_view file_path) {
     UnloadFileText(source_file);
 
     std::string level_name = raw_level["name"];
-    std::vector<IAction*> actions;
+    std::vector<Action*> actions;
     std::vector<Engine::AssetMan::Ref> preloads;
 
     for (auto& action : raw_level["actions"]) {
+
+        if (action["type"] == "SetBackgroundAction") {
+
+            actions.push_back(new SetBackgroundAction(action["bg"]));
+
+        }
 
         if (action["type"] == "PlayerMoveAction") {
 

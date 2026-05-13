@@ -2,7 +2,7 @@
 
 #include "gameplay/player/player.hpp"
 #include "gameplay/projectile/basic/basic_projectile.hpp"
-#include "gameplay/projectile/projectile_manager.hpp"
+#include "gameplay/projectile/projectile.hpp"
 #include "input_man.hpp"
 
 using namespace Game;

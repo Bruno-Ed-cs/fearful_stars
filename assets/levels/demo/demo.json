@@ -2,6 +2,11 @@
     "name": "level1",
     "actions": [
         {
+            "type": "SetBackgroundAction",
+            "bg": "demo_background"
+
+        },
+        {
             "type": "PlayOstAction",
             "track": "space-ambient"
         },
@@ -672,6 +677,10 @@
         },
         {
             "name": "vic_viper",
+            "type": "sprite"
+        },
+        {
+            "name": "demo_background",
             "type": "sprite"
         }
     ]
