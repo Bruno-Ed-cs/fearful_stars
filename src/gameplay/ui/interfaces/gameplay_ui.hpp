@@ -4,6 +4,7 @@
 #include "gameplay/ui/ui_layer.hpp"
 #include "asset_man.hpp"
 #include "gameplay/player/player.hpp"
+#include "raylib.h"
 #include "systems.hpp"
 
 namespace Game {
@@ -36,7 +37,11 @@ struct GameplayUi: public UiLayer {
 
         BeginTextureMode(canva);
 
-        DrawRectangleRec(bar, YELLOW);
+        if (special < 100)
+            DrawRectangleRec(bar, YELLOW);
+        else
+            DrawRectangleRec(bar, BLUE);
+
         DrawTextureEx(*ui_texture, Vector2{0,0}, 0.0f, 1.0f, WHITE);
 
 
@@ -60,8 +65,15 @@ struct GameplayUi: public UiLayer {
                 DrawTextureEx(*cursor_texture, Vector2{10, 140}, 1.0f, 1.0f, WHITE);
                 break;
 
+            case 4: 
+
+                DrawTextureEx(*cursor_texture, Vector2{10, 151}, 1.0f, 1.0f, WHITE);
+                break;
+
             default:
                 DrawTextureEx(*cursor_texture, Vector2{10, 151}, 1.0f, 1.0f, WHITE);
+                std::string extra_upgrades = std::format("+ {}", upgrades - 4);
+                DrawText(extra_upgrades.c_str(), 0, 161, 1, WHITE);
                 break;
 
 

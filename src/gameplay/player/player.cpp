@@ -297,6 +297,19 @@ void PlayerMan::debug_ui() {
         ImGui::Text("Aux Level");
         ImGui::SliderInt("Lv##3", &m_player1->aux_level, 0, 2, "%d");
 
+        ImGui::Text("Upgrades");
+
+        if (ImGui::Button("+")) {
+            m_player1->upgrade++;
+
+        }
+
+        ImGui::SameLine();
+        if (ImGui::Button("-")) {
+
+            m_player1->upgrade--;
+        }
+
     }
     ImGui::End();
 
