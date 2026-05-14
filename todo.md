@@ -1,2 +1,2 @@
 - [ ] streamline level to json pipeline
-- [ ] 
+- [ ] make the mappings embeddable via new program

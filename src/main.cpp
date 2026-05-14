@@ -17,6 +17,8 @@
 #include "systems.hpp"
 #include "winman.hpp"
 
+#include "gamecontrollerdb.h"
+
 using string = std::string;
 using AssRef = Engine::AssetMan::Ref::Type;
 
@@ -38,10 +40,10 @@ int main(void)
     Engine::g_world_size = Vector2{320, 180};
 
     //load controller mappings from sdl database
-    char* mappings = LoadFileText("./assets/mappings/mapping.txt");
+    int output_size = 0;
+    char* mappings = EncodeDataBase64(GAMECONTROLLERDB_DATA, GAMECONTROLLERDB_DATA_SIZE, &output_size);
     SetGamepadMappings(mappings);
-    UnloadFileText(mappings);
-
+    MemFree(mappings);
 
     double dt;
 
@@ -52,7 +54,6 @@ int main(void)
     Engine::BackgroundMan::init();
 
     Engine::AssetMan::get_texture("Connor_fodder2");
-
 
     Engine::InputMan::load_events(controls);
 
