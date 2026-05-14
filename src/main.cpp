@@ -40,10 +40,10 @@ int main(void)
     Engine::g_world_size = Vector2{320, 180};
 
     //load controller mappings from sdl database
-    int output_size = 0;
-    char* mappings = EncodeDataBase64(GAMECONTROLLERDB_DATA, GAMECONTROLLERDB_DATA_SIZE, &output_size);
-    SetGamepadMappings(mappings);
-    MemFree(mappings);
+    
+    int output = SetGamepadMappings((char*)GAMECONTROLLERDB_DATA);
+    std::println("mappings result: {}", output);
+
 
     double dt;
 
