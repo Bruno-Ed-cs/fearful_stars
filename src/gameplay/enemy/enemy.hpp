@@ -23,7 +23,6 @@ public:
     virtual void reset(Vector2 position) = 0;
     virtual void take_damage(Engine::GameState& sys, int damage) = 0;
     virtual EnemyType get_type() = 0;
-
     virtual Rectangle get_hitbox() = 0;
     virtual Vector2 get_position() = 0;
     
@@ -31,7 +30,6 @@ public:
 };
 
 class EnemyMan {
-
 
 public:
 
