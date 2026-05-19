@@ -24,6 +24,12 @@ set(WITH_TESTS OFF CACHE BOOL "Disable RocksDB test compilation" FORCE)
 set(WITH_TOOLS OFF CACHE BOOL "Disable RocksDB tools compilation" FORCE)
 # Set portable build (disable architecture-specific optimizations that may cause warnings)
 set(PORTABLE ON CACHE BOOL "Build portable binary" FORCE)
+# Disable gflags for the tools
+set(WITH_GFLAGS OFF CACHE BOOL "Disable gflags (not needed for basic usage)" FORCE)
+# Disable benchmark tools compilation
+set(WITH_BENCHMARK_TOOLS OFF CACHE BOOL "Disable RocksDB benchmark tools" FORCE)
+# Build only static library (disable shared)
+set(ROCKSDB_BUILD_SHARED OFF CACHE BOOL "Disable shared library build" FORCE)
 
 add_subdirectory(dependencies/raylib-5.5 raylib)
 add_subdirectory(dependencies/rocks_db rocksdb)
