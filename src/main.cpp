@@ -16,6 +16,7 @@
 #include "control_schema.hpp"
 #include "systems.hpp"
 #include "winman.hpp"
+#include "rocksdb/db.h"
 
 #include "gamecontrollerdb.h"
 
@@ -28,6 +29,15 @@ using AssRef = Engine::AssetMan::Ref::Type;
 //------------------------------------------------------------------------------------
 int main(void)
 {
+    if (!DirectoryExists("./saves"))
+        MakeDirectory("./saves");
+
+    std::unique_ptr<rocksdb::DB> db;
+    rocksdb::Options options;
+    options.create_if_missing = true;
+    rocksdb::Status status = rocksdb::DB::Open(options, "./saves/1", &db);
+
+    if (!status.ok()) std::cerr << status.ToString() << std::endl;
 
     srand(time(NULL));
 
