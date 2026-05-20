@@ -7,27 +7,27 @@
 
 using namespace Game;
 
-void BasicShot::run(Player& player, ProjectileMan& projectile_man, double dt) {
+void BasicShooter::run(Player& player, ProjectileMan& projectile_man, double dt) {
 
     while (state_func(this, player, projectile_man));
 }
 
-bool BasicShot::idle(Player& player, ProjectileMan& projectile_man) {
+bool BasicShooter::idle(Player& player, ProjectileMan& projectile_man) {
 
     if(player.cooldown.past_limit() && Engine::InputMan::is_event_active("shoot")) {
 
         player.cooldown.reset();
-        state_func = &BasicShot::shoot;
+        state_func = &BasicShooter::shoot;
         return true;
 
     } 
 
-    state_func = &BasicShot::idle;
+    state_func = &BasicShooter::idle;
     return false;
 
 }
 
-bool BasicShot::shoot(Player& player, ProjectileMan& projectile_man) { 
+bool BasicShooter::shoot(Player& player, ProjectileMan& projectile_man) { 
 
     double proj_speed = 200.0f;
     Vector2 direction{1, 0};
@@ -39,7 +39,7 @@ bool BasicShot::shoot(Player& player, ProjectileMan& projectile_man) {
     PlaySound(*player.shooting_sound);
 
 
-    state_func = &BasicShot::idle;
+    state_func = &BasicShooter::idle;
     return false;
 
 }

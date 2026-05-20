@@ -9,24 +9,24 @@ namespace Game {
 class Player;
 class ProjectileMan;
 
-class BasicShot : public ShootingMachine {
+class BasicShooter : public ShootingMachine {
 
 public:
 
-    BasicShot() = default;
+    BasicShooter() = default;
 
-    ~BasicShot() = default;
-    BasicShot(const ShootingMachine&) = delete;
-    BasicShot& operator=(const ShootingMachine&) = delete;
+    ~BasicShooter() = default;
+    BasicShooter(const ShootingMachine&) = delete;
+    BasicShooter& operator=(const ShootingMachine&) = delete;
 
     void run(Player& player, ProjectileMan& projectile_man, double dt) override;
 
     bool idle(Player& player, ProjectileMan& projectile_man);
     bool shoot(Player& player, ProjectileMan& projectile_man);
-
+    std::string get_name() override { return "BasicShooter"; };
 private:
 
-    std::function<bool(BasicShot*, Player&, ProjectileMan&)> state_func = &BasicShot::idle;
+    std::function<bool(BasicShooter*, Player&, ProjectileMan&)> state_func = &BasicShooter::idle;
     bool m_running = false;
 
 };

@@ -12,6 +12,7 @@
 #include "render_man.hpp"
 #include "systems.hpp"
 #include "player.hpp"
+#include "primary_shots/shooting_machine.hpp"
 #include <string>
 
 
@@ -370,7 +371,7 @@ void PlayerMan::save_player(Engine::GameState& sys) {
             break;
 
             case PlayerMember::upgrade:
-                value = std::to_string(m_player1->aux_level);
+                value = std::to_string(m_player1->upgrade);
                 valid = true;
             break;
 
@@ -387,6 +388,13 @@ void PlayerMan::save_player(Engine::GameState& sys) {
             case PlayerMember::lives:
                 value = std::to_string(m_player1->lives.points);
                 valid = true;
+            break;
+
+            case PlayerMember::primary_shot:
+
+                value = m_player1->primary_shot->get_name();
+                valid = true;
+
             break;
 
             default:
@@ -446,6 +454,12 @@ void PlayerMan::load_player(Engine::GameState& sys) {
 
             case PlayerMember::lives:
                 m_player1->lives = Health(std::stoi(value));
+            break;
+
+            case PlayerMember::primary_shot:
+
+                m_player1->primary_shot.reset(make_shooting_machine(value));
+
             break;
 
             default:

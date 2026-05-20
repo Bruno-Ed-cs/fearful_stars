@@ -23,6 +23,8 @@ public:
     bool shoot_lv2(Player& player, ProjectileMan& projectile_man);
     bool shoot_lv3(Player& player, ProjectileMan& projectile_man);
 
+    std::string get_name() override { return "PlasmaShooter"; };
+
 private:
 
     std::function<bool(PlasmaShooter*, Player&, ProjectileMan&)> state_func = &PlasmaShooter::idle;
