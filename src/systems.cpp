@@ -7,6 +7,7 @@
 #include "gameplay/ui/ui_man.hpp"
 #include "render_man.hpp"
 #include "gameplay/ui/interfaces/gameplay_ui.hpp"
+#include "saving.hpp"
 
 Engine::GameState::GameState(Engine::Mode& app_state) :
     enemy       (std::make_unique<Game::EnemyMan>()),
@@ -25,6 +26,9 @@ void Engine::GameState::load(std::string level_path) {
     projectile.reset(new Game::ProjectileMan());
     player.reset(new Game::PlayerMan());
     ui.reset(new Game::UiMan(RenderMan::canva_size()));
+    
+    save_slot = 1;
+    save_connection = get_save_db(save_slot);
 
     level->load_level(level_path);
     player->init_player({60, 90});

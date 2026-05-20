@@ -1,22 +1,14 @@
 #pragma once 
 
 #include "deps.hpp"
+#include "rocksdb/db.h"
 
 using string = std::string;
-string get_save_dir() {
 
-    const string appdir = GetApplicationDirectory();
-    string savedir = appdir + std::string("/saves");
+string get_save_dir();
 
-    if (!DirectoryExists(savedir.c_str())) {
-        if (!MakeDirectory(savedir.c_str())) {
-            std::println(stderr, "[Dir_Error] it was not possible to create the save directory");
+std::unique_ptr<rocksdb::DB> get_save_db(size_t save_slot); 
 
-            return std::string("");
+string key_encode(string type, string id, string member); 
 
-        }
-    }
-
-    return savedir;
-
-}
+std::map<string, string> key_decode(string key); 

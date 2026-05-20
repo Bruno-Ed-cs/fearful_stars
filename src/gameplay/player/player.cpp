@@ -1,5 +1,7 @@
 #include "deps.hpp"
 #include "gameplay/projectile/upgrade/upgrade_proj.hpp"
+#include "rocksdb/options.h"
+#include "saving.hpp"
 #include "gameplay/projectile/projectile.hpp"
 #include "input_man.hpp"
 #include "timer.hpp"
@@ -331,5 +333,25 @@ void PlayerMan::debug_world() {
 void PlayerMan::draw() {
 
     m_player1->draw();
+
+}
+
+void PlayerMan::save_player(Engine::GameState& sys) {
+
+    std::string key = key_encode("Player", "1", "upgrade");
+    std::string value = std::to_string(m_player1->upgrade);
+
+    if (sys.save_slot != 0) {
+        sys.save_connection->Put(rocksdb::WriteOptions(), key, value);
+    }
+
+}
+
+void PlayerMan::load_player(Engine::GameState& sys) {
+
+    std::string value;
+    sys.save_connection->Get(rocksdb::ReadOptions(), key_encode("Player", "1", "upgrade"), &value);
+
+    m_player1->upgrade = std::stoi(value);
 
 }

@@ -30,18 +30,6 @@ using AssRef = Engine::AssetMan::Ref::Type;
 //------------------------------------------------------------------------------------
 int main(void)
 {
-    string savedir = get_save_dir();
-
-    std::unique_ptr<rocksdb::DB> db;
-    rocksdb::Options options;
-    options.create_if_missing = true;
-    rocksdb::Status status;
-
-    if (!savedir.empty())
-        status = rocksdb::DB::Open(options, savedir + "/1", &db);
-
-    if (!status.ok()) std::cerr << status.ToString() << std::endl;
-
     srand(time(NULL));
 
     //    SetConfigFlags(FLAG_VSYNC_HINT);
@@ -98,6 +86,17 @@ int main(void)
         if (IsKeyPressed(KEY_F3)) {
 
             Engine::g_debug = !Engine::g_debug;
+
+        }
+
+        if (IsKeyPressed(KEY_Y)) {
+            sys.player->save_player(sys);
+            std::println("saving player......");
+        }
+
+        if (IsKeyPressed(KEY_U)) {
+            sys.player->load_player(sys);
+            std::println("loading player....");
 
         }
 

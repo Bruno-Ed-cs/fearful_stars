@@ -105,7 +105,7 @@ set titlestring=%(%h%)%(%m%)\ %t
 set undodir=~/.vim/undodir/
 set undofile
 set wildoptions=pum
-set window=44
+set window=45
 set winwidth=1
 let s:so_save = &g:so | let s:siso_save = &g:siso | setg so=0 siso=0 | setl so=-1 siso=-1
 let v:this_session=expand("<sfile>:p")
@@ -118,19 +118,21 @@ if expand('%') == '' && !&modified && line('$') <= 1 && getline(1) == ''
   let s:wipebuf = bufnr('%')
 endif
 set shortmess+=aoO
-badd +37 src/main.cpp
-badd +190 term://~/Projects/gamedev/fearful_stars//29586:/bin/bash
-badd +1 src/gameplay/projectile/basic/basic_projectile.cpp
-badd +1 include/raylib.h
-badd +14 ~/Projects/gamedev/fearful_stars/src/engine/background_man.cpp
-badd +38 src/engine/background_man.hpp
+badd +20 src/main.cpp
+badd +6294 term://~/Projects/gamedev/fearful_stars//5241:/bin/bash
+badd +0 term://~/Projects/gamedev/fearful_stars//11235:/bin/bash
+badd +8 .gitignore
+badd +1 dependencies/rocks_db/examples/CMakeLists.txt
+badd +27 CMakeLists.txt
+badd +6 src/saving.hpp
 argglobal
 %argdel
 $argadd .
 set stal=2
 tabnew +setlocal\ bufhidden=wipe
+tabnew +setlocal\ bufhidden=wipe
 tabrewind
-edit src/engine/background_man.hpp
+edit src/main.cpp
 wincmd t
 let s:save_winminheight = &winminheight
 let s:save_winminwidth = &winminwidth
@@ -139,7 +141,7 @@ set winheight=1
 set winminwidth=0
 set winwidth=1
 argglobal
-balt ~/Projects/gamedev/fearful_stars/src/engine/background_man.cpp
+balt src/saving.hpp
 setlocal keymap=
 setlocal noarabic
 setlocal autoindent
@@ -257,32 +259,33 @@ setlocal nowinfixwidth
 setlocal winhighlight=
 setlocal wrap
 setlocal wrapmargin=0
-35
+33
 sil! normal! zo
-38
+88
 sil! normal! zo
-38
+118
 sil! normal! zo
-38
+119
 sil! normal! zo
-38
+126
 sil! normal! zo
-38
+131
 sil! normal! zo
-38
+137
 sil! normal! zo
-let s:l = 39 - ((21 * winheight(0) + 21) / 42)
+let s:l = 20 - ((14 * winheight(0) + 21) / 43)
 if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
-keepjumps 39
-normal! 036|
+keepjumps 20
+normal! 0
 tabnext
 argglobal
-if bufexists(fnamemodify("term://~/Projects/gamedev/fearful_stars//29586:/bin/bash", ":p")) | buffer term://~/Projects/gamedev/fearful_stars//29586:/bin/bash | else | edit term://~/Projects/gamedev/fearful_stars//29586:/bin/bash | endif
+if bufexists(fnamemodify("term://~/Projects/gamedev/fearful_stars//5241:/bin/bash", ":p")) | buffer term://~/Projects/gamedev/fearful_stars//5241:/bin/bash | else | edit term://~/Projects/gamedev/fearful_stars//5241:/bin/bash | endif
 if &buftype ==# 'terminal'
-  silent file term://~/Projects/gamedev/fearful_stars//29586:/bin/bash
+  silent file term://~/Projects/gamedev/fearful_stars//5241:/bin/bash
 endif
+balt src/main.cpp
 setlocal keymap=
 setlocal noarabic
 setlocal autoindent
@@ -398,12 +401,145 @@ setlocal nowinfixwidth
 setlocal winhighlight=StatusLine:StatusLineTerm,StatusLineNC:StatusLineTermNC
 setlocal nowrap
 setlocal wrapmargin=0
-let s:l = 190 - ((41 * winheight(0) + 21) / 42)
+let s:l = 6294 - ((42 * winheight(0) + 21) / 43)
 if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
-keepjumps 190
+keepjumps 6294
 normal! 02|
+tabnext
+argglobal
+if bufexists(fnamemodify("term://~/Projects/gamedev/fearful_stars//11235:/bin/bash", ":p")) | buffer term://~/Projects/gamedev/fearful_stars//11235:/bin/bash | else | edit term://~/Projects/gamedev/fearful_stars//11235:/bin/bash | endif
+if &buftype ==# 'terminal'
+  silent file term://~/Projects/gamedev/fearful_stars//11235:/bin/bash
+endif
+balt term://~/Projects/gamedev/fearful_stars//5241:/bin/bash
+setlocal keymap=
+setlocal noarabic
+setlocal autoindent
+setlocal nobinary
+setlocal nobreakindent
+setlocal breakindentopt=
+setlocal bufhidden=
+setlocal buflisted
+setlocal buftype=terminal
+setlocal busy=0
+setlocal nocindent
+setlocal cinkeys=0{,0},0),0],:,0#,!^F,o,O,e
+setlocal cinoptions=
+setlocal cinscopedecls=public,protected,private
+setlocal cinwords=if,else,while,do,for,switch
+setlocal colorcolumn=
+setlocal comments=s1:/*,mb:*,ex:*/,://,b:#,:%,:XCOMM,n:>,fb:-,fb:â€¢
+setlocal commentstring=
+setlocal complete=.,w,b,u,t
+setlocal completefunc=
+setlocal completeslash=
+setlocal concealcursor=
+setlocal conceallevel=0
+setlocal nocopyindent
+setlocal nocursorbind
+setlocal nocursorcolumn
+setlocal nocursorline
+setlocal cursorlineopt=both
+setlocal nodiff
+setlocal eventignorewin=
+setlocal expandtab
+if &filetype != ''
+setlocal filetype=
+endif
+setlocal fixendofline
+set foldcolumn=2
+setlocal foldcolumn=0
+setlocal foldenable
+set foldexpr=v:lua.vim.treesitter.foldexpr()
+setlocal foldexpr=v:lua.vim.treesitter.foldexpr()
+setlocal foldignore=#
+set foldlevel=99
+setlocal foldlevel=99
+setlocal foldmarker={{{,}}}
+set foldmethod=indent
+setlocal foldmethod=indent
+setlocal foldminlines=1
+setlocal foldnestmax=20
+setlocal foldtext=foldtext()
+setlocal formatexpr=
+setlocal formatlistpat=^\\s*\\d\\+[\\]:.)}\\t\ ]\\s*
+setlocal formatoptions=tcqj
+setlocal iminsert=0
+setlocal imsearch=-1
+setlocal includeexpr=
+setlocal indentexpr=
+setlocal indentkeys=0{,0},0),0],:,0#,!^F,o,O,e
+setlocal noinfercase
+setlocal iskeyword=@,48-57,_,192-255
+setlocal lhistory=10
+set linebreak
+setlocal linebreak
+setlocal nolisp
+setlocal lispoptions=
+setlocal nolist
+setlocal matchpairs=(:),{:},[:]
+setlocal modeline
+setlocal nomodifiable
+setlocal nrformats=bin,hex
+set number
+setlocal number
+setlocal numberwidth=4
+setlocal omnifunc=
+setlocal nopreserveindent
+setlocal nopreviewwindow
+setlocal quoteescape=\\
+setlocal noreadonly
+set relativenumber
+setlocal relativenumber
+setlocal norightleft
+setlocal rightleftcmd=search
+setlocal scrollback=10000
+setlocal noscrollbind
+setlocal shiftwidth=4
+set signcolumn=no
+setlocal signcolumn=no
+setlocal nosmartindent
+setlocal nosmoothscroll
+setlocal softtabstop=4
+setlocal nospell
+setlocal spellcapcheck=[.?!]\\_[\\])'\"\\t\ ]\\+
+setlocal spellfile=
+setlocal spelllang=en
+setlocal spelloptions=
+setlocal statuscolumn=
+setlocal suffixesadd=
+setlocal noswapfile
+setlocal synmaxcol=3000
+if &syntax != ''
+setlocal syntax=
+endif
+setlocal tabstop=4
+setlocal tagfunc=
+setlocal textwidth=0
+setlocal undofile
+setlocal undolevels=-1
+setlocal varsofttabstop=
+setlocal vartabstop=
+setlocal winblend=0
+setlocal nowinfixbuf
+setlocal nowinfixheight
+setlocal nowinfixwidth
+setlocal winhighlight=StatusLine:StatusLineTerm,StatusLineNC:StatusLineTermNC
+setlocal nowrap
+setlocal wrapmargin=0
+let s:l = 1 - ((0 * winheight(0) + 21) / 43)
+if s:l < 1 | let s:l = 1 | endif
+keepjumps exe s:l
+normal! zt
+keepjumps 1
+let s:c = 166 - ((155 * winwidth(0) + 87) / 174)
+if s:c > 0
+  exe 'normal! ' . s:c . '|zs' . 166 . '|'
+else
+  normal! 0166|
+endif
 tabnext 1
 set stal=1
 if exists('s:wipebuf') && len(win_findbuf(s:wipebuf)) == 0 && getbufvar(s:wipebuf, '&buftype') isnot# 'terminal'
@@ -420,6 +556,7 @@ if filereadable(s:sx)
 endif
 let &g:so = s:so_save | let &g:siso = s:siso_save
 set hlsearch
+nohlsearch
 doautoall SessionLoadPost
 unlet SessionLoad
 " vim: set ft=vim :

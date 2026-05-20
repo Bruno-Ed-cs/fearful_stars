@@ -1,6 +1,7 @@
 #pragma once 
 
 #include "deps.hpp"
+#include "rocksdb/db.h"
 
 namespace Game {
 
@@ -35,6 +36,10 @@ struct GameState {
     uptr<Game::UiMan> ui;
 
     Mode& app_state;    
+
+    //0 means no save loaded
+    std::uint32_t save_slot = 0;
+    uptr<rocksdb::DB> save_connection;
     
     bool pause = false;
 

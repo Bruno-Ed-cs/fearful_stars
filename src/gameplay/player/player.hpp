@@ -90,6 +90,8 @@ namespace Game {
             void draw();
             Player& get_player();
             void init_player(Vector2 position);
+            void save_player(Engine::GameState& sys);
+            void load_player(Engine::GameState& sys);
 
 
             void debug_ui();
