@@ -82,6 +82,38 @@ namespace Game {
 
     };
 
+    enum struct PlayerMember {
+
+        upgrade,
+        special_meter,
+        primary_level,
+        secondary_level,
+        aux_level,
+        lives,
+        pos_x,
+        pos_y,
+
+        special_shot,
+        aux_power,
+        primary_shot,
+
+    };
+
+    inline std::map<std::string, PlayerMember> member_to_string {
+        {"upgrade", PlayerMember::upgrade},
+        {"special_meter", PlayerMember::special_meter},
+        {"primary_level", PlayerMember::primary_level},
+        {"secondary_level", PlayerMember::secondary_level},
+        {"aux_level", PlayerMember::aux_level},
+        {"lives", PlayerMember::lives},
+        {"pos_x", PlayerMember::pos_x},
+        {"pos_y", PlayerMember::pos_y},
+
+        {"special_shot", PlayerMember::special_shot},
+        {"aux_power", PlayerMember::aux_power},
+        {"primary_shot", PlayerMember::primary_shot}
+    };
+
     struct PlayerMan {
 
         public:

@@ -12,6 +12,7 @@
 #include "render_man.hpp"
 #include "systems.hpp"
 #include "player.hpp"
+#include <string>
 
 
 using namespace Game;
@@ -338,20 +339,120 @@ void PlayerMan::draw() {
 
 void PlayerMan::save_player(Engine::GameState& sys) {
 
-    std::string key = key_encode("Player", "1", "upgrade");
-    std::string value = std::to_string(m_player1->upgrade);
+    std::string key;
+    std::string value;
 
-    if (sys.save_slot != 0) {
-        sys.save_connection->Put(rocksdb::WriteOptions(), key, value);
+    for (auto& members: member_to_string) {
+
+        PlayerMember mem = members.second;
+        bool valid = false;
+        key = key_encode("Player", "1", members.first);
+
+        switch (mem) {
+            case PlayerMember::pos_y:
+                value = std::to_string(m_player1->pos.y);
+                valid = true;
+            break;
+
+            case PlayerMember::pos_x:
+                value = std::to_string(m_player1->pos.x);
+                valid = true;
+            break;
+
+            case PlayerMember::aux_level:
+                value = std::to_string(m_player1->aux_level);
+                valid = true;
+            break;
+
+            case PlayerMember::primary_level:
+                value = std::to_string(m_player1->primary_level);
+                valid = true;
+            break;
+
+            case PlayerMember::upgrade:
+                value = std::to_string(m_player1->aux_level);
+                valid = true;
+            break;
+
+            case PlayerMember::special_meter:
+                value = std::to_string(m_player1->special_meter);
+                valid = true;
+            break;
+
+            case PlayerMember::secondary_level:
+                value = std::to_string(m_player1->secondary_level);
+                valid = true;
+            break;
+
+            case PlayerMember::lives:
+                value = std::to_string(m_player1->lives.points);
+                valid = true;
+            break;
+
+            default:
+                break;
+        }
+
+
+        if (sys.save_slot != 0 && valid) {
+            sys.save_connection->Put(rocksdb::WriteOptions(), key, value);
+        }
     }
+
 
 }
 
 void PlayerMan::load_player(Engine::GameState& sys) {
 
-    std::string value;
-    sys.save_connection->Get(rocksdb::ReadOptions(), key_encode("Player", "1", "upgrade"), &value);
+    if (sys.save_slot == 0) return;
 
-    m_player1->upgrade = std::stoi(value);
+    std::string value;
+
+    for (auto& members: member_to_string) {
+
+        PlayerMember mem = members.second;
+        bool valid = false;
+
+        sys.save_connection->Get(rocksdb::ReadOptions(), key_encode("Player", "1", members.first), &value);
+
+        switch (mem) {
+            case PlayerMember::pos_x:
+                m_player1->pos.x = std::stoi(value);
+            break;
+
+            case PlayerMember::pos_y:
+                m_player1->pos.y = std::stoi(value);
+            break;
+
+            case PlayerMember::aux_level:
+                m_player1->aux_level = std::stoi(value);
+            break;
+
+            case PlayerMember::primary_level:
+                m_player1->primary_level = std::stoi(value);
+            break;
+
+            case PlayerMember::upgrade:
+                m_player1->upgrade = std::stoi(value);
+            break;
+
+            case PlayerMember::special_meter:
+                m_player1->special_meter = std::stoi(value);
+            break;
+
+            case PlayerMember::secondary_level:
+                m_player1->secondary_level = std::stoi(value);
+            break;
+
+            case PlayerMember::lives:
+                m_player1->lives = Health(std::stoi(value));
+            break;
+
+            default:
+                break;
+        }
+
+
+    }
 
 }
