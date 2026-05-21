@@ -97,6 +97,7 @@ int main(void)
 
         if (IsKeyPressed(KEY_U)) {
             sys.player->load_player(sys);
+            sys.projectile->load_projectiles(sys);
             std::println("loading player....");
 
         }

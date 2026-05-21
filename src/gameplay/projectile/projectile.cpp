@@ -1,9 +1,16 @@
 #include "deps.hpp"
 
-#include "gameplay/player/player.hpp"
+#include "gameplay/projectile/upgrade/upgrade_proj.hpp"
+#include "gameplay/projectile/basic/basic_projectile.hpp"
+#include "gameplay/projectile/big_shot/bigshot_proj.hpp"
+#include "gameplay/projectile/missile/missile_proj.hpp"
+#include "gameplay/projectile/orbital/orbital_proj.hpp"
+#include "gameplay/projectile/plasma/plasma.hpp"
 #include "gameplay/projectile/projectile.hpp"
 #include "projectile.hpp"
 #include "basic/basic_projectile.hpp"
+#include "rocksdb/iterator.h"
+#include "rocksdb/options.h"
 #include "saving.hpp"
 #include "globals.hpp"
 #include "imgui.h"
@@ -253,6 +260,13 @@ void ProjectileMan::save_projectiles(Engine::GameState& sys) {
 
     if (sys.save_slot == 0) return;
 
+    rocksdb::Iterator* it = sys.save_connection->NewIterator(rocksdb::ReadOptions());
+
+    for (it->Seek("Projectile"); it->Valid() && it->key().starts_with("Projectile"); it->Next()) {
+
+        sys.save_connection->Delete(rocksdb::WriteOptions(), it->key());
+    }
+
     for (auto& container : m_projectiles) {
 
         if (container.active) {
@@ -271,5 +285,110 @@ void ProjectileMan::save_projectiles(Engine::GameState& sys) {
         }
 
     }
-
 }
+
+
+Projectile* make_projectile(ProjectileType type) {
+
+    Projectile* proj = nullptr;
+
+    switch (type) {
+
+        case ProjectileType::Basic:
+            proj = new BasicProjectile();
+        break;
+
+        case ProjectileType::Upgrade:
+            proj = new UpgradeProj();
+        break;
+
+        case ProjectileType::BigShot:
+            proj = new BigShotProj();
+        break;
+
+        case ProjectileType::Missile:
+            proj = new MissileProj();
+        break;
+
+        case ProjectileType::Orbital:
+            proj = new OrbitalProj();
+        break;
+
+        case ProjectileType::Plasma:
+            proj = new PlasmaProj();
+        break;
+
+        default:
+            proj = new BasicProjectile();
+        break;
+
+    }
+
+    return proj;
+}
+
+void ProjectileMan::load_projectiles(Engine::GameState& sys) {
+    using subtype = uint32_t;
+    using id = uint32_t;
+    if (sys.save_slot == 0) return;
+
+    m_projectiles.clear();
+
+    // get all the unique entries
+    std::vector<std::tuple<subtype, id>> identifiers;
+    identifiers.reserve(50);
+
+    rocksdb::Iterator* it = sys.save_connection->NewIterator(rocksdb::ReadOptions());
+
+    for (it->Seek("Projectile"); it->Valid() && it->key().starts_with("Projectile"); it->Next()) {
+        
+        bool exist = false;
+        auto parsed_key = key_decode(it->key().ToString());
+
+        for (int i = 0; i < identifiers.size(); ++i) {
+
+
+            if (std::stoi(parsed_key["id"]) == std::get<1>(identifiers[i])) {
+
+                exist = true;
+                break;
+            }
+
+        }
+
+        if (!exist) {
+            identifiers.push_back({std::stoi(parsed_key["subtype"]), std::stoi(parsed_key["id"])});
+        }
+
+    }
+
+    it->Reset();
+    // create and umpack the projectiles
+
+    for (auto& identity: identifiers) {
+
+        std::string prefix = std::format("Projectile:{}:{}", std::get<0>(identity), std::get<1>(identity));
+        Projectile::Package packed_proj;
+
+        for (it->Seek(prefix); it->Valid() && it->key().starts_with(prefix); it->Next()) {
+            
+            auto parsed_key = key_decode(it->key().ToString());
+
+            packed_proj.insert({parsed_key["member"], it->value().ToString()});
+
+        }
+
+        Projectile* proj = ::make_projectile((ProjectileType)std::get<0>(identity));
+
+        proj->unpack(packed_proj);
+
+        ProjectileMan::ProjContainer capsule = {
+            .projectile_ptr = std::unique_ptr<Projectile>(proj),
+            .active = true,
+            .id = std::get<1>(identity),
+        };
+
+        m_projectiles.push_back(std::move(capsule));
+    }
+}
+
