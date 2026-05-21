@@ -11,18 +11,31 @@
 
 namespace Game {
 
+enum struct ProjectileType {
+    Basic = 1,
+    Plasma,
+    Orbital,
+    Missile,
+    Upgrade,
+    BigShot
+};
+
 class Projectile : public Engine::Entity{
 //    please have a default constructor
 //    for the projectile manager
-
 public:
+
+using Package = std::map<std::string, std::string>;
 
     virtual bool is_foe() = 0;
     virtual Rectangle get_hitbox() = 0;
     virtual Vector2 get_position() = 0;
     virtual double get_speed() = 0;
     virtual int get_damage() = 0;
-    virtual const std::type_info& get_type() = 0;
+    virtual ProjectileType get_type() = 0;
+
+    virtual Package package() = 0;
+    virtual void unpack(Package packed_mem) = 0;
 
     virtual void reset(Vector2 pos, double speed, Vector2 direction, bool foe, int damage = 0) = 0;
 
@@ -54,6 +67,9 @@ public:
     Collision check_collisions(Rectangle collider, bool colide_foe);
     Projectile& get_projectile(uint32_t id);
     bool exists(uint32_t id);
+
+    void save_projectiles(Engine::GameState& sys);
+    void load_projectiles(Engine::GameState& sys);
 
     template<is_projectile Proj>
     void insert_projectile(std::unique_ptr<Proj> projectile) {
@@ -179,19 +195,19 @@ private:
 
             QuerryRes response{0, true};
 
-            for (size_t i = 0; i < m_projectiles.size(); ++i) {
 
-                if (!m_projectiles[i].active && 
-                        m_projectiles[i].projectile_ptr != nullptr &&
-                        m_projectiles[i].projectile_ptr->get_type() == typeid(Proj)) {
-
-                    response.projectile_index = i;
-                    response.not_found = false;
-                    break;
-                }
-
-            }
-
+            // for (size_t i = 0; i < m_projectiles.size(); ++i) {
+            //
+            //     if (!m_projectiles[i].active && 
+            //             m_projectiles[i].projectile_ptr != nullptr) {
+            //
+            //         response.projectile_index = i;
+            //         response.not_found = false;
+            //         break;
+            //     }
+            //
+            // }
+            //
             return response;
 
         }

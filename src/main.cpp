@@ -91,7 +91,8 @@ int main(void)
 
         if (IsKeyPressed(KEY_Y)) {
             sys.player->save_player(sys);
-            std::println("saving player......");
+            sys.projectile->save_projectiles(sys);
+            std::println("saving ......");
         }
 
         if (IsKeyPressed(KEY_U)) {

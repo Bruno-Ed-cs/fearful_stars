@@ -30,7 +30,7 @@ public:
     Rectangle get_hitbox() { return hitbox.get(pos); }
     Vector2 get_position() { return pos.vec(); }
     double get_speed() { return speed; }
-    const std::type_info& get_type() { return typeid(BigShotProj); }
+    ProjectileType get_type() { return ProjectileType::BigShot; }
     bool destroy_self() { return destruct; }
     int get_damage() { return damage; }
 
@@ -38,6 +38,36 @@ public:
     void draw();
 
     void reset(Vector2 pos, double speed, Vector2 direction, bool foe, int damage = 0);
+
+   Package package() override {
+       return {
+           {"foe", std::to_string(foe)},
+           {"pos_x", std::to_string(pos.x)},
+           {"pos_y", std::to_string(pos.y)},
+
+           {"orientation_x", std::to_string(orientation.x)},
+           {"orientation_y", std::to_string(orientation.y)},
+
+           {"speed", std::to_string(speed)},
+           {"damage", std::to_string(damage)},
+
+       };
+
+   }
+
+   void unpack(Package packed_mem) override {
+
+       foe = std::stoi(packed_mem["foe"]);
+       pos.x = std::stod(packed_mem["pos_x"]);
+       pos.y = std::stod(packed_mem["pos_y"]);
+
+       orientation.x = std::stod(packed_mem["orientation_x"]);
+       orientation.y = std::stod(packed_mem["orientation_y"]);
+
+       speed = std::stod(packed_mem["speed"]);
+       damage = std::stoi(packed_mem["damage"]);
+
+   }
 
 public:
 

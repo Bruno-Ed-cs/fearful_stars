@@ -171,7 +171,7 @@ void Player::update(double dt, Engine::GameState& sys) {
 
             auto& proj = sys.projectile->get_projectile(id);
 
-            if (proj.get_type() == typeid(UpgradeProj)) {
+            if (proj.get_type() == ProjectileType::Upgrade) {
 
                 upgrade++;
                 sys.projectile->append_delete_queue(id);

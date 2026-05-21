@@ -4,6 +4,7 @@
 #include "gameplay/projectile/projectile.hpp"
 #include "projectile.hpp"
 #include "basic/basic_projectile.hpp"
+#include "saving.hpp"
 #include "globals.hpp"
 #include "imgui.h"
 #include "raylib.h"
@@ -245,5 +246,30 @@ bool ProjectileMan::exists(uint32_t id) {
     return false;
 
 
+
+}
+
+void ProjectileMan::save_projectiles(Engine::GameState& sys) {
+
+    if (sys.save_slot == 0) return;
+
+    for (auto& container : m_projectiles) {
+
+        if (container.active) {
+
+            Projectile::Package members = container.projectile_ptr->package();
+            std::string key;
+            std::string value;
+
+            for (auto& member: members) {
+                key = key_encode("Projectile", (int)container.projectile_ptr->get_type(), container.id, member.first);
+                value = member.second;
+
+                sys.save_connection->Put(rocksdb::WriteOptions(), key, value);
+            }
+
+        }
+
+    }
 
 }
