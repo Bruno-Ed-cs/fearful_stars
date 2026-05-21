@@ -9,6 +9,6 @@ string get_save_dir();
 
 std::unique_ptr<rocksdb::DB> get_save_db(size_t save_slot); 
 
-string key_encode(string type, string id, string member); 
+string key_encode(string type, uint32_t subtype, uint32_t id, string member);
 
 std::map<string, string> key_decode(string key); 

@@ -338,71 +338,54 @@ void PlayerMan::draw() {
 
 }
 
+
+std::map<std::string, std::string> Player::package() {
+
+    return {
+        {"upgrade", std::to_string(upgrade)},
+        {"special_meter", std::to_string(special_meter)},
+        {"primary_level", std::to_string(primary_level)},
+        {"secondary_level", std::to_string(secondary_level)},
+        {"aux_level", std::to_string(aux_level)},
+        {"lives", std::to_string(lives.points)},
+        {"pos_x", std::to_string(pos.x)},
+        {"pos_y", std::to_string(pos.y)},
+
+        {"special_shot", "Basic"},
+        {"aux_power", "Basic"},
+        {"primary_shot", primary_shot->get_name()}
+    };
+
+}
+
+void Player::unpack(std::map<std::string, std::string> packed_mem) {
+
+    upgrade = std::stoi(packed_mem["upgrade"]);
+    special_meter = std::stoi(packed_mem["special_meter"]);
+    primary_level = std::stoi(packed_mem["primary_level"]);
+    secondary_level = std::stoi(packed_mem["secondary_level"]);
+    aux_level = std::stoi(packed_mem["aux_level"]);
+    lives = Health(std::stoi(packed_mem["lives"]));
+    pos.y = std::stoi(packed_mem["pos_y"]);
+    pos.x = std::stoi(packed_mem["pos_x"]);
+
+    primary_shot.reset(make_shooting_machine(packed_mem["primary_shot"]));
+
+}
+
 void PlayerMan::save_player(Engine::GameState& sys) {
 
     std::string key;
     std::string value;
 
-    for (auto& members: member_to_string) {
+    auto members = m_player1->package();
 
-        PlayerMember mem = members.second;
-        bool valid = false;
-        key = key_encode("Player", "1", members.first);
+    for (auto& member: members) {
 
-        switch (mem) {
-            case PlayerMember::pos_y:
-                value = std::to_string(m_player1->pos.y);
-                valid = true;
-            break;
+        key = key_encode("Player", 1, 1, member.first);
+        value = member.second;
 
-            case PlayerMember::pos_x:
-                value = std::to_string(m_player1->pos.x);
-                valid = true;
-            break;
-
-            case PlayerMember::aux_level:
-                value = std::to_string(m_player1->aux_level);
-                valid = true;
-            break;
-
-            case PlayerMember::primary_level:
-                value = std::to_string(m_player1->primary_level);
-                valid = true;
-            break;
-
-            case PlayerMember::upgrade:
-                value = std::to_string(m_player1->upgrade);
-                valid = true;
-            break;
-
-            case PlayerMember::special_meter:
-                value = std::to_string(m_player1->special_meter);
-                valid = true;
-            break;
-
-            case PlayerMember::secondary_level:
-                value = std::to_string(m_player1->secondary_level);
-                valid = true;
-            break;
-
-            case PlayerMember::lives:
-                value = std::to_string(m_player1->lives.points);
-                valid = true;
-            break;
-
-            case PlayerMember::primary_shot:
-
-                value = m_player1->primary_shot->get_name();
-                valid = true;
-
-            break;
-
-            default:
-                break;
-        }
-
-
-        if (sys.save_slot != 0 && valid) {
+        if (sys.save_slot != 0) {
             sys.save_connection->Put(rocksdb::WriteOptions(), key, value);
         }
     }
@@ -415,58 +398,26 @@ void PlayerMan::load_player(Engine::GameState& sys) {
     if (sys.save_slot == 0) return;
 
     std::string value;
+    std::map<string, string> package;
 
-    for (auto& members: member_to_string) {
+    auto* it = sys.save_connection->NewIterator(rocksdb::ReadOptions());
 
-        PlayerMember mem = members.second;
-        bool valid = false;
+    string prefix = "Player:1:1";
 
-        sys.save_connection->Get(rocksdb::ReadOptions(), key_encode("Player", "1", members.first), &value);
+    for (it->Seek(prefix); it->Valid() && it->key().starts_with(prefix); it->Next()) {
 
-        switch (mem) {
-            case PlayerMember::pos_x:
-                m_player1->pos.x = std::stoi(value);
-            break;
+        std::println("{} => {}", it->key().ToString(), it->value().ToString());
 
-            case PlayerMember::pos_y:
-                m_player1->pos.y = std::stoi(value);
-            break;
+        std::map<string, string> identity = key_decode(it->key().ToString());
 
-            case PlayerMember::aux_level:
-                m_player1->aux_level = std::stoi(value);
-            break;
-
-            case PlayerMember::primary_level:
-                m_player1->primary_level = std::stoi(value);
-            break;
-
-            case PlayerMember::upgrade:
-                m_player1->upgrade = std::stoi(value);
-            break;
-
-            case PlayerMember::special_meter:
-                m_player1->special_meter = std::stoi(value);
-            break;
-
-            case PlayerMember::secondary_level:
-                m_player1->secondary_level = std::stoi(value);
-            break;
-
-            case PlayerMember::lives:
-                m_player1->lives = Health(std::stoi(value));
-            break;
-
-            case PlayerMember::primary_shot:
-
-                m_player1->primary_shot.reset(make_shooting_machine(value));
-
-            break;
-
-            default:
-                break;
-        }
-
+        std::println("identity = {}", identity);
+        package.insert({identity["member"], it->value().ToString()});
 
     }
 
+    std::println("{}", package);
+
+    m_player1->unpack(package);
+    delete it;
+    
 }

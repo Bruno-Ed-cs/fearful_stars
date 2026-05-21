@@ -41,42 +41,31 @@ std::unique_ptr<rocksdb::DB> get_save_db(size_t save_slot) {
 
 }
 
-string key_encode(string type, string id, string member) {
+string key_encode(string type, uint32_t subtype, uint32_t id, string member) {
 
-    return std::format("{}:{}:{}", type, id, member);
+    return std::format("{}:{}:{}:{}", type, subtype, id, member);
 
 }
 
 std::map<string, string> key_decode(string key) {
 
     std::map<string, string> decoded;
+    std::vector<std::size_t> separators;
 
-    for (std::size_t i = 0, token_init = 0, token_num = 1; i < key.size(); ++i) {
+    for (int i = 0; i < key.size(); ++i) {
+
         if (key[i] == ':') {
 
-            switch (token_num) {
-
-                case 1:
-                    decoded["type"] = string(key, token_init, i - 1);
-                break;
-
-                case 2:
-                    decoded["id"] = string(key, token_init, i - 1);
-                break;
-
-                case 3:
-                    decoded["member"] = string(key, token_init, i - 1);
-                break;
-
-                defaut:
-                    break;
-
-            }
-            token_init = i + 1;
-            token_num++;
+            separators.push_back(i);
 
         }
     }
+
+    //std::println("separators = {}", separators);
+    decoded["type"] = string(key, 0, separators[0]);
+    decoded["subtype"] = string(key, separators[0] + 1, (separators[1] - separators[0]) -1);
+    decoded["id"] = string(key, separators[1] +1, (separators[2] - separators[1]) -1);
+    decoded["member"] = string(key, separators[2] +1, (key.size() - separators[2]) - 1);
 
     return decoded;
 
