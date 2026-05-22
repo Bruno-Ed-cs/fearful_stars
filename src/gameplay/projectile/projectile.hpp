@@ -25,7 +25,7 @@ class Projectile : public Engine::Entity{
 //    for the projectile manager
 public:
 
-using Package = std::map<std::string, std::string>;
+    using Package = std::map<std::string, std::string>;
 
     virtual bool is_foe() = 0;
     virtual Rectangle get_hitbox() = 0;
@@ -62,6 +62,7 @@ public:
     void draw();
     void debug_ui();
     void debug_world();
+    Projectile* make_projectile(ProjectileType type);
     void append_delete_queue(uint32_t id);
     uint32_t get_id(Projectile* target);
     Collision check_collisions(Rectangle collider, bool colide_foe);
@@ -111,7 +112,9 @@ public:
 
                 //   std::cout << "not found making new\n";
 
-                auto proj = make_projectile<Proj>(pos, direction, speed, foe);
+            
+                auto proj = std::make_unique<Proj>();
+                proj->reset(pos, speed, direction, foe);
 
                 auto id_exists = [this](uint32_t id) {
 
@@ -147,24 +150,7 @@ public:
 
         }
 
-    template<is_projectile Projectile>
-        static std::unique_ptr<Projectile> make_projectile(Vector2 pos,
-                Vector2 direction,
-                double speed,
-                bool foe) {
 
-            auto proj = std::make_unique<Projectile>();
-            proj->reset(pos, speed, direction, foe);
-            return std::move(proj);
-        };
-
-
-    template<is_projectile Projectile>
-        static std::unique_ptr<Projectile> make_projectile() {
-
-            auto proj = std::make_unique<Projectile>();
-            return std::move(proj);
-        };
 
 private:
 
@@ -182,10 +168,10 @@ private:
         uint32_t id;
     };
 
+    constexpr static double s_inactive_deadtime = 2.0f;
     std::vector<ProjContainer> m_projectiles;
     std::queue<uint32_t> m_delete_queue;
 
-    constexpr static double s_inactive_deadtime = 2.0f;
 
     void delete_projectile(uint32_t id);
     void deactivate_projectile(uint32_t id);
@@ -195,19 +181,19 @@ private:
 
             QuerryRes response{0, true};
 
+            for (size_t i = 0; i < m_projectiles.size(); ++i) {
 
-            // for (size_t i = 0; i < m_projectiles.size(); ++i) {
-            //
-            //     if (!m_projectiles[i].active && 
-            //             m_projectiles[i].projectile_ptr != nullptr) {
-            //
-            //         response.projectile_index = i;
-            //         response.not_found = false;
-            //         break;
-            //     }
-            //
-            // }
-            //
+                if (!m_projectiles[i].active && 
+                        m_projectiles[i].projectile_ptr != nullptr &&
+                        typeid(*m_projectiles[i].projectile_ptr) == typeid(Proj)) {
+
+                    response.projectile_index = i;
+                    response.not_found = false;
+                    break;
+                }
+
+            }
+
             return response;
 
         }

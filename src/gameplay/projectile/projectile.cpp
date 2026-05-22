@@ -51,8 +51,8 @@ void ProjectileMan::update(double dt, Engine::GameState& sys) {
             if (cur_proj.projectile_ptr != nullptr) {
                 auto pos = cur_proj.projectile_ptr->get_position();
 
-                if ((pos.x > Engine::g_world_size.x || pos.x < 0) ||
-                    (pos.y > Engine::g_world_size.y || pos.y < 0)) {
+                if (!CheckCollisionRecs(cur_proj.projectile_ptr->get_hitbox(), 
+                            Rectangle{ .x = 0, .y = 0, .width = Engine::g_world_size.x, .height = Engine::g_world_size.y})) {
 
                     cur_proj.active = false;
                     cur_proj.deadtime.reset();
@@ -288,7 +288,7 @@ void ProjectileMan::save_projectiles(Engine::GameState& sys) {
 }
 
 
-Projectile* make_projectile(ProjectileType type) {
+Projectile* ProjectileMan::make_projectile(ProjectileType type) {
 
     Projectile* proj = nullptr;
 
@@ -378,7 +378,7 @@ void ProjectileMan::load_projectiles(Engine::GameState& sys) {
 
         }
 
-        Projectile* proj = ::make_projectile((ProjectileType)std::get<0>(identity));
+        Projectile* proj = make_projectile((ProjectileType)std::get<0>(identity));
 
         proj->unpack(packed_proj);
 
