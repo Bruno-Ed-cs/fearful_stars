@@ -6,6 +6,7 @@ namespace Engine {
 
 class ComponentContainer;
 
+using Package = std::map<std::string, std::string>;
 class Entity {
 
 public:
@@ -15,6 +16,7 @@ public:
     virtual void update(double dt, GameState& sys) = 0;
     virtual void draw() = 0;
     virtual bool destroy_self() = 0;
+    virtual Package package() = 0;
 
 
 };

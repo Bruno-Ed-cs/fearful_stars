@@ -1,4 +1,5 @@
 #include "enemy.hpp"
+#include "saving.hpp"
 #include "gameplay/components/hitbox.hpp"
 #include "gameplay/components/position.hpp"
 #include "gameplay/enemy/anemonae/anemonae.hpp"
@@ -249,4 +250,33 @@ bool EnemyMan::no_enemy_left() {
 
     return false;
 
+}
+
+void EnemyMan::save_enemies(Engine::GameState& sys) {
+
+    if (sys.save_slot == 0) return;
+
+    rocksdb::Iterator* it = sys.save_connection->NewIterator(rocksdb::ReadOptions());
+
+    for (it->Seek("Enemy"); it->Valid() && it->key().starts_with("Enemy"); it->Next()) {
+
+        sys.save_connection->Delete(rocksdb::WriteOptions(), it->key());
+    }
+
+    for (auto& container : m_enemies_dock) {
+
+
+            std::map<std::string, std::string> members = container.enemy->package();
+            std::string key;
+            std::string value;
+
+            for (auto& member: members) {
+                key = key_encode("Enemy", (int)container.enemy->get_type(), container.id, member.first);
+                value = member.second;
+
+                sys.save_connection->Put(rocksdb::WriteOptions(), key, value);
+
+        }
+
+    }
 }

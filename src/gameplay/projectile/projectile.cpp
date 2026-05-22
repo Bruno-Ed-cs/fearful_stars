@@ -271,7 +271,7 @@ void ProjectileMan::save_projectiles(Engine::GameState& sys) {
 
         if (container.active) {
 
-            Projectile::Package members = container.projectile_ptr->package();
+            Engine::Package members = container.projectile_ptr->package();
             std::string key;
             std::string value;
 
@@ -368,7 +368,7 @@ void ProjectileMan::load_projectiles(Engine::GameState& sys) {
     for (auto& identity: identifiers) {
 
         std::string prefix = std::format("Projectile:{}:{}", std::get<0>(identity), std::get<1>(identity));
-        Projectile::Package packed_proj;
+        Engine::Package packed_proj;
 
         for (it->Seek(prefix); it->Valid() && it->key().starts_with(prefix); it->Next()) {
             

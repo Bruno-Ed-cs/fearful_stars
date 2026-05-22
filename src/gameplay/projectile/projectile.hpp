@@ -25,7 +25,6 @@ class Projectile : public Engine::Entity{
 //    for the projectile manager
 public:
 
-    using Package = std::map<std::string, std::string>;
 
     virtual bool is_foe() = 0;
     virtual Rectangle get_hitbox() = 0;
@@ -34,8 +33,7 @@ public:
     virtual int get_damage() = 0;
     virtual ProjectileType get_type() = 0;
 
-    virtual Package package() = 0;
-    virtual void unpack(Package packed_mem) = 0;
+    virtual void unpack(Engine::Package packed_mem) = 0;
 
     virtual void reset(Vector2 pos, double speed, Vector2 direction, bool foe, int damage = 0) = 0;
 

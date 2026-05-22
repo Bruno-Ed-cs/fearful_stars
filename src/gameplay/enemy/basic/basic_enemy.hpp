@@ -3,6 +3,7 @@
 #include "asset_man.hpp"
 #include "component.hpp"
 #include "deps.hpp"
+#include "entity.hpp"
 #include "gameplay/components/direction.hpp"
 #include "gameplay/components/position.hpp"
 #include "gameplay/enemy/enemy.hpp"
@@ -40,9 +41,21 @@ public:
     virtual void reset(Vector2 position) override;
     Rectangle get_hitbox() override { return hitbox.get(pos.vec()); };
     void take_damage(Engine::GameState& sys, int damage) override;
-    EnemyType get_type() override { return EnemyType::basic; };
+    EnemyType get_type() override { return EnemyType::Basic; };
     bool destroy_self() override { return self_destruct; };
     Vector2 get_position() override { return pos.vec(); };
+
+    Engine::Package package() override {
+        Engine::Package pack;
+        pack["direction_x"] = std::to_string(direction.x);
+        pack["direction_y"] = std::to_string(direction.y);
+        pack["speed"] = std::to_string(speed);
+        pack["hp"] = std::to_string(hp.points);
+        pack["pos_x"] = std::to_string(pos.x);
+        pack["pos_y"] = std::to_string(pos.y);
+
+        return pack;
+    };
 
 
 public:

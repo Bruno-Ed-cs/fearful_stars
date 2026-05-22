@@ -26,7 +26,7 @@ public:
 
     void update(double dt, Engine::GameState& sys) override;
     void reset(Vector2 position) override;
-
+    EnemyType get_type() override { return EnemyType::Minion; };
     void init () {
 
         direction  = Direction{-1,0};
@@ -47,6 +47,18 @@ public:
         sprite = Engine::AssetMan::get_texture("minion");
     }
 
+    Engine::Package package() override {
+        Engine::Package pack;
+        pack["direction_x"] = std::to_string(direction.x);
+        pack["direction_y"] = std::to_string(direction.y);
+        pack["speed"] = std::to_string(speed);
+        pack["hp"] = std::to_string(hp.points);
+        pack["pos_x"] = std::to_string(pos.x);
+        pack["pos_y"] = std::to_string(pos.y);
+        pack["cur_target"] = std::to_string(cur_target);
+
+        return pack;
+    };
     Engine::Timer shot_cooldown{1.5f};
 
     int cur_target = 0;

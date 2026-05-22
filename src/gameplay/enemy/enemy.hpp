@@ -11,8 +11,13 @@ template<typename Enemy>
 concept is_enemy = std::is_base_of_v<Enemy, Enemy> && std::is_default_constructible_v<Enemy>;
 
 enum class EnemyType {
-    basic,
-
+    Anemonae = 1,
+    Basic,
+    BrokenShip,
+    Chaser,
+    CrystalEye,
+    Minion,
+    Vagant,
 
 };
 
@@ -56,6 +61,7 @@ public:
     void draw();
     EnemyMan::Collision check_collisions(Rectangle collider);
     bool no_enemy_left();
+    void save_enemies(Engine::GameState& sys);
 
     void debug_world();
     void debug_ui();

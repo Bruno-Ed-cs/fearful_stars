@@ -50,7 +50,7 @@ public:
     bool destroy_self() override { return self_destruct; };
     int get_damage() override { return damage; };
 
-   Package package() override {
+    Engine::Package package() override {
        return {
            {"foe", std::to_string(foe)},
            {"pos_x", std::to_string(pos.x)},
@@ -66,7 +66,7 @@ public:
 
    }
 
-   void unpack(Package packed_mem) override {
+   void unpack(Engine::Package packed_mem) override {
 
        foe = std::stoi(packed_mem["foe"]);
        pos.x = std::stod(packed_mem["pos_x"]);
