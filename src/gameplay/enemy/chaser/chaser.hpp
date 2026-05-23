@@ -53,6 +53,14 @@ public:
         return pack;
     };
 
+    void unpack(Engine::Package pack) override {
+        direction = Vector2{ std::stof(pack["direction_x"]), std::stof(pack["direction_y"]) };
+        pos = Position(std::stod(pack["pos_x"]), std::stod(pack["pos_y"]));
+        speed = std::stod(pack["speed"]);
+        hp = Health(std::stoi(pack["hp"]));
+        player_pos = Vector2{ std::stof(pack["player_pos_x"]), std::stof(pack["player_pos_y"])};
+    }
+
     Engine::Timer player_pos_update{3.0f};
     Vector2 player_pos;
 };

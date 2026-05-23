@@ -285,6 +285,8 @@ void ProjectileMan::save_projectiles(Engine::GameState& sys) {
         }
 
     }
+
+    delete it;
 }
 
 
@@ -390,5 +392,7 @@ void ProjectileMan::load_projectiles(Engine::GameState& sys) {
 
         m_projectiles.push_back(std::move(capsule));
     }
+
+    delete it;
 }
 

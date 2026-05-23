@@ -17,7 +17,7 @@ public:
     virtual void draw() = 0;
     virtual bool destroy_self() = 0;
     virtual Package package() = 0;
-
+    virtual void unpack(Engine::Package pack) = 0;
 
 };
 

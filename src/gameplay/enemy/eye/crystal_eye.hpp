@@ -53,6 +53,16 @@ public:
         return pack;
     };
 
+    void unpack(Engine::Package pack) override {
+        direction = Vector2{ std::stof(pack["direction_x"]), std::stof(pack["direction_y"]) };
+        pos = Position(std::stod(pack["pos_x"]), std::stod(pack["pos_y"]));
+        speed = std::stod(pack["speed"]);
+        hp = Health(std::stoi(pack["hp"]));
+
+        shot_count = std::stoi(pack["shot_count"]);
+        in_position = std::stoi(pack["in_position"]);
+    }
+
     Engine::Timer shot_cooldown{2.0f};
     Engine::Timer chain_cooldown{0.1};
     int shot_count = 0;

@@ -99,6 +99,7 @@ int main(void)
         if (IsKeyPressed(KEY_U)) {
             sys.player->load_player(sys);
             sys.projectile->load_projectiles(sys);
+            sys.enemy->load_enemies(sys);
             std::println("loading player....");
 
         }

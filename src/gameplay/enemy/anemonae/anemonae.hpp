@@ -2,6 +2,7 @@
 
 #include "asset_man.hpp"
 #include "deps.hpp"
+#include "entity.hpp"
 #include "gameplay/components/direction.hpp"
 #include "gameplay/enemy/basic/basic_enemy.hpp"
 #include "timer.hpp"
@@ -52,6 +53,14 @@ public:
 
         return pack;
     };
+
+    void unpack(Engine::Package pack) override {
+        direction = Vector2{ std::stof(pack["direction_x"]), std::stof(pack["direction_y"]) };
+        pos = Position(std::stod(pack["pos_x"]), std::stod(pack["pos_y"]));
+        speed = std::stod(pack["speed"]);
+        hp = Health(std::stoi(pack["hp"]));
+        final_x = std::stof(pack["final_x"]);
+    }
 
     Engine::Timer shot_cooldown{1.5f};
     float final_x = 0;

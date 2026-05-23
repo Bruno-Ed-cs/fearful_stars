@@ -33,8 +33,6 @@ public:
     virtual int get_damage() = 0;
     virtual ProjectileType get_type() = 0;
 
-    virtual void unpack(Engine::Package packed_mem) = 0;
-
     virtual void reset(Vector2 pos, double speed, Vector2 direction, bool foe, int damage = 0) = 0;
 
     virtual ~Projectile() = default;

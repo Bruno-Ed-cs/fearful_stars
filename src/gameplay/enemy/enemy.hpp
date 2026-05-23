@@ -62,10 +62,12 @@ public:
     EnemyMan::Collision check_collisions(Rectangle collider);
     bool no_enemy_left();
     void save_enemies(Engine::GameState& sys);
+    void load_enemies(Engine::GameState& sys);
 
     void debug_world();
     void debug_ui();
 
+    Enemy* make_enemy(EnemyType type);
     template<is_enemy Enemy>
     static std::unique_ptr<Enemy> make_enemy() {
 
@@ -80,8 +82,8 @@ public:
 private:
 
     struct EnemyContainer {
-        std::unique_ptr<Enemy> enemy;
         uint32_t id;
+        std::unique_ptr<Enemy> enemy;
     };
 
     std::vector<EnemyContainer> m_enemies_dock;

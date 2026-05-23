@@ -1,7 +1,5 @@
 #include "enemy.hpp"
 #include "saving.hpp"
-#include "gameplay/components/hitbox.hpp"
-#include "gameplay/components/position.hpp"
 #include "gameplay/enemy/anemonae/anemonae.hpp"
 #include "gameplay/enemy/basic/basic_enemy.hpp"
 #include "gameplay/enemy/broken_ship/broken_ship.hpp"
@@ -9,8 +7,6 @@
 #include "gameplay/enemy/eye/crystal_eye.hpp"
 #include "gameplay/enemy/minion/minion.hpp"
 #include "gameplay/enemy/vagant/vagant.hpp"
-#include "gameplay/player/player.hpp"
-#include "gameplay/projectile/projectile.hpp"
 #include "id_generator.hpp"
 #include "raylib.h"
 #include "render_man.hpp"
@@ -114,10 +110,13 @@ uint32_t EnemyMan::insert_enemy(std::unique_ptr<Enemy> enemy) {
 
     uint32_t id = Engine::generate_id<EnemyMan>(ver_id);
 
-    m_enemies_dock.emplace_back(
-        std::move(enemy),
-        id
-    );
+    EnemyContainer capsule {
+        .id = id,
+        .enemy = std::move(enemy)
+
+    };
+
+    m_enemies_dock.push_back(std::move(capsule));
 
     return id;
 }
@@ -263,6 +262,8 @@ void EnemyMan::save_enemies(Engine::GameState& sys) {
         sys.save_connection->Delete(rocksdb::WriteOptions(), it->key());
     }
 
+    delete it;
+
     for (auto& container : m_enemies_dock) {
 
 
@@ -280,3 +281,112 @@ void EnemyMan::save_enemies(Engine::GameState& sys) {
 
     }
 }
+
+Enemy* EnemyMan::make_enemy(EnemyType type) {
+
+    Enemy* enemy = nullptr;
+
+    switch (type) {
+
+        case Game::EnemyType::Anemonae:
+            enemy = new Anemonae();
+        break;
+
+        case Game::EnemyType::Basic:
+            enemy = new BasicEnemy();
+        break;
+
+        case Game::EnemyType::BrokenShip:
+            enemy = new BrokenShip();
+        break;
+
+        case Game::EnemyType::Chaser:
+            enemy = new Chaser();
+        break;
+
+        case Game::EnemyType::CrystalEye:
+            enemy = new CrystalEye();
+        break;
+
+        case Game::EnemyType::Minion:
+            enemy = new Minion();
+        break;
+
+        case Game::EnemyType::Vagant:
+            enemy = new Vagant();
+        break;
+
+    }
+
+    return enemy;
+
+}
+
+void EnemyMan::load_enemies(Engine::GameState& sys) {
+    using subtype = uint32_t;
+    using id = uint32_t;
+    if (sys.save_slot == 0) return;
+
+    m_enemies_dock.clear();
+
+    // get all the unique entries
+    std::vector<std::tuple<subtype, id>> identifiers;
+    identifiers.reserve(50);
+
+    rocksdb::Iterator* it = sys.save_connection->NewIterator(rocksdb::ReadOptions());
+
+    for (it->Seek("Enemy"); it->Valid() && it->key().starts_with("Enemy"); it->Next()) {
+        
+        bool exist = false;
+        auto parsed_key = key_decode(it->key().ToString());
+
+        for (int i = 0; i < identifiers.size(); ++i) {
+
+
+            if (std::stoi(parsed_key["id"]) == std::get<1>(identifiers[i])) {
+
+                exist = true;
+                break;
+            }
+
+        }
+
+        if (!exist) {
+            identifiers.push_back({std::stoi(parsed_key["subtype"]), std::stoi(parsed_key["id"])});
+        }
+
+    }
+
+    it->Reset();
+    // create and unpack the projectiles
+
+    for (auto& identity: identifiers) {
+
+        std::string prefix = std::format("Enemy:{}:{}", std::get<0>(identity), std::get<1>(identity));
+        Engine::Package packed_enemy;
+
+        for (it->Seek(prefix); it->Valid() && it->key().starts_with(prefix); it->Next()) {
+            
+            auto parsed_key = key_decode(it->key().ToString());
+
+            packed_enemy.insert({parsed_key["member"], it->value().ToString()});
+
+        }
+
+        Enemy* enemy = make_enemy((EnemyType)std::get<0>(identity));
+
+        enemy->unpack(packed_enemy);
+
+        EnemyMan::EnemyContainer capsule = {
+            .id = std::get<1>(identity),
+            .enemy = std::unique_ptr<Enemy>(enemy),
+        };
+
+        m_enemies_dock.push_back(std::move(capsule));
+    }
+
+    delete it;
+
+};
+
+

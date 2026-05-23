@@ -47,8 +47,8 @@ namespace Game {
             bool destroy_self() override { return self_destruct; };
             void take_damage();
 
-            std::map<std::string, std::string> package();
-            void unpack(std::map<std::string, std::string> packed_mem);
+            Engine::Package package() override;
+            void unpack(Engine::Package packed_mem) override;
 
             double speed = 135.0f;
             int special_meter = 0;

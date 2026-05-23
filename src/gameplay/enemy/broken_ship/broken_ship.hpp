@@ -51,6 +51,13 @@ public:
         return pack;
     };
 
+    void unpack(Engine::Package pack) override {
+        direction = Vector2{ std::stof(pack["direction_x"]), std::stof(pack["direction_y"]) };
+        pos = Position(std::stod(pack["pos_x"]), std::stod(pack["pos_y"]));
+        speed = std::stod(pack["speed"]);
+        hp = Health(std::stoi(pack["hp"]));
+    }
+
     Engine::Timer pick_direction {2.0f};
     Engine::Timer decision_making {1.0f};
     Engine::Timer shot_cooldown {3.0f};
