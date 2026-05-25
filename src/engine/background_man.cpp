@@ -1,6 +1,9 @@
 #include "background_man.hpp"
+#include "entity.hpp"
 #include "id_generator.hpp"
 #include "render_man.hpp"
+#include "asset_man.hpp"
+#include "saving.hpp"
 
 using namespace Engine;
 
@@ -10,24 +13,43 @@ void BackgroundMan::init() {
 
 }
 
-uint32_t BackgroundMan::make_element(sptr<Texture> sprite,
+uint32_t BackgroundMan::make_element(const std::string& sprite_name,
                                        Rectangle source,
                                        Rectangle projection,
                                        Game::Position initial_pos,
                                        double speed,
                                        double rotation,
                                        int z_index,
-                                       mode_func mode) {
+                                       BackgroundElement::Fn mode) {
+
+    mode_func mode_fn;
+
+    switch (mode) {
+        case BackgroundElement::Fn::across:
+            mode_fn = BackgroundElement::Mode::across;
+        break;
+
+        case BackgroundElement::Fn::loop:
+            mode_fn = BackgroundElement::Mode::loop;
+        break;
+
+        case BackgroundElement::Fn::stay:
+            mode_fn = BackgroundElement::Mode::stay;
+        break;
+
+    }
 
     BackgroundElement element{
         .canva_location = initial_pos,
-        .sprite = sprite,
+        .sprite_name = sprite_name,
+        .sprite = AssetMan::get_texture(sprite_name),
         .source = source,
         .projection = projection,
         .rotation = rotation,
         .speed = speed,
         .z_index = z_index,
-        .mode = mode,
+        .mode = mode_fn,
+        .mode_id = mode
     };
 
     uint32_t id = generate_id<BackgroundMan>([](uint32_t id){
@@ -124,3 +146,24 @@ bool BackgroundElement::Mode::across(BackgroundElement& element, double dt) {
 bool BackgroundElement::Mode::loop(BackgroundElement& element, double dt) {
     return false;
 }
+
+void BackgroundMan::save_background(Engine::GameState &sys) {
+
+    clean_by_prefix(sys, "Background");
+
+    for (auto& capsule: element_bank) {
+        
+        Engine::Package pack = capsule.element.package();
+
+        for (auto& line: pack) {
+
+            std::string key = key_encode("Background", 1, capsule.id, line.first);
+
+            sys.save_connection->Put(rocksdb::WriteOptions(), key, line.second);
+
+        }
+
+    }
+}
+
+

@@ -70,3 +70,15 @@ std::map<string, string> key_decode(string key) {
     return decoded;
 
 }
+
+void clean_by_prefix(Engine::GameState& sys, string prefix) {
+
+    std::unique_ptr<rocksdb::Iterator> it(sys.save_connection->NewIterator(rocksdb::ReadOptions()));
+
+    for (it->Seek(prefix); it->Valid() && it->key().starts_with(prefix); it->Next()) {
+
+        sys.save_connection->Delete(rocksdb::WriteOptions(), it->key());
+
+    }
+
+}
