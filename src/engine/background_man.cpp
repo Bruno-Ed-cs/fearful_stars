@@ -166,4 +166,81 @@ void BackgroundMan::save_background(Engine::GameState &sys) {
     }
 }
 
+void BackgroundMan::load_background(Engine::GameState& sys) {
+
+    element_bank.clear();
+    
+    std::vector<int> identifiers;
+    identifiers.reserve(50);
+
+    std::unique_ptr<rocksdb::Iterator> it(sys.save_connection->NewIterator(rocksdb::ReadOptions()));
+
+    for (it->Seek("Background"); it->Valid() && it->key().starts_with("Background"); it->Next()) {
+        
+        bool exist = false;
+        auto parsed_key = key_decode(it->key().ToString());
+
+        for (int i = 0; i < identifiers.size(); ++i) {
+
+            if (std::stoi(parsed_key["id"]) == identifiers[i]) {
+
+                exist = true;
+                break;
+            }
+
+        }
+
+        if (!exist) {
+            identifiers.push_back(std::stoi(parsed_key["id"]));
+        }
+
+    }
+
+    it->Reset();
+
+    for (auto& id: identifiers) {
+
+        Engine::Package pack;
+
+        std::string prefix = std::format("Background:1:{}", id);
+
+
+        for (it->Seek(prefix); it->Valid() && it->key().starts_with(prefix); it->Next()) {
+
+            std::string member = key_decode(it->key().ToString())["member"];
+
+            pack[member] = it->value().ToString();
+
+        }
+
+        std::string sprite_name = pack["sprite_name"];
+        double speed = std::stod(pack["speed"]);
+        double rotation = std::stod(pack["rotation"]);
+        int z_index = std::stoi(pack["z_index"]);
+        auto mode = BackgroundElement::Fn(std::stoi(pack["mode"]));
+
+        Rectangle source = {
+            .x = std::stof(pack["source_x"]),
+            .y = std::stof(pack["source_y"]),
+            .width = std::stof(pack["source_width"]),
+            .height = std::stof(pack["source_height"]),
+        };
+        Rectangle projection = {
+
+            .x = std::stof(pack["projection_x"]),
+            .y = std::stof(pack["projection_y"]),
+            .width = std::stof(pack["projection_width"]),
+            .height = std::stof(pack["projection_height"]),
+        };
+        Game::Position initial_pos = {
+            std::stof(pack["canva_location_x"]),
+            std::stof(pack["canva_location_y"]),
+        };
+
+        BackgroundMan::make_element(sprite_name, source, projection, initial_pos, speed, rotation, z_index, mode);
+
+    }
+
+}
+
 
