@@ -1,7 +1,9 @@
 #pragma once
 
 #include "deps.hpp"
+#include "entity.hpp"
 #include "gameplay/components/position.hpp"
+#include "systems.hpp"
 
 namespace Engine {
 
@@ -26,6 +28,9 @@ struct BackgroundElement {
         static bool loop(BackgroundElement& element, double dt);
 
     };
+
+    Engine::Package package();
+    void unpack(Engine::Package pack);
 };
 
 class BackgroundMan {
@@ -34,7 +39,7 @@ public:
 
     using mode_func = std::function<bool(BackgroundElement&, double)>;
 
-    static uint32_t create_element(sptr<Texture> sprite,
+    static uint32_t make_element(sptr<Texture> sprite,
                                    Rectangle source,
                                    Rectangle projection,
                                    Game::Position initial_pos,
@@ -47,6 +52,8 @@ public:
     static void update(double dt);
     static void draw();
     static void init();
+    static void save_background(Engine::GameState& sys);
+    static void load_background(Engine::GameState& sys);
 
 private:
 

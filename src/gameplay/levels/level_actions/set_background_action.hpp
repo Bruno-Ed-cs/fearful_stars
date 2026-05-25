@@ -31,7 +31,7 @@ public:
 
         //std::println("cur time = {}", timer.get_time());
         //
-        Engine::BackgroundMan::create_element(bg,
+        Engine::BackgroundMan::make_element(bg,
                 Rectangle{0, 0, (float)bg->width, (float)bg->height},
                 Rectangle{0, 0, (float)bg->width, (float)bg->height},
                 Game::Position{0, 0},

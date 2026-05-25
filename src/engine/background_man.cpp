@@ -10,7 +10,7 @@ void BackgroundMan::init() {
 
 }
 
-uint32_t BackgroundMan::create_element(sptr<Texture> sprite,
+uint32_t BackgroundMan::make_element(sptr<Texture> sprite,
                                        Rectangle source,
                                        Rectangle projection,
                                        Game::Position initial_pos,
