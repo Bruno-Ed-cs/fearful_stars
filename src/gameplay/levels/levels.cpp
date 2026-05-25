@@ -7,6 +7,7 @@
 #include "gameplay/levels/level_actions/wait_action.hpp"
 #include "gameplay/levels/level_actions/wave_end_action.hpp"
 #include "gameplay/levels/level_actions/set_background_action.hpp"
+#include "saving.hpp"
 #include "globals.hpp"
 #include "json.hpp"
 #include "raylib.h"
@@ -17,14 +18,14 @@
 
 using namespace Game;
 
-Level::Level(std::string_view name) :
-name(name), actions(), preloads() {
+Level::Level(std::string_view name, std::string_view path) :
+name(name), path(path), actions(), preloads() {
 
     current_action = actions.end();
 }
 
-Level::Level(std::string_view name, std::vector<Action*> action_list, std::vector<Engine::AssetMan::Ref> preload_list) :
-name(name) {
+Level::Level(std::string_view name, std::string_view path, std::vector<Action*> action_list, std::vector<Engine::AssetMan::Ref> preload_list) :
+name(name), path(path) {
 
     for (auto& action: action_list) {
 
@@ -85,12 +86,13 @@ bool Level::finished() {
 
 
 
-LevelManager::LevelManager() 
+LevelMan::LevelMan() 
 {
-    end_level = std::bind(&LevelManager::loop_level, this);
+    mode = Mode::loop;
+    end_level = std::bind(&LevelMan::loop_level, this);
 }
 
-void LevelManager::update(Engine::GameState& sys, double dt) {
+void LevelMan::update(Engine::GameState& sys, double dt) {
 
     if (level == nullptr) {
 
@@ -142,28 +144,28 @@ void LevelManager::update(Engine::GameState& sys, double dt) {
 
 }
 
-void LevelManager::rollback() {
+void LevelMan::rollback() {
 
 }
 
-void LevelManager::set_level_mode(Mode mode) {
+void LevelMan::set_level_mode(Mode mode) {
 
 }
 
 
 
-void LevelManager::loop_level() {
+void LevelMan::loop_level() {
 
     level->restart();
 }
 
-void LevelManager::exit_level() {
+void LevelMan::exit_level() {
 
 }
 
 using json = nlohmann::json;
 
-void LevelManager::load_level(std::string_view file_path) {
+void LevelMan::load_level_file(std::string_view file_path) {
 
     std::string base_dir(GetApplicationDirectory());
     base_dir += "assets/levels/";
@@ -271,5 +273,22 @@ void LevelManager::load_level(std::string_view file_path) {
 
     }
 
-    this->level = std::make_unique<Level>(level_name, actions, preloads);
+    this->level = std::make_unique<Level>(level_name, file_path, actions, preloads);
+}
+
+void LevelMan::save_level(Engine::GameState& sys) {
+
+    clean_by_prefix(sys, "Level");
+
+    sys.save_connection->Put(rocksdb::WriteOptions(),"Level:name", level->name);
+    sys.save_connection->Put(rocksdb::WriteOptions(),"Level:file", level->path);
+    sys.save_connection->Put(rocksdb::WriteOptions(),"Level:checkpoint", std::to_string(checkpoint_event));
+    sys.save_connection->Put(rocksdb::WriteOptions(),"Level:mode", std::to_string((int)mode));
+
+    int action_num = 0;
+    for (auto it = level->actions.begin(); it != level->current_action; it++) {
+        action_num++;
+    }
+
+    sys.save_connection->Put(rocksdb::WriteOptions(),"Level:cur_action", std::to_string(action_num));
 }

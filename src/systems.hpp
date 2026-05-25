@@ -8,7 +8,7 @@ namespace Game {
 class EnemyMan;
 class ProjectileMan;
 class PlayerMan;
-class LevelManager;
+class LevelMan;
 struct UiMan;
 
 }
@@ -32,7 +32,7 @@ struct GameState {
     uptr<Game::EnemyMan> enemy;
     uptr<Game::ProjectileMan> projectile;
     uptr<Game::PlayerMan> player;
-    uptr<Game::LevelManager> level;
+    uptr<Game::LevelMan> level;
     uptr<Game::UiMan> ui;
 
     Mode& app_state;    

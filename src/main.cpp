@@ -93,6 +93,7 @@ int main(void)
             sys.player->save_player(sys);
             sys.projectile->save_projectiles(sys);
             sys.enemy->save_enemies(sys);
+            sys.level->save_level(sys);
             Engine::BackgroundMan::save_background(sys);
             std::println("saving ......");
         }

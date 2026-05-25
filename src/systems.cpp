@@ -13,7 +13,7 @@ Engine::GameState::GameState(Engine::Mode& app_state) :
     enemy       (std::make_unique<Game::EnemyMan>()),
     projectile  (std::make_unique<Game::ProjectileMan>()),
     player      (std::make_unique<Game::PlayerMan>()),
-    level       (std::make_unique<Game::LevelManager>()),
+    level       (std::make_unique<Game::LevelMan>()),
     ui          (std::make_unique<Game::UiMan>(RenderMan::canva_size())),
     app_state   (app_state)
 {
@@ -30,7 +30,7 @@ void Engine::GameState::load(std::string level_path) {
     save_slot = 1;
     save_connection = get_save_db(save_slot);
 
-    level->load_level(level_path);
+    level->load_level_file(level_path);
     player->init_player({60, 90});
     ui->stack_interface(std::make_unique<Game::GameplayUi>());
 }
