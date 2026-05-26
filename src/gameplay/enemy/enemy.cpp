@@ -255,14 +255,7 @@ void EnemyMan::save_enemies(Engine::GameState& sys) {
 
     if (sys.save_slot == 0) return;
 
-    rocksdb::Iterator* it = sys.save_connection->NewIterator(rocksdb::ReadOptions());
-
-    for (it->Seek("Enemy"); it->Valid() && it->key().starts_with("Enemy"); it->Next()) {
-
-        sys.save_connection->Delete(rocksdb::WriteOptions(), it->key());
-    }
-
-    delete it;
+    clean_by_prefix(sys, "Enemy");
 
     for (auto& container : m_enemies_dock) {
 

@@ -149,6 +149,8 @@ bool BackgroundElement::Mode::loop(BackgroundElement& element, double dt) {
 
 void BackgroundMan::save_background(Engine::GameState &sys) {
 
+    if (sys.save_slot == 0) return;
+
     clean_by_prefix(sys, "Background");
 
     for (auto& capsule: element_bank) {

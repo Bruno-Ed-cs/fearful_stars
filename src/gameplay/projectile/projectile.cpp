@@ -8,6 +8,7 @@
 #include "gameplay/projectile/plasma/plasma.hpp"
 #include "gameplay/projectile/projectile.hpp"
 #include "projectile.hpp"
+#include "saving.hpp"
 #include "basic/basic_projectile.hpp"
 #include "rocksdb/iterator.h"
 #include "rocksdb/options.h"
@@ -260,12 +261,7 @@ void ProjectileMan::save_projectiles(Engine::GameState& sys) {
 
     if (sys.save_slot == 0) return;
 
-    rocksdb::Iterator* it = sys.save_connection->NewIterator(rocksdb::ReadOptions());
-
-    for (it->Seek("Projectile"); it->Valid() && it->key().starts_with("Projectile"); it->Next()) {
-
-        sys.save_connection->Delete(rocksdb::WriteOptions(), it->key());
-    }
+    clean_by_prefix(sys, "Projectile");
 
     for (auto& container : m_projectiles) {
 
@@ -286,7 +282,6 @@ void ProjectileMan::save_projectiles(Engine::GameState& sys) {
 
     }
 
-    delete it;
 }
 
 

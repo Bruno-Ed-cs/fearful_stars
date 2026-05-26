@@ -375,6 +375,10 @@ void Player::unpack(std::map<std::string, std::string> packed_mem) {
 
 void PlayerMan::save_player(Engine::GameState& sys) {
 
+    if (sys.save_slot == 0) return;
+
+    clean_by_prefix(sys, "Player");
+
     std::string key;
     std::string value;
 
