@@ -64,6 +64,9 @@
             "type": "SpawnUpgradeAction"
         },
         {
+            "type": "WaitUpgradeAction"
+        },
+        {
             "type": "SpawnEnemiesAction",
             "enemies": [
                 {
@@ -131,6 +134,9 @@
             "type": "SpawnUpgradeAction"
         },
         {
+            "type": "WaitUpgradeAction"
+        },
+        {
             "type": "SpawnEnemiesAction",
             "enemies": [
                 {
@@ -188,6 +194,9 @@
             "type": "SpawnUpgradeAction"
         },
         {
+            "type": "WaitUpgradeAction"
+        },
+        {
             "type": "SpawnEnemiesAction",
             "enemies": [
                 {
@@ -232,6 +241,9 @@
             "type": "SpawnUpgradeAction"
         },
         {
+            "type": "WaitUpgradeAction"
+        },
+        {
             "type": "SpawnEnemiesAction",
             "enemies": [
                 {
@@ -266,6 +278,9 @@
         },
         {
             "type": "SpawnUpgradeAction"
+        },
+        {
+            "type": "WaitUpgradeAction"
         },
         {
             "type": "WaitAction",
@@ -335,6 +350,9 @@
         },
         {
             "type": "SpawnUpgradeAction"
+        },
+        {
+            "type": "WaitUpgradeAction"
         },
         {
             "type": "WaitAction",
@@ -401,6 +419,9 @@
         },
         {
             "type": "SpawnUpgradeAction"
+        },
+        {
+            "type": "WaitUpgradeAction"
         },
         {
             "type": "WaitAction",
@@ -473,6 +494,9 @@
             "type": "SpawnUpgradeAction"
         },
         {
+            "type": "WaitUpgradeAction"
+        },
+        {
             "type": "WaitAction",
             "duration": 3.0
         },
@@ -520,6 +544,9 @@
         },
         {
             "type": "SpawnUpgradeAction"
+        },
+        {
+            "type": "WaitUpgradeAction"
         },
         {
             "type": "WaitAction",
@@ -597,6 +624,9 @@
         },
         {
             "type": "SpawnUpgradeAction"
+        },
+        {
+            "type": "WaitUpgradeAction"
         },
         {
             "type": "WaitAction",

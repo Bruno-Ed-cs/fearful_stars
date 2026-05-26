@@ -7,6 +7,7 @@
 #include "gameplay/levels/level_actions/wait_action.hpp"
 #include "gameplay/levels/level_actions/wave_end_action.hpp"
 #include "gameplay/levels/level_actions/set_background_action.hpp"
+#include "gameplay/levels/level_actions/wait_upgrade_action.hpp"
 #include "saving.hpp"
 #include "globals.hpp"
 #include "json.hpp"
@@ -204,6 +205,12 @@ void LevelMan::load_level_file(std::string_view file_path) {
         if (action["type"] == "SpawnUpgradeAction") {
 
             actions.push_back(new SpawnUpgradeAction());
+
+        }
+
+        if (action["type"] == "WaitUpgradeAction") {
+
+            actions.push_back(new WaitUpgradeAction());
 
         }
 
