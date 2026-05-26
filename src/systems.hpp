@@ -45,6 +45,8 @@ struct GameState {
 
     GameState(Mode& app_state);
     void load(std::string level_path);
+    void save_state();
+    void load_state();
 };
 
 void start_gameplay(Mode& sys_mode, GameState& sys);

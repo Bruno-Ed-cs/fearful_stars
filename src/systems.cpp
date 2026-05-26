@@ -1,5 +1,6 @@
 #include "systems.hpp"
 
+#include "background_man.hpp"
 #include "gameplay/enemy/enemy.hpp"
 #include "gameplay/projectile/projectile.hpp"
 #include "gameplay/levels/levels.hpp"
@@ -33,4 +34,24 @@ void Engine::GameState::load(std::string level_path) {
     level->load_level_file(level_path);
     player->init_player({60, 90});
     ui->stack_interface(std::make_unique<Game::GameplayUi>());
+}
+
+void Engine::GameState::save_state() {
+
+    player->save_player(*this);
+    projectile->save_projectiles(*this);
+    enemy->save_enemies(*this);
+    level->save_level(*this);
+    Engine::BackgroundMan::save_background(*this);
+    std::println("saving ......");
+}
+
+void Engine::GameState::load_state() {
+
+    player->load_player(*this);
+    projectile->load_projectiles(*this);
+    enemy->load_enemies(*this);
+    level->load_level(*this);
+    Engine::BackgroundMan::load_background(*this);
+    std::println("loading player....");
 }

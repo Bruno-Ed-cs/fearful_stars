@@ -90,22 +90,11 @@ int main(void)
         }
 
         if (IsKeyPressed(KEY_Y)) {
-            sys.player->save_player(sys);
-            sys.projectile->save_projectiles(sys);
-            sys.enemy->save_enemies(sys);
-            sys.level->save_level(sys);
-            Engine::BackgroundMan::save_background(sys);
-            std::println("saving ......");
+            sys.save_state();
         }
 
         if (IsKeyPressed(KEY_U)) {
-            sys.player->load_player(sys);
-            sys.projectile->load_projectiles(sys);
-            sys.enemy->load_enemies(sys);
-            sys.level->load_level(sys);
-            Engine::BackgroundMan::load_background(sys);
-            std::println("loading player....");
-
+            sys.load_state();
         }
 
 
