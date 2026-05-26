@@ -396,3 +396,14 @@ void ProjectileMan::load_projectiles(Engine::GameState& sys) {
     delete it;
 }
 
+bool ProjectileMan::contains_type(ProjectileType type) {
+
+    for(auto& capsule: m_projectiles) {
+
+        if (capsule.projectile_ptr->get_type() == type) return true;
+
+    }
+
+    return false;
+
+}

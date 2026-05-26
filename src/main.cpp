@@ -102,6 +102,7 @@ int main(void)
             sys.player->load_player(sys);
             sys.projectile->load_projectiles(sys);
             sys.enemy->load_enemies(sys);
+            sys.level->load_level(sys);
             Engine::BackgroundMan::load_background(sys);
             std::println("loading player....");
 

@@ -64,6 +64,7 @@ public:
     Collision check_collisions(Rectangle collider, bool colide_foe);
     Projectile& get_projectile(uint32_t id);
     bool exists(uint32_t id);
+    bool contains_type(ProjectileType type);
 
     void save_projectiles(Engine::GameState& sys);
     void load_projectiles(Engine::GameState& sys);

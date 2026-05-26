@@ -292,3 +292,27 @@ void LevelMan::save_level(Engine::GameState& sys) {
 
     sys.save_connection->Put(rocksdb::WriteOptions(),"Level:cur_action", std::to_string(action_num));
 }
+
+void LevelMan::load_level(Engine::GameState& sys) {
+
+    std::string buffer;
+
+    sys.save_connection->Get(rocksdb::ReadOptions(), "Level:file", &buffer);
+    std::string level_path = buffer;
+
+    sys.save_connection->Get(rocksdb::ReadOptions(), "Level:checkpoint", &buffer);
+    size_t checkpoint = std::stoi(buffer);
+
+    sys.save_connection->Get(rocksdb::ReadOptions(), "Level:mode", &buffer);
+    Mode old_mode = Mode{std::stoi(buffer)};
+
+    sys.save_connection->Get(rocksdb::ReadOptions(), "Level:cur_action", &buffer);
+    size_t cur_action = std::stoi(buffer);
+
+    load_level_file(level_path);
+    checkpoint_event = checkpoint;
+    mode = old_mode;
+
+    level->current_action = level->actions.begin();
+    for (size_t i = 0; i < cur_action; i++, level->current_action++);
+}
