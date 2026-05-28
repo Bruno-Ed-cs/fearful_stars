@@ -13,14 +13,20 @@
 #include "saving.hpp"
 #include <system_error>
 
-Engine::GameState::GameState(Engine::Mode& app_state) :
+Engine::GameState::GameState(size_t save_slot) :
     enemy       (std::make_unique<Game::EnemyMan>()),
     projectile  (std::make_unique<Game::ProjectileMan>()),
     player      (std::make_unique<Game::PlayerMan>()),
     level       (std::make_unique<Game::LevelMan>()),
     ui          (std::make_unique<Game::UiMan>(RenderMan::canva_size())),
-    app_state   (app_state)
+    save_slot   (save_slot)
 {
+
+    if (save_slot != 0) {
+
+        save_connection = get_save_db(save_slot);
+    }
+
     player->init_player({60, 90});
 }
 
@@ -31,8 +37,6 @@ void Engine::GameState::load(std::string level_path) {
     player.reset(new Game::PlayerMan());
     ui.reset(new Game::UiMan(RenderMan::canva_size()));
     
-    save_slot = 1;
-    save_connection = get_save_db(save_slot);
 
     level->load_level_file(level_path);
     player->init_player({60, 90});

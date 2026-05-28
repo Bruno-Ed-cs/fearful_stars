@@ -35,15 +35,13 @@ struct GameState {
     uptr<Game::LevelMan> level;
     uptr<Game::UiMan> ui;
 
-    Mode& app_state;    
-
     //0 means no save loaded
     std::uint32_t save_slot = 0;
     uptr<rocksdb::DB> save_connection;
     
     bool pause = false;
 
-    GameState(Mode& app_state);
+    GameState(size_t save_slot);
     void load(std::string level_path);
     void save_state();
     void load_state();

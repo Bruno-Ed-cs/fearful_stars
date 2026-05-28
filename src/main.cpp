@@ -28,7 +28,7 @@ using AssRef = Engine::AssetMan::Ref::Type;
 //------------------------------------------------------------------------------------
 // Program main entry point
 //------------------------------------------------------------------------------------
-int main(void)
+int main(int argc, char** argv)
 {
     srand(time(NULL));
 
@@ -66,7 +66,14 @@ int main(void)
     }
 
     Engine::Mode state = Engine::Mode::gameplay;
-    Engine::GameState sys {state};
+
+    Engine::GameState sys {1};
+
+    if (argc > 1) {
+
+        sys = std::move(Engine::GameState(std::stoul(argv[1])));
+
+    }
 
     sys.load("demo/demo.json");
 
