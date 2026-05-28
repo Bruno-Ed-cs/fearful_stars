@@ -11,8 +11,6 @@
 #include "music_man.hpp"
 #include "raylib.h"
 #include "render_man.hpp"
-#include "update_loop.hpp"
-#include "draw_loop.hpp"
 #include "control_schema.hpp"
 #include "systems.hpp"
 #include "winman.hpp"
@@ -21,9 +19,12 @@
 
 #include "gamecontrollerdb.h"
 
+void gameplay_loop(size_t save_slot, string level_path);
+
 using string = std::string;
 using AssRef = Engine::AssetMan::Ref::Type;
 
+Engine::Mode app_state = Engine::Mode::gameplay;
 
 //------------------------------------------------------------------------------------
 // Program main entry point
@@ -46,8 +47,6 @@ int main(int argc, char** argv)
     std::println("mappings result: {}", output);
 
 
-    double dt;
-
     InitAudioDevice();
     Engine::AssetMan::init();
     Engine::MusicMan::init();
@@ -65,63 +64,19 @@ int main(int argc, char** argv)
 
     }
 
-    Engine::Mode state = Engine::Mode::gameplay;
-
-    Engine::GameState sys {1};
-
-    if (argc > 1) {
-
-        sys = std::move(Engine::GameState(std::stoul(argv[1])));
-
-    }
-
-    sys.load("demo/demo.json");
 
     // Main game loop
     while (Engine::g_running)    // Detect window close button or ESC key
     {
         //std::cout << "check 3\n";
-        dt = GetFrameTime();
-        Engine::InputMan::pull_events();
-
-        if (WindowShouldClose()) 
-            Engine::g_running = false;
-
-        if (IsKeyPressed(KEY_ENTER)) 
-            Engine::WinMan::toggle_fullscreen();
-
-        if (IsKeyPressed(KEY_F3)) {
-
-            Engine::g_debug = !Engine::g_debug;
-
-        }
-
-        if (IsKeyPressed(KEY_Y)) {
-            sys.save_state();
-        }
-
-        if (IsKeyPressed(KEY_U)) {
-            sys.load_state();
-        }
-
-
-        if (IsKeyPressed(KEY_I)) {
-
-            Engine::AssetMan::cleanup();
-            std::println("Cleaning assets");
-
-        }
 
         Engine::WinMan::update_window();
 
-        Engine::MusicMan::update();
-
-        switch (state) {
+        switch (app_state) {
 
             case Engine::Mode::gameplay: 
                 {
-                    gameplay_update_loop(dt, sys);
-                    gameplay_draw_loop(sys);
+                    gameplay_loop(1, "demo/demo.json");
                     break;
                 }
 
@@ -144,13 +99,6 @@ int main(int argc, char** argv)
 
         }
 
-        //player_ui(sys);
-
-
-        //----------------------------------------------------------------------------------
-        // window.update_window();
-
-        Engine::InputMan::flush_events();
     }
 
     return 0;

@@ -39,6 +39,14 @@ void Engine::GameState::load(std::string level_path) {
     
 
     level->load_level_file(level_path);
+    std::string saved_level;
+    rocksdb::Status status;
+    status = save_connection->Get(rocksdb::ReadOptions(), "Level:file", &saved_level);
+
+    if (!status.ok()) {
+        std::cerr << status.ToString() << std::endl;
+    }
+
     player->init_player({60, 90});
     ui->stack_interface(std::make_unique<Game::GameplayUi>());
 }
