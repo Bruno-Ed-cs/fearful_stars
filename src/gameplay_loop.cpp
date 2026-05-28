@@ -14,7 +14,6 @@
 #include "background_man.hpp"
 #include "saving.hpp"
 
-#include "gamecontrollerdb.h"
 
 using string = std::string;
 using AssRef = Engine::AssetMan::Ref::Type;
@@ -103,6 +102,19 @@ void gameplay_loop(size_t save_slot, string level_path) {
 
     Engine::GameState sys {1};
     sys.load(level_path);
+
+    std::string saved_level;
+    rocksdb::Status status;
+    status = sys.save_connection->Get(rocksdb::ReadOptions(), "Level:file", &saved_level);
+    if (!status.IsNotFound()) {
+
+        sys.load_state();
+
+    } else {
+
+        std::cerr << status.ToString() << std::endl;
+    } 
+
     double dt = 0;
 
     // Main game loop
@@ -124,12 +136,14 @@ void gameplay_loop(size_t save_slot, string level_path) {
 
         }
 
-        if (IsKeyPressed(KEY_Y)) {
-            sys.save_state();
-        }
+        if (Engine::g_debug) {
+            if (IsKeyPressed(KEY_Y)) {
+                sys.save_state();
+            }
 
-        if (IsKeyPressed(KEY_U)) {
-            sys.load_state();
+            if (IsKeyPressed(KEY_U)) {
+                sys.load_state();
+            }
         }
 
 
@@ -156,7 +170,7 @@ void gameplay_loop(size_t save_slot, string level_path) {
     //----------------------------------------------------------------------------------
     // window.update_window();
 
-
+    sys.save_state();
 }
 
 
