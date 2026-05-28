@@ -8,7 +8,10 @@
 #include "gameplay/ui/ui_man.hpp"
 #include "render_man.hpp"
 #include "gameplay/ui/interfaces/gameplay_ui.hpp"
+#include "rocksdb/options.h"
+#include "rocksdb/status.h"
 #include "saving.hpp"
+#include <system_error>
 
 Engine::GameState::GameState(Engine::Mode& app_state) :
     enemy       (std::make_unique<Game::EnemyMan>()),
@@ -37,6 +40,8 @@ void Engine::GameState::load(std::string level_path) {
 }
 
 void Engine::GameState::save_state() {
+    if (save_slot == 0) return;
+
 
     player->save_player(*this);
     projectile->save_projectiles(*this);
@@ -44,9 +49,30 @@ void Engine::GameState::save_state() {
     level->save_level(*this);
     Engine::BackgroundMan::save_background(*this);
     std::println("saving ......");
+
+    rocksdb::Status result;
+    result = save_connection->Put(rocksdb::WriteOptions(), "Database:empty", "0");
+
+    if (!result.ok()) {
+        std::cerr << result.ToString() << std::endl;
+    }
 }
 
 void Engine::GameState::load_state() {
+    if (save_slot == 0) return;
+
+    rocksdb::Status result;
+    std::string value;
+    result = save_connection->Get(rocksdb::ReadOptions(),"Database:empty", &value);
+
+    if (result.IsNotFound()) {
+        std::cerr << "Tried to load empty save" << std::endl;
+        return;
+
+    } else if (!result.ok()) {
+
+        std::cerr << result.ToString() << std::endl;
+    }
 
     player->load_player(*this);
     projectile->load_projectiles(*this);
