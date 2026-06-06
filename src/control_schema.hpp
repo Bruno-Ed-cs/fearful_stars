@@ -5,6 +5,7 @@
 #include <vector>
 
 static Engine::Event controls[] = {
+
     {
         "pause",
         std::vector{KEY_P},
@@ -63,6 +64,44 @@ static Engine::Event controls[] = {
         "move_right",
         std::vector{KEY_RIGHT, KEY_D},
         std::vector{GAMEPAD_BUTTON_LEFT_FACE_RIGHT}
+    },
+
+    {
+        "ui_up",
+        std::vector{KEY_UP},
+        std::vector{GAMEPAD_BUTTON_LEFT_FACE_UP},
+        Engine::Event::Trigger::released
+    },
+    {
+        "ui_down",
+        std::vector{KEY_DOWN},
+        std::vector{GAMEPAD_BUTTON_LEFT_FACE_DOWN},
+        Engine::Event::Trigger::released
+    },
+    {
+        "ui_left",
+        std::vector{KEY_LEFT},
+        std::vector{GAMEPAD_BUTTON_LEFT_FACE_LEFT},
+        Engine::Event::Trigger::released
+    },
+    {
+        "ui_right",
+        std::vector{KEY_RIGHT},
+        std::vector{GAMEPAD_BUTTON_LEFT_FACE_RIGHT},
+        Engine::Event::Trigger::released
+    },
+    {
+        "ui_accept",
+        std::vector{KEY_Z},
+        std::vector{GAMEPAD_BUTTON_RIGHT_FACE_DOWN},
+        Engine::Event::Trigger::released
+    },
+    {
+        "ui_deny",
+        std::vector{KEY_X},
+        std::vector{GAMEPAD_BUTTON_RIGHT_FACE_RIGHT},
+        Engine::Event::Trigger::released
+
     },
 
 };
