@@ -1,4 +1,5 @@
 #include "ui_man.hpp"
+#include "input_man.hpp"
 #include "raylib.h"
 #include "render_man.hpp"
 
@@ -67,3 +68,25 @@ void UiMan::clear_screen() {
 
 }
 
+uint32_t UiMan::selector(uint32_t current, uint32_t limit) {
+
+    uint32_t final = current;
+
+    if (final > limit) 
+        final = limit;
+
+    if (Engine::InputMan::is_event_active("ui_up")) {
+        final--;
+        if (final < 1) 
+            final = limit;
+    }
+
+    if (Engine::InputMan::is_event_active("ui_down")) {
+        final++;
+        if (final > limit)
+            final = 1;
+    }
+
+    return final;
+
+}

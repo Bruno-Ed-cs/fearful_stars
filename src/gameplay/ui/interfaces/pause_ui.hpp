@@ -18,7 +18,7 @@ namespace Game {
 struct PauseUi : public UiLayer {
 
     RenderTexture ui;
-    size_t cur_button = 0;
+    uint32_t cur_button = 0;
 
     PauseUi() {
 
@@ -33,7 +33,7 @@ struct PauseUi : public UiLayer {
         sys.pause = true;
  
         auto canva_size = Engine::RenderMan::canva_size();
-        cur_button = 1;
+        cur_button = UiMan::selector(cur_button, 3);
 
         Rectangle box = {canva_size.x /2 - 40, canva_size.y / 2 - 50, 70, 100};
         Rectangle continue_button = {box.x + 5, box.y + 20, 60, 21};

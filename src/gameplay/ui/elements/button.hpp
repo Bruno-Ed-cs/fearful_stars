@@ -7,7 +7,7 @@ namespace Game {
 
 struct Button {
 
-    static bool basic(Rectangle bounds, size_t selected, size_t self_index, const std::string& content) {
+    static bool basic(Rectangle bounds, uint32_t selected, uint32_t self_index, const std::string& content) {
 
         assert(self_index != 0 && "0 means no button selected");
 
