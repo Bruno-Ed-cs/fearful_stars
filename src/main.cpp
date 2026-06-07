@@ -20,6 +20,7 @@
 #include "gamecontrollerdb.h"
 
 void gameplay_loop(size_t save_slot, string level_path);
+void main_menu_loop();
 
 using string = std::string;
 using AssRef = Engine::AssetMan::Ref::Type;
@@ -73,28 +74,26 @@ int main(int argc, char** argv)
 
         switch (Engine::app_state) {
 
-            case Engine::Mode::gameplay: 
+            case Engine::AppState::gameplay: 
                 {
                     gameplay_loop(Engine::save_slot, Engine::level_path);
                     break;
                 }
 
-            case Engine::Mode::level_editor:
+            case Engine::AppState::level_editor:
                 {
 
                     break;
                 }
-            case Engine::Mode::level_select:
+            case Engine::AppState::level_select:
                 {
 
                     break;
                 }
 
-            case Engine::Mode::main_menu:
+            case Engine::AppState::main_menu:
                 {
-                    BeginDrawing();
-                        ClearBackground(BLACK);
-                    EndDrawing();
+                    main_menu_loop();
                     break;
                 }
 

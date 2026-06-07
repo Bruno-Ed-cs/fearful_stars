@@ -41,7 +41,7 @@ void Engine::GameState::load(std::string level_path) {
     level->load_level_file(level_path);
 
     player->init_player({60, 90});
-    ui->stack_interface(std::make_unique<Game::GameplayUi>());
+    ui->stack_interface(std::make_unique<Game::GameplayUi>(*ui));
 
 
 

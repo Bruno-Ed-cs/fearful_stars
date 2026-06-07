@@ -10,7 +10,7 @@ namespace Engine {
     extern bool g_debug;
     extern bool g_running;
 
-    extern Mode app_state;
+    extern AppState app_state;
     extern int save_slot;
     extern std::string level_path;
 

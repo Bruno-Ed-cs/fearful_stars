@@ -37,7 +37,7 @@ void UiMan::draw() {
     Engine::RenderMan::send_texture(Engine::RenderMan::Plane::ui , canva.texture, view, source);
 }
 
-void UiMan::update(double dt, Engine::GameState& sys) {
+void UiMan::update(double dt, Engine::GameState* sys) {
 
     if (ui_stack.empty()) return;
     ui_stack.back()->update(dt, sys);
@@ -48,6 +48,7 @@ void UiMan::update(double dt, Engine::GameState& sys) {
     // }
 
 }
+
 
 void UiMan::stack_interface(std::unique_ptr<UiLayer> layer) {
 

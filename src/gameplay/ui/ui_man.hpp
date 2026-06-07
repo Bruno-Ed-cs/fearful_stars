@@ -14,7 +14,7 @@ public:
     ~UiMan();
 
     void draw();
-    void update(double dt, Engine::GameState& sys);
+    void update(double dt, Engine::GameState* sys = nullptr);
     void stack_interface(std::unique_ptr<UiLayer> layer);
     void pop_interface();
     void clear_screen();

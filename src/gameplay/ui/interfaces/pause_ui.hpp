@@ -19,8 +19,10 @@ struct PauseUi : public UiLayer {
 
     RenderTexture ui;
     uint32_t cur_button = 0;
+    UiMan& manager;
 
-    PauseUi() {
+    PauseUi(UiMan& manager):
+    manager(manager){
 
         //std::println("pause ui made");
         auto size = Engine::RenderMan::canva_size();
@@ -28,9 +30,11 @@ struct PauseUi : public UiLayer {
 
     }
 
-    void update(double dt, Engine::GameState& sys) {
+    void update(double dt, Engine::GameState* sys) {
 
-        sys.pause = true;
+        assert(sys != nullptr);
+        
+        sys->pause = true;
  
         auto canva_size = Engine::RenderMan::canva_size();
         cur_button = UiMan::selector(cur_button, 3);
@@ -46,8 +50,8 @@ struct PauseUi : public UiLayer {
             DrawRectangleLinesEx(box, 1, BLUE);
 
             if (Button::basic(continue_button, cur_button, 1, "Continue")) {
-                sys.pause = false;
-                sys.ui->pop_interface();
+                sys->pause = false;
+                manager.pop_interface();
             }
                 
             if (Button::basic(quit_button, cur_button, 2, "Quit")) 
@@ -55,7 +59,7 @@ struct PauseUi : public UiLayer {
 
             if (Button::basic(menu_button, cur_button, 3, "Main menu")) {
 
-                Engine::app_state = Engine::Mode::main_menu;
+                Engine::app_state = Engine::AppState::main_menu;
             }
 
             int text_width = MeasureText("Pause", 3);
@@ -66,16 +70,16 @@ struct PauseUi : public UiLayer {
 
         if (Engine::InputMan::is_event_active("pause")) {
 
-            sys.pause = false;
-            sys.ui->pop_interface();
+            sys->pause = false;
+            manager.pop_interface();
             return;
 
         }
 
         if (Engine::InputMan::is_event_active("ui_deny")) {
 
-            sys.pause = false;
-            sys.ui->pop_interface();
+            sys->pause = false;
+            manager.pop_interface();
             return;
 
         }
@@ -91,9 +95,6 @@ struct PauseUi : public UiLayer {
                 Rectangle {0, 0, (float)ui.texture.width, (float)ui.texture.height * -1});
     }
 
-    void process_input(Engine::GameState& sys) { 
-
-    }
 
     ~PauseUi() {
 

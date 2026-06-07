@@ -6,7 +6,7 @@ namespace Engine {
     bool g_debug = false;
     bool g_running = true;
 
-    Mode app_state = Engine::Mode::gameplay;
+    AppState app_state = Engine::AppState::gameplay;
     int save_slot = 1;
     std::string level_path = "demo/demo.json";
 }

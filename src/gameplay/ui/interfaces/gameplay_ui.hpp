@@ -11,18 +11,21 @@ namespace Game {
 
 struct GameplayUi: public UiLayer {
 
-    GameplayUi() {
+    UiMan& manager;
+
+    GameplayUi(UiMan& manager):
+    manager(manager){
 
         ui_texture = Engine::AssetMan::get_texture("player_ui");
         cursor_texture = Engine::AssetMan::get_texture("cursor");
 
     }
 
-    void update(double dt, Engine::GameState& sys) {
+    void update(double dt, Engine::GameState* sys) {
 
-        special = sys.player->get_player().special_meter;
-        lives = sys.player->get_player().lives.points;
-        upgrades = sys.player->get_player().upgrade;
+        special = sys->player->get_player().special_meter;
+        lives = sys->player->get_player().lives.points;
+        upgrades = sys->player->get_player().upgrade;
         bar = Rectangle{1, 91, 4, 0};
 
         int height = 76 * (special / 100.0f);
@@ -81,8 +84,6 @@ struct GameplayUi: public UiLayer {
 
         EndTextureMode();
     }
-
-    void process_input(Engine::GameState& sys) {}
 
     std::shared_ptr<Texture> ui_texture;
     std::shared_ptr<Texture> cursor_texture;

@@ -77,7 +77,7 @@ void gameplay_update_loop(double dt, Engine::GameState& sys) {
 
     if (Engine::InputMan::is_event_active("pause") && !sys.pause) {
 
-        sys.ui->stack_interface(std::make_unique<Game::PauseUi>());
+        sys.ui->stack_interface(std::make_unique<Game::PauseUi>(*sys.ui));
         Engine::InputMan::flush_events();
         //std::println("game paused");
     }
@@ -90,7 +90,7 @@ void gameplay_update_loop(double dt, Engine::GameState& sys) {
         Engine::BackgroundMan::update(dt);
     }
 
-    sys.ui->update(dt, sys);
+    sys.ui->update(dt, &sys);
 
 
 }
@@ -118,7 +118,7 @@ void gameplay_loop(size_t save_slot, string level_path) {
     double dt = 0;
 
     // Main game loop
-    while (Engine::g_running && Engine::app_state == Engine::Mode::gameplay)    // Detect window close button or ESC key
+    while (Engine::g_running && Engine::app_state == Engine::AppState::gameplay)    // Detect window close button or ESC key
     {
         //std::cout << "check 3\n";
         dt = GetFrameTime();
