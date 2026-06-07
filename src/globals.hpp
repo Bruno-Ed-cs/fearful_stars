@@ -2,15 +2,17 @@
 
 #include "deps.hpp"
 
-#include "entity.hpp"
-#include "gameplay/projectile/projectile.hpp"
-#include "winman.hpp"
+#include "systems.hpp"
 
 namespace Engine {
 
-    inline Vector2 g_world_size;
-    inline bool g_debug = false;
-    inline bool g_running = true;
+    extern Vector2 g_world_size;
+    extern bool g_debug;
+    extern bool g_running;
+
+    extern Mode app_state;
+    extern int save_slot;
+    extern std::string level_path;
 
 }
 

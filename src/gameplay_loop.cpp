@@ -13,12 +13,11 @@
 #include "gameplay/levels/levels.hpp"
 #include "background_man.hpp"
 #include "saving.hpp"
-
+#include "gameplay/projectile/projectile.hpp"
+#include "gameplay/enemy/enemy.hpp"
 
 using string = std::string;
 using AssRef = Engine::AssetMan::Ref::Type;
-
-extern Engine::Mode app_state;
 
 void gameplay_draw_loop(Engine::GameState& sys) {
 
@@ -118,23 +117,12 @@ void gameplay_loop(size_t save_slot, string level_path) {
     double dt = 0;
 
     // Main game loop
-    while (Engine::g_running && app_state == Engine::Mode::gameplay)    // Detect window close button or ESC key
+    while (Engine::g_running && Engine::app_state == Engine::Mode::gameplay)    // Detect window close button or ESC key
     {
         //std::cout << "check 3\n";
         dt = GetFrameTime();
         Engine::InputMan::pull_events();
 
-        if (WindowShouldClose()) 
-            Engine::g_running = false;
-
-        if (IsKeyPressed(KEY_ENTER)) 
-            Engine::WinMan::toggle_fullscreen();
-
-        if (IsKeyPressed(KEY_F3)) {
-
-            Engine::g_debug = !Engine::g_debug;
-
-        }
 
         if (Engine::g_debug) {
             if (IsKeyPressed(KEY_Y)) {

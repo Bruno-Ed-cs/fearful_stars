@@ -4,8 +4,9 @@
 
 #include "raylib.h"
 #include "rlImGui.h"
+#include "globals.hpp"
 
-namespace Engine{
+namespace Engine {
 
 class WinMan {
 
@@ -76,10 +77,23 @@ public:
 
     }
 
+
     static void update_window() {
 
         m_width = GetScreenWidth();
         m_height = GetScreenHeight();
+
+        if (WindowShouldClose()) 
+            g_running = false;
+
+        if (IsKeyPressed(KEY_ENTER)) 
+            WinMan::toggle_fullscreen();
+
+        if (IsKeyPressed(KEY_F3)) {
+
+            g_debug = !g_debug;
+
+        }
 
         //std::cout << m_width << "x" << m_height << '\n';
     }

@@ -53,7 +53,10 @@ struct PauseUi : public UiLayer {
             if (Button::basic(quit_button, cur_button, 2, "Quit")) 
                 Engine::g_running = false;
 
-            Button::basic(menu_button, cur_button, 3, "Main menu");
+            if (Button::basic(menu_button, cur_button, 3, "Main menu")) {
+
+                Engine::app_state = Engine::Mode::main_menu;
+            }
 
             int text_width = MeasureText("Pause", 3);
             DrawText("Pause", box.x + (box.width - text_width) / 2, box.y + 4, 3, WHITE);

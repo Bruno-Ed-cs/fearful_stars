@@ -24,7 +24,6 @@ void gameplay_loop(size_t save_slot, string level_path);
 using string = std::string;
 using AssRef = Engine::AssetMan::Ref::Type;
 
-Engine::Mode app_state = Engine::Mode::gameplay;
 
 //------------------------------------------------------------------------------------
 // Program main entry point
@@ -72,11 +71,11 @@ int main(int argc, char** argv)
 
         Engine::WinMan::update_window();
 
-        switch (app_state) {
+        switch (Engine::app_state) {
 
             case Engine::Mode::gameplay: 
                 {
-                    gameplay_loop(1, "demo/demo.json");
+                    gameplay_loop(Engine::save_slot, Engine::level_path);
                     break;
                 }
 
@@ -93,7 +92,9 @@ int main(int argc, char** argv)
 
             case Engine::Mode::main_menu:
                 {
-
+                    BeginDrawing();
+                        ClearBackground(BLACK);
+                    EndDrawing();
                     break;
                 }
 
