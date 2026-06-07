@@ -61,6 +61,14 @@ struct PauseUi : public UiLayer {
         } EndTextureMode();
         //cooldown.update(dt);
 
+
+        if (Engine::InputMan::is_event_active("ui_deny")) {
+
+            sys.pause = false;
+            sys.ui->pop_interface();
+
+        }
+
     }
 
     void draw(RenderTexture canva) {
@@ -77,11 +85,9 @@ struct PauseUi : public UiLayer {
         if (Engine::InputMan::is_event_active("pause") && sys.pause) {
 
             sys.pause = false;
-
             sys.ui->pop_interface();
 
         }
-
 
     }
 
