@@ -5,7 +5,9 @@
 #include "asset_man.hpp"
 #include "gameplay/player/player.hpp"
 #include "globals.hpp"
+#include "gameplay/ui/elements/button.hpp"
 #include "raylib.h"
+#include "gameplay/ui/ui_man.hpp"
 #include "render_man.hpp"
 #include "systems.hpp"
 
@@ -14,7 +16,7 @@ namespace Game {
 struct MainMenuUi: public UiLayer {
 
     RenderTexture ui;
-    uint32_t cur_button = 0;
+    uint32_t cur_button = 1;
     UiMan& manager;
 
     MainMenuUi(UiMan& manager):
@@ -30,6 +32,26 @@ struct MainMenuUi: public UiLayer {
        BeginTextureMode(ui); {
 
            DrawRectangleGradientV(0, 0, size.x, size.y, BLACK, BLUE);
+           std::string title = "Fearful\n Stars";
+           int title_height = 40;
+           int title_size = MeasureText(title.c_str(), title_height);
+
+           DrawText(title.c_str(), (size.x - title_size) / 2, 5, title_height, WHITE);
+
+           Rectangle play = {size.x /2 - 55/2, size.y / 2 + 20, 55, 21};
+           Rectangle quit = {size.x /2 - 55/2, play.y + 21 + 5, 55, 21};
+
+           cur_button = UiMan::selector(cur_button, 2);
+
+           if (Button::basic(play, cur_button, 1, "Play")) {
+
+           }
+
+           if (Button::basic(quit, cur_button, 2, "Quit")) {
+
+               Engine::g_running = false;
+
+           }
 
         } EndTextureMode();
     }
