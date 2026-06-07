@@ -23,17 +23,16 @@ void main_menu_loop() {
         Engine::WinMan::update_window();
         Engine::MusicMan::update();
         Engine::BackgroundMan::update(dt);
+        ui_manager.update(dt);
 
         BeginDrawing(); {
 
             ClearBackground(BLACK);
 
+            Engine::RenderMan::render_to_canva();
+            Engine::RenderMan::draw_to_window();
+            ui_manager.draw();
         } EndDrawing();
-
-        ui_manager.update(dt);
-
-        Engine::RenderMan::render_to_canva();
-        Engine::RenderMan::draw_to_window();
 
         Engine::InputMan::flush_events();
 

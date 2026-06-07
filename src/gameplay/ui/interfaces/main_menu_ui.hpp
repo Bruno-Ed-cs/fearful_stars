@@ -26,10 +26,12 @@ struct MainMenuUi: public UiLayer {
     }
 
     void update(double dt, Engine::GameState* sys) {
+        auto size = Engine::RenderMan::canva_size();
+       BeginTextureMode(ui); {
 
-        
+           DrawRectangleGradientV(0, 0, size.x, size.y, BLACK, BLUE);
 
-
+        } EndTextureMode();
     }
 
     void draw(RenderTexture canva) {
