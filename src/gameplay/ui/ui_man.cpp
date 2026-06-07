@@ -40,12 +40,12 @@ void UiMan::draw() {
 void UiMan::update(double dt, Engine::GameState& sys) {
 
     if (ui_stack.empty()) return;
-    ui_stack.back()->process_input(sys);
+    ui_stack.back()->update(dt, sys);
 
-    for (auto& layer : ui_stack) {
-
-        layer->update(dt, sys);
-    }
+    // for (auto& layer : ui_stack) {
+    //
+    //     layer->update(dt, sys);
+    // }
 
 }
 

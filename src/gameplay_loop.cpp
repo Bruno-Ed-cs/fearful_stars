@@ -78,6 +78,7 @@ void gameplay_update_loop(double dt, Engine::GameState& sys) {
     if (Engine::InputMan::is_event_active("pause") && !sys.pause) {
 
         sys.ui->stack_interface(std::make_unique<Game::PauseUi>());
+        Engine::InputMan::flush_events();
         //std::println("game paused");
     }
 

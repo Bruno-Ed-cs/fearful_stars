@@ -64,11 +64,19 @@ struct PauseUi : public UiLayer {
         } EndTextureMode();
         //cooldown.update(dt);
 
+        if (Engine::InputMan::is_event_active("pause")) {
+
+            sys.pause = false;
+            sys.ui->pop_interface();
+            return;
+
+        }
 
         if (Engine::InputMan::is_event_active("ui_deny")) {
 
             sys.pause = false;
             sys.ui->pop_interface();
+            return;
 
         }
 
@@ -84,13 +92,6 @@ struct PauseUi : public UiLayer {
     }
 
     void process_input(Engine::GameState& sys) { 
-
-        if (Engine::InputMan::is_event_active("pause") && sys.pause) {
-
-            sys.pause = false;
-            sys.ui->pop_interface();
-
-        }
 
     }
 
