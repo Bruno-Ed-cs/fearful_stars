@@ -9,7 +9,6 @@ struct Button {
 
     static bool basic(Rectangle bounds, uint32_t selected, uint32_t self_index, const std::string& content) {
 
-        assert(self_index != 0 && "0 means no button selected");
 
         int text_height = 5;
         int text_wid = MeasureText(content.c_str(), text_height);

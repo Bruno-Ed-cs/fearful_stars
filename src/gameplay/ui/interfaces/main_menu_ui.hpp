@@ -16,7 +16,7 @@ namespace Game {
 struct MainMenuUi: public UiLayer {
 
     RenderTexture ui;
-    uint32_t cur_button = 1;
+    uint32_t cur_button = 0;
     UiMan& manager;
 
     MainMenuUi(UiMan& manager):
@@ -41,13 +41,14 @@ struct MainMenuUi: public UiLayer {
            Rectangle play = {size.x /2 - 55/2, size.y / 2 + 20, 55, 21};
            Rectangle quit = {size.x /2 - 55/2, play.y + 21 + 5, 55, 21};
 
-           cur_button = UiMan::selector(cur_button, 2);
+           cur_button = UiMan::selector(cur_button, 1);
 
-           if (Button::basic(play, cur_button, 1, "Play")) {
+           if (Button::basic(play, cur_button, 0, "Play")) {
+               Engine::app_state = Engine::AppState::gameplay;
 
            }
 
-           if (Button::basic(quit, cur_button, 2, "Quit")) {
+           if (Button::basic(quit, cur_button, 1, "Quit")) {
 
                Engine::g_running = false;
 

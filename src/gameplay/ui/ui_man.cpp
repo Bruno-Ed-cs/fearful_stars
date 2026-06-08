@@ -69,24 +69,55 @@ void UiMan::clear_screen() {
 
 }
 
-uint32_t UiMan::selector(uint32_t current, uint32_t limit) {
+uint32_t UiMan::selector(uint32_t current, uint32_t limit, uint32_t cols) {
 
     uint32_t final = current;
+    assert(cols != 0);
+    uint32_t partition = (limit +1) / cols;
+    uint32_t cur_col = current / partition;
 
     if (final > limit) 
         final = limit;
 
+    std::println("partition_size = {}\ncur_col = {}\ncols = {}\n", partition, cur_col, cols);
     if (Engine::InputMan::is_event_active("ui_up")) {
+
         final--;
-        if (final < 1) 
-            final = limit;
+        if (final == ((cur_col -1) * partition)) {
+            final += partition -1;
+        }
+
     }
 
     if (Engine::InputMan::is_event_active("ui_down")) {
-        final++;
-        if (final > limit)
-            final = 1;
+
+        if (final == ((cur_col +1) * partition) -1) {
+            final = cur_col * partition;
+
+        } else {
+
+            final++;
+        }
     }
+
+    if (Engine::InputMan::is_event_active("ui_left")) {
+
+        if (cur_col == 0) {
+            final += partition * (cols - 1);
+        } else {
+            final -= partition;
+        }
+    }
+
+    if (Engine::InputMan::is_event_active("ui_right")) {
+        if (cur_col == cols -1) {
+            final -= partition * (cols - 1);
+        } else {
+            final += partition;
+        }
+    }
+
+    std::println("selected: {}", final);
 
     return final;
 

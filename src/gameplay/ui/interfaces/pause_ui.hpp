@@ -37,7 +37,7 @@ struct PauseUi : public UiLayer {
         sys->pause = true;
  
         auto canva_size = Engine::RenderMan::canva_size();
-        cur_button = UiMan::selector(cur_button, 3);
+        cur_button = UiMan::selector(cur_button, 2);
 
         Rectangle box = {canva_size.x /2 - 40, canva_size.y / 2 - 50, 70, 100};
         Rectangle continue_button = {box.x + 5, box.y + 20, 60, 21};
@@ -49,15 +49,15 @@ struct PauseUi : public UiLayer {
             DrawRectangleRec(box, BLACK);
             DrawRectangleLinesEx(box, 1, BLUE);
 
-            if (Button::basic(continue_button, cur_button, 1, "Continue")) {
+            if (Button::basic(continue_button, cur_button, 0, "Continue")) {
                 sys->pause = false;
                 manager.pop_interface();
             }
                 
-            if (Button::basic(quit_button, cur_button, 2, "Quit")) 
+            if (Button::basic(quit_button, cur_button, 1, "Quit")) 
                 Engine::g_running = false;
 
-            if (Button::basic(menu_button, cur_button, 3, "Main menu")) {
+            if (Button::basic(menu_button, cur_button, 2, "Main menu")) {
 
                 Engine::app_state = Engine::AppState::main_menu;
             }

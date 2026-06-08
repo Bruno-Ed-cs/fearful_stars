@@ -18,7 +18,7 @@ public:
     void stack_interface(std::unique_ptr<UiLayer> layer);
     void pop_interface();
     void clear_screen();
-    static uint32_t selector(uint32_t current, uint32_t limit);
+    static uint32_t selector(uint32_t current, uint32_t limit, uint32_t cols = 1);
 
 private:
 
