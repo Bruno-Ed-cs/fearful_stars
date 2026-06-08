@@ -321,5 +321,15 @@ void LevelMan::load_level(Engine::GameState& sys) {
     mode = old_mode;
 
     level->current_action = level->actions.begin();
-    for (size_t i = 0; i < cur_action; i++, level->current_action++);
+    for (size_t i = 0; i < cur_action; i++, level->current_action++) {
+        Action* cur = level->current_action->get();
+            // std::println("music\n\n");
+
+            //std::println("type: {}\n", cur->type() == ActionType::PlayOstAction ? "PlayOST": "ACTion");
+        if ( cur->type() == ActionType::PlayOstAction) {
+
+            // std::println("music\n\n");
+            cur->execute(sys, 0.0);
+        }
+    }
 }

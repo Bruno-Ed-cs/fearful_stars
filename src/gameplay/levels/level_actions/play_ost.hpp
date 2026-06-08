@@ -31,6 +31,8 @@ public:
     void restart() {
 
     };
+
+    ActionType type() override { return ActionType::PlayOstAction; };
 };
 
 }

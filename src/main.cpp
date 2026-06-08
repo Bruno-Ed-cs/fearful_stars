@@ -72,6 +72,7 @@ int main(int argc, char** argv)
 
         Engine::WinMan::update_window();
         Engine::MusicMan::clean();
+        Engine::AssetMan::cleanup();
 
         switch (Engine::app_state) {
 
