@@ -7,12 +7,12 @@ namespace Game {
 
 struct Button {
 
-    static bool basic(Rectangle bounds, uint32_t selected, uint32_t self_index, const std::string& content) {
+    static bool basic(Rectangle bounds, uint32_t selected, uint32_t self_index, const std::string& content, Color hl = BLUE) {
 
 
         int text_height = 5;
         int text_wid = MeasureText(content.c_str(), text_height);
-        Color highlight = (selected == self_index) ? BLUE : GRAY;
+        Color highlight = (selected == self_index) ? hl : GRAY;
         
         DrawRectangleRec(bounds, BLACK);
         DrawRectangleLinesEx(bounds, 1, highlight);

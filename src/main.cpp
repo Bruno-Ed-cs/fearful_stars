@@ -71,6 +71,7 @@ int main(int argc, char** argv)
         //std::cout << "check 3\n";
 
         Engine::WinMan::update_window();
+        Engine::MusicMan::clean();
 
         switch (Engine::app_state) {
 
