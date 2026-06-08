@@ -100,7 +100,7 @@ void gameplay_update_loop(double dt, Engine::GameState& sys) {
 //------------------------------------------------------------------------------------
 void gameplay_loop(size_t save_slot, string level_path) {
 
-    Engine::GameState sys {1};
+    Engine::GameState sys {save_slot};
     sys.load(level_path);
 
     std::string saved_level;

@@ -6,6 +6,7 @@
 #include "gameplay/player/player.hpp"
 #include "globals.hpp"
 #include "gameplay/ui/elements/button.hpp"
+#include "gameplay/ui/interfaces/saves_select_ui.hpp"
 #include "raylib.h"
 #include "gameplay/ui/ui_man.hpp"
 #include "render_man.hpp"
@@ -44,8 +45,7 @@ struct MainMenuUi: public UiLayer {
            cur_button = UiMan::selector(cur_button, 1);
 
            if (Button::basic(play, cur_button, 0, "Play")) {
-               Engine::app_state = Engine::AppState::gameplay;
-
+               manager.stack_interface(std::make_unique<SaveSelectUi>(manager));
            }
 
            if (Button::basic(quit, cur_button, 1, "Quit")) {

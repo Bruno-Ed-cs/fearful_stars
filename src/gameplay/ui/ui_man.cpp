@@ -76,10 +76,8 @@ uint32_t UiMan::selector(uint32_t current, uint32_t limit, uint32_t cols) {
     uint32_t partition = (limit +1) / cols;
     uint32_t cur_col = current / partition;
 
-    if (final > limit) 
-        final = limit;
 
-    std::println("partition_size = {}\ncur_col = {}\ncols = {}\n", partition, cur_col, cols);
+    //std::println("partition_size = {}\ncur_col = {}\ncols = {}\n", partition, cur_col, cols);
     if (Engine::InputMan::is_event_active("ui_up")) {
 
         final--;
@@ -117,7 +115,9 @@ uint32_t UiMan::selector(uint32_t current, uint32_t limit, uint32_t cols) {
         }
     }
 
-    std::println("selected: {}", final);
+    if (final > limit) 
+        final = limit;
+    //std::println("selected: {}", final);
 
     return final;
 
