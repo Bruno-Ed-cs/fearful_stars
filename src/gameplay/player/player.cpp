@@ -1,5 +1,6 @@
 #include "deps.hpp"
 #include "gameplay/projectile/upgrade/upgrade_proj.hpp"
+#include "raylib.h"
 #include "rocksdb/options.h"
 #include "saving.hpp"
 #include "gameplay/projectile/projectile.hpp"
@@ -247,7 +248,7 @@ void PlayerMan::update(double dt, Engine::GameState& sys) {
     if (m_player1->dead) {
 
         //Engine::g_running = false;
-        std::println("you died");
+        // std::println("you died");
 
     }
 
@@ -410,16 +411,16 @@ void PlayerMan::load_player(Engine::GameState& sys) {
 
     for (it->Seek(prefix); it->Valid() && it->key().starts_with(prefix); it->Next()) {
 
-        std::println("{} => {}", it->key().ToString(), it->value().ToString());
+        // std::println("{} => {}", it->key().ToString(), it->value().ToString());
 
         std::map<string, string> identity = key_decode(it->key().ToString());
 
-        std::println("identity = {}", identity);
+        // std::println("identity = {}", identity);
         package.insert({identity["member"], it->value().ToString()});
 
     }
 
-    std::println("{}", package);
+    TraceLog(LOG_DEBUG, "%s", std::format("{}", package).c_str());
 
     m_player1->unpack(package);
     delete it;

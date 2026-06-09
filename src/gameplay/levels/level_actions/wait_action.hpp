@@ -23,7 +23,7 @@ public:
 
         timer.update(dt);
 
-        //std::println("cur time = {}", timer.get_time());
+        // std::println("cur time = {}", timer.get_time());
 
         if (timer.past_limit())
             return true;

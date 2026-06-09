@@ -107,7 +107,7 @@ void RenderMan::render_to_canva() {
 
     BeginTextureMode(s_canva);
     BeginMode2D(s_camera);
-    ClearBackground(BLANK);
+    ClearBackground(BLACK);
 
     for (auto& element: s_background) {
 

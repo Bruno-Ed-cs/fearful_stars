@@ -11,7 +11,7 @@ void BigShooter::run(Player& player, Engine::GameState& sys, double dt) {
 
     if (player.special_meter >= 100 && Engine::InputMan::is_event_active("special")) {
 
-        std::println("booom");
+        // std::println("booom");
         sys.projectile->emplace<BigShotProj>(player.pos.vec(), Vector2{1, 0}, 100, false);
         player.special_meter = 0;
 

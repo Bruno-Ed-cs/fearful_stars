@@ -27,9 +27,9 @@ public:
 
         sptr<Texture> bg = Engine::AssetMan::get_texture(bg_name);
 
-        //std::println("{}", bg_name);
+        // std::println("{}", bg_name);
 
-        //std::println("cur time = {}", timer.get_time());
+        // std::println("cur time = {}", timer.get_time());
         //
         Engine::BackgroundMan::make_element(bg_name,
                 Rectangle{0, 0, (float)bg->width, (float)bg->height},

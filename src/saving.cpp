@@ -61,7 +61,7 @@ std::map<string, string> key_decode(string key) {
         }
     }
 
-    //std::println("separators = {}", separators);
+    // std::println("separators = {}", separators);
     decoded["type"] = string(key, 0, separators[0]);
     decoded["subtype"] = string(key, separators[0] + 1, (separators[1] - separators[0]) -1);
     decoded["id"] = string(key, separators[1] +1, (separators[2] - separators[1]) -1);

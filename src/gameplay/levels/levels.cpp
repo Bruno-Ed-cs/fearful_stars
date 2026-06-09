@@ -97,14 +97,14 @@ void LevelMan::update(Engine::GameState& sys, double dt) {
 
     if (level == nullptr) {
 
-        return;
         std::println("no level loaded");
+        return;
     }
 
     if (!preloaded) {
 
         preloaded = true;
-        std::println("preloading");
+        // std::println("preloading");
         for (auto& asset: level->preloads) {
 
 
@@ -325,7 +325,7 @@ void LevelMan::load_level(Engine::GameState& sys) {
         Action* cur = level->current_action->get();
             // std::println("music\n\n");
 
-            //std::println("type: {}\n", cur->type() == ActionType::PlayOstAction ? "PlayOST": "ACTion");
+            // std::println("type: {}\n", cur->type() == ActionType::PlayOstAction ? "PlayOST": "ACTion");
         if ( cur->type() == ActionType::PlayOstAction) {
 
             // std::println("music\n\n");

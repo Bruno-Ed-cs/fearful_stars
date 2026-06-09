@@ -14,9 +14,9 @@ using str = std::string;
 static str search_asset(str_view base_dir, str_view asset_name, str_view filter) {
 
     str app_dir = GetApplicationDirectory();
-    std::println("{}", app_dir);
+    // std::println("{}", app_dir);
     str asset_dir = str(app_dir) + str(base_dir);
-    std::println("{}", asset_dir);
+    // std::println("{}", asset_dir);
 
     FilePathList files = LoadDirectoryFilesEx(asset_dir.c_str(), str(filter).c_str(), true);
 

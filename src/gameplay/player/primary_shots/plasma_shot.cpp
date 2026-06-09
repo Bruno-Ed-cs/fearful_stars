@@ -102,7 +102,7 @@ bool PlasmaShooter::shoot_lv2(Player& player, ProjectileMan& projectile_man) {
         Engine::MusicMan::play_sfx(shooting_sound);
         projectile_man.emplace<PlasmaProj>(position, direction.vec(), speed, false);
 
-        //std::println("p2");
+        // std::println("p2");
 
         state_func = &PlasmaShooter::idle;
         shot = false;
@@ -111,7 +111,7 @@ bool PlasmaShooter::shoot_lv2(Player& player, ProjectileMan& projectile_man) {
     } else if (this->shot) {
 
         chain_cooldown.update(dt);
-        //std::println("p3");
+        // std::println("p3");
         return false;
     }
 
@@ -119,7 +119,7 @@ bool PlasmaShooter::shoot_lv2(Player& player, ProjectileMan& projectile_man) {
     projectile_man.emplace<PlasmaProj>(position, direction.vec(), speed, false);
     shot = true;
 
-    //std::println("p1");
+    // std::println("p1");
     return false;
 
 }
@@ -143,7 +143,7 @@ bool PlasmaShooter::shoot_lv3(Player& player, ProjectileMan& projectile_man) {
         projectile_man.emplace<PlasmaProj>(pos1, direction.vec(), speed, false);
         projectile_man.emplace<PlasmaProj>(pos2, direction.vec(), speed, false);
 
-        //std::println("p2");
+        // std::println("p2");
 
         state_func = &PlasmaShooter::idle;
         shot = false;
@@ -152,14 +152,14 @@ bool PlasmaShooter::shoot_lv3(Player& player, ProjectileMan& projectile_man) {
     } else if (this->shot) {
 
         chain_cooldown.update(dt);
-        //std::println("p3");
+        // std::println("p3");
         return false;
     }
 
     projectile_man.emplace<PlasmaProj>(position, direction.vec(), speed, false);
     shot = true;
 
-    //std::println("p1");
+    // std::println("p1");
     return false;
 
 }

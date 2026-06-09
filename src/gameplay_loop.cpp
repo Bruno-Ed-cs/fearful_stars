@@ -79,7 +79,7 @@ void gameplay_update_loop(double dt, Engine::GameState& sys) {
 
         sys.ui->stack_interface(std::make_unique<Game::PauseUi>(*sys.ui));
         Engine::InputMan::flush_events();
-        //std::println("game paused");
+        // std::println("game paused");
     }
 
     if (!sys.pause) {
@@ -139,7 +139,7 @@ void gameplay_loop(size_t save_slot, string level_path) {
         if (IsKeyPressed(KEY_I)) {
 
             Engine::AssetMan::cleanup();
-            std::println("Cleaning assets");
+            // std::println("Cleaning assets");
 
         }
 

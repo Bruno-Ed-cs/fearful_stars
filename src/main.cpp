@@ -17,6 +17,7 @@
 #include "rocksdb/db.h"
 #include "saving.hpp"
 
+
 #include "gamecontrollerdb.h"
 
 void gameplay_loop(size_t save_slot, string level_path);
@@ -32,6 +33,7 @@ using AssRef = Engine::AssetMan::Ref::Type;
 int main(int argc, char** argv)
 {
     srand(time(NULL));
+    SetTraceLogLevel(LOG_DEBUG);
 
     //    SetConfigFlags(FLAG_VSYNC_HINT);
     // Initialization
@@ -44,7 +46,7 @@ int main(int argc, char** argv)
     //load controller mappings from sdl database
     
     int output = SetGamepadMappings((char*)GAMECONTROLLERDB_DATA);
-    std::println("mappings result: {}", output);
+    //std::println("mappings result: {}", output);
 
 
     InitAudioDevice();
@@ -73,6 +75,13 @@ int main(int argc, char** argv)
         Engine::WinMan::update_window();
         Engine::MusicMan::clean();
         Engine::AssetMan::cleanup();
+        Engine::RenderMan::render_to_canva();
+        
+        BeginDrawing(); {
+
+            ClearBackground(BLACK);
+
+        } EndDrawing();
 
         switch (Engine::app_state) {
 

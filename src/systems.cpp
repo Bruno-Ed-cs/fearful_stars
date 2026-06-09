@@ -56,7 +56,7 @@ void Engine::GameState::save_state() {
     enemy->save_enemies(*this);
     level->save_level(*this);
     Engine::BackgroundMan::save_background(*this);
-    std::println("saving ......");
+    // std::println("saving ......");
 
     rocksdb::Status result;
     result = save_connection->Put(rocksdb::WriteOptions(), "Database:empty", "0");
@@ -87,5 +87,5 @@ void Engine::GameState::load_state() {
     enemy->load_enemies(*this);
     level->load_level(*this);
     Engine::BackgroundMan::load_background(*this);
-    std::println("loading player....");
+    // std::println("loading player....");
 }

@@ -11,7 +11,7 @@ void MissileProj::update(double dt, Engine::GameState& sys) {
 
     dorment_time.update(dt);
 
-    //std::println("timer: {}", dorment_time.get_time());
+    // std::println("timer: {}", dorment_time.get_time());
 
     orientation = Vector2Normalize(orientation.vec());
 
@@ -34,7 +34,7 @@ void MissileProj::update(double dt, Engine::GameState& sys) {
 
     } else {
 
-        //std::println("falling");
+        // std::println("falling");
 
         if (pos.y > 160 || pos.y < 20) {
             dorment_time.set_limit(0.0);

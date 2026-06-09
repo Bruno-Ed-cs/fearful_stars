@@ -24,7 +24,7 @@ struct PauseUi : public UiLayer {
     PauseUi(UiMan& manager):
     manager(manager){
 
-        //std::println("pause ui made");
+        // std::println("pause ui made");
         auto size = Engine::RenderMan::canva_size();
         ui = LoadRenderTexture(size.x, size.y);
 
