@@ -1,5 +1,6 @@
 #include "asset_man.hpp"
 #include "raylib.h"
+#include "defer.hpp"
 #include <print>
 #include <string_view>
 
@@ -19,6 +20,7 @@ static str search_asset(str_view base_dir, str_view asset_name, str_view filter)
     // std::println("{}", asset_dir);
 
     FilePathList files = LoadDirectoryFilesEx(asset_dir.c_str(), str(filter).c_str(), true);
+    defer(UnloadDirectoryFiles(files));
 
     if (files.count <= 0)
         throw std::invalid_argument(std::format("The Asset {} could not be found", asset_name));
@@ -41,7 +43,6 @@ static str search_asset(str_view base_dir, str_view asset_name, str_view filter)
     if (target_path.empty())
         throw std::invalid_argument(std::format("The Asset {} could not be found", asset_name));
 
-    UnloadDirectoryFiles(files);
     return target_path;
 
 }

@@ -173,10 +173,10 @@ void LevelMan::load_level_file(std::string_view file_path) {
     base_dir += file_path;
 
     char* source_file = LoadFileText(base_dir.c_str());
+    defer(UnloadFileText(source_file));
 
     json raw_level = json::parse(source_file);
 
-    UnloadFileText(source_file);
 
     std::string level_name = raw_level["name"];
     std::vector<Action*> actions;

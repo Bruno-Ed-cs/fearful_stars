@@ -8,6 +8,7 @@
 #include "gameplay/components/position.hpp"
 #include "gameplay/projectile/projectile.hpp"
 #include "systems.hpp"
+#include "animator.hpp"
 
 namespace Game {
 
@@ -17,13 +18,10 @@ public:
 
     PlasmaProj() {
 
-        sprite = Engine::AssetMan::get_texture("plasma_proj");
-
     }
     PlasmaProj(Vector2 position, double speed, Vector2 direction, bool foe, int damage) :
         pos(position), orientation(direction), foe(foe), damage(damage), speed(speed) {
 
-        sprite = Engine::AssetMan::get_texture("plasma_proj");
     }
 
     bool is_foe() override { return foe; }
@@ -77,7 +75,9 @@ public:
     double speed = 50;
     bool foe = false;
     bool destruct = false;
-    std::shared_ptr<Texture> sprite;
+    std::shared_ptr<Texture> sprite = Engine::AssetMan::get_texture("plasma_proj_ani");
+    Engine::Animator animation = Engine::Animator({15, 7}, 24, 
+            {{.size = 6, .index = 0, .name = "fly"}});
 
 };
 

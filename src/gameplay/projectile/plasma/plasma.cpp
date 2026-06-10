@@ -8,6 +8,7 @@ using namespace Game;
 
 void PlasmaProj::update(double dt, Engine::GameState& sys) {
 
+    animation.update(dt);
     auto dir = Vector2Normalize(orientation.vec());
     Vector2 movement = dir * speed * dt;
 
@@ -43,9 +44,9 @@ void PlasmaProj::draw() {
     Color tint = Color{0, 164, 255, 255};
     Color e_tint = Color{255, 78, 78, 255};
 
+    Rectangle source = animation.get_frame();
     if (!foe) {
 
-        Rectangle source = Rectangle{0, 0, 15, 7};
         Rectangle view = Rectangle{pos.x - 8, pos.y -4, 15, 7};
 
         Engine::RenderMan::send_texture(Engine::RenderMan::Plane::middle,
@@ -58,7 +59,7 @@ void PlasmaProj::draw() {
 
     } else {
 
-        Rectangle source = Rectangle{0, 0, -15, 7};
+        source.width *= -1;
         Rectangle view = Rectangle{pos.x - 8, pos.y -4, 15, 7};
 
         Engine::RenderMan::send_texture(Engine::RenderMan::Plane::middle,
