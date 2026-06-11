@@ -1,0 +1,12 @@
+{
+    "frame_size" : { "width": 15, "height": 7 },
+    "fps" : 24,
+    "animations" : [
+        {
+            "index" : 0,
+            "size": 6,
+            "name": "fly"
+        }
+    ]
+
+}

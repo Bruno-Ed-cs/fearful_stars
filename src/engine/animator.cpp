@@ -1,8 +1,8 @@
 #include "animator.hpp"
+#include "asset_man.hpp"
 #include "deps.hpp"
 #include "json.hpp"
 #include "raylib.h"
-#include <algorithm>
 
 using namespace Engine;
 
@@ -11,14 +11,56 @@ Animator::Animator(Vector2 frame_size, size_t fps, std::initializer_list<Animati
     source_frame({.x = 0, .y = 0, .width = frame_size.x, .height = frame_size.y}),
     fps(fps) {}
 
-Animator::Animator(path animation_json) {
+Animator::Animator(std::string_view animation_name) {
 
-    char* file_data = LoadFileText(animation_json.c_str());
-    defer(UnloadFileText(file_data));
+    // char* file_data = LoadFileText(animation_json.c_str());
+    // defer(UnloadFileText(file_data));
+    //
+    // json animation = json::parse(file_data);
+    //
+    std::shared_ptr<json> animation_json {Engine::AssetMan::get_json(animation_name)};
 
-    json animation = json::parse(file_data);
+    fps = (*animation_json)["fps"].get<size_t>();
+    source_frame = {
+        .x = 0,
+        .y = 0,
+        .width = (*animation_json)["frame_size"]["width"].get<float>(),
+        .height = (*animation_json)["frame_size"]["height"].get<float>(),
+    };
 
-    fps = animation["fps"].get<size_t>();
+    for (auto& info : (*animation_json)["animations"]) {
+        animations.emplace_back(
+                info["size"].get<size_t>(),
+                info["index"].get<size_t>(),
+                info["name"].get<string>()
+        );
+    }
+    //completar depois
+
+}
+
+Animator::Animator(json& animation_json) {
+
+    // char* file_data = LoadFileText(animation_json.c_str());
+    // defer(UnloadFileText(file_data));
+    //
+    // json animation = json::parse(file_data);
+
+    fps = animation_json["fps"].get<size_t>();
+    source_frame = {
+        .x = 0,
+        .y = 0,
+        .width = animation_json["frame_size"]["width"].get<float>(),
+        .height = animation_json["frame_size"]["height"].get<float>(),
+    };
+
+    for (auto& info : animation_json["animations"]) {
+        animations.emplace_back(
+                info["size"].get<size_t>(),
+                info["index"].get<size_t>(),
+                info["name"].get<string>()
+        );
+    }
     //completar depois
 
 }

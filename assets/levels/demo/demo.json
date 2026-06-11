@@ -683,7 +683,7 @@
             "type": "sprite"
         },
         {
-            "name": "player",
+            "name": "player_ship",
             "type": "sprite"
         },
         {

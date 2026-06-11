@@ -35,7 +35,8 @@ struct Animator {
     std::vector<AnimationInfo> animations;
 
     Animator(Vector2 frame_size, size_t fps, std::initializer_list<AnimationInfo> animations);
-    Animator(path animation_json);
+    Animator(json& animation_json);
+    Animator(std::string_view animation_name);
 
     void update(double dt);
     void set_animation(string_view animation_name);

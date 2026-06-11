@@ -76,8 +76,10 @@ public:
     bool foe = false;
     bool destruct = false;
     std::shared_ptr<Texture> sprite = Engine::AssetMan::get_texture("plasma_proj_ani");
-    Engine::Animator animation = Engine::Animator({15, 7}, 24, 
-            {{.size = 6, .index = 0, .name = "fly"}});
+    // Engine::Animator animation = Engine::Animator({15, 7}, 24, 
+    //         {{.size = 6, .index = 0, .name = "fly"}});
+
+    Engine::Animator animation = Engine::Animator{"animations/plasma_proj"};
 
 };
 
