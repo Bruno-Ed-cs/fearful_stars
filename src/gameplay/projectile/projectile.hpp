@@ -26,12 +26,12 @@ class Projectile : public Engine::Entity{
 public:
 
 
-    virtual bool is_foe() = 0;
-    virtual Rectangle get_hitbox() = 0;
-    virtual Vector2 get_position() = 0;
-    virtual double get_speed() = 0;
-    virtual int get_damage() = 0;
-    virtual ProjectileType get_type() = 0;
+    virtual bool           is_foe()       = 0;
+    virtual Rectangle      get_hitbox()   = 0;
+    virtual Vector2        get_position() = 0;
+    virtual double         get_speed()    = 0;
+    virtual int            get_damage()   = 0;
+    virtual ProjectileType get_type()     = 0;
 
     virtual void reset(Vector2 pos, double speed, Vector2 direction, bool foe, int damage = 0) = 0;
 
@@ -54,17 +54,17 @@ public:
     ProjectileMan() :
         m_projectiles(), m_delete_queue() {}
 
-    void update(double dt, Engine::GameState& sys);
-    void draw();
-    void debug_ui();
-    void debug_world();
-    Projectile* make_projectile(ProjectileType type);
-    void append_delete_queue(uint32_t id);
-    uint32_t get_id(Projectile* target);
-    Collision check_collisions(Rectangle collider, bool colide_foe);
-    Projectile& get_projectile(uint32_t id);
-    bool exists(uint32_t id);
-    bool contains_type(ProjectileType type);
+    void         update(double dt, Engine::GameState& sys);
+    void         draw();
+    void         debug_ui();
+    void         debug_world();
+    Projectile*  make_projectile(ProjectileType type);
+    void         append_delete_queue(uint32_t id);
+    uint32_t     get_id(Projectile* target);
+    Collision    check_collisions(Rectangle collider, bool colide_foe);
+    Projectile&  get_projectile(uint32_t id);
+    bool         exists(uint32_t id);
+    bool         contains_type(ProjectileType type);
 
     void save_projectiles(Engine::GameState& sys);
     void load_projectiles(Engine::GameState& sys);

@@ -33,7 +33,7 @@ using AssRef = Engine::AssetMan::Ref::Type;
 int main(int argc, char** argv)
 {
     srand(time(NULL));
-    SetTraceLogLevel(LOG_DEBUG);
+    SetTraceLogLevel(LOG_WARNING);
 
     //    SetConfigFlags(FLAG_VSYNC_HINT);
     // Initialization

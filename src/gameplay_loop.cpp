@@ -6,6 +6,7 @@
 #include "music_man.hpp"
 #include "raylib.h"
 #include "systems.hpp"
+#include "timer.hpp"
 #include "winman.hpp"
 #include "render_man.hpp"
 #include "gameplay/ui/ui_man.hpp"
@@ -14,10 +15,61 @@
 #include "background_man.hpp"
 #include "saving.hpp"
 #include "gameplay/projectile/projectile.hpp"
+#include "gameplay/projectile/basic/basic_projectile.hpp"
 #include "gameplay/enemy/enemy.hpp"
+#include <chrono>
+#include <future>
 
 using string = std::string;
 using AssRef = Engine::AssetMan::Ref::Type;
+using namespace std::chrono_literals;
+
+constexpr int stress_iterations = 100'000;
+
+void debug_entry(Engine::GameState& sys) {
+
+    static bool measuring = false;
+    static double acumulator = 0;
+    static double frames = 0;
+    static Engine::Timer duration;
+
+    ImGui::Begin("Benchmarks");
+
+    ImGui::Text("Projectile Stress test");
+
+    if (ImGui::Button("Test") && measuring == false) {
+        measuring = true;
+
+        for (int i = 0; i <= stress_iterations; i++) {
+            sys.projectile->emplace<Game::BasicProjectile>({10, 10}, {1, 0}, 10, true);
+        }
+        duration.set_limit(5.0);
+        duration.reset();
+    }
+
+    ImGui::End();
+
+    if (measuring) {
+
+        double dt = GetFrameTime();
+
+        frames++;
+        acumulator += dt;
+        duration.update(dt);
+
+        if (duration.past_limit()) {
+        
+            std::println("Projectile strees results:\nAvarege frametime: {}\nAvarege fps: {}", acumulator/frames, 1.0 / (acumulator/frames));
+            measuring = false;
+            acumulator = 0;
+            frames = 0;
+
+
+        }
+
+    }
+
+}
 
 void gameplay_draw_loop(Engine::GameState& sys) {
 
@@ -54,6 +106,7 @@ void gameplay_draw_loop(Engine::GameState& sys) {
         sys.projectile->debug_ui();
         sys.enemy->debug_ui();
         sys.player->debug_ui();
+        debug_entry(sys);
 
         rlImGuiEnd();
         }
@@ -100,6 +153,11 @@ void gameplay_update_loop(double dt, Engine::GameState& sys) {
 //------------------------------------------------------------------------------------
 void gameplay_loop(size_t save_slot, string level_path) {
 
+    BeginDrawing();
+        ClearBackground(BLACK);
+        DrawText("Loading...", 0, 0, 70, WHITE);
+    EndDrawing();
+
     Engine::GameState sys {save_slot};
     sys.load(level_path);
 
@@ -108,8 +166,26 @@ void gameplay_loop(size_t save_slot, string level_path) {
     status = sys.save_connection->Get(rocksdb::ReadOptions(), "Level:file", &saved_level);
     if (!status.IsNotFound()) {
 
+        auto start {std::chrono::high_resolution_clock().now()};
+
         sys.load_state();
 
+        // std::atomic<bool> loaded {false};
+        // std::thread loader {[&]() {
+        //     sys.load_state();
+        //     loaded = true;
+        //
+        // }};
+        //
+        // while (!loaded) {
+        //     std::println("waiting....");
+        // }
+        //
+        // loader.join();
+
+        auto end {std::chrono::high_resolution_clock().now()};
+
+        std::println("{} to load", std::chrono::duration<double> {end - start});
     } else {
 
         std::cerr << status.ToString() << std::endl;

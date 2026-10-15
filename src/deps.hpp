@@ -1,7 +1,9 @@
 #pragma once
 
 
+#include <thread>
 #include <string.h>
+#include <future>
 #include <unordered_map>
 #include <numbers>
 #include <string_view>

@@ -34,9 +34,13 @@ public:
         ui
     };
 
-    static void send_texture(RenderMan::Plane layer, Texture sprite,
-                             Rectangle render_view, Rectangle source_view,
-                             int z_index = 0, double rotation = 0, Color tint = WHITE);
+    static void send_texture(RenderMan::Plane layer,
+                            Texture sprite,
+                            Rectangle render_view,
+                            Rectangle source_view,
+                            int z_index = 0,
+                            double rotation = 0, 
+                            Color tint = WHITE);
 
     static void init(int canva_wid, int canva_hei);
     static void draw_to_window();
