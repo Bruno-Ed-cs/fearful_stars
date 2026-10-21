@@ -42,6 +42,14 @@ struct Actor {
 };
 
 struct Projectile {
+    bool foe = false;
+    Hitbox hitbox = Hitbox{5, 5};
+    Position pos;
+    double speed = 0;
+    Vector2 direction{0, 0};
+    int damage = 1;
+    bool self_destruct = false;
+    std::shared_ptr<Texture> sprite;
 
 };
 
@@ -58,8 +66,8 @@ struct Game {
     idx player;
 
     Engine::RecycleArray<Actor, 500> actors;
-    Engine::RecycleArray<Projectile, 2500> enemy_proj;
-    Engine::RecycleArray<Projectile, 2500> player_proj;
+    Engine::RecycleArray<Projectile, 5000> enemy_proj;
+    Engine::RecycleArray<Projectile, 5000> player_proj;
 
     Game();
 

@@ -2,13 +2,14 @@
 #include "globals.hpp"
 #include "input_man.hpp"
 #include "raylib.h"
+#include "raymath.h"
 
 
 Actor Player::make() {
 
     Actor player {};
     player.type = Actor::Player;
-    player.speed = 135.0f;
+    player.speed = 145.0f;
     player.special_meter = 0;
     player.upgrade = 0;
     player.cooldown = Engine::Timer(0.5f);
@@ -61,6 +62,7 @@ void Player::update(Actor& player) {
     double dt = GetFrameTime();
     Vector2 movement;
 
+    direction = Vector2Normalize(direction);
 
     if (Engine::InputMan::is_event_active("slowdown")) {
 
@@ -80,7 +82,7 @@ void Player::update(Actor& player) {
     player.pos.x = Clamp(player.pos.x, 0.0, Engine::g_world_size.x);
     player.pos.y = Clamp(player.pos.y, 0.0, Engine::g_world_size.y);
 
-    std::println("Player pos : {}, {}", player.pos.x, player.pos.y);
+    // std::println("Player pos : {}, {}", player.pos.x, player.pos.y);
 }
 
 void Player::draw(Actor& player) {

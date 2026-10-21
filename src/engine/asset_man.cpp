@@ -63,7 +63,7 @@ sptr<Shader> AssetMan::get_shader(string_view shader_name) {
 
 };
 
-sptr<Texture> AssetMan::get_texture(const string& texture_name){
+sptr<Texture> AssetMan::get_texture(std::string_view texture_name){
 
     if (texture_bank.contains(string(texture_name))) {
 
@@ -81,7 +81,7 @@ sptr<Texture> AssetMan::get_texture(const string& texture_name){
     return texture_reference;
 }
 
-sptr<Music> AssetMan::get_music(const string& music_name){
+sptr<Music> AssetMan::get_music(std::string_view music_name){
 
     if (music_bank.contains(string(music_name))) {
 
@@ -99,7 +99,7 @@ sptr<Music> AssetMan::get_music(const string& music_name){
     return music_reference;
 }
 
-sptr<Sound> AssetMan::get_sound(const string& sound_name){
+sptr<Sound> AssetMan::get_sound(std::string_view sound_name){
 
     if (sound_bank.contains(string(sound_name))) {
 
@@ -117,7 +117,7 @@ sptr<Sound> AssetMan::get_sound(const string& sound_name){
     return sound_reference;
 }
 
-sptr<Font> AssetMan::get_font(const string& font_name){
+sptr<Font> AssetMan::get_font(std::string_view font_name){
 
     if (font_bank.contains(string(font_name))) {
 
@@ -155,74 +155,36 @@ void AssetMan::init(){
 
 void AssetMan::cleanup() {
 
+
     for (auto it = texture_bank.begin(); it != texture_bank.end();) {
 
-        if (it->second.use_count() <= 1) 
-        {
-            it = texture_bank.erase(it);
-        } else {
-
-            ++it;
-        }
+        it = texture_bank.erase(it);
 
     }
 
     for (auto it = music_bank.begin(); it != music_bank.end();) {
 
-        if (it->second.use_count() <= 1) 
-        {
-            it = music_bank.erase(it);
-        } else {
-
-            ++it;
-        }
+        it = music_bank.erase(it);
 
     }
     for (auto it = sound_bank.begin(); it != sound_bank.end();) {
 
-        if (it->second.use_count() <= 1) 
-        {
-            it = sound_bank.erase(it);
-        } else {
-
-            ++it;
-        }
+        it = sound_bank.erase(it);
 
     }
     for (auto it = font_bank.begin(); it != font_bank.end();) {
 
-        if (it->second.use_count() <= 1) 
-        {
-            it = font_bank.erase(it);
-        } else {
-
-            ++it;
-        }
+        it = font_bank.erase(it);
 
     }
 
     for (auto it = json_bank.begin(); it != json_bank.end();) {
 
-        if (it->second.use_count() <= 1) 
-        {
-            it = json_bank.erase(it);
-        } else {
-
-            ++it;
-        }
+        it = json_bank.erase(it);
 
     }
 }
 
-void AssetMan::empty_out() {
-
-    texture_bank.clear();
-    music_bank.clear();
-    sound_bank.clear();
-    font_bank.clear();
-    json_bank.clear();
-
-}
 
 sptr<json> AssetMan::get_animation(std::string_view animation_name) {
 

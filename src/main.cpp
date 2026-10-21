@@ -25,13 +25,13 @@ using AssRef = Engine::AssetMan::Ref::Type;
 int main(int argc, char** argv)
 {
     srand(time(NULL));
-    SetTraceLogLevel(LOG_WARNING);
+    SetTraceLogLevel(LOG_ALL);
 
     //    SetConfigFlags(FLAG_VSYNC_HINT);
     // Initialization
     //--------------------------------------------------------------------------------------
 
-    Engine::WinMan::init(1280, 720, "Fearful Stars", 0, true);
+    Engine::WinMan::init(1280, 720, "Fearful Stars", 0, false);
 
     Engine::g_world_size = Vector2{320, 180};
 
@@ -40,6 +40,7 @@ int main(int argc, char** argv)
     int output = SetGamepadMappings((char*)GAMECONTROLLERDB_DATA);
     //std::println("mappings result: {}", output);
 
+    std::println("game size: {}", sizeof(Game));
 
     Engine::AssetMan::init();
     Engine::MusicMan::init();
@@ -56,6 +57,7 @@ int main(int argc, char** argv)
     }
 
     Game* game = new Game();
+    RenderTexture2D view = LoadRenderTexture(Engine::g_world_size.x, Engine::g_world_size.y);
 
     // Main game loop
     while (Engine::g_running)    // Detect window close button or ESC key
@@ -65,19 +67,29 @@ int main(int argc, char** argv)
         Engine::WinMan::update_window();
         Engine::InputMan::pull_events();
 
+        game->update();
+
         BeginDrawing();
 
         ClearBackground(BLACK);
 
+        BeginTextureMode(view);
 
-        game->update();
+        ClearBackground(BLACK);
         game->draw();
 
-        DrawCircleV({400, 400}, 100, WHITE);
+        EndTextureMode();
+
+        Rectangle dest = {0, 0, (float)Engine::WinMan::get_width(), (float)Engine::WinMan::get_height()};
+        DrawTexturePro(view.texture, {0, 0, Engine::g_world_size.x, -Engine::g_world_size.y}, dest, {0, 0}, 0.0, WHITE);
+
+        DrawFPS(0, 0);
 
         EndDrawing();
         Engine::InputMan::flush_events();
     }
+
+    UnloadRenderTexture(view);
 
     return 0;
 }

@@ -16,6 +16,15 @@ namespace Engine {
             return m_data[index];
         }
 
+        const size_t size() {
+            return n;
+        }
+
+        bool active(idx index) {
+
+            return m_meta[index];
+        }
+
         idx activate(T item) {
 
             for (int i = 1; i < m_meta.size(); i++) {

@@ -8,9 +8,9 @@ Game::Game() {
 
 void Game::update() {
 
-    for (int i = 1; i < actors.m_data.size(); i++) {
+    for (int i = 1; i < actors.size(); i++) {
 
-        if (actors.m_meta[i]) {
+        if (actors.active(i)) {
 
             switch(actors[i].type) {
 
@@ -28,9 +28,9 @@ void Game::update() {
 
 void Game::draw() {
 
-    for (int i = 1; i < actors.m_data.size(); i++) {
+    for (int i = 1; i < actors.size(); i++) {
 
-        if (actors.m_meta[i]) {
+        if (actors.active(i)) {
 
             switch(actors[i].type) {
 
