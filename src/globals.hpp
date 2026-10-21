@@ -2,7 +2,6 @@
 
 #include "deps.hpp"
 
-#include "systems.hpp"
 
 namespace Engine {
 
@@ -10,7 +9,6 @@ namespace Engine {
     extern bool g_debug;
     extern bool g_running;
 
-    extern AppState app_state;
     extern int save_slot;
     extern std::string level_path;
 

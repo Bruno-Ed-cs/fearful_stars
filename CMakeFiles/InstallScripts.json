@@ -1,0 +1,13 @@
+{
+	"InstallScripts" : 
+	[
+		"/home/huevo/Projects/gamedev/fearful_stars/cmake_install.cmake",
+		"/home/huevo/Projects/gamedev/fearful_stars/raylib/cmake_install.cmake",
+		"/home/huevo/Projects/gamedev/fearful_stars/raylib/raylib/cmake_install.cmake",
+		"/home/huevo/Projects/gamedev/fearful_stars/raylib/raylib/external/glfw/cmake_install.cmake",
+		"/home/huevo/Projects/gamedev/fearful_stars/raylib/raylib/external/glfw/src/cmake_install.cmake",
+		"/home/huevo/Projects/gamedev/fearful_stars/rocksdb/cmake_install.cmake",
+		"/home/huevo/Projects/gamedev/fearful_stars/rocksdb/tools/cmake_install.cmake"
+	],
+	"Parallel" : false
+}

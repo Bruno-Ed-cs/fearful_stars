@@ -1,0 +1,2 @@
+/usr/bin/ar qc libimgui-raylib.a "CMakeFiles/imgui-raylib.dir/dependencies/raylib-imgui/rlImGui.cpp.o"
+/usr/bin/ranlib libimgui-raylib.a

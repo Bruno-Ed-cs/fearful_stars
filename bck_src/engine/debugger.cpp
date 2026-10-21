@@ -1,0 +1,8 @@
+
+namespace Engine {
+
+class Debugger {
+
+};
+
+}

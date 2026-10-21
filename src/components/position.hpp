@@ -1,0 +1,37 @@
+#pragma once
+#include "deps.hpp"
+
+
+class Position {
+
+public:
+    float x;
+    float y;
+
+public:
+
+    Position() :
+    x(0), y(0) {};
+
+    Position(float x, float y) :
+    x(x), y(y) {};
+
+    Position(Vector2 pos) :
+    x(pos.x), y(pos.y) {};
+
+    Vector2 vec() { return Vector2{x, y}; };
+
+    void operator=(Vector2 pos) {
+        x = pos.x;
+        y = pos.y;
+    };
+
+    void operator+=(Vector2 pos) {
+
+        x += pos.x;
+        y += pos.y;
+
+    }
+
+};
+

@@ -1,21 +1,13 @@
 #include "asset_man.hpp"
-#include "background_man.hpp"
 #include "deps.hpp"
 
-#include "gameplay/ui/interfaces/gameplay_ui.hpp"
-#include "gameplay/ui/ui_man.hpp"
+#include "game/game.hpp"
 #include "globals.hpp"
-#include "gameplay/levels/action.hpp"
 #include "input_man.hpp"
-#include "gameplay/levels/levels.hpp"
 #include "music_man.hpp"
 #include "raylib.h"
-#include "render_man.hpp"
 #include "control_schema.hpp"
-#include "systems.hpp"
 #include "winman.hpp"
-#include "rocksdb/db.h"
-#include "saving.hpp"
 
 
 #include "gamecontrollerdb.h"
@@ -49,11 +41,8 @@ int main(int argc, char** argv)
     //std::println("mappings result: {}", output);
 
 
-    InitAudioDevice();
     Engine::AssetMan::init();
     Engine::MusicMan::init();
-    Engine::RenderMan::init(320, 180);
-    Engine::BackgroundMan::init();
 
     Engine::AssetMan::get_texture("Connor_fodder2");
 
@@ -66,6 +55,7 @@ int main(int argc, char** argv)
 
     }
 
+    Game* game = new Game();
 
     // Main game loop
     while (Engine::g_running)    // Detect window close button or ESC key
@@ -73,42 +63,18 @@ int main(int argc, char** argv)
         //std::cout << "check 3\n";
 
         Engine::WinMan::update_window();
-        Engine::MusicMan::clean();
-        Engine::AssetMan::cleanup();
-        Engine::RenderMan::render_to_canva();
-        
-        BeginDrawing(); {
 
-            ClearBackground(BLACK);
+        BeginDrawing();
 
-        } EndDrawing();
+        ClearBackground(BLACK);
 
-        switch (Engine::app_state) {
 
-            case Engine::AppState::gameplay: 
-                {
-                    gameplay_loop(Engine::save_slot, Engine::level_path);
-                    break;
-                }
+        game->update();
+        game->draw();
 
-            case Engine::AppState::level_editor:
-                {
+        DrawCircleV({400, 400}, 100, WHITE);
 
-                    break;
-                }
-            case Engine::AppState::level_select:
-                {
-
-                    break;
-                }
-
-            case Engine::AppState::main_menu:
-                {
-                    main_menu_loop();
-                    break;
-                }
-
-        }
+        EndDrawing();
 
     }
 

@@ -1,0 +1,10 @@
+prefix="/usr"
+includedir="${prefix}/include"
+libdir="${prefix}/lib"
+
+Name: rocksdb
+Description: An embeddable persistent key-value store for fast storage
+URL: https://rocksdb.org/
+Version: 11.1.1
+Cflags: -I"${includedir}"
+Libs: -L"${libdir}" -lrocksdb

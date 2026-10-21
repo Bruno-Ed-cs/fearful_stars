@@ -32,7 +32,7 @@ set(WITH_BENCHMARK_TOOLS OFF CACHE BOOL "Disable RocksDB benchmark tools" FORCE)
 set(ROCKSDB_BUILD_SHARED OFF CACHE BOOL "Disable shared library build" FORCE)
 
 add_subdirectory(dependencies/raylib-5.5 raylib)
-add_subdirectory(dependencies/rocks_db rocksdb)
+# add_subdirectory(dependencies/rocks_db rocksdb)
 
 file(GLOB_RECURSE files "src/*.cpp")
 file(GLOB imgui_files "dependencies/dear_imgui/*.cpp")
@@ -48,7 +48,7 @@ add_library(imgui STATIC ${imgui_files})
 
 add_library(imgui-raylib STATIC dependencies/raylib-imgui/rlImGui.cpp)
 
-target_link_libraries(${PROJECT_NAME} raylib imgui-raylib imgui rocksdb)
+target_link_libraries(${PROJECT_NAME} raylib imgui-raylib imgui )
 
 target_precompile_headers(${PROJECT_NAME} PUBLIC src/deps.hpp)
 
