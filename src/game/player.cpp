@@ -88,7 +88,7 @@ void Player::draw(Actor& player) {
     Rectangle dest{player.pos.x - 14, player.pos.y - 8, 26, 16};
     Rectangle origin{0, 0, 26, 16};
 
-    if (player.invincible) {
+    if (!player.invincible) {
         DrawTexturePro(*player.spritesheet, origin, dest, {0,0}, 0.0, WHITE);
     }
     else {

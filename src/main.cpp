@@ -63,6 +63,7 @@ int main(int argc, char** argv)
         //std::cout << "check 3\n";
 
         Engine::WinMan::update_window();
+        Engine::InputMan::pull_events();
 
         BeginDrawing();
 
@@ -75,7 +76,7 @@ int main(int argc, char** argv)
         DrawCircleV({400, 400}, 100, WHITE);
 
         EndDrawing();
-
+        Engine::InputMan::flush_events();
     }
 
     return 0;
