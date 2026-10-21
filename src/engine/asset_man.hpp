@@ -18,13 +18,13 @@ class AssetMan {
 
 public:
 
-    static sptr<Texture> get_texture(std::string_view texture_name);
-    static sptr<Music> get_music(std::string_view music_name);
-    static sptr<Sound> get_sound(std::string_view sound_name);
-    static sptr<Font> get_font(std::string_view font_name);
+    static Texture get_texture(std::string_view texture_name);
+    static Music get_music(std::string_view music_name);
+    static Sound get_sound(std::string_view sound_name);
+    static Font get_font(std::string_view font_name);
     static sptr<json> get_animation(std::string_view animation_name);
     static sptr<json> get_json(std::string_view json_name);
-    static sptr<Shader> get_shader(std::string_view shader_name);
+    static Shader get_shader(std::string_view shader_name);
 
     static void preload_shaders(std::initializer_list<std::string_view>);
 

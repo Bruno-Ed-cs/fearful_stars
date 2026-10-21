@@ -34,6 +34,7 @@ struct Animator {
 
     std::vector<AnimationInfo> animations;
 
+    Animator() = default;
     Animator(Vector2 frame_size, size_t fps, std::initializer_list<AnimationInfo> animations);
     Animator(json& animation_json);
     Animator(std::string_view animation_name);

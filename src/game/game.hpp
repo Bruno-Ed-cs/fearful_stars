@@ -2,6 +2,7 @@
 #include "recycle_array.hpp"
 #include "asset_man.hpp"
 #include "timer.hpp"
+#include "animator.hpp"
 #include "components/position.hpp"
 #include "components/hitbox.hpp"
 #include "components/health.hpp"
@@ -28,8 +29,8 @@ struct Actor {
     int primary_level = 1;
     int secondary_level = 0;
     int aux_level = 0;
-    sptr<Sound> shooting_sound = Engine::AssetMan::get_sound("space-laser");
-    sptr<Texture> spritesheet = Engine::AssetMan::get_texture("player_ship");
+    std::string_view shooting_sound = "";
+    std::string_view spritesheet = "";
     Position pos = Position(0.0, 0.0);
     Direction dir = Direction(0.0, 0.0);
     Hitbox hitbox = Hitbox(2.0f, 2.0f);
@@ -42,37 +43,53 @@ struct Actor {
 };
 
 struct Projectile {
+
+    enum Type {
+        Plasma,
+
+    } type;
+
     bool foe = false;
     Hitbox hitbox = Hitbox{5, 5};
     Position pos;
     double speed = 0;
-    Vector2 direction{0, 0};
+    Direction direction{0, 0};
     int damage = 1;
     bool self_destruct = false;
-    std::shared_ptr<Texture> sprite;
-
-};
-
-struct Player {
-
-    static Actor make();
-    static void update(Actor& player);
-    static void draw(Actor& player);
+    std::string_view spritesheet;
+    Engine::Animator animation;
 
 };
 
 struct Game {
 
+    constexpr static int max_projectiles = 5000;
+
     idx player;
 
     Engine::RecycleArray<Actor, 500> actors;
-    Engine::RecycleArray<Projectile, 5000> enemy_proj;
-    Engine::RecycleArray<Projectile, 5000> player_proj;
+    Engine::RecycleArray<Projectile, max_projectiles> enemy_proj;
+    Engine::RecycleArray<Projectile, max_projectiles> player_proj;
 
     Game();
 
     void update();
 
     void draw();
+
+};
+
+struct PlasmaProjectile {
+
+    static Projectile make(Position pos, Direction dir, int damage, double speed);
+    static void update(Projectile& plasma, Game& gm);
+
+};
+
+struct Player {
+
+    static Actor make();
+    static void update(Actor& player, Game& gm);
+    static void draw(Actor& player);
 
 };

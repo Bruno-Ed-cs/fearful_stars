@@ -43,11 +43,11 @@ static string search_asset(string_view base_dir, string_view asset_name, string_
 
 }
 
-sptr<Shader> AssetMan::get_shader(string_view shader_name) {
+Shader AssetMan::get_shader(string_view shader_name) {
 
     if (json_name.contains(string(shader_name))) {
 
-        return json_name[string(shader_name)];
+        return *json_name[string(shader_name)];
     }
 
     string search_result_vert = search_asset("assets/shaders", shader_name, ".vert");
@@ -59,15 +59,15 @@ sptr<Shader> AssetMan::get_shader(string_view shader_name) {
     auto shader_ref = sptr<Shader>(shader_ptr, ShaderDestroyer{});
     json_name.emplace(std::pair(string(shader_name), shader_ref));
 
-    return shader_ref;
+    return *shader_ref;
 
 };
 
-sptr<Texture> AssetMan::get_texture(std::string_view texture_name){
+Texture AssetMan::get_texture(std::string_view texture_name){
 
     if (texture_bank.contains(string(texture_name))) {
 
-        return texture_bank[string(texture_name)];
+        return *texture_bank[string(texture_name)];
     }
 
     string search_result = search_asset("assets/sprites", texture_name, ".png");
@@ -78,14 +78,14 @@ sptr<Texture> AssetMan::get_texture(std::string_view texture_name){
     auto texture_reference = sptr<Texture>(texture_ptr, TextureDestroyer{});
     texture_bank.emplace(string(texture_name), texture_reference);
 
-    return texture_reference;
+    return *texture_reference;
 }
 
-sptr<Music> AssetMan::get_music(std::string_view music_name){
+Music AssetMan::get_music(std::string_view music_name){
 
     if (music_bank.contains(string(music_name))) {
 
-        return music_bank[string(music_name)];
+        return *music_bank[string(music_name)];
     }
 
     string search_result = search_asset("assets/musics", music_name, ".mp3");
@@ -96,14 +96,14 @@ sptr<Music> AssetMan::get_music(std::string_view music_name){
     auto music_reference = sptr<Music>(music_ptr, MusicDestroyer{});
     music_bank.emplace(string(music_name), music_reference);
 
-    return music_reference;
+    return *music_reference;
 }
 
-sptr<Sound> AssetMan::get_sound(std::string_view sound_name){
+Sound AssetMan::get_sound(std::string_view sound_name){
 
     if (sound_bank.contains(string(sound_name))) {
 
-        return sound_bank[string(sound_name)];
+        return *sound_bank[string(sound_name)];
     }
 
     string search_result = search_asset("assets/sounds", sound_name, ".wav;.ogg;.mp3");
@@ -114,14 +114,14 @@ sptr<Sound> AssetMan::get_sound(std::string_view sound_name){
     auto sound_reference = sptr<Sound>(sound_ptr, SoundDestroyer{});
     sound_bank.emplace(string(sound_name), sound_reference);
 
-    return sound_reference;
+    return *sound_reference;
 }
 
-sptr<Font> AssetMan::get_font(std::string_view font_name){
+Font AssetMan::get_font(std::string_view font_name){
 
     if (font_bank.contains(string(font_name))) {
 
-        return font_bank[string(font_name)];
+        return *font_bank[string(font_name)];
     }
 
     string search_result = search_asset("assets/fonts", font_name, ".otf;.ttf");
@@ -132,7 +132,7 @@ sptr<Font> AssetMan::get_font(std::string_view font_name){
     auto font_reference = sptr<Font>(font_ptr, FontDestroyer{});
     font_bank.emplace(string(font_name), font_reference);
 
-    return font_reference;
+    return *font_reference;
 }
 void AssetMan::preload_shaders(std::initializer_list<string_view> shaders) {
 

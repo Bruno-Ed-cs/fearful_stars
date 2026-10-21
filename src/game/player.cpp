@@ -17,8 +17,8 @@ Actor Player::make() {
     player.primary_level = 1;
     player.secondary_level = 0;
     player.aux_level = 0;
-    player.shooting_sound = Engine::AssetMan::get_sound("space-laser");
-    player.spritesheet = Engine::AssetMan::get_texture("player_ship");
+    player.shooting_sound = "space-laser";
+    player.spritesheet = "player_ship";
     player.pos = Position(30.0, 30.0);
     player.dir = Direction(0.0, 0.0);
     player.hitbox = Hitbox(2.0f, 2.0f);
@@ -31,7 +31,7 @@ Actor Player::make() {
     return player;
 }
 
-void Player::update(Actor& player) {
+void Player::update(Actor& player, Game& gm) {
 
     Vector2 direction = {0,0};
 
@@ -57,6 +57,11 @@ void Player::update(Actor& player) {
 
         direction.x = -1;
 
+    }
+
+    if (Engine::InputMan::is_event_active("shoot")) {
+
+        gm.player_proj.activate(PlasmaProjectile::make(player.pos, {1, 0}, 1, 50.0));
     }
 
     double dt = GetFrameTime();
@@ -90,11 +95,13 @@ void Player::draw(Actor& player) {
     Rectangle dest{player.pos.x - 14, player.pos.y - 8, 26, 16};
     Rectangle origin{0, 0, 26, 16};
 
+    Texture2D sprite = Engine::AssetMan::get_texture(player.spritesheet);
+
     if (!player.invincible) {
-        DrawTexturePro(*player.spritesheet, origin, dest, {0,0}, 0.0, WHITE);
+        DrawTexturePro(sprite, origin, dest, {0,0}, 0.0, WHITE);
     }
     else {
-        DrawTexturePro(*player.spritesheet, origin, dest, {0,0}, 0.0, RED);
+        DrawTexturePro(sprite, origin, dest, {0,0}, 0.0, RED);
     }
 
 }
