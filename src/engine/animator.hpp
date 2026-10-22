@@ -20,7 +20,7 @@ struct Animator {
     bool pause = false;
     size_t animation_index = 0;
     size_t frame_index = 0;
-    size_t fps;
+    size_t fps = 0;
 
     enum struct Transition {
         Instant = 0,
@@ -29,7 +29,7 @@ struct Animator {
     } transition_mode = Transition::Instant;
 
     double frametime = 0;
-    Rectangle source_frame;
+    Rectangle source_frame {};
 
 
     std::vector<AnimationInfo> animations;

@@ -53,7 +53,7 @@ void basic_shot_machine (Actor& player, Game& gm) {
 };
 
 
-Actor Player::make() {
+Actor Player::make(Position pos) {
 
     Actor player {};
     player.type = Actor::Player;
@@ -67,21 +67,21 @@ Actor Player::make() {
     player.aux_level = 0;
     player.shooting_sound = "space-laser";
     player.spritesheet = "player_ship";
-    player.pos = Position(30.0, 30.0);
+    player.pos = pos;
     player.dir = Direction(0.0, 0.0);
     player.hitbox = Hitbox(2.0f, 2.0f);
     player.graze_range = Hitbox(42, 30);
     player.lives = Health(5);
     player.dead = false;
     player.invincible = false;
-    player.self_destruct = false;
     player.shooting_cooldown = Engine::Timer(0);
 
     return player;
 }
 
-void Player::update(Actor& player, Game& gm) {
+void Player::update(idx self, Game& gm) {
 
+    auto& player = gm.actors[self];
 
     Vector2 direction = {0,0};
 

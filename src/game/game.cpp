@@ -6,6 +6,10 @@
 Game::Game() {
 
     player = actors.activate(Player::make());
+    actors.activate(Meteorite::make({200, 100}));
+    actors.activate(Meteorite::make({200, 20}));
+    actors.activate(Meteorite::make({200, 110}));
+    actors.activate(Meteorite::make({200, 50}));
     std::println("player: {}", player);
 }
 
@@ -18,7 +22,13 @@ void Game::update() {
             switch(actors[i].type) {
 
                 case Actor::Player: {
-                        Player::update(actors[i], *this);
+                        Player::update(i, *this);
+                        break;
+                }
+
+                case Actor::Meteorite: {
+                        Meteorite::update(i, *this);
+                        break;
                 }
 
             }
@@ -74,6 +84,12 @@ void Game::draw() {
 
                 case Actor::Player: {
                         Player::draw(actors[i]);
+                        break;
+                }
+
+                case Actor::Meteorite: {
+                        Meteorite::draw(actors[i]);
+                        break;
                 }
 
             }

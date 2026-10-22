@@ -19,30 +19,32 @@ struct Actor {
 
     enum Type {
         Player = 1,
+        Meteorite,
+
 
     } type;
 
-    double speed = 135.0f;
-    int special_meter = 0;
-    int upgrade = 0;
+    Direction dir = Direction(0.0, 0.0);
     Engine::Timer cooldown = Engine::Timer(0.5f);
     Engine::Timer graze_cooldown = Engine::Timer(0.10);
-    int primary_level = 1;
-    int primary_state = 0;
+    Engine::Timer invis_timer;
     Engine::Timer shooting_cooldown;
-    int secondary_level = 0;
-    int aux_level = 0;
-    std::string_view shooting_sound = "";
-    std::string_view spritesheet = "";
-    Position pos = Position(0.0, 0.0);
-    Direction dir = Direction(0.0, 0.0);
-    Hitbox hitbox = Hitbox(2.0f, 2.0f);
-    Hitbox graze_range = Hitbox(42, 30);
     Health lives = Health(5);
+    Hitbox graze_range = Hitbox(42, 30);
+    Hitbox hitbox = Hitbox(2.0f, 2.0f);
+    Position pos = Position(0.0, 0.0);
     bool dead = false;
     bool invincible = false;
-    Engine::Timer invis_timer;
-    bool self_destruct = false;
+    double speed = 135.0f;
+    int aux_level = 0;
+    int primary_level = 1;
+    int primary_state = 0;
+    int secondary_level = 0;
+    int special_meter = 0;
+    int upgrade = 0;
+    Engine::Animator animation = {};
+    std::string_view shooting_sound = "";
+    std::string_view spritesheet = "";
 };
 
 struct Projectile {
@@ -91,8 +93,16 @@ struct PlasmaProjectile {
 
 struct Player {
 
-    static Actor make();
-    static void update(Actor& player, Game& gm);
+    static Actor make(Position pos = {30, 30});
+    static void update(idx self, Game& gm);
     static void draw(Actor& player);
+
+};
+
+struct Meteorite {
+
+    static Actor make(Position pos);
+    static void update(idx self, Game& gm);
+    static void draw(Actor& meteorite);
 
 };
