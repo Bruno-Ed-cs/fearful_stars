@@ -1,3 +1,4 @@
+#pragma once
 #include "deps.hpp"
 #include "recycle_array.hpp"
 #include "asset_man.hpp"
@@ -27,6 +28,8 @@ struct Actor {
     Engine::Timer cooldown = Engine::Timer(0.5f);
     Engine::Timer graze_cooldown = Engine::Timer(0.10);
     int primary_level = 1;
+    int primary_state = 0;
+    Engine::Timer shooting_cooldown;
     int secondary_level = 0;
     int aux_level = 0;
     std::string_view shooting_sound = "";

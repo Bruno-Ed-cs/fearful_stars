@@ -3,6 +3,54 @@
 #include "input_man.hpp"
 #include "raylib.h"
 #include "raymath.h"
+#include "state_machine.hpp"
+
+enum BasicShot {
+    Idle = 1,
+    Shooting
+};
+
+int basic_idle(Actor& player, Game& gm) {
+
+    if (player.shooting_cooldown.past_limit())
+        return Shooting;
+
+    return 0;
+
+}
+
+int basic_shooting(Actor& player, Game& gm) {
+
+    player.shooting_cooldown.reset(0.5);
+
+    gm.player_proj.activate(PlasmaProjectile::make(
+                player.pos,
+                {1, 0},
+                1,
+                player.speed * 2));
+
+    return Idle;
+}
+
+
+void basic_shot_machine (Actor& player, Game& gm) {
+
+    if (player.primary_state == 0) {
+        player.primary_state = Idle;
+    }
+
+    for (int i = 0; i < 10 && player.primary_state != 0; i ++) {
+
+        switch (static_cast<BasicShot>(player.primary_state)) {
+
+            case BasicShot::Idle: player.primary_state = basic_idle(player, gm); break;
+            case BasicShot::Shooting: player.primary_state =  basic_shooting(player, gm); break;
+
+        }
+
+    }
+
+};
 
 
 Actor Player::make() {
@@ -27,11 +75,13 @@ Actor Player::make() {
     player.dead = false;
     player.invincible = false;
     player.self_destruct = false;
+    player.shooting_cooldown = Engine::Timer(0);
 
     return player;
 }
 
 void Player::update(Actor& player, Game& gm) {
+
 
     Vector2 direction = {0,0};
 
@@ -61,11 +111,15 @@ void Player::update(Actor& player, Game& gm) {
 
     if (Engine::InputMan::is_event_active("shoot")) {
 
-      gm.player_proj.activate(PlasmaProjectile::make(player.pos, {1, 0}, 1, 50.0));
+        basic_shot_machine(player, gm);
 
     }
 
     double dt = GetFrameTime();
+
+    player.shooting_cooldown.update(dt);
+    player.cooldown.update(dt);
+
     Vector2 movement;
 
     direction = Vector2Normalize(direction);
