@@ -61,7 +61,8 @@ void Player::update(Actor& player, Game& gm) {
 
     if (Engine::InputMan::is_event_active("shoot")) {
 
-        gm.player_proj.activate(PlasmaProjectile::make(player.pos, {1, 0}, 1, 50.0));
+      gm.player_proj.activate(PlasmaProjectile::make(player.pos, {1, 0}, 1, 50.0));
+
     }
 
     double dt = GetFrameTime();
