@@ -24,10 +24,10 @@ int basic_shooting(Actor& player, Game& gm) {
     player.shooting_cooldown.reset(0.5);
 
     gm.player_proj.activate(PlasmaProjectile::make(
-                player.pos,
-                {1, 0},
-                1,
-                player.speed * 2));
+                            player.pos,
+                            {1, 0},
+                            1,
+                            player.speed * 2));
 
     return Idle;
 }
@@ -112,6 +112,7 @@ void Player::update(idx self, Game& gm) {
     if (Engine::InputMan::is_event_active("shoot")) {
 
         basic_shot_machine(player, gm);
+        
 
     }
 

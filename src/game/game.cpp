@@ -15,21 +15,21 @@ Game::Game() {
 
 void Game::update() {
 
-    for (int i = 1; i < actors.size(); i++) {
+    for (int i = actors.begin(); i < actors.end(); i++) {
 
         if (actors.active(i)) {
 
             switch(actors[i].type) {
 
                 case Actor::Player: {
-                        Player::update(i, *this);
-                        break;
-                }
+                                        Player::update(i, *this);
+                                        break;
+                                    }
 
                 case Actor::Meteorite: {
-                        Meteorite::update(i, *this);
-                        break;
-                }
+                                           Meteorite::update(i, *this);
+                                           break;
+                                       }
 
             }
 
@@ -37,7 +37,7 @@ void Game::update() {
 
     }
 
-    for (int i = 1; i < max_projectiles; i++) {
+    for (int i = enemy_proj.begin(); i < enemy_proj.end(); i++) {
 
         if (enemy_proj.active(i)) {
 
@@ -53,8 +53,9 @@ void Game::update() {
             }
 
         }
+    }
 
-
+    for (int i = player_proj.begin(); i < player_proj.end(); i++) {
         if (player_proj.active(i)) {
 
             switch(player_proj[i].type) {
@@ -73,11 +74,11 @@ void Game::update() {
     }
 
     //damage transmission
-    for (int i = 0; i < enemy_proj.size(); i++) {
+    for (int i = enemy_proj.begin(); i < enemy_proj.end(); i++) {
 
         if (enemy_proj.active(i) && 
-            CheckCollisionRecs(actors[player].hitbox.get(actors[player].pos.vec()), 
-                enemy_proj[i].hitbox.get(enemy_proj[i].pos.vec()))) {
+                CheckCollisionRecs(actors[player].hitbox.get(actors[player].pos.vec()), 
+                    enemy_proj[i].hitbox.get(enemy_proj[i].pos.vec()))) {
 
             if (enemy_proj[i].damage_output > 0) {
                 actors[player].damage_intake += enemy_proj[i].base_damage;
@@ -89,13 +90,13 @@ void Game::update() {
 
     }
 
-    for (int i = 0; i < player_proj.size(); i++) {
+    for (int i = player_proj.begin(); i < player_proj.end(); i++) {
 
         if (!player_proj.active(i)) {
             continue;
         }
 
-        for (int j = 0; j < actors.size(); j++) {
+        for (int j = actors.begin(); j < actors.end(); j++) {
             if (j != player && actors.active(j) && 
                     CheckCollisionRecs(actors[j].hitbox.get(actors[j].pos.vec()), 
                         player_proj[i].hitbox.get(player_proj[i].pos.vec()))) {
@@ -114,21 +115,21 @@ void Game::update() {
 
 void Game::draw() {
 
-    for (int i = 1; i < actors.size(); i++) {
+    for (int i = actors.begin(); i < actors.end(); i++) {
 
         if (actors.active(i)) {
 
             switch(actors[i].type) {
 
                 case Actor::Player: {
-                        Player::draw(actors[i]);
-                        break;
-                }
+                                        Player::draw(actors[i]);
+                                        break;
+                                    }
 
                 case Actor::Meteorite: {
-                        Meteorite::draw(actors[i]);
-                        break;
-                }
+                                           Meteorite::draw(actors[i]);
+                                           break;
+                                       }
 
             }
 
@@ -136,7 +137,7 @@ void Game::draw() {
 
     }
 
-    for (int i = 1; i < enemy_proj.size(); i++) {
+    for (int i = enemy_proj.begin(); i < enemy_proj.end(); i++) {
 
         auto enemy = enemy_proj[i];
         if (enemy_proj.active(i) && !enemy.spritesheet.empty()) {
@@ -147,8 +148,9 @@ void Game::draw() {
 
             DrawTexturePro(sprite, origin, dest, {0, 0}, 0.0, RED);
         }
+    }
 
-
+    for (int i = player_proj.begin(); i < player_proj.end(); i++) {
         auto proj = player_proj[i];
         if (player_proj.active(i) && !proj.spritesheet.empty()) {
 
