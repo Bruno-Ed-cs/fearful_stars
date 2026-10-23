@@ -8,7 +8,8 @@ Projectile PlasmaProjectile::make(Position pos, Direction dir, int damage, doubl
     plasma.pos = pos;
     plasma.direction = dir;
     plasma.hitbox = Hitbox(10, 6);
-    plasma.damage = damage;
+    plasma.base_damage = damage;
+    plasma.damage_output = plasma.base_damage;
     plasma.speed = speed;
     plasma.self_destruct = false;
     plasma.spritesheet = "plasma_proj_ani";
@@ -21,14 +22,26 @@ Projectile PlasmaProjectile::make(Position pos, Direction dir, int damage, doubl
 
 }
 
-void PlasmaProjectile::update(Projectile& plasma, Game& gm) {
+void PlasmaProjectile::update(idx self, Game& gm, bool foe) {
 
+    auto& plasma = foe? gm.enemy_proj[self] : gm.player_proj[self];
     double dt = GetFrameTime();
     plasma.animation.update(dt);
     auto dir = Vector2Normalize(plasma.direction.vec());
     Vector2 movement = dir * plasma.speed * dt;
 
     plasma.pos += movement;
+
+    if (plasma.damage_output <= 0) {
+
+        if (foe) {
+            gm.enemy_proj.deactivate(self);
+
+        } else {
+            gm.player_proj.deactivate(self);
+        }
+
+    }
 
     // if (foe) {
     //

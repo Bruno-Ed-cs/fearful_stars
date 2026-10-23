@@ -25,7 +25,7 @@ using AssRef = Engine::AssetMan::Ref::Type;
 int main(int argc, char** argv)
 {
     srand(time(NULL));
-    SetTraceLogLevel(LOG_ALL);
+    SetTraceLogLevel(LOG_ERROR);
 
     //    SetConfigFlags(FLAG_VSYNC_HINT);
     // Initialization

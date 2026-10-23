@@ -24,27 +24,28 @@ struct Actor {
 
     } type;
 
+    std::string_view shooting_sound = "";
+    std::string_view spritesheet = "";
+    Engine::Animator animation = {};
+    Hitbox graze_range = Hitbox(0, 0);
+    Hitbox hitbox = Hitbox(0, 0);
     Direction dir = Direction(0.0, 0.0);
-    Engine::Timer cooldown = Engine::Timer(0.5f);
-    Engine::Timer graze_cooldown = Engine::Timer(0.10);
+    Health lives = Health(0);
+    Position pos = Position(0.0, 0.0);
+    Engine::Timer cooldown = Engine::Timer(0);
+    Engine::Timer graze_cooldown = Engine::Timer(0);
     Engine::Timer invis_timer;
     Engine::Timer shooting_cooldown;
-    Health lives = Health(5);
-    Hitbox graze_range = Hitbox(42, 30);
-    Hitbox hitbox = Hitbox(2.0f, 2.0f);
-    Position pos = Position(0.0, 0.0);
-    bool dead = false;
-    bool invincible = false;
-    double speed = 135.0f;
+    double speed = 0;
     int aux_level = 0;
-    int primary_level = 1;
+    int primary_level = 0;
     int primary_state = 0;
     int secondary_level = 0;
     int special_meter = 0;
     int upgrade = 0;
-    Engine::Animator animation = {};
-    std::string_view shooting_sound = "";
-    std::string_view spritesheet = "";
+    int damage_intake = 0;
+    bool dead = false;
+    bool invincible = false;
 };
 
 struct Projectile {
@@ -54,15 +55,15 @@ struct Projectile {
 
     } type;
 
-    bool foe = false;
-    Hitbox hitbox = Hitbox{5, 5};
-    Position pos;
-    double speed = 0;
-    Direction direction{0, 0};
-    int damage = 1;
-    bool self_destruct = false;
-    std::string_view spritesheet;
+    std::string_view spritesheet = "";
     Engine::Animator animation;
+    Hitbox hitbox = Hitbox{0, 0};
+    Position pos;
+    Direction direction{0, 0};
+    double speed = 0;
+    int base_damage = 0;
+    int damage_output = 0;
+    bool self_destruct = false;
 
 };
 
@@ -87,7 +88,7 @@ struct Game {
 struct PlasmaProjectile {
 
     static Projectile make(Position pos, Direction dir, int damage, double speed);
-    static void update(Projectile& plasma, Game& gm);
+    static void update(idx self, Game& gm, bool foe);
 
 };
 

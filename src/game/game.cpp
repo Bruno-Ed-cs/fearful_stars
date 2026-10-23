@@ -42,7 +42,7 @@ void Game::update() {
         if (enemy_proj.active(i)) {
 
             switch(enemy_proj[i].type) {
-                case Projectile::Plasma: PlasmaProjectile::update(enemy_proj[i], *this);
+                case Projectile::Plasma: PlasmaProjectile::update(i, *this, true);
 
             }
 
@@ -58,7 +58,7 @@ void Game::update() {
         if (player_proj.active(i)) {
 
             switch(player_proj[i].type) {
-                case Projectile::Plasma: PlasmaProjectile::update(player_proj[i], *this);
+                case Projectile::Plasma: PlasmaProjectile::update(i, *this, false);
 
             }
 
@@ -72,6 +72,44 @@ void Game::update() {
 
     }
 
+    //damage transmission
+    for (int i = 0; i < enemy_proj.size(); i++) {
+
+        if (enemy_proj.active(i) && 
+            CheckCollisionRecs(actors[player].hitbox.get(actors[player].pos.vec()), 
+                enemy_proj[i].hitbox.get(enemy_proj[i].pos.vec()))) {
+
+            if (enemy_proj[i].damage_output > 0) {
+                actors[player].damage_intake += enemy_proj[i].base_damage;
+                enemy_proj[i].damage_output -= enemy_proj[i].base_damage;
+            }
+
+
+        }
+
+    }
+
+    for (int i = 0; i < player_proj.size(); i++) {
+
+        if (!player_proj.active(i)) {
+            continue;
+        }
+
+        for (int j = 0; j < actors.size(); j++) {
+            if (j != player && actors.active(j) && 
+                    CheckCollisionRecs(actors[j].hitbox.get(actors[j].pos.vec()), 
+                        player_proj[i].hitbox.get(player_proj[i].pos.vec()))) {
+
+                if (player_proj[i].damage_output > 0) {
+                    actors[j].damage_intake += player_proj[i].base_damage;
+                    player_proj[i].damage_output -= player_proj[i].base_damage;
+                }
+
+
+            }
+        }
+
+    }
 }
 
 void Game::draw() {

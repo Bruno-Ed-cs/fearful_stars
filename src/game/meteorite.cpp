@@ -1,3 +1,4 @@
+#include "components/health.hpp"
 #include "game.hpp"
 #include "raylib.h"
 
@@ -12,6 +13,7 @@ Actor Meteorite::make(Position pos) {
     meteorite.pos = pos;
     meteorite.hitbox = Hitbox{28, 22};
     meteorite.spritesheet = "meteorite";
+    meteorite.lives = Health(3);
 
     return meteorite;
 
@@ -24,6 +26,12 @@ void Meteorite::update(idx self, Game& gm) {
     double dt = GetFrameTime();
     Vector2 movement = Vector2Normalize(meteorite.dir.vec()) * dt * meteorite.speed;
     meteorite.pos += movement;
+
+    if (meteorite.damage_intake > 0) {
+        meteorite.lives.take_damage(meteorite.damage_intake);
+        meteorite.damage_intake = 0;
+
+    }
 
     if (meteorite.lives.is_dead()){
 
