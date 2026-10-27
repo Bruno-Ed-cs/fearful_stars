@@ -27,16 +27,15 @@ public:
     static Shader get_shader(std::string_view shader_name);
 
     static void preload_shaders(std::initializer_list<std::string_view>);
+    static void load_all();
 
     static void init();
     static void cleanup();
 
 public:
 
-    struct Ref {
+    struct FileTypes{
 
-        std::string name;
-        
         enum struct Type {
 
             sprite,
@@ -46,6 +45,8 @@ public:
             shader,
 
         } type;
+
+        const string_view* extensions;
 
     };
 

@@ -85,7 +85,7 @@ void debug(Game& gm) {
 int main(int argc, char** argv)
 {
     srand(time(NULL));
-    SetTraceLogLevel(LOG_ERROR);
+    SetTraceLogLevel(LOG_INFO);
 
     //    SetConfigFlags(FLAG_VSYNC_HINT);
     // Initialization
@@ -119,6 +119,7 @@ int main(int argc, char** argv)
 
     Game* game = new Game();
     RenderTexture2D view = LoadRenderTexture(Engine::g_world_size.x, Engine::g_world_size.y);
+    Engine::AssetMan::load_all();
 
     // Main game loop
     while (Engine::g_running)    // Detect window close button or ESC key

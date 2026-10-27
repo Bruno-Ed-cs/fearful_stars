@@ -21,8 +21,8 @@ CMakeFiles/fearful_stars.dir/src/main.cpp.o: \
  /home/huevo/Projects/gamedev/fearful_stars/src/engine/music_man.hpp \
  /home/huevo/Projects/gamedev/fearful_stars/src/control_schema.hpp \
  /usr/include/c++/16/vector \
- /home/huevo/Projects/gamedev/fearful_stars/src/engine/winman.hpp \
  /home/huevo/Projects/gamedev/fearful_stars/include/rlImGui.h \
  /home/huevo/Projects/gamedev/fearful_stars/include/raylib.h \
  /home/huevo/Projects/gamedev/fearful_stars/include/IconsFontAwesome6.h \
+ /home/huevo/Projects/gamedev/fearful_stars/src/engine/winman.hpp \
  /home/huevo/Projects/gamedev/fearful_stars/src/gamecontrollerdb.h
