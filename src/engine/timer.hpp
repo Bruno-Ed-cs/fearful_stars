@@ -11,6 +11,12 @@ public:
     Timer(double seconds) :
     m_time(seconds), m_limit(seconds) {}
 
+    void fill() {
+
+        m_time = 0;
+
+    }
+
     void set_limit(double seconds) { m_limit = seconds; }
     void update(double dt) {
         if (m_time < 0)

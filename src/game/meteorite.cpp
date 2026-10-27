@@ -9,7 +9,7 @@ Actor Meteorite::make(Position pos) {
 
     meteorite.type = Actor::Meteorite;
     meteorite.dir = Direction{-1, 0};
-    meteorite.speed = 15;
+    meteorite.speed = 1;
     meteorite.pos = pos;
     meteorite.hitbox = Hitbox{28, 22};
     meteorite.spritesheet = "meteorite";

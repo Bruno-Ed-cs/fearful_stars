@@ -75,6 +75,9 @@ Actor Player::make(Position pos) {
     player.dead = false;
     player.invincible = false;
     player.shooting_cooldown = Engine::Timer(0);
+    player.invis_timer = Engine::Timer(1.0f);
+    player.invis_timer.fill();
+
 
     return player;
 }
@@ -120,6 +123,7 @@ void Player::update(idx self, Game& gm) {
 
     player.shooting_cooldown.update(dt);
     player.cooldown.update(dt);
+    player.invis_timer.update(dt);
 
     Vector2 movement;
 
@@ -143,21 +147,43 @@ void Player::update(idx self, Game& gm) {
     player.pos.x = Clamp(player.pos.x, 0.0, Engine::g_world_size.x);
     player.pos.y = Clamp(player.pos.y, 0.0, Engine::g_world_size.y);
 
+    if (!player.invis_timer.past_limit()) {
+        player.damage_intake = 0;
+
+    }
+
+    if (player.damage_intake > 0 && player.invis_timer.past_limit()) {
+
+        player.lives.take_damage(1);
+        player.damage_intake = 0;
+        player.invis_timer.reset();
+    }
+
     // std::println("Player pos : {}, {}", player.pos.x, player.pos.y);
 }
 
 void Player::draw(Actor& player) {
+
+    static bool blink = false;
 
     Rectangle dest{player.pos.x - 14, player.pos.y - 8, 26, 16};
     Rectangle origin{0, 0, 26, 16};
 
     Texture2D sprite = Engine::AssetMan::get_texture(player.spritesheet);
 
-    if (!player.invincible) {
-        DrawTexturePro(sprite, origin, dest, {0,0}, 0.0, WHITE);
+    Color col = WHITE;
+    if (!player.lives.is_dead()) {
+
+        if (!player.invis_timer.past_limit()) {
+            col.a = 145;
+        }
+
+    } else {
+
+        col = RED;
+
     }
-    else {
-        DrawTexturePro(sprite, origin, dest, {0,0}, 0.0, RED);
-    }
+
+    DrawTexturePro(sprite, origin, dest, {0,0}, 0.0, col);
 
 }

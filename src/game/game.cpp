@@ -13,6 +13,7 @@ Game::Game() {
     std::println("player: {}", player);
 }
 
+
 void Game::update() {
 
     for (int i = actors.begin(); i < actors.end(); i++) {
@@ -21,15 +22,8 @@ void Game::update() {
 
             switch(actors[i].type) {
 
-                case Actor::Player: {
-                                        Player::update(i, *this);
-                                        break;
-                                    }
-
-                case Actor::Meteorite: {
-                                           Meteorite::update(i, *this);
-                                           break;
-                                       }
+                case Actor::Player: { Player::update(i, *this); break; }
+                case Actor::Meteorite: { Meteorite::update(i, *this); break; }
 
             }
 
@@ -42,7 +36,7 @@ void Game::update() {
         if (enemy_proj.active(i)) {
 
             switch(enemy_proj[i].type) {
-                case Projectile::Plasma: PlasmaProjectile::update(i, *this, true);
+                case Projectile::Plasma: { PlasmaProjectile::update(i, *this, true); break; }
 
             }
 
@@ -108,6 +102,23 @@ void Game::update() {
 
 
             }
+        }
+
+    }
+
+    // contact damage
+    //
+
+    for (int i = actors.begin(); i < actors.end(); i++) {
+
+        if (i == player) {
+            continue;
+        }
+
+        if (CheckCollisionRecs(actors[i].hitbox.get(actors[i].pos.vec()), actors[player].hitbox.get(actors[player].pos.vec()))) {
+
+            actors[player].damage_intake += 1;
+
         }
 
     }

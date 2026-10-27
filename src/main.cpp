@@ -7,6 +7,7 @@
 #include "music_man.hpp"
 #include "raylib.h"
 #include "control_schema.hpp"
+#include "rlImGui.h"
 #include "winman.hpp"
 
 
@@ -18,6 +19,65 @@ void main_menu_loop();
 using string = std::string;
 using AssRef = Engine::AssetMan::Ref::Type;
 
+void debug(Game& gm) {
+    rlImGuiBegin(); 
+
+    auto& m_player1 = gm.actors[gm.player];
+    ImGui::Begin("Player debug");
+    {
+        Vector2 position = m_player1.pos.vec();
+
+        ImGui::Text("Position:\nx: %f\ny: %f", position.x, position.y);
+        ImGui::Text("Shooting cooldown: %f", m_player1.cooldown.get_time());
+        ImGui::Text("Special meter: %d", m_player1.special_meter);
+        ImGui::Text("Lives: %d", m_player1.lives.points);
+        ImGui::Text("Dead: %d", m_player1.dead);
+        ImGui::Text("Upgrades: %d", m_player1.upgrade);
+        ImGui::Text("invis_timer: %03f", m_player1.invis_timer.get_time());
+        ImGui::Text("damage_intake: %d", m_player1.damage_intake);
+
+        if (ImGui::Button("Revive")) {
+
+            m_player1.lives.restore();
+
+        }
+
+        if (ImGui::Button("Fill special")) {
+
+            m_player1.special_meter = 100;
+
+        }
+
+
+
+        ImGui::Text("Primary level");
+        ImGui::SliderInt("Lv##1", &m_player1.primary_level, 1, 3, "%d");
+
+        ImGui::Text("Secondary Level");
+        ImGui::SliderInt("Lv##2", &m_player1.secondary_level, 0, 2, "%d");
+
+
+        ImGui::Text("Aux Level");
+        ImGui::SliderInt("Lv##3", &m_player1.aux_level, 0, 2, "%d");
+
+        ImGui::Text("Upgrades");
+
+        if (ImGui::Button("+")) {
+            m_player1.upgrade++;
+
+        }
+
+        ImGui::SameLine();
+        if (ImGui::Button("-")) {
+
+            m_player1.upgrade--;
+        }
+
+    }
+    ImGui::End();
+
+    rlImGuiEnd();
+}
 
 //------------------------------------------------------------------------------------
 // Program main entry point
@@ -36,7 +96,7 @@ int main(int argc, char** argv)
     Engine::g_world_size = Vector2{320, 180};
 
     //load controller mappings from sdl database
-    
+
     int output = SetGamepadMappings((char*)GAMECONTROLLERDB_DATA);
     //std::println("mappings result: {}", output);
 
@@ -48,6 +108,7 @@ int main(int argc, char** argv)
     Engine::AssetMan::get_texture("Connor_fodder2");
 
     Engine::InputMan::load_events(controls);
+    rlImGuiSetup(true);
 
     if(IsGamepadAvailable(0)) {
         std::cout << "gamepad 0 is ready\n";
@@ -83,6 +144,10 @@ int main(int argc, char** argv)
         Rectangle dest = {0, 0, (float)Engine::WinMan::get_width(), (float)Engine::WinMan::get_height()};
         DrawTexturePro(view.texture, {0, 0, Engine::g_world_size.x, -Engine::g_world_size.y}, dest, {0, 0}, 0.0, WHITE);
 
+        if (Engine::g_debug) {
+            debug(*game);
+        }
+
         DrawFPS(0, 0);
 
         EndDrawing();
@@ -90,7 +155,7 @@ int main(int argc, char** argv)
     }
 
     UnloadRenderTexture(view);
-
+    rlImGuiShutdown();
     return 0;
 }
 

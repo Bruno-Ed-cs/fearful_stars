@@ -89,7 +89,7 @@ public:
         if (IsKeyPressed(KEY_ENTER)) 
             WinMan::toggle_fullscreen();
 
-        if (IsKeyPressed(KEY_F3)) {
+        if (IsKeyReleased(KEY_F3)) {
 
             g_debug = !g_debug;
 
