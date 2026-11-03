@@ -5,6 +5,7 @@
 #include "timer.hpp"
 #include "animator.hpp"
 #include "components/position.hpp"
+#include "components/damage.hpp"
 #include "components/hitbox.hpp"
 #include "components/health.hpp"
 #include "components/direction.hpp"
@@ -43,7 +44,7 @@ struct Actor {
     int secondary_level = 0;
     int special_meter = 0;
     int upgrade = 0;
-    int damage_intake = 0;
+    DamagePool damage_intake {};
     bool dead = false;
     bool invincible = false;
 };
@@ -62,7 +63,7 @@ struct Projectile {
     Direction direction{0, 0};
     double speed = 0;
     int base_damage = 0;
-    int damage_output = 0;
+    DamageSource damage_output {};
     bool self_destruct = false;
 
 };

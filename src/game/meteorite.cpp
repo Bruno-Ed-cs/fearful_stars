@@ -27,10 +27,8 @@ void Meteorite::update(idx self, Game& gm) {
     Vector2 movement = Vector2Normalize(meteorite.dir.vec()) * dt * meteorite.speed;
     meteorite.pos += movement;
 
-    if (meteorite.damage_intake > 0) {
-        meteorite.lives.take_damage(meteorite.damage_intake);
-        meteorite.damage_intake = 0;
-
+    if (!meteorite.damage_intake.is_empty()) {
+        meteorite.lives.take_damage(meteorite.damage_intake.drain());
     }
 
     if (meteorite.lives.is_dead()){

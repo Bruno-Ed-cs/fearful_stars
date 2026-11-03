@@ -74,9 +74,9 @@ void Game::update() {
                 CheckCollisionRecs(actors[player].hitbox.get(actors[player].pos.vec()), 
                     enemy_proj[i].hitbox.get(enemy_proj[i].pos.vec()))) {
 
-            if (enemy_proj[i].damage_output > 0) {
-                actors[player].damage_intake += enemy_proj[i].base_damage;
-                enemy_proj[i].damage_output -= enemy_proj[i].base_damage;
+            if (enemy_proj[i].damage_output.available()) {
+
+                actors[player].damage_intake.input(enemy_proj[i].damage_output.extract());
             }
 
 
@@ -95,9 +95,8 @@ void Game::update() {
                     CheckCollisionRecs(actors[j].hitbox.get(actors[j].pos.vec()), 
                         player_proj[i].hitbox.get(player_proj[i].pos.vec()))) {
 
-                if (player_proj[i].damage_output > 0) {
-                    actors[j].damage_intake += player_proj[i].base_damage;
-                    player_proj[i].damage_output -= player_proj[i].base_damage;
+                if (player_proj[i].damage_output.available()) {
+                    actors[j].damage_intake.input(player_proj[i].damage_output.extract());
                 }
 
 
@@ -117,7 +116,7 @@ void Game::update() {
 
         if (CheckCollisionRecs(actors[i].hitbox.get(actors[i].pos.vec()), actors[player].hitbox.get(actors[player].pos.vec()))) {
 
-            actors[player].damage_intake += 1;
+            actors[player].damage_intake.input(1); 
 
         }
 

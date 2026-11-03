@@ -152,10 +152,10 @@ void Player::update(idx self, Game& gm) {
 
     }
 
-    if (player.damage_intake > 0 && player.invis_timer.past_limit()) {
+    if (!player.damage_intake.is_empty() && player.invis_timer.past_limit()) {
 
         player.lives.take_damage(1);
-        player.damage_intake = 0;
+        player.damage_intake.drain();
         player.invis_timer.reset();
     }
 
