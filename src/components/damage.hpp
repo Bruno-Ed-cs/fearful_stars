@@ -87,7 +87,7 @@ struct DamageSource {
     }
 
     bool available() { 
-        return m_locked;
+        return !m_locked;
     }
 
 };
@@ -109,13 +109,54 @@ struct DamagePool {
     }
 
     //core method
-    int input(int damage);
+    int input(int damage) {
 
-    bool is_empty();
-    int drain();
+        int input = 0;
 
-    void close();
-    void open();
-    bool available();
+        switch(m_mode) {
+        
+        case Mode::BINARY: {
+            input = 1;
+
+        } break;
+
+        case Mode::CUMULATIVE: {
+            input = damage;
+
+        } break;
+
+        }
+
+        m_damage_pool += input;
+        return input;
+
+    }
+
+    bool is_empty() {
+        if (m_damage_pool <= 0) 
+            return true;
+
+        return false;
+    }
+
+    int drain() {
+        int value = m_damage_pool;
+
+        m_damage_pool = 0;
+
+        return value;
+
+    }
+
+    void close() {
+        m_locked = true;
+    }
+    void open() {
+        m_locked = false;
+    }
+
+    bool available() {
+        return m_locked;
+    }
 
 };

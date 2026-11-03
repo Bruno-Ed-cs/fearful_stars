@@ -17,7 +17,6 @@ void gameplay_loop(size_t save_slot, string level_path);
 void main_menu_loop();
 
 using string = std::string;
-using AssRef = Engine::AssetMan::Ref::Type;
 
 void debug(Game& gm) {
     rlImGuiBegin(); 

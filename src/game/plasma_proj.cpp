@@ -1,3 +1,4 @@
+#include "components/damage.hpp"
 #include "game.hpp"
 #include "raylib.h"
 
@@ -8,8 +9,6 @@ Projectile PlasmaProjectile::make(Position pos, Direction dir, int damage, doubl
     plasma.pos = pos;
     plasma.direction = dir;
     plasma.hitbox = Hitbox(10, 6);
-    plasma.base_damage = damage;
-    plasma.damage_output = plasma.base_damage;
     plasma.speed = speed;
     plasma.self_destruct = false;
     plasma.spritesheet = "plasma_proj_ani";
@@ -17,6 +16,7 @@ Projectile PlasmaProjectile::make(Position pos, Direction dir, int damage, doubl
     //         {{.size = 6, .index = 0, .name = "fly"}});
 
     plasma.animation = Engine::Animator{"animations/plasma_proj"};
+    plasma.damage_output = DamageSource(DamageSource::Mode::LIMITED, damage, damage, damage);
 
     return plasma;
 
@@ -32,7 +32,7 @@ void PlasmaProjectile::update(idx self, Game& gm, bool foe) {
 
     plasma.pos += movement;
 
-    if (plasma.damage_output <= 0) {
+    if (plasma.damage_output.is_empty()) {
 
         if (foe) {
             gm.enemy_proj.deactivate(self);

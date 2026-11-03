@@ -1,3 +1,4 @@
+#include "components/damage.hpp"
 #include "game.hpp"
 #include "globals.hpp"
 #include "input_man.hpp"
@@ -26,7 +27,7 @@ int basic_shooting(Actor& player, Game& gm) {
     gm.player_proj.activate(PlasmaProjectile::make(
                             player.pos,
                             {1, 0},
-                            1,
+                            10,
                             player.speed * 2));
 
     return Idle;
@@ -77,6 +78,7 @@ Actor Player::make(Position pos) {
     player.shooting_cooldown = Engine::Timer(0);
     player.invis_timer = Engine::Timer(1.0f);
     player.invis_timer.fill();
+    player.damage_intake = DamagePool(DamagePool::Mode::BINARY);
 
 
     return player;
@@ -148,7 +150,7 @@ void Player::update(idx self, Game& gm) {
     player.pos.y = Clamp(player.pos.y, 0.0, Engine::g_world_size.y);
 
     if (!player.invis_timer.past_limit()) {
-        player.damage_intake = 0;
+        player.damage_intake.drain();
 
     }
 

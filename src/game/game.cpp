@@ -96,7 +96,9 @@ void Game::update() {
                         player_proj[i].hitbox.get(player_proj[i].pos.vec()))) {
 
                 if (player_proj[i].damage_output.available()) {
-                    actors[j].damage_intake.input(player_proj[i].damage_output.extract());
+                    auto damage = player_proj[i].damage_output.extract();
+                    actors[j].damage_intake.input(damage);
+                    // std::println("transfer: {}", damage);
                 }
 
 
