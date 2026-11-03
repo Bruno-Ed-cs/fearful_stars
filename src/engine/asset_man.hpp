@@ -18,6 +18,16 @@ class AssetMan {
 
 public:
 
+    enum struct CurrentlyLoading {
+        TEXTURES,
+        MUSICS,
+        SOUNDS,
+        FONTS,
+        ANIMATIONS,
+        JSON,
+        SHADERS
+    };
+
     static Texture get_texture(std::string_view texture_name);
     static Music get_music(std::string_view music_name);
     static Sound get_sound(std::string_view sound_name);
@@ -28,6 +38,7 @@ public:
 
     static void preload_shaders(std::initializer_list<std::string_view>);
     static void load_all();
+    static void load_all_stepped(CurrentlyLoading* loading);
 
     static void init();
     static void cleanup();

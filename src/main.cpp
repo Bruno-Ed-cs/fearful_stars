@@ -118,7 +118,48 @@ int main(int argc, char** argv)
 
     Game* game = new Game();
     RenderTexture2D view = LoadRenderTexture(Engine::g_world_size.x, Engine::g_world_size.y);
+
     Engine::AssetMan::load_all();
+
+    // Engine::AssetMan::CurrentlyLoading cur {};
+    // std::thread loader {Engine::AssetMan::load_all_stepped, &cur};
+    //
+    // while (Engine::g_running && !loader.joinable()) {
+    //     Engine::WinMan::update_window();
+    //     BeginDrawing();
+    //
+    //     ClearBackground(BLACK);
+    //
+    //     switch(cur) {
+    //
+    //         case Engine::AssetMan::CurrentlyLoading::TEXTURES: {
+    //                                                                DrawText("Loading Sprites", 0, 0, 10, WHITE);
+    //                                                            } break;
+    //         case Engine::AssetMan::CurrentlyLoading::MUSICS: {
+    //                                                              DrawText("Loading Musics", 0, 0, 10, WHITE);
+    //                                                          } break;
+    //         case Engine::AssetMan::CurrentlyLoading::SOUNDS: {
+    //                                                              DrawText("Loading Sounds", 0, 0, 10, WHITE);
+    //                                                          } break;
+    //         case Engine::AssetMan::CurrentlyLoading::FONTS: {
+    //                                                             DrawText("Loading Fonts", 0, 0, 10, WHITE);
+    //                                                         } break;
+    //         case Engine::AssetMan::CurrentlyLoading::ANIMATIONS: {
+    //                                                                  DrawText("Loading Animations", 0, 0, 10, WHITE);
+    //                                                              } break;
+    //         case Engine::AssetMan::CurrentlyLoading::JSON: {
+    //                                                            DrawText("Loading Json", 0, 0, 10, WHITE);
+    //                                                        } break;
+    //         case Engine::AssetMan::CurrentlyLoading::SHADERS: {
+    //                                                              DrawText("Loading Shaders", 0, 0, 10, WHITE);
+    //                                                          } break;
+    //
+    //     }
+    //
+    //     EndDrawing();
+    // }
+    //
+    // loader.join();
 
     // Main game loop
     while (Engine::g_running)    // Detect window close button or ESC key

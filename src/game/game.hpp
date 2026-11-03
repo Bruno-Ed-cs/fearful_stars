@@ -75,8 +75,10 @@ struct Game {
     idx player;
 
     Engine::RecycleArray<Actor, 500> actors;
-    Engine::RecycleArray<Projectile, max_projectiles> enemy_proj;
-    Engine::RecycleArray<Projectile, max_projectiles> player_proj;
+
+    using ProjectileArray = Engine::RecycleArray<Projectile, max_projectiles>;
+    ProjectileArray enemy_proj;
+    ProjectileArray player_proj;
 
     Game();
 
@@ -89,7 +91,7 @@ struct Game {
 struct PlasmaProjectile {
 
     static Projectile make(Position pos, Direction dir, int damage, double speed);
-    static void update(idx self, Game& gm, bool foe);
+    static void update(idx self, Game::ProjectileArray& origin, Game& gm);
 
 };
 

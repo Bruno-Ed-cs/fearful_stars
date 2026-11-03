@@ -342,3 +342,101 @@ void AssetMan::load_all() {
     }
 
 }
+
+void AssetMan::load_all_stepped(CurrentlyLoading* loading) {
+
+    fs::path appdir {GetApplicationDirectory()};
+    appdir += "assets/";
+
+    fs::path sprite_dir =       appdir / "sprites/";
+    fs::path animations_dir =   appdir / "animations/";
+    fs::path musics_dir =       appdir / "musics/";
+    fs::path sounds_dir =       appdir / "sounds/";
+    fs::path shader_dir =       appdir / "shaders/";
+    fs::path font_dir =         appdir / "fonts/";
+
+    *loading = CurrentlyLoading::TEXTURES;
+    for (auto& entry : fs::recursive_directory_iterator(sprite_dir)) {
+
+        if (entry.is_regular_file()) {
+
+            auto file = entry.path();
+            file.replace_extension("");
+            std::println("fullpath: {}, result: {}", entry.path().string(), file.filename().string());
+            AssetMan::get_texture(file.filename().string());
+
+        }
+
+    }
+
+    *loading = CurrentlyLoading::ANIMATIONS;
+    for (auto& entry : fs::recursive_directory_iterator(animations_dir)) {
+
+        if (entry.is_regular_file()) {
+
+            auto file = entry.path();
+            file.replace_extension("");
+            std::println("fullpath: {}, result: {}", entry.path().string(), file.filename().string());
+            AssetMan::get_animation(file.filename().string());
+
+        }
+
+    }
+
+    *loading = CurrentlyLoading::MUSICS;
+    for (auto& entry : fs::recursive_directory_iterator(musics_dir)) {
+
+        if (entry.is_regular_file()) {
+
+            auto file = entry.path();
+            file.replace_extension("");
+            std::println("fullpath: {}, result: {}", entry.path().string(), file.filename().string());
+            AssetMan::get_music(file.filename().string());
+
+        }
+
+    }
+
+    *loading = CurrentlyLoading::SHADERS;
+    for (auto& entry : fs::recursive_directory_iterator(shader_dir)) {
+
+        if (entry.is_regular_file()) {
+
+            auto file = entry.path();
+            file.replace_extension("");
+            std::println("fullpath: {}, result: {}", entry.path().string(), file.filename().string());
+            AssetMan::get_shader(file.filename().string());
+
+        }
+
+    }
+
+    *loading = CurrentlyLoading::FONTS;
+    for (auto& entry : fs::recursive_directory_iterator(font_dir)) {
+
+        if (entry.is_regular_file()) {
+
+            auto file = entry.path();
+            file.replace_extension("");
+            std::println("fullpath: {}, result: {}", entry.path().string(), file.filename().string());
+            AssetMan::get_font(file.filename().string());
+
+        }
+
+    }
+    *loading = CurrentlyLoading::SOUNDS;
+    for (auto& entry : fs::recursive_directory_iterator(sounds_dir)) {
+
+        if (entry.is_regular_file()) {
+
+            auto file = entry.path();
+            file.replace_extension("");
+            std::println("fullpath: {}, result: {}", entry.path().string(), file.filename().string());
+            AssetMan::get_sound(file.filename().string());
+
+        }
+
+    }
+
+}
+

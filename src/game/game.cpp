@@ -36,7 +36,7 @@ void Game::update() {
         if (enemy_proj.active(i)) {
 
             switch(enemy_proj[i].type) {
-                case Projectile::Plasma: { PlasmaProjectile::update(i, *this, true); break; }
+                case Projectile::Plasma: { PlasmaProjectile::update(i, enemy_proj, *this); break; }
 
             }
 
@@ -53,7 +53,7 @@ void Game::update() {
         if (player_proj.active(i)) {
 
             switch(player_proj[i].type) {
-                case Projectile::Plasma: PlasmaProjectile::update(i, *this, false);
+                case Projectile::Plasma: PlasmaProjectile::update(i, player_proj, *this);
 
             }
 
@@ -71,15 +71,17 @@ void Game::update() {
     for (int i = enemy_proj.begin(); i < enemy_proj.end(); i++) {
 
         if (enemy_proj.active(i) && 
-                CheckCollisionRecs(actors[player].hitbox.get(actors[player].pos.vec()), 
-                    enemy_proj[i].hitbox.get(enemy_proj[i].pos.vec()))) {
+                CheckCollisionRecs(
+                   actors[player].hitbox.get(actors[player].pos.vec()), 
+                   enemy_proj[i].hitbox.get(enemy_proj[i].pos.vec())
+                   )
+                ){
 
             if (enemy_proj[i].damage_output.available()) {
 
-                actors[player].damage_intake.input(enemy_proj[i].damage_output.extract());
+                auto damage = enemy_proj[i].damage_output.extract();
+                actors[player].damage_intake.input(damage);
             }
-
-
         }
 
     }

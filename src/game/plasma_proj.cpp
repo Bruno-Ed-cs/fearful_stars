@@ -22,9 +22,9 @@ Projectile PlasmaProjectile::make(Position pos, Direction dir, int damage, doubl
 
 }
 
-void PlasmaProjectile::update(idx self, Game& gm, bool foe) {
+void PlasmaProjectile::update(idx self, Game::ProjectileArray& origin, Game& gm) {
 
-    auto& plasma = foe? gm.enemy_proj[self] : gm.player_proj[self];
+    auto& plasma = origin[self];
     double dt = GetFrameTime();
     plasma.animation.update(dt);
     auto dir = Vector2Normalize(plasma.direction.vec());
@@ -33,14 +33,7 @@ void PlasmaProjectile::update(idx self, Game& gm, bool foe) {
     plasma.pos += movement;
 
     if (plasma.damage_output.is_empty()) {
-
-        if (foe) {
-            gm.enemy_proj.deactivate(self);
-
-        } else {
-            gm.player_proj.deactivate(self);
-        }
-
+        origin.deactivate(self);
     }
 
     // if (foe) {
