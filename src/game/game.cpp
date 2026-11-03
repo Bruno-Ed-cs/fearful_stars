@@ -18,7 +18,7 @@ void Game::update() {
 
     for (int i = actors.begin(); i < actors.end(); i++) {
 
-        if (actors.active(i)) {
+        if (actors.is_active(i)) {
 
             switch(actors[i].type) {
 
@@ -33,7 +33,7 @@ void Game::update() {
 
     for (int i = enemy_proj.begin(); i < enemy_proj.end(); i++) {
 
-        if (enemy_proj.active(i)) {
+        if (enemy_proj.is_active(i)) {
 
             switch(enemy_proj[i].type) {
                 case Projectile::Plasma: { PlasmaProjectile::update(i, enemy_proj, *this); break; }
@@ -50,7 +50,7 @@ void Game::update() {
     }
 
     for (int i = player_proj.begin(); i < player_proj.end(); i++) {
-        if (player_proj.active(i)) {
+        if (player_proj.is_active(i)) {
 
             switch(player_proj[i].type) {
                 case Projectile::Plasma: PlasmaProjectile::update(i, player_proj, *this);
@@ -70,7 +70,7 @@ void Game::update() {
     //damage transmission
     for (int i = enemy_proj.begin(); i < enemy_proj.end(); i++) {
 
-        if (enemy_proj.active(i) && 
+        if (enemy_proj.is_active(i) && 
                 CheckCollisionRecs(
                    actors[player].hitbox.get(actors[player].pos.vec()), 
                    enemy_proj[i].hitbox.get(enemy_proj[i].pos.vec())
@@ -88,12 +88,12 @@ void Game::update() {
 
     for (int i = player_proj.begin(); i < player_proj.end(); i++) {
 
-        if (!player_proj.active(i)) {
+        if (!player_proj.is_active(i)) {
             continue;
         }
 
         for (int j = actors.begin(); j < actors.end(); j++) {
-            if (j != player && actors.active(j) && 
+            if (j != player && actors.is_active(j) && 
                     CheckCollisionRecs(actors[j].hitbox.get(actors[j].pos.vec()), 
                         player_proj[i].hitbox.get(player_proj[i].pos.vec()))) {
 
@@ -114,6 +114,10 @@ void Game::update() {
 
     for (int i = actors.begin(); i < actors.end(); i++) {
 
+        if (!actors.is_active(i)) {
+            continue;
+        }
+
         if (i == player) {
             continue;
         }
@@ -131,7 +135,7 @@ void Game::draw() {
 
     for (int i = actors.begin(); i < actors.end(); i++) {
 
-        if (actors.active(i)) {
+        if (actors.is_active(i)) {
 
             switch(actors[i].type) {
 
@@ -154,7 +158,7 @@ void Game::draw() {
     for (int i = enemy_proj.begin(); i < enemy_proj.end(); i++) {
 
         auto enemy = enemy_proj[i];
-        if (enemy_proj.active(i) && !enemy.spritesheet.empty()) {
+        if (enemy_proj.is_active(i) && !enemy.spritesheet.empty()) {
 
             auto origin = enemy_proj[i].animation.get_frame();
             auto dest = Rectangle{enemy.pos.x, enemy.pos.y, origin.width, origin.height};
@@ -166,7 +170,7 @@ void Game::draw() {
 
     for (int i = player_proj.begin(); i < player_proj.end(); i++) {
         auto proj = player_proj[i];
-        if (player_proj.active(i) && !proj.spritesheet.empty()) {
+        if (player_proj.is_active(i) && !proj.spritesheet.empty()) {
 
             auto origin = player_proj[i].animation.get_frame();
             auto dest = Rectangle{proj.pos.x, proj.pos.y, origin.width, origin.height};

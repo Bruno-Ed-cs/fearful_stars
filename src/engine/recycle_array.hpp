@@ -21,7 +21,7 @@ namespace Engine {
             return n;
         }
 
-        bool active(idx index) {
+        bool is_active(idx index) {
 
             return m_meta[index];
         }
