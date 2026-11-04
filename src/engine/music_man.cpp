@@ -8,6 +8,7 @@ using vector = std::vector<T>;
 using namespace Engine;
 
 void MusicMan::init() {
+    InitAudioDevice();
     m_volume = 1.0;
     m_pitch = 1.0;
     m_buffer = vector<MusicRef>();

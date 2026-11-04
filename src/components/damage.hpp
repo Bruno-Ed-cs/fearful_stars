@@ -37,7 +37,6 @@ struct DamageSource {
             m_damage_pool -= m_base_damage;
             m_damage_pool = std::clamp(m_damage_pool, 0, m_max_pool);
             damage = original - m_damage_pool;
-
         } break;
 
         case Mode::INFINITE: {
@@ -47,6 +46,7 @@ struct DamageSource {
 
         }
 
+        m_hit_count++;
         return damage;
 
     }
@@ -128,6 +128,7 @@ struct DamagePool {
         }
 
         m_damage_pool += input;
+        m_hit_count++;
         return input;
 
     }

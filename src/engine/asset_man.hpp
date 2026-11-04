@@ -38,7 +38,7 @@ public:
 
     static void preload_shaders(std::initializer_list<std::string_view>);
     static void load_all();
-    static void load_all_stepped(CurrentlyLoading* loading);
+    static string_view load_all_stepped(int* step);
 
     static void init();
     static void cleanup();

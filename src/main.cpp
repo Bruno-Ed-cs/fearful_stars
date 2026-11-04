@@ -101,12 +101,10 @@ int main(int argc, char** argv)
 
     std::println("game size: {}", sizeof(Game));
 
-    Engine::AssetMan::init();
     Engine::MusicMan::init();
-
-    Engine::AssetMan::get_texture("Connor_fodder2");
-
+    Engine::AssetMan::init();
     Engine::InputMan::load_events(controls);
+
     rlImGuiSetup(true);
 
     if(IsGamepadAvailable(0)) {
@@ -119,47 +117,20 @@ int main(int argc, char** argv)
     Game* game = new Game();
     RenderTexture2D view = LoadRenderTexture(Engine::g_world_size.x, Engine::g_world_size.y);
 
-    Engine::AssetMan::load_all();
+    //preload all the assets with loading screen
+    int cur_step = 1;
+    while (Engine::g_running && cur_step != 0) {
+        Engine::WinMan::update_window();
+        BeginDrawing();
 
-    // Engine::AssetMan::CurrentlyLoading cur {};
-    // std::thread loader {Engine::AssetMan::load_all_stepped, &cur};
-    //
-    // while (Engine::g_running && !loader.joinable()) {
-    //     Engine::WinMan::update_window();
-    //     BeginDrawing();
-    //
-    //     ClearBackground(BLACK);
-    //
-    //     switch(cur) {
-    //
-    //         case Engine::AssetMan::CurrentlyLoading::TEXTURES: {
-    //                                                                DrawText("Loading Sprites", 0, 0, 10, WHITE);
-    //                                                            } break;
-    //         case Engine::AssetMan::CurrentlyLoading::MUSICS: {
-    //                                                              DrawText("Loading Musics", 0, 0, 10, WHITE);
-    //                                                          } break;
-    //         case Engine::AssetMan::CurrentlyLoading::SOUNDS: {
-    //                                                              DrawText("Loading Sounds", 0, 0, 10, WHITE);
-    //                                                          } break;
-    //         case Engine::AssetMan::CurrentlyLoading::FONTS: {
-    //                                                             DrawText("Loading Fonts", 0, 0, 10, WHITE);
-    //                                                         } break;
-    //         case Engine::AssetMan::CurrentlyLoading::ANIMATIONS: {
-    //                                                                  DrawText("Loading Animations", 0, 0, 10, WHITE);
-    //                                                              } break;
-    //         case Engine::AssetMan::CurrentlyLoading::JSON: {
-    //                                                            DrawText("Loading Json", 0, 0, 10, WHITE);
-    //                                                        } break;
-    //         case Engine::AssetMan::CurrentlyLoading::SHADERS: {
-    //                                                              DrawText("Loading Shaders", 0, 0, 10, WHITE);
-    //                                                          } break;
-    //
-    //     }
-    //
-    //     EndDrawing();
-    // }
-    //
-    // loader.join();
+        ClearBackground(BLACK);
+
+        std::string_view what_loaded = Engine::AssetMan::load_all_stepped(&cur_step);
+        std::string message = std::format("Loaded {}", what_loaded);
+        DrawText(message.c_str(), 0, 0, 60, WHITE);
+
+        EndDrawing();
+    }
 
     // Main game loop
     while (Engine::g_running)    // Detect window close button or ESC key
