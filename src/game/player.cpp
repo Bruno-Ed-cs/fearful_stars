@@ -66,8 +66,8 @@ Actor Player::make(Position pos) {
     player.primary_level = 1;
     player.secondary_level = 0;
     player.aux_level = 0;
-    player.shooting_sound = "space-laser";
-    player.spritesheet = "player_ship";
+    player.shooting_sound = "space-laser.ogg";
+    player.spritesheet = "player_ship.png";
     player.pos = pos;
     player.dir = Direction(0.0, 0.0);
     player.hitbox = Hitbox(2.0f, 2.0f);

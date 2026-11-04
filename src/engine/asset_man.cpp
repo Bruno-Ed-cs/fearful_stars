@@ -8,6 +8,7 @@
 using namespace Engine;
 namespace fs = std::filesystem;
 
+
 //file extensions 
 string_view texture_ext[] = {
     ".png", ".jpg", ".jpeg", ".bmp", ".tga", ".gif", ".hdr",
@@ -30,40 +31,59 @@ string_view font_ext[] = {
     ".ttf", ".otf", ".fnt"
 };
 
-static string search_asset(string_view base_dir, string_view asset_name, string_view filter) {
+static string search_asset(string_view base_dir, string_view asset_name, std::span<string_view> filter) {
 
-    string app_dir = GetApplicationDirectory();
+    fs::path app_dir {GetApplicationDirectory()};
     // std::println("{}", app_dir);
-    string asset_dir = string(app_dir) + string(base_dir);
+    fs::path asset_dir = app_dir/base_dir;
     // std::println("{}", asset_dir);
+    //
 
-    FilePathList files = LoadDirectoryFilesEx(asset_dir.c_str(), string(filter).c_str(), true);
-    defer(UnloadDirectoryFiles(files));
+    for (auto& entry : fs::recursive_directory_iterator(asset_dir)) {
 
-    if (files.count <= 0)
-        throw std::invalid_argument(std::format("The Asset {} could not be found", asset_name));
+        if (entry.is_regular_file()) {
+            fs::path ass_path = entry.path();
+            string path_name = ass_path.string();
 
-    string target_path;
-    string buff;
+            // std::println("{}", path_name);
+            bool is_asset = ass_path.filename() == asset_name;
+            if (!is_asset) continue;
+            // TraceLog(LOG_INFO, "Match found for %.*s in %s", asset_name, asset_name.size(), path_name.c_str());
 
-    for (int i = 0; i < files.count; ++i) {
-
-        buff = files.paths[i];
-        // std::println("{}, asset_name: {}", buff, asset_name);
-        TraceLog(LOG_DEBUG, std::format("Searching file: {}, target: {}", buff, asset_name).c_str());
-
-        if (buff.contains(std::format("/{}.", asset_name))) {
-
-            target_path = buff;
-            break;
-
+            bool is_valid = std::ranges::contains(filter, ass_path.extension().string());
+            if (is_valid) return ass_path.string();
         }
     }
 
-    if (target_path.empty())
-        throw std::invalid_argument(std::format("The Asset {} could not be found", asset_name));
-
-    return target_path;
+    // FilePathList files = LoadDirectoryFilesEx(asset_dir.c_str(), string(filter).c_str(), true);
+    // defer(UnloadDirectoryFiles(files));
+    //
+    // if (files.count <= 0)
+    //     throw std::invalid_argument(std::format("The Asset {} could not be found", asset_name));
+    //
+    // string target_path;
+    // string buff;
+    //
+    // for (int i = 0; i < files.count; ++i) {
+    //
+    //     buff = files.paths[i];
+    //     // std::println("{}, asset_name: {}", buff, asset_name);
+    //     TraceLog(LOG_DEBUG, std::format("Searching file: {}, target: {}", buff, asset_name).c_str());
+    //
+    //     if (buff.contains(std::format("/{}.", asset_name))) {
+    //
+    //         target_path = buff;
+    //         break;
+    //
+    //     }
+    // }
+    //
+    // if (target_path.empty())
+    //     throw std::invalid_argument(std::format("The Asset {} could not be found", asset_name));
+    //
+    // return target_path;
+    TraceLog(LOG_ERROR, "Could not find the file for %.*s", asset_name, asset_name.size());
+    return "";
 
 }
 
@@ -74,8 +94,8 @@ Shader AssetMan::get_shader(string_view shader_name) {
         return *json_name[string(shader_name)];
     }
 
-    string search_result_vert = search_asset("assets/shaders", shader_name, ".vert");
-    string search_result_frag = search_asset("assets/shaders", shader_name, ".frag");
+    string search_result_vert = search_asset("assets/shaders", shader_name, shader_ext);
+    string search_result_frag = search_asset("assets/shaders", shader_name, shader_ext);
 
     Shader* shader_ptr = new Shader;
     *shader_ptr = LoadShader(search_result_vert.c_str(), search_result_frag.c_str());
@@ -94,7 +114,7 @@ Texture AssetMan::get_texture(std::string_view texture_name){
         return *texture_bank[string(texture_name)];
     }
 
-    string search_result = search_asset("assets/sprites", texture_name, ".png");
+    string search_result = search_asset("assets/sprites", texture_name, texture_ext);
 
     Texture* texture_ptr = new Texture;
     *texture_ptr = LoadTexture(search_result.c_str());
@@ -112,7 +132,7 @@ Music AssetMan::get_music(std::string_view music_name){
         return *music_bank[string(music_name)];
     }
 
-    string search_result = search_asset("assets/musics", music_name, ".mp3");
+    string search_result = search_asset("assets/musics", music_name, music_ext);
 
     Music* music_ptr = new Music;
     *music_ptr = LoadMusicStream(search_result.c_str());
@@ -130,7 +150,7 @@ Sound AssetMan::get_sound(std::string_view sound_name){
         return *sound_bank[string(sound_name)];
     }
 
-    string search_result = search_asset("assets/sounds", sound_name, ".wav;.ogg;.mp3");
+    string search_result = search_asset("assets/sounds", sound_name, sound_ext);
 
     Sound* sound_ptr = new Sound;
     *sound_ptr = LoadSound(search_result.c_str());
@@ -148,7 +168,7 @@ Font AssetMan::get_font(std::string_view font_name){
         return *font_bank[string(font_name)];
     }
 
-    string search_result = search_asset("assets/fonts", font_name, ".otf;.ttf");
+    string search_result = search_asset("assets/fonts", font_name, font_ext);
 
     Font* font_ptr = new Font;
     *font_ptr = LoadFontEx(search_result.c_str(), 600, NULL, 0);
@@ -217,7 +237,8 @@ sptr<json> AssetMan::get_animation(std::string_view animation_name) {
         return json_bank[string(animation_name)];
     }
 
-    string search_result = search_asset("assets/animations", animation_name, ".json");
+    string_view animation_ext[] {".json"};
+    string search_result = search_asset("assets/animations", animation_name, animation_ext);
 
     char* file = LoadFileText(search_result.c_str());
     defer(UnloadFileText(file));
@@ -237,7 +258,8 @@ sptr<json> AssetMan::get_json(std::string_view json_name) {
         return json_bank[string(json_name)];
     }
 
-    string search_result = search_asset("assets", json_name, ".json");
+    string_view json_ext[] {".json"};
+    string search_result = search_asset("assets", json_name, json_ext);
 
     char* file = LoadFileText(search_result.c_str());
     defer(UnloadFileText(file));
@@ -268,7 +290,6 @@ void AssetMan::load_all() {
         if (entry.is_regular_file()) {
 
             auto file = entry.path();
-            file.replace_extension("");
             std::println("fullpath: {}, result: {}", entry.path().string(), file.filename().string());
             AssetMan::get_texture(file.filename().string());
 
@@ -281,7 +302,6 @@ void AssetMan::load_all() {
         if (entry.is_regular_file()) {
 
             auto file = entry.path();
-            file.replace_extension("");
             std::println("fullpath: {}, result: {}", entry.path().string(), file.filename().string());
             AssetMan::get_animation(file.filename().string());
 
@@ -294,7 +314,6 @@ void AssetMan::load_all() {
         if (entry.is_regular_file()) {
 
             auto file = entry.path();
-            file.replace_extension("");
             std::println("fullpath: {}, result: {}", entry.path().string(), file.filename().string());
             AssetMan::get_music(file.filename().string());
 
@@ -307,7 +326,6 @@ void AssetMan::load_all() {
         if (entry.is_regular_file()) {
 
             auto file = entry.path();
-            file.replace_extension("");
             std::println("fullpath: {}, result: {}", entry.path().string(), file.filename().string());
             AssetMan::get_shader(file.filename().string());
 
@@ -320,7 +338,6 @@ void AssetMan::load_all() {
         if (entry.is_regular_file()) {
 
             auto file = entry.path();
-            file.replace_extension("");
             std::println("fullpath: {}, result: {}", entry.path().string(), file.filename().string());
             AssetMan::get_font(file.filename().string());
 
@@ -333,7 +350,6 @@ void AssetMan::load_all() {
         if (entry.is_regular_file()) {
 
             auto file = entry.path();
-            file.replace_extension("");
             std::println("fullpath: {}, result: {}", entry.path().string(), file.filename().string());
             AssetMan::get_sound(file.filename().string());
 
@@ -363,7 +379,6 @@ std::string_view AssetMan::load_all_stepped(int* step) {
                 if (entry.is_regular_file()) {
 
                     auto file = entry.path();
-                    file.replace_extension("");
                     std::println("fullpath: {}, result: {}", entry.path().string(), file.filename().string());
                     AssetMan::get_texture(file.filename().string());
 
@@ -380,7 +395,6 @@ std::string_view AssetMan::load_all_stepped(int* step) {
                 if (entry.is_regular_file()) {
 
                     auto file = entry.path();
-                    file.replace_extension("");
                     std::println("fullpath: {}, result: {}", entry.path().string(), file.filename().string());
                     AssetMan::get_animation(file.filename().string());
 
@@ -396,7 +410,6 @@ std::string_view AssetMan::load_all_stepped(int* step) {
                 if (entry.is_regular_file()) {
 
                     auto file = entry.path();
-                    file.replace_extension("");
                     std::println("fullpath: {}, result: {}", entry.path().string(), file.filename().string());
                     AssetMan::get_music(file.filename().string());
 
@@ -412,7 +425,6 @@ std::string_view AssetMan::load_all_stepped(int* step) {
                 if (entry.is_regular_file()) {
 
                     auto file = entry.path();
-                    file.replace_extension("");
                     std::println("fullpath: {}, result: {}", entry.path().string(), file.filename().string());
                     AssetMan::get_shader(file.filename().string());
 
@@ -429,7 +441,6 @@ std::string_view AssetMan::load_all_stepped(int* step) {
                 if (entry.is_regular_file()) {
 
                     auto file = entry.path();
-                    file.replace_extension("");
                     std::println("fullpath: {}, result: {}", entry.path().string(), file.filename().string());
                     AssetMan::get_font(file.filename().string());
 
@@ -446,7 +457,6 @@ std::string_view AssetMan::load_all_stepped(int* step) {
                 if (entry.is_regular_file()) {
 
                     auto file = entry.path();
-                    file.replace_extension("");
                     std::println("fullpath: {}, result: {}", entry.path().string(), file.filename().string());
                     AssetMan::get_sound(file.filename().string());
 

@@ -11,11 +11,11 @@ Projectile PlasmaProjectile::make(Position pos, Direction dir, int damage, doubl
     plasma.hitbox = Hitbox(10, 6);
     plasma.speed = speed;
     plasma.self_destruct = false;
-    plasma.spritesheet = "plasma_proj_ani";
+    plasma.spritesheet = "plasma_proj_ani.png";
     // Engine::Animator animation = Engine::Animator({15, 7}, 24, 
     //         {{.size = 6, .index = 0, .name = "fly"}});
 
-    plasma.animation = Engine::Animator{"animations/plasma_proj"};
+    plasma.animation = Engine::Animator{"plasma_proj.json"};
     plasma.damage_output = DamageSource(DamageSource::Mode::LIMITED, damage, damage, damage);
 
     return plasma;

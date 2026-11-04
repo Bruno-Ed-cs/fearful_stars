@@ -12,7 +12,7 @@ Actor Meteorite::make(Position pos) {
     meteorite.speed = 1;
     meteorite.pos = pos;
     meteorite.hitbox = Hitbox{28, 22};
-    meteorite.spritesheet = "meteorite";
+    meteorite.spritesheet = "meteorite.png";
     meteorite.lives = Health(30);
     meteorite.damage_intake = DamagePool(DamagePool::Mode::CUMULATIVE);
 
