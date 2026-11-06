@@ -118,15 +118,18 @@ int main(int argc, char** argv)
     RenderTexture2D view = LoadRenderTexture(Engine::g_world_size.x, Engine::g_world_size.y);
 
     //preload all the assets with loading screen
-    int cur_step = 1;
-    while (Engine::g_running && cur_step != 0) {
+    for (std::string_view stage : Engine::AssetMan::load_all_stepped()) {
+
+        if (!Engine::g_running) {
+            break;
+        }
+
         Engine::WinMan::update_window();
         BeginDrawing();
 
         ClearBackground(BLACK);
 
-        std::string_view what_loaded = Engine::AssetMan::load_all_stepped(&cur_step);
-        std::string message = std::format("Loaded {}", what_loaded);
+        std::string message = std::format("Loaded {}", stage);
         DrawText(message.c_str(), 0, 0, 60, WHITE);
 
         EndDrawing();

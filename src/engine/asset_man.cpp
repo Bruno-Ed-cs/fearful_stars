@@ -359,7 +359,7 @@ void AssetMan::load_all() {
 
 }
 
-std::string_view AssetMan::load_all_stepped(int* step) {
+std::generator<string_view> AssetMan::load_all_stepped() {
 
     fs::path appdir {GetApplicationDirectory()};
     appdir += "assets/";
@@ -371,104 +371,88 @@ std::string_view AssetMan::load_all_stepped(int* step) {
     fs::path shader_dir =       appdir / "shaders/";
     fs::path font_dir =         appdir / "fonts/";
 
-    switch (*step) {
+    for (auto& entry : fs::recursive_directory_iterator(sprite_dir)) {
 
-        case 1:
-            for (auto& entry : fs::recursive_directory_iterator(sprite_dir)) {
+        if (entry.is_regular_file()) {
 
-                if (entry.is_regular_file()) {
+            auto file = entry.path();
+            std::println("fullpath: {}, result: {}", entry.path().string(), file.filename().string());
+            AssetMan::get_texture(file.filename().string());
 
-                    auto file = entry.path();
-                    std::println("fullpath: {}, result: {}", entry.path().string(), file.filename().string());
-                    AssetMan::get_texture(file.filename().string());
-
-                }
-
-            }
-            *step = 2;
-            return "Sprites";
-
-
-        case 2:
-            for (auto& entry : fs::recursive_directory_iterator(animations_dir)) {
-
-                if (entry.is_regular_file()) {
-
-                    auto file = entry.path();
-                    std::println("fullpath: {}, result: {}", entry.path().string(), file.filename().string());
-                    AssetMan::get_animation(file.filename().string());
-
-                }
-
-            }
-            *step = 3;
-            return "Animations";
-
-        case 3:
-            for (auto& entry : fs::recursive_directory_iterator(musics_dir)) {
-
-                if (entry.is_regular_file()) {
-
-                    auto file = entry.path();
-                    std::println("fullpath: {}, result: {}", entry.path().string(), file.filename().string());
-                    AssetMan::get_music(file.filename().string());
-
-                }
-
-            }
-            *step = 4;
-            return "Musics";
-
-        case 4:
-            for (auto& entry : fs::recursive_directory_iterator(shader_dir)) {
-
-                if (entry.is_regular_file()) {
-
-                    auto file = entry.path();
-                    std::println("fullpath: {}, result: {}", entry.path().string(), file.filename().string());
-                    AssetMan::get_shader(file.filename().string());
-
-                }
-
-            }
-            *step = 5;
-            return "Shaders";
-
-
-        case 5:
-            for (auto& entry : fs::recursive_directory_iterator(font_dir)) {
-
-                if (entry.is_regular_file()) {
-
-                    auto file = entry.path();
-                    std::println("fullpath: {}, result: {}", entry.path().string(), file.filename().string());
-                    AssetMan::get_font(file.filename().string());
-
-                }
-
-            }
-
-            *step = 6;
-            return "Fonts";
-
-        case 6:
-            for (auto& entry : fs::recursive_directory_iterator(sounds_dir)) {
-
-                if (entry.is_regular_file()) {
-
-                    auto file = entry.path();
-                    std::println("fullpath: {}, result: {}", entry.path().string(), file.filename().string());
-                    AssetMan::get_sound(file.filename().string());
-
-                }
-
-            }
-            *step = 0;
-            return "Sounds";
-
-        default:
-            return "Done";
+        }
 
     }
+    co_yield "Sprites";
+
+
+    for (auto& entry : fs::recursive_directory_iterator(animations_dir)) {
+
+        if (entry.is_regular_file()) {
+
+            auto file = entry.path();
+            std::println("fullpath: {}, result: {}", entry.path().string(), file.filename().string());
+            AssetMan::get_animation(file.filename().string());
+
+        }
+
+    }
+    co_yield "Animations";
+
+    for (auto& entry : fs::recursive_directory_iterator(musics_dir)) {
+
+        if (entry.is_regular_file()) {
+
+            auto file = entry.path();
+            std::println("fullpath: {}, result: {}", entry.path().string(), file.filename().string());
+            AssetMan::get_music(file.filename().string());
+
+        }
+
+    }
+    co_yield "Musics";
+
+    for (auto& entry : fs::recursive_directory_iterator(shader_dir)) {
+
+        if (entry.is_regular_file()) {
+
+            auto file = entry.path();
+            std::println("fullpath: {}, result: {}", entry.path().string(), file.filename().string());
+            AssetMan::get_shader(file.filename().string());
+
+        }
+
+    }
+    co_yield "Shaders";
+
+
+    for (auto& entry : fs::recursive_directory_iterator(font_dir)) {
+
+        if (entry.is_regular_file()) {
+
+            auto file = entry.path();
+            std::println("fullpath: {}, result: {}", entry.path().string(), file.filename().string());
+            AssetMan::get_font(file.filename().string());
+
+        }
+
+    }
+
+    co_yield "Fonts";
+
+    for (auto& entry : fs::recursive_directory_iterator(sounds_dir)) {
+
+        if (entry.is_regular_file()) {
+
+            auto file = entry.path();
+            std::println("fullpath: {}, result: {}", entry.path().string(), file.filename().string());
+            AssetMan::get_sound(file.filename().string());
+
+        }
+
+    }
+    co_yield "Sounds";
+
+    co_return;
+
 }
 
