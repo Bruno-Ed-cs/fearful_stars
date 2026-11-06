@@ -142,8 +142,8 @@ int main(int argc, char** argv)
 
         Engine::WinMan::update_window();
         Engine::InputMan::pull_events();
+        std::thread updater = std::thread(&Game::update, game); 
 
-        game->update();
 
         BeginDrawing();
 
@@ -167,6 +167,8 @@ int main(int argc, char** argv)
 
         EndDrawing();
         Engine::InputMan::flush_events();
+
+        updater.join();
     }
 
     UnloadRenderTexture(view);

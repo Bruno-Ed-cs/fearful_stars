@@ -80,6 +80,10 @@ struct Game {
     ProjectileArray enemy_proj;
     ProjectileArray player_proj;
 
+    // const int64_t max_updates = 120;
+    // int64_t cur_updates = 0;
+
+
     Game();
 
     void update();
